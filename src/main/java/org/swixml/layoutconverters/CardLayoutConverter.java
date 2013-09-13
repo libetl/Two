@@ -100,92 +100,92 @@ import org.w3c.dom.Element;
  */
 public class CardLayoutConverter implements LayoutConverter {
 
-	/**
-	 * Converts CardLayout constraints. The attribute value is used as card
-	 * name.
-	 * 
-	 * <p>
-	 * <b>Examples for Valid XML attribute notations:</b>
-	 * </p>
-	 * <ul>
-	 * <li><code>constraints="cardname"</code></li>
-	 * </ul>
-	 */
-	@Override
-	public Object convertConstraintsAttribute (final Attribute attr) {
-		//
-		// CardLayout accepts only constraints of type String
-		//
-		return attr.getValue ();
-	}
+    /**
+     * Converts CardLayout constraints. The attribute value is used as card
+     * name.
+     * 
+     * <p>
+     * <b>Examples for Valid XML attribute notations:</b>
+     * </p>
+     * <ul>
+     * <li><code>constraints="cardname"</code></li>
+     * </ul>
+     */
+    @Override
+    public Object convertConstraintsAttribute (final Attribute attr) {
+        //
+        // CardLayout accepts only constraints of type String
+        //
+        return attr.getValue ();
+    }
 
-	/**
-	 * Returns always <code>null</code>.
-	 */
-	@Override
-	public Object convertConstraintsElement (final Element element) {
-		return null;
-	}
+    /**
+     * Returns always <code>null</code>.
+     */
+    @Override
+    public Object convertConstraintsElement (final Element element) {
+        return null;
+    }
 
-	/**
-	 * <p>
-	 * Creates a CardLayout instance.
-	 * </p>
-	 * 
-	 * <p>
-	 * <b>Examples for Valid XML attribute notations:</b>
-	 * </p>
-	 * <ul>
-	 * <li><code>layout="CardLayout"</code></li>
-	 * <li><code>layout="CardLayout(int hgap, int vgap)"</code></li>
-	 * </ul>
-	 */
-	@Override
-	public LayoutManager convertLayoutAttribute (final Attribute attr) {
-		final StringTokenizer st = new StringTokenizer (attr.getValue (), "(,)");
-		st.nextToken (); // skip layout type
+    /**
+     * <p>
+     * Creates a CardLayout instance.
+     * </p>
+     * 
+     * <p>
+     * <b>Examples for Valid XML attribute notations:</b>
+     * </p>
+     * <ul>
+     * <li><code>layout="CardLayout"</code></li>
+     * <li><code>layout="CardLayout(int hgap, int vgap)"</code></li>
+     * </ul>
+     */
+    @Override
+    public LayoutManager convertLayoutAttribute (final Attribute attr) {
+        final StringTokenizer st = new StringTokenizer (attr.getValue (), "(,)");
+        st.nextToken (); // skip layout type
 
-		final int [] para = Util.ia (st);
-		if (para.length < 2) {
-			return new CardLayout ();
-		} else {
-			return new CardLayout (para [0], para [1]);
-		}
-	}
+        final int [] para = Util.ia (st);
+        if (para.length < 2) {
+            return new CardLayout ();
+        } else {
+            return new CardLayout (para [0], para [1]);
+        }
+    }
 
-	/**
-	 * <p>
-	 * Creates a CardLayout instance.
-	 * </p>
-	 * 
-	 * <p>
-	 * <b>Attributes:</b>
-	 * </p>
-	 * <ul>
-	 * <li><code>hgap</code> (optional): The horizontal gap.</li>
-	 * <li><code>vgap</code> (optional): The vertical gap.</li>
-	 * </ul>
-	 * 
-	 * <p>
-	 * <b>Examples for Valid XML element notations:</b>
-	 * </p>
-	 * <ul>
-	 * <li><code>&lt;layout type="CardLayout"/&gt;</code></li>
-	 * <li><code>&lt;layout type="CardLayout" hgap="10" vgap="20"/&gt;</code></li>
-	 * </ul>
-	 */
-	@Override
-	public LayoutManager convertLayoutElement (final Element element) {
-		final int hgap = Util.getInteger (element, "hgap", 0);
-		final int vgap = Util.getInteger (element, "vgap", 0);
-		return new CardLayout (hgap, vgap);
-	}
+    /**
+     * <p>
+     * Creates a CardLayout instance.
+     * </p>
+     * 
+     * <p>
+     * <b>Attributes:</b>
+     * </p>
+     * <ul>
+     * <li><code>hgap</code> (optional): The horizontal gap.</li>
+     * <li><code>vgap</code> (optional): The vertical gap.</li>
+     * </ul>
+     * 
+     * <p>
+     * <b>Examples for Valid XML element notations:</b>
+     * </p>
+     * <ul>
+     * <li><code>&lt;layout type="CardLayout"/&gt;</code></li>
+     * <li><code>&lt;layout type="CardLayout" hgap="10" vgap="20"/&gt;</code></li>
+     * </ul>
+     */
+    @Override
+    public LayoutManager convertLayoutElement (final Element element) {
+        final int hgap = Util.getInteger (element, "hgap", 0);
+        final int vgap = Util.getInteger (element, "vgap", 0);
+        return new CardLayout (hgap, vgap);
+    }
 
-	/**
-	 * Returns "cardlayout".
-	 */
-	@Override
-	public String getID () {
-		return "cardlayout";
-	}
+    /**
+     * Returns "cardlayout".
+     */
+    @Override
+    public String getID () {
+        return "cardlayout";
+    }
 }

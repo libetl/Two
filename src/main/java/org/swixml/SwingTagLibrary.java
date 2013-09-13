@@ -100,69 +100,69 @@ import javax.swing.table.JTableHeader;
  */
 public final class SwingTagLibrary extends TagLibrary {
 
-	private static SwingTagLibrary	INSTANCE	= new SwingTagLibrary ();
+    private static SwingTagLibrary INSTANCE = new SwingTagLibrary ();
 
-	public static SwingTagLibrary getInstance () {
-		return SwingTagLibrary.INSTANCE;
-	}
+    public static SwingTagLibrary getInstance () {
+        return SwingTagLibrary.INSTANCE;
+    }
 
-	/**
-	 * Constructs a Swing Library by registering swings widgets
-	 */
-	private SwingTagLibrary () {
-		this.registerTags ();
-	}
+    /**
+     * Constructs a Swing Library by registering swings widgets
+     */
+    private SwingTagLibrary () {
+        this.registerTags ();
+    }
 
-	/**
-	 * Registers the tags this TagLibrary is all about. Strategy method called
-	 * by the super class, allowing derived classes to change the registration
-	 * behaviour.
-	 */
-	@Override
-	protected void registerTags () {
-		this.registerTag ("Applet", JApplet.class);
-		this.registerTag ("Button", JButton.class);
-		this.registerTag ("ButtonGroup", ButtonGroup.class);
-		this.registerTag ("HBox", XHBox.class);
-		this.registerTag ("VBox", XVBox.class);
-		this.registerTag ("Checkbox", JCheckBox.class);
-		this.registerTag ("CheckBoxMenuItem", JCheckBoxMenuItem.class);
-		this.registerTag ("ComboBox", JComboBox.class);
-		this.registerTag ("Component", JComponent.class);
-		this.registerTag ("DesktopPane", JDesktopPane.class);
-		this.registerTag ("Dialog", XDialog.class);
-		this.registerTag ("EditorPane", JEditorPane.class);
-		this.registerTag ("FormattedTextField", JFormattedTextField.class);
-		this.registerTag ("Frame", JFrame.class);
-		this.registerTag ("Glue", XGlue.class);
-		this.registerTag ("GridBagConstraints", XGridBagConstraints.class);
-		this.registerTag ("InternalFrame", JInternalFrame.class);
-		this.registerTag ("Label", JLabel.class);
-		this.registerTag ("List", JList.class);
-		this.registerTag ("Menu", JMenu.class);
-		this.registerTag ("Menubar", JMenuBar.class);
-		this.registerTag ("Menuitem", JMenuItem.class);
-		this.registerTag ("Panel", JPanel.class);
-		this.registerTag ("PasswordField", JPasswordField.class);
-		this.registerTag ("PopupMenu", JPopupMenu.class);
-		this.registerTag ("ProgressBar", JProgressBar.class);
-		this.registerTag ("RadioButton", JRadioButton.class);
-		this.registerTag ("RadioButtonMenuItem", JRadioButtonMenuItem.class);
-		this.registerTag ("OptionPane", JOptionPane.class);
-		this.registerTag ("ScrollPane", XScrollPane.class);
-		this.registerTag ("Separator", JSeparator.class);
-		this.registerTag ("Slider", JSlider.class);
-		this.registerTag ("Spinner", JSpinner.class);
-		this.registerTag ("SplitPane", XSplitPane.class);
-		this.registerTag ("TabbedPane", XTabbedPane.class);
-		this.registerTag ("Table", JTable.class);
-		this.registerTag ("TableHeader", JTableHeader.class);
-		this.registerTag ("TextArea", JTextArea.class);
-		this.registerTag ("TextField", JTextField.class);
-		this.registerTag ("TextPane", JTextPane.class);
-		this.registerTag ("TitledSeparator", XTitledSeparator.class);
-		this.registerTag ("ToggleButton", JToggleButton.class);
-		this.registerTag ("Tree", JTree.class);
-		this.registerTag ("Toolbar", JToolBar.class);
-	}
+    /**
+     * Registers the tags this TagLibrary is all about. Strategy method called
+     * by the super class, allowing derived classes to change the registration
+     * behaviour.
+     */
+    @Override
+    protected void registerTags () {
+        this.registerTag ("Applet", JApplet.class);
+        this.registerTag ("Button", JButton.class);
+        this.registerTag ("ButtonGroup", ButtonGroup.class);
+        this.registerTag ("HBox", XHBox.class);
+        this.registerTag ("VBox", XVBox.class);
+        this.registerTag ("Checkbox", JCheckBox.class);
+        this.registerTag ("CheckBoxMenuItem", JCheckBoxMenuItem.class);
+        this.registerTag ("ComboBox", JComboBox.class);
+        this.registerTag ("Component", JComponent.class);
+        this.registerTag ("DesktopPane", JDesktopPane.class);
+        this.registerTag ("Dialog", XDialog.class);
+        this.registerTag ("EditorPane", JEditorPane.class);
+        this.registerTag ("FormattedTextField", JFormattedTextField.class);
+        this.registerTag ("Frame", JFrame.class);
+        this.registerTag ("Glue", XGlue.class);
+        this.registerTag ("GridBagConstraints", XGridBagConstraints.class);
+        this.registerTag ("InternalFrame", JInternalFrame.class);
+        this.registerTag ("Label", JLabel.class);
+        this.registerTag ("List", JList.class);
+        this.registerTag ("Menu", JMenu.class);
+        this.registerTag ("Menubar", JMenuBar.class);
+        this.registerTag ("Menuitem", JMenuItem.class);
+        this.registerTag ("Panel", JPanel.class);
+        this.registerTag ("PasswordField", JPasswordField.class);
+        this.registerTag ("PopupMenu", JPopupMenu.class);
+        this.registerTag ("ProgressBar", JProgressBar.class);
+        this.registerTag ("RadioButton", JRadioButton.class);
+        this.registerTag ("RadioButtonMenuItem", JRadioButtonMenuItem.class);
+        this.registerTag ("OptionPane", JOptionPane.class);
+        this.registerTag ("ScrollPane", XScrollPane.class);
+        this.registerTag ("Separator", JSeparator.class);
+        this.registerTag ("Slider", JSlider.class);
+        this.registerTag ("Spinner", JSpinner.class);
+        this.registerTag ("SplitPane", XSplitPane.class);
+        this.registerTag ("TabbedPane", XTabbedPane.class);
+        this.registerTag ("Table", JTable.class);
+        this.registerTag ("TableHeader", JTableHeader.class);
+        this.registerTag ("TextArea", JTextArea.class);
+        this.registerTag ("TextField", JTextField.class);
+        this.registerTag ("TextPane", JTextPane.class);
+        this.registerTag ("TitledSeparator", XTitledSeparator.class);
+        this.registerTag ("ToggleButton", JToggleButton.class);
+        this.registerTag ("Tree", JTree.class);
+        this.registerTag ("Toolbar", JToolBar.class);
+    }
 }

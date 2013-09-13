@@ -6,42 +6,42 @@ import javax.swing.JTextField;
 import org.swixml.SwingEngine;
 
 public class HelloWorldnoAction {
-	/**
-	 * Makes the class bootable
-	 */
-	public static void main (String [] args) throws Exception {
-		new HelloWorldnoAction ();
-	}
+    /**
+     * Makes the class bootable
+     */
+    public static void main (String [] args) throws Exception {
+        new HelloWorldnoAction ();
+    }
 
-	/**
-	 * submit counter
-	 */
-	private int	      clicks;
+    /**
+     * submit counter
+     */
+    private int       clicks;
 
-	/**
-	 * JTextField member gets instantiated through Swixml (look for id="tf" in
-	 * xml descriptor)
-	 */
-	public JTextField	tf;
+    /**
+     * JTextField member gets instantiated through Swixml (look for id="tf" in
+     * xml descriptor)
+     */
+    public JTextField tf;
 
-	/**
-	 * Jlabel to display number of button clicks
-	 */
-	public JLabel	  cnt;
+    /**
+     * Jlabel to display number of button clicks
+     */
+    public JLabel     cnt;
 
-	/**
-	 * Renders UI at construction
-	 */
-	private HelloWorldnoAction () throws Exception {
-		new SwingEngine (this).render ("xml/helloworld.xml").setVisible (true);
-	}
+    /**
+     * Renders UI at construction
+     */
+    private HelloWorldnoAction () throws Exception {
+        new SwingEngine (this).render ("xml/helloworld.xml").setVisible (true);
+    }
 
-	/**
-	 * bound, using an element's action attribute, which was set to submit.
-	 */
-	public void submit () {
+    /**
+     * bound, using an element's action attribute, which was set to submit.
+     */
+    public void submit () {
 
-		this.tf.setText (this.tf.getText () + '#');
-		this.cnt.setText (String.valueOf (++this.clicks));
-	}
+        this.tf.setText (this.tf.getText () + '#');
+        this.cnt.setText (String.valueOf (++this.clicks));
+    }
 }

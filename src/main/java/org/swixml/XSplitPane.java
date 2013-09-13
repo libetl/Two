@@ -65,14 +65,14 @@ import javax.swing.JSplitPane;
 
 public class XSplitPane extends JSplitPane {
 
-	/**
+    /**
 	 * 
 	 */
-	private static final long	serialVersionUID	= -2815017707349201336L;
+    private static final long serialVersionUID = -2815017707349201336L;
 
-	public XSplitPane () {
-		super (JSplitPane.HORIZONTAL_SPLIT, null, null);
-		this.setTopComponent (null);
-		this.setBottomComponent (null);
-	}
+    public XSplitPane () {
+        super (JSplitPane.HORIZONTAL_SPLIT, null, null);
+        this.setTopComponent (null);
+        this.setBottomComponent (null);
+    }
 }

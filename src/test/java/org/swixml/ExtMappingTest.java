@@ -65,44 +65,44 @@ import junit.framework.TestCase;
  */
 public class ExtMappingTest extends MappingTest {
 
-	public JButton	b1;
-	private JButton	b2;
-	private JButton	b5;
+    public JButton  b1;
+    private JButton b2;
+    private JButton b5;
 
-	public ExtMappingTest () {
-	}
+    public ExtMappingTest () {
+    }
 
-	public ExtMappingTest (String s) {
-		super (s);
-	}
+    public ExtMappingTest (String s) {
+        super (s);
+    }
 
-	@Override
-	public void setUp () throws Exception {
-		super.setUp ();
-	}
+    @Override
+    public void setUp () throws Exception {
+        super.setUp ();
+    }
 
-	@Override
-	public void teardown () {
-		super.teardown ();
-	}
+    @Override
+    public void teardown () {
+        super.teardown ();
+    }
 
-	/**
-	 * Tests if the JButtons were correctly initialized/mapped by the
-	 * SwingEngine.
-	 */
-	@Override
-	public void testMappingPublicFields () {
-		TestCase.assertNotNull (
-		        "Public Fields, whose names have matching ids the the XML descriptor should be initializd by the SwingEngine.",
-		        this.b1);
-		TestCase.assertNotNull (
-		        "Public Fields, whose names have matching ids the the XML descriptor should be initializd by the SwingEngine.",
-		        super.b1);
-		TestCase.assertNotNull (
-		        "Private Field, whose names have a matching ids the the XML descriptor should be initializd by the SwingEngine.",
-		        this.b2);
-		TestCase.assertNotNull (
-		        "Private Field, whose names have a matching ids the the XML descriptor should be initializd by the SwingEngine.",
-		        this.b5);
-	}
+    /**
+     * Tests if the JButtons were correctly initialized/mapped by the
+     * SwingEngine.
+     */
+    @Override
+    public void testMappingPublicFields () {
+        TestCase.assertNotNull (
+                "Public Fields, whose names have matching ids the the XML descriptor should be initializd by the SwingEngine.",
+                this.b1);
+        TestCase.assertNotNull (
+                "Public Fields, whose names have matching ids the the XML descriptor should be initializd by the SwingEngine.",
+                super.b1);
+        TestCase.assertNotNull (
+                "Private Field, whose names have a matching ids the the XML descriptor should be initializd by the SwingEngine.",
+                this.b2);
+        TestCase.assertNotNull (
+                "Private Field, whose names have a matching ids the the XML descriptor should be initializd by the SwingEngine.",
+                this.b5);
+    }
 }

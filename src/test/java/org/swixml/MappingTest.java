@@ -65,68 +65,68 @@ import junit.framework.TestCase;
  * @author Wolf Paulus
  */
 public class MappingTest extends TestCase implements GlobalActions {
-	public static final String	DESCRIPTOR	= "xml/mappings.xml";
-	private Container	       container;
-	private JMenuItem	       miAbout;
+    public static final String DESCRIPTOR = "xml/mappings.xml";
+    private Container          container;
+    private JMenuItem          miAbout;
 
-	public JButton	           b1;
-	public transient JButton	b2;
-	private JButton	           b3;
-	private transient JButton	b4;
+    public JButton             b1;
+    public transient JButton   b2;
+    private JButton            b3;
+    private transient JButton  b4;
 
-	public MappingTest () {
-		super (
-		        "Test Mapping og XML Tags to JComponent Objects in the SwingEngine's Client");
-	}
+    public MappingTest () {
+        super (
+                "Test Mapping og XML Tags to JComponent Objects in the SwingEngine's Client");
+    }
 
-	public MappingTest (String s) {
-		super (s);
-	}
+    public MappingTest (String s) {
+        super (s);
+    }
 
-	/**
-	 * Renders the test GUI into the container field.<br>
-	 * Note: Like with every testcase, the setup method is going to be performed
-	 * before the execution of every test..() method.
-	 * 
-	 * @throws Exception
-	 */
-	@Override
-	public void setUp () throws Exception {
-		final SwingEngine se = new SwingEngine (this);
-		this.container = se.render (MappingTest.DESCRIPTOR);
-	}
+    /**
+     * Renders the test GUI into the container field.<br>
+     * Note: Like with every testcase, the setup method is going to be performed
+     * before the execution of every test..() method.
+     * 
+     * @throws Exception
+     */
+    @Override
+    public void setUp () throws Exception {
+        final SwingEngine se = new SwingEngine (this);
+        this.container = se.render (MappingTest.DESCRIPTOR);
+    }
 
-	/**
-	 * Clears the container
-	 */
-	public void teardown () {
-		this.container.removeAll ();
-		this.container = null;
-	}
+    /**
+     * Clears the container
+     */
+    public void teardown () {
+        this.container.removeAll ();
+        this.container = null;
+    }
 
-	/**
-	 * Tests if the JButtons were correctly initialized/mapped by the
-	 * SwingEngine.
-	 */
-	public void testMappingPublicFields () {
-		TestCase.assertNotNull (
-		        "Public Fields, whose names have matching ids the the XML descriptor should be initializd by the SwingEngine.",
-		        this.b1);
-		TestCase.assertNull (
-		        "Transient Fields must not be initializd by the SwingEngine.",
-		        this.b2);
-		TestCase.assertNotNull (
-		        "Private Field, whose names have a matching ids the the XML descriptor should be initializd by the SwingEngine.",
-		        this.b3);
-		TestCase.assertNull (
-		        "Transient Fields must not be initializd by the SwingEngine.",
-		        this.b4);
-	}
+    /**
+     * Tests if the JButtons were correctly initialized/mapped by the
+     * SwingEngine.
+     */
+    public void testMappingPublicFields () {
+        TestCase.assertNotNull (
+                "Public Fields, whose names have matching ids the the XML descriptor should be initializd by the SwingEngine.",
+                this.b1);
+        TestCase.assertNull (
+                "Transient Fields must not be initializd by the SwingEngine.",
+                this.b2);
+        TestCase.assertNotNull (
+                "Private Field, whose names have a matching ids the the XML descriptor should be initializd by the SwingEngine.",
+                this.b3);
+        TestCase.assertNull (
+                "Transient Fields must not be initializd by the SwingEngine.",
+                this.b4);
+    }
 
-	public void testStaticInterfaceMappings () {
-		TestCase.assertNotNull (
-		        "aboutAction is statically defined in an Interface and should have been mapped into the private JMenuItem's action",
-		        this.miAbout.getAction ());
-	}
+    public void testStaticInterfaceMappings () {
+        TestCase.assertNotNull (
+                "aboutAction is statically defined in an Interface and should have been mapped into the private JMenuItem's action",
+                this.miAbout.getAction ());
+    }
 
 }

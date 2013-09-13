@@ -126,118 +126,118 @@ import org.swixml.converters.StringConverter;
  * @see org.swixml.Converter
  */
 public class ConverterLibrary {
-	private static ConverterLibrary	instance	= new ConverterLibrary ();
+    private static ConverterLibrary instance = new ConverterLibrary ();
 
-	/**
-	 * @return <code>ConverterLibrary</code> the single instacne of the
-	 *         ConverterLibrary.
-	 */
-	public static synchronized ConverterLibrary getInstance () {
-		return ConverterLibrary.instance;
-	}
+    /**
+     * @return <code>ConverterLibrary</code> the single instacne of the
+     *         ConverterLibrary.
+     */
+    public static synchronized ConverterLibrary getInstance () {
+        return ConverterLibrary.instance;
+    }
 
-	private final Map<Class, Converter>	converters	= new HashMap<Class, Converter> ();
+    private final Map<Class<?>, Converter> converters = new HashMap<Class<?>, Converter> ();
 
-	/**
-	 * The only available Ctor is private to make this a Singleton
-	 */
-	private ConverterLibrary () {
-		this.registerConverters ();
-	}
+    /**
+     * The only available Ctor is private to make this a Singleton
+     */
+    private ConverterLibrary () {
+        this.registerConverters ();
+    }
 
-	/**
-	 * Returns a <code>Converter</code> instance, able to produce objects of the
-	 * given <code>class</code>
-	 * 
-	 * @param template
-	 *            <code>Class</code> Class of the object the
-	 *            <code>Converter</code> needs to produce.
-	 * @return <code>Converter</code> - instance of the given Converter class.
-	 */
-	public Converter getConverter (Class template) {
-		return this.converters.get (template);
-	}
+    /**
+     * Returns a <code>Converter</code> instance, able to produce objects of the
+     * given <code>class</code>
+     * 
+     * @param template
+     *            <code>Class</code> Class<?> of the object the
+     *            <code>Converter</code> needs to produce.
+     * @return <code>Converter</code> - instance of the given Converter class.
+     */
+    public Converter getConverter (Class<?> template) {
+        return this.converters.get (template);
+    }
 
-	/**
-	 * @return <code>Map</code> - all registered converters.
-	 * 
-	 *         <pre>
-	 * Use a class to get to the converters
-	 * </pre>
-	 */
-	public Map getConverters () {
-		return this.converters;
-	}
+    /**
+     * @return <code>Map</code> - all registered converters.
+     * 
+     *         <pre>
+     * Use a class to get to the converters
+     * </pre>
+     */
+    public Map<Class<?>, Converter> getConverters () {
+        return this.converters;
+    }
 
-	/**
-	 * Indicates if a the ConverterLibary has a Converter producing instances of
-	 * the given Class.
-	 * 
-	 * @param template
-	 *            <code>Class</code>
-	 * @return <code>boolean</code> true, if the ConverterLibrary has a
-	 *         Converter to produce an instances of the gioven class.
-	 */
-	public boolean hasConverter (Class template) {
-		boolean found = this.converters.keySet ().contains (template);
-		final Iterator it = this.converters.values ().iterator ();
-		while (!found && (it != null) && it.hasNext ()) {
-			found = template.isAssignableFrom ( ((Converter) it.next ())
-			        .convertsTo ());
-		}
-		return found;
-	}
+    /**
+     * Indicates if a the ConverterLibary has a Converter producing instances of
+     * the given Class.
+     * 
+     * @param template
+     *            <code>Class</code>
+     * @return <code>boolean</code> true, if the ConverterLibrary has a
+     *         Converter to produce an instances of the gioven class.
+     */
+    public boolean hasConverter (Class<?> template) {
+        boolean found = this.converters.keySet ().contains (template);
+        final Iterator<?> it = this.converters.values ().iterator ();
+        while (!found && (it != null) && it.hasNext ()) {
+            found = template.isAssignableFrom ( ((Converter) it.next ())
+                    .convertsTo ());
+        }
+        return found;
+    }
 
-	/**
-	 * Registers a Converter with the ConverterLibrary
-	 * 
-	 * @param template
-	 *            <code>Class</code> type of the objects the Converter creates
-	 * @param converter
-	 *            <code>Converter</code> Instance of Converter able to convert
-	 *            Strings into objects of the given type
-	 */
-	public void register (Class template, Converter converter) {
-		this.converters.put (template, converter);
-	}
+    /**
+     * Registers a Converter with the ConverterLibrary
+     * 
+     * @param template
+     *            <code>Class</code> type of the objects the Converter creates
+     * @param converter
+     *            <code>Converter</code> Instance of Converter able to convert
+     *            Strings into objects of the given type
+     */
+    public void register (Class<?> template, Converter converter) {
+        this.converters.put (template, converter);
+    }
 
-	/**
-	 * Registers a Converter with the ConverterLibrary
-	 * 
-	 * @param converter
-	 *            <code>Converter</code> Instance of Converter able to convert
-	 *            Strings into objects of the given type
-	 */
-	public void register (Converter converter) {
-		this.converters.put (converter.convertsTo (), converter);
-	}
+    /**
+     * Registers a Converter with the ConverterLibrary
+     * 
+     * @param converter
+     *            <code>Converter</code> Instance of Converter able to convert
+     *            Strings into objects of the given type
+     */
+    public void register (Converter converter) {
+        this.converters.put (converter.convertsTo (), converter);
+    }
 
-	/**
-	 * Registers <code>Converters</code> with the ConverterLibrary.
-	 */
-	private void registerConverters () {
-		this.register (Action.class, new ActionConverter ());
-		this.register (Border.class, new BorderConverter ());
-		this.register (Color.class, new ColorConverter ());
-		this.register (Component.class, new ComponentConverter ());
-		this.register (Dimension.class, new DimensionConverter ());
-		this.register (Font.class, new FontConverter ());
-		this.register (Image.class, new ImageConverter ());
-		this.register (Icon.class, new ImageIconConverter ());
-		this.register (ImageIcon.class, new ImageIconConverter ());
-		this.register (Insets.class, new InsetsConverter ());
-		this.register (KeyStroke.class, new KeyStrokeConverter ());
-		this.register (Locale.class, new LocaleConverter ());
-		this.register (Point.class, new PointConverter ());
-		this.register (Rectangle.class, new RectangleConverter ());
-		this.register (String.class, new StringConverter ());
-		//
-		// Register the PrimitiveConverter class for java primitive types
-		//
-		this.register (boolean.class, new PrimitiveConverter ());
-		this.register (int.class, new PrimitiveConverter ());
-		this.register (long.class, new PrimitiveConverter ());
-		this.register (float.class, new PrimitiveConverter ());
-		this.register (double.class, new PrimitiveConverter ());
-	}
+    /**
+     * Registers <code>Converters</code> with the ConverterLibrary.
+     */
+    private void registerConverters () {
+        this.register (Action.class, new ActionConverter ());
+        this.register (Border.class, new BorderConverter ());
+        this.register (Color.class, new ColorConverter ());
+        this.register (Component.class, new ComponentConverter ());
+        this.register (Dimension.class, new DimensionConverter ());
+        this.register (Font.class, new FontConverter ());
+        this.register (Image.class, new ImageConverter ());
+        this.register (Icon.class, new ImageIconConverter ());
+        this.register (ImageIcon.class, new ImageIconConverter ());
+        this.register (Insets.class, new InsetsConverter ());
+        this.register (KeyStroke.class, new KeyStrokeConverter ());
+        this.register (Locale.class, new LocaleConverter ());
+        this.register (Point.class, new PointConverter ());
+        this.register (Rectangle.class, new RectangleConverter ());
+        this.register (String.class, new StringConverter ());
+        //
+        // Register the PrimitiveConverter class for java primitive types
+        //
+        this.register (boolean.class, new PrimitiveConverter ());
+        this.register (int.class, new PrimitiveConverter ());
+        this.register (long.class, new PrimitiveConverter ());
+        this.register (float.class, new PrimitiveConverter ());
+        this.register (double.class, new PrimitiveConverter ());
+    }
 }

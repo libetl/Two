@@ -17,41 +17,51 @@ import org.swixml.SwingEngine;
  * @since swixml (#101)
  */
 public class Accelerator {
-	private static final String	DESCRIPTOR	= "xml/accelerator.xml";
+    private static final String DESCRIPTOR = "xml/accelerator.xml";
 
-	public static void main (String [] args) {
-		try {
-			new Accelerator ();
-		} catch (final Exception e) {
-			System.err.println (e.getMessage ());
-		}
-	}
+    public static void main (String [] args) {
+        try {
+            new Accelerator ();
+        } catch (final Exception e) {
+            System.err.println (e.getMessage ());
+        }
+    }
 
-	SwingEngine	  swix	        = new SwingEngine (this);
+    SwingEngine   swix        = new SwingEngine (this);
 
-	public Action	newAction	= new AbstractAction () {
-		                            @Override
-		                            public void actionPerformed (ActionEvent e) {
-			                            JOptionPane.showMessageDialog (
-			                                    Accelerator.this.swix
-			                                            .getRootComponent (),
-			                                    "Sorry, not implemented yet.");
-		                            }
-	                            };
+    public Action newAction   = new AbstractAction () {
+                                  /**
+         * 
+         */
+                                  private static final long serialVersionUID = -6521606410982495882L;
 
-	public Action	aboutAction	= new AbstractAction () {
-		                            @Override
-		                            public void actionPerformed (ActionEvent e) {
-			                            JOptionPane
-			                                    .showMessageDialog (
-			                                            Accelerator.this.swix
-			                                                    .getRootComponent (),
-			                                            "This is the Accelerator Example.");
-		                            }
-	                            };
+                                  @Override
+                                  public void actionPerformed (ActionEvent e) {
+                                      JOptionPane.showMessageDialog (
+                                              Accelerator.this.swix
+                                                      .getRootComponent (),
+                                              "Sorry, not implemented yet.");
+                                  }
+                              };
 
-	public Accelerator () throws Exception {
-		this.swix.render (Accelerator.DESCRIPTOR).setVisible (true);
-	}
+    public Action aboutAction = new AbstractAction () {
+                                  /**
+         * 
+         */
+                                  private static final long serialVersionUID = 4882366063782590844L;
+
+                                  @Override
+                                  public void actionPerformed (ActionEvent e) {
+                                      JOptionPane
+                                              .showMessageDialog (
+                                                      Accelerator.this.swix
+                                                              .getRootComponent (),
+                                                      "This is the Accelerator Example.");
+                                  }
+                              };
+
+    public Accelerator () throws Exception {
+        this.swix.render (Accelerator.DESCRIPTOR).setVisible (true);
+    }
 
 }

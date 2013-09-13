@@ -76,101 +76,101 @@ import org.swixml.layoutconverters.GridLayoutConverter;
  * @see LayoutConverter
  */
 public class LayoutConverterLibrary {
-	private static LayoutConverterLibrary	instance	= new LayoutConverterLibrary ();
+    private static LayoutConverterLibrary instance = new LayoutConverterLibrary ();
 
-	/**
-	 * Returns the single instacne of the LayoutConverterLibrary.
-	 */
-	public static synchronized LayoutConverterLibrary getInstance () {
-		return LayoutConverterLibrary.instance;
-	}
+    /**
+     * Returns the single instacne of the LayoutConverterLibrary.
+     */
+    public static synchronized LayoutConverterLibrary getInstance () {
+        return LayoutConverterLibrary.instance;
+    }
 
-	private final Map<String, LayoutConverter>	layoutConverters	= new HashMap<String, LayoutConverter> ();
+    private final Map<String, LayoutConverter> layoutConverters = new HashMap<String, LayoutConverter> ();
 
-	private final Map<String, LayoutConverter>	layoutIDs	     = new HashMap<String, LayoutConverter> ();
+    private final Map<String, LayoutConverter> layoutIDs        = new HashMap<String, LayoutConverter> ();
 
-	/**
-	 * The only available Ctor is private to make this a Singleton
-	 */
-	private LayoutConverterLibrary () {
-		this.registerLayoutConverters ();
-	}
+    /**
+     * The only available Ctor is private to make this a Singleton
+     */
+    private LayoutConverterLibrary () {
+        this.registerLayoutConverters ();
+    }
 
-	/**
-	 * Returns a <code>LayoutConverter</code> instance, able to produce objects
-	 * for the given layout manager <code>class</code>.
-	 * 
-	 * @param layoutClass
-	 *            Class of the object the <code>LayoutConverter</code> needs to
-	 *            produce.
-	 * @return Instance of the LayoutConverter class.
-	 */
-	public LayoutConverter getLayoutConverter (Class layoutClass) {
-		return this.layoutConverters.get (layoutClass.getName ());
-	}
+    /**
+     * Returns a <code>LayoutConverter</code> instance, able to produce objects
+     * for the given layout manager <code>class</code>.
+     * 
+     * @param layoutClass
+     *            Class<?> of the object the <code>LayoutConverter</code> needs
+     *            to produce.
+     * @return Instance of the LayoutConverter class.
+     */
+    public LayoutConverter getLayoutConverter (Class<?> layoutClass) {
+        return this.layoutConverters.get (layoutClass.getName ());
+    }
 
-	/**
-	 * Returns a <code>LayoutConverter</code> instance, able to produce objects
-	 * for the given layout manager <code>id</code> (see
-	 * {@link LayoutConverter#getID()}).
-	 * 
-	 * @param id
-	 *            Identifier of the layout manager the
-	 *            <code>LayoutConverter</code> needs to produce.
-	 * @return Instance of the LayoutConverter class.
-	 */
-	public LayoutConverter getLayoutConverterByID (String id) {
-		return this.layoutIDs.get (id.toLowerCase ());
-	}
+    /**
+     * Returns a <code>LayoutConverter</code> instance, able to produce objects
+     * for the given layout manager <code>id</code> (see
+     * {@link LayoutConverter#getID()}).
+     * 
+     * @param id
+     *            Identifier of the layout manager the
+     *            <code>LayoutConverter</code> needs to produce.
+     * @return Instance of the LayoutConverter class.
+     */
+    public LayoutConverter getLayoutConverterByID (String id) {
+        return this.layoutIDs.get (id.toLowerCase ());
+    }
 
-	/**
-	 * Returns all registered layout converters.
-	 */
-	public Map getLayoutConverters () {
-		return this.layoutConverters;
-	}
+    /**
+     * Returns all registered layout converters.
+     */
+    public Map<String, LayoutConverter> getLayoutConverters () {
+        return this.layoutConverters;
+    }
 
-	/**
-	 * Registers a LayoutConverter with the LayoutConverterLibrary.
-	 * 
-	 * @param layoutClass
-	 *            Type of the layout manager the LayoutConverter creates.
-	 * @param layoutConverter
-	 *            Instance of LayoutConverter able to convert Strings into
-	 *            layout managers or layout constraints.
-	 */
-	public void register (Class layoutClass, LayoutConverter layoutConverter) {
-		this.register (layoutClass.getName (), layoutConverter);
-	}
+    /**
+     * Registers a LayoutConverter with the LayoutConverterLibrary.
+     * 
+     * @param layoutClass
+     *            Type of the layout manager the LayoutConverter creates.
+     * @param layoutConverter
+     *            Instance of LayoutConverter able to convert Strings into
+     *            layout managers or layout constraints.
+     */
+    public void register (Class<?> layoutClass, LayoutConverter layoutConverter) {
+        this.register (layoutClass.getName (), layoutConverter);
+    }
 
-	/**
-	 * Registers a LayoutConverter with the LayoutConverterLibrary.
-	 * 
-	 * @param layoutClassName
-	 *            Type name of the layout manager the LayoutConverter creates.
-	 * @param layoutConverter
-	 *            Instance of LayoutConverter able to convert Strings into
-	 *            layout managers or layout constraints.
-	 */
-	public void register (String layoutClassName,
-	        LayoutConverter layoutConverter) {
-		this.layoutConverters.put (layoutClassName, layoutConverter);
-		this.layoutIDs.put (layoutConverter.getID ().toLowerCase (),
-		        layoutConverter);
-	}
+    /**
+     * Registers a LayoutConverter with the LayoutConverterLibrary.
+     * 
+     * @param layoutClassName
+     *            Type name of the layout manager the LayoutConverter creates.
+     * @param layoutConverter
+     *            Instance of LayoutConverter able to convert Strings into
+     *            layout managers or layout constraints.
+     */
+    public void register (String layoutClassName,
+            LayoutConverter layoutConverter) {
+        this.layoutConverters.put (layoutClassName, layoutConverter);
+        this.layoutIDs.put (layoutConverter.getID ().toLowerCase (),
+                layoutConverter);
+    }
 
-	/**
-	 * Registers <code>LayoutConverters</code> with the LayoutConverterLibrary.
-	 */
-	private void registerLayoutConverters () {
-		this.register (BorderLayout.class, new BorderLayoutConverter ());
-		this.register (CardLayout.class, new CardLayoutConverter ());
-		this.register (FlowLayout.class, new FlowLayoutConverter ());
-		this.register (GridBagLayout.class, new GridBagLayoutConverter ());
-		this.register (GridLayout.class, new GridLayoutConverter ());
+    /**
+     * Registers <code>LayoutConverters</code> with the LayoutConverterLibrary.
+     */
+    private void registerLayoutConverters () {
+        this.register (BorderLayout.class, new BorderLayoutConverter ());
+        this.register (CardLayout.class, new CardLayoutConverter ());
+        this.register (FlowLayout.class, new FlowLayoutConverter ());
+        this.register (GridBagLayout.class, new GridBagLayoutConverter ());
+        this.register (GridLayout.class, new GridLayoutConverter ());
 
-		// 3rd party layout managers
-		this.register ("com.jgoodies.forms.layout.FormLayout",
-		        new FormLayoutConverter ());
-	}
+        // 3rd party layout managers
+        this.register ("com.jgoodies.forms.layout.FormLayout",
+                new FormLayoutConverter ());
+    }
 }

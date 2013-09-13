@@ -80,47 +80,48 @@ import org.swixml.Localizer;
  */
 public class InsetsConverter implements Converter {
 
-	/** converter's return type */
-	public static final Class	TEMPLATE	= Insets.class;
+    /** converter's return type */
+    public static final Class<?> TEMPLATE = Insets.class;
 
-	/**
-	 * Converts a Strings into an Insets object
-	 * 
-	 * @param type
-	 *            <code>Class</code> not used
-	 * @param attr
-	 *            <code>Attribute</code> value needs to provide String
-	 *            containing comma sep. integers
-	 * @return <code>Object</code> runtime type is subclass of
-	 *         <code>Insets</code>
-	 */
-	@Override
-	public Object convert (final Class type, final Attribute attr,
-	        Localizer localizer) {
-		Insets insets = null;
-		if (attr != null) {
-			final StringTokenizer st = new StringTokenizer (attr.getValue (),
-			        "(,)");
-			if (5 == st.countTokens ()) { // assume "insets(...)"
-				st.nextToken ().trim ();
-			}
-			final int [] param = Util.ia (st);
-			if (4 <= param.length) {
-				insets = new Insets (param [0], param [1], param [2], param [3]);
-			}
-		}
-		return insets;
-	}
+    /**
+     * Converts a Strings into an Insets object
+     * 
+     * @param type
+     *            <code>Class</code> not used
+     * @param attr
+     *            <code>Attribute</code> value needs to provide String
+     *            containing comma sep. integers
+     * @return <code>Object</code> runtime type is subclass of
+     *         <code>Insets</code>
+     */
+    @Override
+    public Object convert (final Class<?> type, final Attribute attr,
+            Localizer localizer) {
+        Insets insets = null;
+        if (attr != null) {
+            final StringTokenizer st = new StringTokenizer (attr.getValue (),
+                    "(,)");
+            if (5 == st.countTokens ()) { // assume "insets(...)"
+                st.nextToken ().trim ();
+            }
+            final int [] param = Util.ia (st);
+            if (4 <= param.length) {
+                insets = new Insets (param [0], param [1], param [2], param [3]);
+            }
+        }
+        return insets;
+    }
 
-	/**
-	 * A <code>Converters</code> conversTo method informs about the Class type
-	 * the converter is returning when its <code>convert</code> method is called
-	 * 
-	 * @return <code>Class</code> - the Class the converter is returning when
-	 *         its convert method is called
-	 */
-	@Override
-	public Class convertsTo () {
-		return InsetsConverter.TEMPLATE;
-	}
+    /**
+     * A <code>Converters</code> conversTo method informs about the Class<?>
+     * type the converter is returning when its <code>convert</code> method is
+     * called
+     * 
+     * @return <code>Class</code> - the Class<?> the converter is returning when
+     *         its convert method is called
+     */
+    @Override
+    public Class<?> convertsTo () {
+        return InsetsConverter.TEMPLATE;
+    }
 }
