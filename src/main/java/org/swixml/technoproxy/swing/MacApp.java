@@ -71,6 +71,7 @@ import com.apple.eawt.ApplicationEvent;
  */
 @SuppressWarnings ("deprecation")
 public class MacApp extends Application {
+
 	private static MacApp	INSTANCE	= null;
 
 	public synchronized static MacApp getInstance () {
@@ -213,4 +214,5 @@ public class MacApp extends Application {
 			this.quitAction = (Action) action_map.get (Parser.ATTR_MACOS_QUIT);
 		}
 	}
+
 }

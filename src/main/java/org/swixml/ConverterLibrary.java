@@ -256,4 +256,5 @@ public class ConverterLibrary {
 		this.register (float.class, new PrimitiveConverter ());
 		this.register (double.class, new PrimitiveConverter ());
 	}
+
 }

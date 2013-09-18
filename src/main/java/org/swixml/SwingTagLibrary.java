@@ -52,6 +52,7 @@
  */
 package org.swixml;
 
+
 import org.swixml.technoproxy.CustomCodeProxy;
 
 /**
@@ -78,6 +79,7 @@ public final class SwingTagLibrary extends TagLibrary {
 	private SwingTagLibrary () {
 		this.registerTags ();
 	}
+
 
 	/**
 	 * Registers the tags this TagLibrary is all about. Strategy method called
@@ -175,4 +177,5 @@ public final class SwingTagLibrary extends TagLibrary {
 		this.registerTag ("Toolbar", CustomCodeProxy.getTypeAnalyser ()
 		        .getCompatibleClass ("JToolBar"));
 	}
+
 }

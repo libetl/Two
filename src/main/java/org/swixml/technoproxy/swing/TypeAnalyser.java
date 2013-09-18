@@ -44,4 +44,5 @@ public class TypeAnalyser implements org.swixml.technoproxy.TypeAnalyser {
 		return result;
 	}
 
+
 }

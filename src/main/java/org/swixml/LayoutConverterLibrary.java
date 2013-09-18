@@ -105,6 +105,8 @@ public class LayoutConverterLibrary {
 		return this.layoutConverters.get (layoutClass.getName ());
 	}
 
+
+
 	/**
 	 * Returns a <code>LayoutConverter</code> instance, able to produce objects
 	 * for the given layout manager <code>id</code> (see
@@ -119,12 +121,16 @@ public class LayoutConverterLibrary {
 		return this.layoutIDs.get (id.toLowerCase ());
 	}
 
+
+
 	/**
 	 * Returns all registered layout converters.
 	 */
 	public Map<String, LayoutConverter<?>> getLayoutConverters () {
 		return this.layoutConverters;
 	}
+
+
 
 	/**
 	 * Registers a LayoutConverter with the LayoutConverterLibrary.
@@ -139,6 +145,8 @@ public class LayoutConverterLibrary {
 	        LayoutConverter<?> layoutConverter) {
 		this.register (layoutClass.getName (), layoutConverter);
 	}
+
+
 
 	/**
 	 * Registers a LayoutConverter with the LayoutConverterLibrary.
@@ -155,6 +163,8 @@ public class LayoutConverterLibrary {
 		this.layoutIDs.put (layoutConverter.getID ().toLowerCase (),
 		        layoutConverter);
 	}
+
+
 
 	/**
 	 * Registers <code>LayoutConverters</code> with the LayoutConverterLibrary.
@@ -175,6 +185,7 @@ public class LayoutConverterLibrary {
 		this.register (
 		        CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
 		                "GridLayout"), new GridLayoutConverter ());
+
 
 		// 3rd party layout managers
 		this.register ("com.jgoodies.forms.layout.FormLayout",
