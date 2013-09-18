@@ -63,12 +63,12 @@ import javax.swing.BoxLayout;
  */
 public class XVBox extends Box {
 
-    /**
+	/**
 	 * 
 	 */
-    private static final long serialVersionUID = -6346497698578934314L;
+	private static final long	serialVersionUID	= -6346497698578934314L;
 
-    public XVBox () {
-        super (BoxLayout.Y_AXIS);
-    }
+	public XVBox () {
+		super (BoxLayout.Y_AXIS);
+	}
 }

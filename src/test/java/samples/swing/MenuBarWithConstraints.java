@@ -11,15 +11,15 @@ import org.swixml.SwingEngine;
  */
 public class MenuBarWithConstraints {
 
-    /**
-     * @param args
-     * @throws Exception
-     *             if something goes wrong
-     */
-    public static void main (String [] args) throws Exception {
-        final SwingEngine se = new SwingEngine ();
-        final Container container = (Container) se.render ("xml/menu-bar.xml");
-        container.setVisible (true);
-    }
+	/**
+	 * @param args
+	 * @throws Exception
+	 *             if something goes wrong
+	 */
+	public static void main (String [] args) throws Exception {
+		final SwingEngine se = new SwingEngine ();
+		final Container container = (Container) se.render ("xml/menu-bar.xml");
+		container.setVisible (true);
+	}
 
 }

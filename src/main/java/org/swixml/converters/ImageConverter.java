@@ -72,56 +72,56 @@ import org.swixml.Localizer;
  */
 public class ImageConverter implements Converter {
 
-    /** converter's return type */
-    public static final Class<?> TEMPLATE = Image.class;
+	/** converter's return type */
+	public static final Class<?>	TEMPLATE	= Image.class;
 
-    /**
-     * Converts a String into an ImageIcon through a Resource lookup
-     * 
-     * @param type
-     *            <code>Class</code> not used
-     * @param attr
-     *            <code>Attribute</code> attribute provides the value to be
-     *            converted
-     * @param localizer
-     *            <code>Localizer</code> allow the use of resource lookups
-     * @return <code>Object</code> - an <code>ImageIcon</code>
-     */
-    public static Object conv (final Class<?> type, final Attribute attr,
-            Localizer localizer) {
-        final ImageIcon icon = (ImageIcon) ImageIconConverter.conv (type, attr,
-                localizer);
-        return icon != null ? icon.getImage () : null;
-    }
+	/**
+	 * Converts a String into an ImageIcon through a Resource lookup
+	 * 
+	 * @param type
+	 *            <code>Class</code> not used
+	 * @param attr
+	 *            <code>Attribute</code> attribute provides the value to be
+	 *            converted
+	 * @param localizer
+	 *            <code>Localizer</code> allow the use of resource lookups
+	 * @return <code>Object</code> - an <code>ImageIcon</code>
+	 */
+	public static Object conv (final Class<?> type, final Attribute attr,
+	        Localizer localizer) {
+		final ImageIcon icon = (ImageIcon) ImageIconConverter.conv (type, attr,
+		        localizer);
+		return icon != null ? icon.getImage () : null;
+	}
 
-    /**
-     * Converts a String into an ImageIcon through a Resource lookup
-     * 
-     * @param type
-     *            <code>Class</code> not used
-     * @param attr
-     *            <code>Attribute</code> attribute provides the value to be
-     *            converted
-     * @param localizer
-     *            <code>Localizer</code> allow the use of resource lookups
-     * @return <code>Object</code> - an <code>ImageIcon</code>
-     */
-    @Override
-    public Object convert (final Class<?> type, final Attribute attr,
-            Localizer localizer) {
-        return ImageConverter.conv (type, attr, localizer);
-    }
+	/**
+	 * Converts a String into an ImageIcon through a Resource lookup
+	 * 
+	 * @param type
+	 *            <code>Class</code> not used
+	 * @param attr
+	 *            <code>Attribute</code> attribute provides the value to be
+	 *            converted
+	 * @param localizer
+	 *            <code>Localizer</code> allow the use of resource lookups
+	 * @return <code>Object</code> - an <code>ImageIcon</code>
+	 */
+	@Override
+	public Object convert (final Class<?> type, final Attribute attr,
+	        Localizer localizer) {
+		return ImageConverter.conv (type, attr, localizer);
+	}
 
-    /**
-     * A <code>Converters</code> conversTo method informs about the Class<?>
-     * type the converter is returning when its <code>convert</code> method is
-     * called
-     * 
-     * @return <code>Class</code> - the Class<?> the converter is returning when
-     *         its convert method is called
-     */
-    @Override
-    public Class<?> convertsTo () {
-        return ImageConverter.TEMPLATE;
-    }
+	/**
+	 * A <code>Converters</code> conversTo method informs about the Class<?>
+	 * type the converter is returning when its <code>convert</code> method is
+	 * called
+	 * 
+	 * @return <code>Class</code> - the Class<?> the converter is returning when
+	 *         its convert method is called
+	 */
+	@Override
+	public Class<?> convertsTo () {
+		return ImageConverter.TEMPLATE;
+	}
 }

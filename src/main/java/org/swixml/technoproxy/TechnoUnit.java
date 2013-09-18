@@ -4,7 +4,7 @@ import java.util.Map;
 
 public interface TechnoUnit {
 
-    public Map<String, Class<ProxyCode<?>>> getProxyClasses ();
-    
-    public TypeAnalyser getTypeAnalyser ();
+	public Map<String, Class<? extends ProxyCode<?>>> getProxyClasses ();
+
+	public TypeAnalyser getTypeAnalyser ();
 }

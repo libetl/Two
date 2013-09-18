@@ -62,21 +62,21 @@ import javax.swing.JScrollPane;
  * @since Swixml 1.5 #147
  */
 public class XScrollPane extends JScrollPane {
-    /**
+	/**
 	 * 
 	 */
-    private static final long serialVersionUID = -3724577295933384431L;
+	private static final long	serialVersionUID	= -3724577295933384431L;
 
-    /**
-     * Sets the background color of this component's viewport.
-     * 
-     * @param bg
-     *            the desired background <code>Color</code>, the background
-     *            color of the viewport.
-     * @see java.awt.Component#getBackground
-     */
-    @Override
-    public void setBackground (Color bg) {
-        super.getViewport ().setBackground (bg);
-    }
+	/**
+	 * Sets the background color of this component's viewport.
+	 * 
+	 * @param bg
+	 *            the desired background <code>Color</code>, the background
+	 *            color of the viewport.
+	 * @see java.awt.Component#getBackground
+	 */
+	@Override
+	public void setBackground (Color bg) {
+		super.getViewport ().setBackground (bg);
+	}
 }

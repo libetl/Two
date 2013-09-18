@@ -65,96 +65,96 @@ import java.awt.Insets;
  */
 public class XGridBagConstraints extends GridBagConstraints {
 
-    /**
+	/**
 	 * 
 	 */
-    private static final long serialVersionUID = -3913967818576057317L;
+	private static final long	serialVersionUID	= -3913967818576057317L;
 
-    public int getAnchor () {
-        return this.anchor;
-    }
+	public int getAnchor () {
+		return this.anchor;
+	}
 
-    public int getFill () {
-        return this.fill;
-    }
+	public int getFill () {
+		return this.fill;
+	}
 
-    public int getGridheight () {
-        return this.gridheight;
-    }
+	public int getGridheight () {
+		return this.gridheight;
+	}
 
-    public int getGridwidth () {
-        return this.gridwidth;
-    }
+	public int getGridwidth () {
+		return this.gridwidth;
+	}
 
-    public int getGridx () {
-        return this.gridx;
-    }
+	public int getGridx () {
+		return this.gridx;
+	}
 
-    public int getGridy () {
-        return this.gridy;
-    }
+	public int getGridy () {
+		return this.gridy;
+	}
 
-    public Insets getInsets () {
-        return this.insets;
-    }
+	public Insets getInsets () {
+		return this.insets;
+	}
 
-    public int getIpadx () {
-        return this.ipadx;
-    }
+	public int getIpadx () {
+		return this.ipadx;
+	}
 
-    public int getIpady () {
-        return this.ipady;
-    }
+	public int getIpady () {
+		return this.ipady;
+	}
 
-    public double getWeightx () {
-        return this.weightx;
-    }
+	public double getWeightx () {
+		return this.weightx;
+	}
 
-    public double getWeighty () {
-        return this.weighty;
-    }
+	public double getWeighty () {
+		return this.weighty;
+	}
 
-    public void setAnchor (int anchor) {
-        this.anchor = anchor;
-    }
+	public void setAnchor (int anchor) {
+		this.anchor = anchor;
+	}
 
-    public void setFill (int fill) {
-        this.fill = fill;
-    }
+	public void setFill (int fill) {
+		this.fill = fill;
+	}
 
-    public void setGridheight (int gridheight) {
-        this.gridheight = gridheight;
-    }
+	public void setGridheight (int gridheight) {
+		this.gridheight = gridheight;
+	}
 
-    public void setGridwidth (int gridwidth) {
-        this.gridwidth = gridwidth;
-    }
+	public void setGridwidth (int gridwidth) {
+		this.gridwidth = gridwidth;
+	}
 
-    public void setGridx (int gridx) {
-        this.gridx = gridx;
-    }
+	public void setGridx (int gridx) {
+		this.gridx = gridx;
+	}
 
-    public void setGridy (int gridy) {
-        this.gridy = gridy;
-    }
+	public void setGridy (int gridy) {
+		this.gridy = gridy;
+	}
 
-    public void setInsets (Insets insets) {
-        this.insets = insets;
-    }
+	public void setInsets (Insets insets) {
+		this.insets = insets;
+	}
 
-    public void setIpadx (int ipadx) {
-        this.ipadx = ipadx;
-    }
+	public void setIpadx (int ipadx) {
+		this.ipadx = ipadx;
+	}
 
-    public void setIpady (int ipady) {
-        this.ipady = ipady;
-    }
+	public void setIpady (int ipady) {
+		this.ipady = ipady;
+	}
 
-    public void setWeightx (double weightx) {
-        this.weightx = weightx;
-    }
+	public void setWeightx (double weightx) {
+		this.weightx = weightx;
+	}
 
-    public void setWeighty (double weighty) {
-        this.weighty = weighty;
-    }
+	public void setWeighty (double weighty) {
+		this.weighty = weighty;
+	}
 }

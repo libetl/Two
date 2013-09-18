@@ -16,17 +16,18 @@ import org.swixml.SwingEngine;
  * @since swixml 0.95
  */
 public class XInclude extends WindowAdapter {
-    public static void main (String [] args) {
-        new XInclude ();
-    }
+	public static void main (String [] args) {
+		new XInclude ();
+	}
 
-    private final SwingEngine swix = new SwingEngine (this);
+	private final SwingEngine	swix	= new SwingEngine (this);
 
-    private XInclude () {
-        try {
-            ((Container) this.swix.render ("xml/xinclude.xml")).setVisible (true);
-        } catch (final Exception e) {
-            e.printStackTrace ();
-        }
-    }
+	private XInclude () {
+		try {
+			((Container) this.swix.render ("xml/xinclude.xml"))
+			        .setVisible (true);
+		} catch (final Exception e) {
+			e.printStackTrace ();
+		}
+	}
 }

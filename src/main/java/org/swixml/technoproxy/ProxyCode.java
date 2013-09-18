@@ -2,13 +2,13 @@ package org.swixml.technoproxy;
 
 public class ProxyCode<T> {
 
-    private final T source;
-    
-    public ProxyCode (T source1){
-        this.source = source1;
-    }
+	private final T	source;
 
-    protected T getSource () {
-        return source;
-    }
+	public ProxyCode (T source1) {
+		this.source = source1;
+	}
+
+	protected T getSource () {
+		return this.source;
+	}
 }

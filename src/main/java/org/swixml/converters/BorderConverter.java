@@ -99,164 +99,165 @@ import org.swixml.Localizer;
  * @see org.swixml.ConverterLibrary
  */
 public class BorderConverter implements Converter {
-    /**
-     * converter's return type
-     */
-    public static final Class<?>   TEMPLATE = Border.class;
+	/**
+	 * converter's return type
+	 */
+	public static final Class<?>	TEMPLATE	= Border.class;
 
-    /**
-     * all methods the BorderFactory provides
-     */
-    private static final Method [] METHODS  = BorderFactory.class.getMethods ();
+	/**
+	 * all methods the BorderFactory provides
+	 */
+	private static final Method []	METHODS	 = BorderFactory.class
+	                                                 .getMethods ();
 
-    /**
-     * Returns a <code>javax.swing Border</code>
-     * 
-     * @param type
-     *            <code>Class</code> not used
-     * @param attr
-     *            <code>Attribute</code> value needs to provide Border type name
-     *            and optional parameter
-     * @return <code>Object</code> runtime type is subclass of
-     *         <code>AbstractBorder</code>
-     */
-    @Override
-    public Object convert (final Class<?> type, final Attribute attr,
-            Localizer localizer) {
-        Border border = null;
-        final List<String> params = this.parse (attr.getValue ()); // border
-                                                                   // type +
-        // parameters
-        int n = params.size () - 1; // number of parameter to create a border
-        final String borderType = params.remove (0).trim ();
-        Method method = null;
-        final ConverterLibrary cvtlib = ConverterLibrary.getInstance ();
-        //
-        // Special case for single parameter construction, give priority to
-        // String Type
-        //
-        if (n == 0) {
-            try {
-                method = BorderFactory.class.getMethod ("create" + borderType);
+	/**
+	 * Returns a <code>javax.swing Border</code>
+	 * 
+	 * @param type
+	 *            <code>Class</code> not used
+	 * @param attr
+	 *            <code>Attribute</code> value needs to provide Border type name
+	 *            and optional parameter
+	 * @return <code>Object</code> runtime type is subclass of
+	 *         <code>AbstractBorder</code>
+	 */
+	@Override
+	public Object convert (final Class<?> type, final Attribute attr,
+	        Localizer localizer) {
+		Border border = null;
+		final List<String> params = this.parse (attr.getValue ()); // border
+		                                                           // type +
+		// parameters
+		int n = params.size () - 1; // number of parameter to create a border
+		final String borderType = params.remove (0).trim ();
+		Method method = null;
+		final ConverterLibrary cvtlib = ConverterLibrary.getInstance ();
+		//
+		// Special case for single parameter construction, give priority to
+		// String Type
+		//
+		if (n == 0) {
+			try {
+				method = BorderFactory.class.getMethod ("create" + borderType);
 
-            } catch (final NoSuchMethodException e) {
-                // intent. empty
-            }
-            if (method == null) { // try with empty string
-                n = 1;
-                params.add (" ");
-            }
-        }
-        if (n == 1) {
-            try {
-                method = BorderFactory.class.getMethod ("create" + borderType,
-                        new Class<?> [] { String.class });
-            } catch (final NoSuchMethodException e) {
-                // no need to do anything here.
-            }
-        }
-        for (int i = 0 ; (method == null)
-                && (i < BorderConverter.METHODS.length) ; i++) {
-            if ( (BorderConverter.METHODS [i].getParameterTypes ().length == n)
-                    && BorderConverter.METHODS [i].getName ().endsWith (
-                            borderType)) {
-                method = BorderConverter.METHODS [i];
+			} catch (final NoSuchMethodException e) {
+				// intent. empty
+			}
+			if (method == null) { // try with empty string
+				n = 1;
+				params.add (" ");
+			}
+		}
+		if (n == 1) {
+			try {
+				method = BorderFactory.class.getMethod ("create" + borderType,
+				        new Class<?> [] { String.class });
+			} catch (final NoSuchMethodException e) {
+				// no need to do anything here.
+			}
+		}
+		for (int i = 0; (method == null)
+		        && (i < BorderConverter.METHODS.length); i++) {
+			if ( (BorderConverter.METHODS [i].getParameterTypes ().length == n)
+			        && BorderConverter.METHODS [i].getName ().endsWith (
+			                borderType)) {
+				method = BorderConverter.METHODS [i];
 
-                for (int j = 0 ; j < method.getParameterTypes ().length ; j++) {
-                    if (String.class.equals (method.getParameterTypes () [j])) {
-                        continue;
-                    }
-                    if (null == cvtlib.getConverter (method
-                            .getParameterTypes () [j])) {
-                        method = null;
-                        break;
-                    }
-                }
-            }
-        }
-        try {
-            final Object [] args = new Object [n];
-            for (int i = 0 ; i < n ; i++) { // fill argument array
-                final Converter converter = cvtlib.getConverter (method
-                        .getParameterTypes () [i]);
-                Class<?> convertsTo = Void.class;
-                if (converter != null) {
-                    convertsTo = converter.convertsTo ();
-                }
-                final Attribute attrib = new Attribute (
-                        String.class.equals (convertsTo) ? "title" : "NA",
-                        params.remove (0).trim ());
-                if (converter != null) {
-                    args [i] = converter.convert (
-                            method.getParameterTypes () [i], attrib, localizer);
-                } else {
-                    args [i] = attrib.getValue ();
-                }
-            }
-            border = (Border) method.invoke (null, args);
-        } catch (final Exception e) {
-            if (AppConstants.DEBUG_MODE) {
-                System.err.println ("Couldn't create border, "
-                        + attr.getValue () + "\n" + e.getMessage ());
-            }
-        }
-        return border;
-    }
+				for (int j = 0; j < method.getParameterTypes ().length; j++) {
+					if (String.class.equals (method.getParameterTypes () [j])) {
+						continue;
+					}
+					if (null == cvtlib.getConverter (method
+					        .getParameterTypes () [j])) {
+						method = null;
+						break;
+					}
+				}
+			}
+		}
+		try {
+			final Object [] args = new Object [n];
+			for (int i = 0; i < n; i++) { // fill argument array
+				final Converter converter = cvtlib.getConverter (method
+				        .getParameterTypes () [i]);
+				Class<?> convertsTo = Void.class;
+				if (converter != null) {
+					convertsTo = converter.convertsTo ();
+				}
+				final Attribute attrib = new Attribute (
+				        String.class.equals (convertsTo) ? "title" : "NA",
+				        params.remove (0).trim ());
+				if (converter != null) {
+					args [i] = converter.convert (
+					        method.getParameterTypes () [i], attrib, localizer);
+				} else {
+					args [i] = attrib.getValue ();
+				}
+			}
+			border = (Border) method.invoke (null, args);
+		} catch (final Exception e) {
+			if (AppConstants.DEBUG_MODE) {
+				System.err.println ("Couldn't create border, "
+				        + attr.getValue () + "\n" + e.getMessage ());
+			}
+		}
+		return border;
+	}
 
-    /**
-     * A <code>Converters</code> conversTo method informs about the Class<?>
-     * type the converter is returning when its <code>convert</code> method is
-     * called
-     * 
-     * @return <code>Class</code> - the Class<?> the converter is returning when
-     *         its convert method is called
-     */
-    @Override
-    public Class<?> convertsTo () {
-        return BorderConverter.TEMPLATE;
-    }
+	/**
+	 * A <code>Converters</code> conversTo method informs about the Class<?>
+	 * type the converter is returning when its <code>convert</code> method is
+	 * called
+	 * 
+	 * @return <code>Class</code> - the Class<?> the converter is returning when
+	 *         its convert method is called
+	 */
+	@Override
+	public Class<?> convertsTo () {
+		return BorderConverter.TEMPLATE;
+	}
 
-    /**
-     * Parse a border attribute value into the border type and parameters, where
-     * the parameters may specify additional <code>Border</code> constructors.
-     * For example, the following string <br>
-     * "CompoundBorder(LineBorder(blue,5), CompoundBorder(EmptyBorder(2,2,2,2), RaisedBevelBorder))"
-     * <br>
-     * would be parsed into three strings: <br>
-     * CompoundBorder <br>
-     * LineBorder(blue,5) <br>
-     * CompoundBorder(EmptyBorder(2,2,2,2), RaisedBevelBorder) <br>
-     * 
-     * @param input
-     *            <code>String</code> containing the value to parse
-     * @return <code>List&lt;String&gt;</code> containing the values parsed
-     */
-    private List<String> parse (String input) {
-        final ArrayList<String> tokens = new ArrayList<String> ();
-        int index = input.indexOf ('(');
-        if (index < 0) {
-            tokens.add (input);
-        } else {
-            tokens.add (input.substring (0, index));
-            while (++index < input.length ()) {
-                int depth = 0;
-                final int beginIndex = index;
-                while ( (depth >= 0) && (++index < input.length ())) {
-                    if ( (input.charAt (index) == ',') && (depth == 0)) {
-                        break;
-                    }
-                    if (input.charAt (index) == '(') {
-                        ++depth;
-                    } else if (input.charAt (index) == ')') {
-                        --depth;
-                    }
-                }
-                if (index < input.length ()) {
-                    tokens.add (input.substring (beginIndex, index));
-                }
-            }
-        }
-        return tokens;
-    }
+	/**
+	 * Parse a border attribute value into the border type and parameters, where
+	 * the parameters may specify additional <code>Border</code> constructors.
+	 * For example, the following string <br>
+	 * "CompoundBorder(LineBorder(blue,5), CompoundBorder(EmptyBorder(2,2,2,2), RaisedBevelBorder))"
+	 * <br>
+	 * would be parsed into three strings: <br>
+	 * CompoundBorder <br>
+	 * LineBorder(blue,5) <br>
+	 * CompoundBorder(EmptyBorder(2,2,2,2), RaisedBevelBorder) <br>
+	 * 
+	 * @param input
+	 *            <code>String</code> containing the value to parse
+	 * @return <code>List&lt;String&gt;</code> containing the values parsed
+	 */
+	private List<String> parse (String input) {
+		final ArrayList<String> tokens = new ArrayList<String> ();
+		int index = input.indexOf ('(');
+		if (index < 0) {
+			tokens.add (input);
+		} else {
+			tokens.add (input.substring (0, index));
+			while (++index < input.length ()) {
+				int depth = 0;
+				final int beginIndex = index;
+				while ( (depth >= 0) && (++index < input.length ())) {
+					if ( (input.charAt (index) == ',') && (depth == 0)) {
+						break;
+					}
+					if (input.charAt (index) == '(') {
+						++depth;
+					} else if (input.charAt (index) == ')') {
+						--depth;
+					}
+				}
+				if (index < input.length ()) {
+					tokens.add (input.substring (beginIndex, index));
+				}
+			}
+		}
+		return tokens;
+	}
 
 }

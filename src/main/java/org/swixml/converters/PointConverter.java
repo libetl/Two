@@ -69,48 +69,48 @@ import org.swixml.Localizer;
  * @see org.swixml.ConverterLibrary
  */
 public class PointConverter implements Converter {
-    /** converter's return type */
-    public static final Class<?> TEMPLATE = Point.class;
+	/** converter's return type */
+	public static final Class<?>	TEMPLATE	= Point.class;
 
-    /**
-     * Converts a String into an Point object
-     * 
-     * @param type
-     *            <code>Class</code> not used
-     * @param attr
-     *            <code>Attribute</code> value fields needs provides convertable
-     *            String
-     * @return <code>Object</code> - runtime type is <code>Point</code>
-     */
-    @Override
-    public Object convert (final Class<?> type, final Attribute attr,
-            Localizer localizer) {
-        if (attr != null) {
-            final StringTokenizer st = new StringTokenizer (attr.getValue (),
-                    ",");
-            int x = 0;
-            int y = 0;
-            if (st.hasMoreTokens ()) {
-                x = Integer.parseInt (st.nextToken ().trim ());
-            }
-            if (st.hasMoreTokens ()) {
-                y = Integer.parseInt (st.nextToken ().trim ());
-            }
-            return new Point (x, y);
-        }
-        return null;
-    }
+	/**
+	 * Converts a String into an Point object
+	 * 
+	 * @param type
+	 *            <code>Class</code> not used
+	 * @param attr
+	 *            <code>Attribute</code> value fields needs provides convertable
+	 *            String
+	 * @return <code>Object</code> - runtime type is <code>Point</code>
+	 */
+	@Override
+	public Object convert (final Class<?> type, final Attribute attr,
+	        Localizer localizer) {
+		if (attr != null) {
+			final StringTokenizer st = new StringTokenizer (attr.getValue (),
+			        ",");
+			int x = 0;
+			int y = 0;
+			if (st.hasMoreTokens ()) {
+				x = Integer.parseInt (st.nextToken ().trim ());
+			}
+			if (st.hasMoreTokens ()) {
+				y = Integer.parseInt (st.nextToken ().trim ());
+			}
+			return new Point (x, y);
+		}
+		return null;
+	}
 
-    /**
-     * A <code>Converters</code> conversTo method informs about the Class<?>
-     * type the converter is returning when its <code>convert</code> method is
-     * called
-     * 
-     * @return <code>Class</code> - the Class<?> the converter is returning when
-     *         its convert method is called
-     */
-    @Override
-    public Class<?> convertsTo () {
-        return PointConverter.TEMPLATE;
-    }
+	/**
+	 * A <code>Converters</code> conversTo method informs about the Class<?>
+	 * type the converter is returning when its <code>convert</code> method is
+	 * called
+	 * 
+	 * @return <code>Class</code> - the Class<?> the converter is returning when
+	 *         its convert method is called
+	 */
+	@Override
+	public Class<?> convertsTo () {
+		return PointConverter.TEMPLATE;
+	}
 }

@@ -64,29 +64,29 @@ package org.swixml;
  */
 public interface Converter {
 
-    /**
-     * Convert the value of the given <code>Attribute</code> object into an
-     * output object of the specified type.
-     * 
-     * @param type
-     *            <code>Class</code> Data type to which the Attribute's value
-     *            should be converted
-     * @param attr
-     *            <code>Attribute</code> the attribute, providing the value to
-     *            be converted.
-     * 
-     */
-    Object convert (final Class<?> type, final Attribute attr,
-            final Localizer localizer) throws Exception;
+	/**
+	 * Convert the value of the given <code>Attribute</code> object into an
+	 * output object of the specified type.
+	 * 
+	 * @param type
+	 *            <code>Class</code> Data type to which the Attribute's value
+	 *            should be converted
+	 * @param attr
+	 *            <code>Attribute</code> the attribute, providing the value to
+	 *            be converted.
+	 * 
+	 */
+	Object convert (final Class<?> type, final Attribute attr,
+	        final Localizer localizer) throws Exception;
 
-    /**
-     * A <code>Converters</code> conversTo method informs about the Class<?>
-     * type the converter is returning when its <code>convert</code> method is
-     * called
-     * 
-     * @return <code>Class</code> - the Class<?> the converter is returning when
-     *         its convert method is called
-     */
-    Class<?> convertsTo ();
+	/**
+	 * A <code>Converters</code> conversTo method informs about the Class<?>
+	 * type the converter is returning when its <code>convert</code> method is
+	 * called
+	 * 
+	 * @return <code>Class</code> - the Class<?> the converter is returning when
+	 *         its convert method is called
+	 */
+	Class<?> convertsTo ();
 
 }

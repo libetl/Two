@@ -68,57 +68,57 @@ import junit.framework.TestCase;
  * @author Wolf Paulus
  */
 public class IdTest extends TestCase {
-    public static final String DESCRIPTOR = "xml/id.xml";
-    private JPanel             pnl1, pnl11, pnl2;
-    private JButton            btn1, btn2, btn3;
-    private boolean            b1, b2;
-    public Action              a1         = new AbstractAction () {
-                                              /**
+	public static final String	DESCRIPTOR	= "xml/id.xml";
+	private JPanel	           pnl1, pnl11, pnl2;
+	private JButton	           btn1, btn2, btn3;
+	private boolean	           b1, b2;
+	public Action	           a1	       = new AbstractAction () {
+		                                       /**
          * 
          */
-                                              private static final long serialVersionUID = 6649960716395063704L;
+		                                       private static final long	serialVersionUID	= 6649960716395063704L;
 
-                                              @Override
-                                              public void actionPerformed (
-                                                      ActionEvent e) {
-                                                  IdTest.this.b1 = true;
-                                              }
-                                          };
+		                                       @Override
+		                                       public void actionPerformed (
+		                                               ActionEvent e) {
+			                                       IdTest.this.b1 = true;
+		                                       }
+	                                       };
 
-    public IdTest () throws Exception {
-        super ("ID Tests");
-        AppConstants.DEBUG_MODE = true;
-        new SwingEngine (this).render (IdTest.DESCRIPTOR);
-    }
+	public IdTest () throws Exception {
+		super ("ID Tests");
+		AppConstants.DEBUG_MODE = true;
+		new SwingEngine (this).render (IdTest.DESCRIPTOR);
+	}
 
-    public void m1 () {
-        this.b2 = true;
-    }
+	public void m1 () {
+		this.b2 = true;
+	}
 
-    public void testRefId () {
-        TestCase.assertNotNull (this.pnl1);
-        TestCase.assertNotNull (this.pnl11);
-        TestCase.assertNotNull (this.pnl2);
+	public void testRefId () {
+		TestCase.assertNotNull (this.pnl1);
+		TestCase.assertNotNull (this.pnl11);
+		TestCase.assertNotNull (this.pnl2);
 
-        TestCase.assertEquals (Color.red, this.pnl1.getBackground ());
-        TestCase.assertEquals (this.pnl1.getBackground (),
-                this.pnl2.getBackground ());
-        TestCase.assertNotSame (this.pnl1.getBackground (),
-                this.pnl11.getBackground ());
-        TestCase.assertEquals (this.pnl1.getFont (), this.pnl11.getFont ());
-        TestCase.assertNotSame (this.pnl1.getFont (), this.pnl2.getFont ());
+		TestCase.assertEquals (Color.red, this.pnl1.getBackground ());
+		TestCase.assertEquals (this.pnl1.getBackground (),
+		        this.pnl2.getBackground ());
+		TestCase.assertNotSame (this.pnl1.getBackground (),
+		        this.pnl11.getBackground ());
+		TestCase.assertEquals (this.pnl1.getFont (), this.pnl11.getFont ());
+		TestCase.assertNotSame (this.pnl1.getFont (), this.pnl2.getFont ());
 
-        TestCase.assertNotNull (this.btn1.getAction ());
-        TestCase.assertNotNull (this.btn2.getAction ());
-        TestCase.assertNotNull (this.btn3.getAction ());
+		TestCase.assertNotNull (this.btn1.getAction ());
+		TestCase.assertNotNull (this.btn2.getAction ());
+		TestCase.assertNotNull (this.btn3.getAction ());
 
-        TestCase.assertEquals (this.btn1.getAction (), this.btn3.getAction ());
-        TestCase.assertNotSame (this.btn1.getAction (), this.btn2.getAction ());
-        TestCase.assertFalse (this.b2);
-        this.btn2.doClick ();
-        TestCase.assertTrue (this.b2);
-        TestCase.assertFalse (this.b1);
-        this.btn3.doClick ();
-        TestCase.assertTrue (this.b1);
-    }
+		TestCase.assertEquals (this.btn1.getAction (), this.btn3.getAction ());
+		TestCase.assertNotSame (this.btn1.getAction (), this.btn2.getAction ());
+		TestCase.assertFalse (this.b2);
+		this.btn2.doClick ();
+		TestCase.assertTrue (this.b2);
+		TestCase.assertFalse (this.b1);
+		this.btn3.doClick ();
+		TestCase.assertTrue (this.b1);
+	}
 }

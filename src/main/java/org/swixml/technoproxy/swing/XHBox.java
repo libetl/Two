@@ -63,12 +63,12 @@ import javax.swing.BoxLayout;
  */
 public class XHBox extends Box {
 
-    /**
+	/**
 	 * 
 	 */
-    private static final long serialVersionUID = -4640160664616145585L;
+	private static final long	serialVersionUID	= -4640160664616145585L;
 
-    public XHBox () {
-        super (BoxLayout.X_AXIS);
-    }
+	public XHBox () {
+		super (BoxLayout.X_AXIS);
+	}
 }

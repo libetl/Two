@@ -85,83 +85,83 @@ import org.swixml.Localizer;
  * </pre>
  */
 public class ColorConverter implements Converter {
-    /** converter's return type */
-    public static final Class<?> TEMPLATE = Color.class;
+	/** converter's return type */
+	public static final Class<?>	TEMPLATE	= Color.class;
 
-    /**
-     * Returns a <code>java.awt.Color</code> runtime object
-     * 
-     * @param type
-     *            <code>Class</code> not used
-     * @param attr
-     *            <code>Attribute</code> value needs to provide a String
-     * @return runtime type is subclass of <code>java.awt.Color</code>
-     */
-    public static Object conv (final Class<?> type, final Attribute attr) {
-        if (attr != null) {
-            try {
-                final Field field = Color.class.getField (attr.getValue ());
-                if (Color.class.equals (field.getType ())
-                        && Modifier.isStatic (field.getModifiers ())) {
-                    return field.get (Color.class);
-                }
-            } catch (final NoSuchFieldException e) {
-            } catch (final SecurityException e) {
-            } catch (final IllegalAccessException e) {
-            }
-            final StringTokenizer st = new StringTokenizer (attr.getValue (),
-                    ",");
-            if (1 == st.countTokens ()) {
-                try {
-                    return new Color (Integer.parseInt (
-                            st.nextToken ().trim (), 16));
-                } catch (final NumberFormatException e) {
-                    if (AppConstants.DEBUG_MODE) {
-                        System.err.println (e);
-                    }
-                    return null;
-                }
-            }
-            final int [] para = Util.ia (st);
-            if (4 <= para.length) {
-                return new Color (para [0], para [1], para [2], para [3]);
-            }
-            if (3 <= para.length) {
-                return new Color (para [0], para [1], para [2]);
-            }
-            if (1 <= para.length) {
-                return new Color (para [0]);
-            }
-        }
-        return null;
-    }
+	/**
+	 * Returns a <code>java.awt.Color</code> runtime object
+	 * 
+	 * @param type
+	 *            <code>Class</code> not used
+	 * @param attr
+	 *            <code>Attribute</code> value needs to provide a String
+	 * @return runtime type is subclass of <code>java.awt.Color</code>
+	 */
+	public static Object conv (final Class<?> type, final Attribute attr) {
+		if (attr != null) {
+			try {
+				final Field field = Color.class.getField (attr.getValue ());
+				if (Color.class.equals (field.getType ())
+				        && Modifier.isStatic (field.getModifiers ())) {
+					return field.get (Color.class);
+				}
+			} catch (final NoSuchFieldException e) {
+			} catch (final SecurityException e) {
+			} catch (final IllegalAccessException e) {
+			}
+			final StringTokenizer st = new StringTokenizer (attr.getValue (),
+			        ",");
+			if (1 == st.countTokens ()) {
+				try {
+					return new Color (Integer.parseInt (
+					        st.nextToken ().trim (), 16));
+				} catch (final NumberFormatException e) {
+					if (AppConstants.DEBUG_MODE) {
+						System.err.println (e);
+					}
+					return null;
+				}
+			}
+			final int [] para = Util.ia (st);
+			if (4 <= para.length) {
+				return new Color (para [0], para [1], para [2], para [3]);
+			}
+			if (3 <= para.length) {
+				return new Color (para [0], para [1], para [2]);
+			}
+			if (1 <= para.length) {
+				return new Color (para [0]);
+			}
+		}
+		return null;
+	}
 
-    /**
-     * Returns a <code>java.awt.Color</code> runtime object
-     * 
-     * @param type
-     *            <code>Class</code> not used
-     * @param attr
-     *            <code>Attribute</code> value needs to provide a String
-     * @return runtime type is subclass of <code>java.awt.Color</code>
-     */
-    @Override
-    public Object convert (final Class<?> type, final Attribute attr,
-            Localizer localizer) {
-        return ColorConverter.conv (type, attr);
-    }
+	/**
+	 * Returns a <code>java.awt.Color</code> runtime object
+	 * 
+	 * @param type
+	 *            <code>Class</code> not used
+	 * @param attr
+	 *            <code>Attribute</code> value needs to provide a String
+	 * @return runtime type is subclass of <code>java.awt.Color</code>
+	 */
+	@Override
+	public Object convert (final Class<?> type, final Attribute attr,
+	        Localizer localizer) {
+		return ColorConverter.conv (type, attr);
+	}
 
-    /**
-     * A <code>Converters</code> conversTo method informs about the Class<?>
-     * type the converter is returning when its <code>convert</code> method is
-     * called
-     * 
-     * @return <code>Class</code> - the Class<?> the converter is returning when
-     *         its convert method is called
-     */
-    @Override
-    public Class<?> convertsTo () {
-        return ColorConverter.TEMPLATE;
-    }
+	/**
+	 * A <code>Converters</code> conversTo method informs about the Class<?>
+	 * type the converter is returning when its <code>convert</code> method is
+	 * called
+	 * 
+	 * @return <code>Class</code> - the Class<?> the converter is returning when
+	 *         its convert method is called
+	 */
+	@Override
+	public Class<?> convertsTo () {
+		return ColorConverter.TEMPLATE;
+	}
 
 }

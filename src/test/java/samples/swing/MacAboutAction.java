@@ -14,15 +14,15 @@ import javax.swing.JOptionPane;
  * @author $Author: tichy $
  */
 public class MacAboutAction extends AbstractAction {
-    /**
+	/**
 	 * 
 	 */
-    private static final long serialVersionUID = -6952246277516483337L;
+	private static final long	serialVersionUID	= -6952246277516483337L;
 
-    @Override
-    public void actionPerformed (ActionEvent e) {
-        JOptionPane.showMessageDialog ((Component) MacTest.getSwix ().getRootComponent (),
-                "This is the Mac OS X Example.");
-    }
+	@Override
+	public void actionPerformed (ActionEvent e) {
+		JOptionPane.showMessageDialog ((Component) MacTest.getSwix ()
+		        .getRootComponent (), "This is the Mac OS X Example.");
+	}
 
 }

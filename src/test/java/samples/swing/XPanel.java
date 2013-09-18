@@ -20,17 +20,17 @@ import org.swixml.SwingEngine;
 
 public class XPanel extends JPanel {
 
-    /**
+	/**
 	 * 
 	 */
-    private static final long serialVersionUID = 1503710571522599188L;
-    private final SwingEngine swix             = new SwingEngine (this);
+	private static final long	serialVersionUID	= 1503710571522599188L;
+	private final SwingEngine	swix	         = new SwingEngine (this);
 
-    public void setXml (String resource) {
-        try {
-            this.swix.insert ("xml/" + resource, this);
-        } catch (final Exception e) {
-            System.err.println (e.getMessage ());
-        }
-    }
+	public void setXml (String resource) {
+		try {
+			this.swix.insert ("xml/" + resource, this);
+		} catch (final Exception e) {
+			System.err.println (e.getMessage ());
+		}
+	}
 }

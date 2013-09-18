@@ -23,25 +23,25 @@ import javax.swing.JOptionPane;
  */
 public class MacMultipleAction extends AbstractAction {
 
-    /**
+	/**
 	 * 
 	 */
-    private static final long serialVersionUID = -1947892683503764014L;
+	private static final long	serialVersionUID	= -1947892683503764014L;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-     */
-    @Override
-    public void actionPerformed (ActionEvent arg0) {
-        // TODO Auto-generated method stub
-        JOptionPane.showMessageDialog (
-                (Component) MacTest.getSwix ().getRootComponent (),
-                "This is the Mac OS X MultipleExample. Showing "
-                        + arg0.getActionCommand ());
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
+	@Override
+	public void actionPerformed (ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog (
+		        (Component) MacTest.getSwix ().getRootComponent (),
+		        "This is the Mac OS X MultipleExample. Showing "
+		                + arg0.getActionCommand ());
 
-    }
+	}
 
 }

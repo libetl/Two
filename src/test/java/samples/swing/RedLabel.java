@@ -7,18 +7,18 @@ import java.util.TimeZone;
 import javax.swing.JLabel;
 
 public class RedLabel extends JLabel {
-    /**
+	/**
 	 * 
 	 */
-    private static final long serialVersionUID = -114325883464194004L;
+	private static final long	serialVersionUID	= -114325883464194004L;
 
-    public RedLabel () {
-        this.setForeground (Color.red);
-        this.setFont (Font.decode ("VERDANA-BOLD-24"));
-    }
+	public RedLabel () {
+		this.setForeground (Color.red);
+		this.setFont (Font.decode ("VERDANA-BOLD-24"));
+	}
 
-    public void setTimeZone (TimeZone tz) {
+	public void setTimeZone (TimeZone tz) {
 
-        this.setText (tz.getDisplayName ());
-    }
+		this.setText (tz.getDisplayName ());
+	}
 }

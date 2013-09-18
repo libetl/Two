@@ -63,30 +63,30 @@ import javax.swing.AbstractAction;
  */
 
 public class XAction extends AbstractAction {
-    /**
+	/**
 	 * 
 	 */
-    private static final long serialVersionUID = -8615210200349528985L;
-    Method                    method;
-    Object                    client;
+	private static final long	serialVersionUID	= -8615210200349528985L;
+	Method	                  method;
+	Object	                  client;
 
-    public XAction (Object client, String methodName)
-            throws NoSuchMethodException {
-        this.client = client;
-        if (client != null) {
-            this.method = client.getClass ().getMethod (methodName);
-        }
+	public XAction (Object client, String methodName)
+	        throws NoSuchMethodException {
+		this.client = client;
+		if (client != null) {
+			this.method = client.getClass ().getMethod (methodName);
+		}
 
-    }
+	}
 
-    @Override
-    public void actionPerformed (ActionEvent e) {
-        try {
-            this.method.invoke (this.client);
-        } catch (final IllegalAccessException e1) {
-            e1.printStackTrace ();
-        } catch (final InvocationTargetException e1) {
-            e1.printStackTrace ();
-        }
-    }
+	@Override
+	public void actionPerformed (ActionEvent e) {
+		try {
+			this.method.invoke (this.client);
+		} catch (final IllegalAccessException e1) {
+			e1.printStackTrace ();
+		} catch (final InvocationTargetException e1) {
+			e1.printStackTrace ();
+		}
+	}
 }

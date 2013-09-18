@@ -20,63 +20,63 @@ import org.swixml.SwingEngine;
  */
 public class Cards {
 
-    private static final String DESCRIPTOR = "xml/cards.xml";
+	private static final String	DESCRIPTOR	= "xml/cards.xml";
 
-    public static void main (String [] args) {
-        try {
-            new Cards ();
-        } catch (final Exception e) {
-            System.err.println (e.getMessage ());
-        }
-    }
+	public static void main (String [] args) {
+		try {
+			new Cards ();
+		} catch (final Exception e) {
+			System.err.println (e.getMessage ());
+		}
+	}
 
-    private final SwingEngine swix       = new SwingEngine (this);
+	private final SwingEngine	swix	 = new SwingEngine (this);
 
-    /** panel with a CardLayout */
-    public JPanel             pnl;
+	/** panel with a CardLayout */
+	public JPanel	          pnl;
 
-    /** shows the next card */
-    public Action             nextAction = new AbstractAction () {
-                                             /**
+	/** shows the next card */
+	public Action	          nextAction	= new AbstractAction () {
+		                                     /**
          * 
          */
-                                             private static final long serialVersionUID = 7726724582953555227L;
+		                                     private static final long	serialVersionUID	= 7726724582953555227L;
 
-                                             @Override
-                                             public void actionPerformed (
-                                                     ActionEvent e) {
-                                                 final CardLayout cl = (CardLayout) (Cards.this.pnl
-                                                         .getLayout ());
-                                                 cl.next (Cards.this.pnl);
-                                             }
-                                         };
+		                                     @Override
+		                                     public void actionPerformed (
+		                                             ActionEvent e) {
+			                                     final CardLayout cl = (CardLayout) (Cards.this.pnl
+			                                             .getLayout ());
+			                                     cl.next (Cards.this.pnl);
+		                                     }
+	                                     };
 
-    /** shows the card with the id requested in the actioncommand */
-    public Action             showAction = new AbstractAction () {
-                                             /**
+	/** shows the card with the id requested in the actioncommand */
+	public Action	          showAction	= new AbstractAction () {
+		                                     /**
          * 
          */
-                                             private static final long serialVersionUID = 4644320744775529825L;
+		                                     private static final long	serialVersionUID	= 4644320744775529825L;
 
-                                             @Override
-                                             public void actionPerformed (
-                                                     ActionEvent e) {
-                                                 // System.err.println(
-                                                 // "ActionCommand=" +
-                                                 // e.getActionCommand() );
-                                                 final CardLayout cl = (CardLayout) (Cards.this.pnl
-                                                         .getLayout ());
-                                                 if (e != null) {
-                                                     cl.show (
-                                                             Cards.this.pnl,
-                                                             e.getActionCommand ());
-                                                 }
-                                             }
-                                         };
+		                                     @Override
+		                                     public void actionPerformed (
+		                                             ActionEvent e) {
+			                                     // System.err.println(
+			                                     // "ActionCommand=" +
+			                                     // e.getActionCommand() );
+			                                     final CardLayout cl = (CardLayout) (Cards.this.pnl
+			                                             .getLayout ());
+			                                     if (e != null) {
+				                                     cl.show (
+				                                             Cards.this.pnl,
+				                                             e.getActionCommand ());
+			                                     }
+		                                     }
+	                                     };
 
-    private Cards () throws Exception {
-        ((JComponent) this.swix.render (Cards.DESCRIPTOR)).setVisible (true);
-        this.showAction.actionPerformed (null);
-    }
+	private Cards () throws Exception {
+		((JComponent) this.swix.render (Cards.DESCRIPTOR)).setVisible (true);
+		this.showAction.actionPerformed (null);
+	}
 
 }
