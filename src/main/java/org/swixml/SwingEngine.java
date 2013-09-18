@@ -52,14 +52,6 @@
  */
 package org.swixml;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Frame;
-import java.awt.Window;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -76,13 +68,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.swing.AbstractButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.swixml.technoproxy.CustomCodeProxy;
 import org.w3c.dom.Document;
 
 /**
@@ -96,7 +85,7 @@ import org.w3c.dom.Document;
  * @version $Revision: 1.5 $
  * @SuppressWarnings ("UnusedDeclaration")
  */
-public class SwingEngine {
+public class SwingEngine<Container, Component, ActionListener> {
     //
     // Static Constants
     //
@@ -130,11 +119,11 @@ public class SwingEngine {
     /**
      * Debug / Release Mode
      */
-    public static boolean       DEBUG_MODE                   = false;
+    public boolean       DEBUG_MODE                   = false;
     /**
      * main frame
      */
-    private static Frame        appFrame;
+    private Container    appFrame;
     /**
      * static resource bundle
      */
@@ -169,8 +158,8 @@ public class SwingEngine {
     /**
      * @return <code>Window</code> a parent for all dialogs.
      */
-    public static Frame getAppFrame () {
-        return SwingEngine.appFrame;
+    public Container getAppFrame () {
+        return this.appFrame;
     }
 
     /**
@@ -198,10 +187,10 @@ public class SwingEngine {
      * @param frame
      *            <code>Window</code> the parent for all future dialogs.
      */
-    public static void setAppFrame (Frame frame) {
+    public void setAppFrame (Container frame) {
         if (frame != null) {
-            if (SwingEngine.appFrame == null) {
-                SwingEngine.appFrame = frame;
+            if (this.appFrame == null) {
+                this.appFrame = frame;
             }
         }
     }
@@ -256,22 +245,12 @@ public class SwingEngine {
      *            which hold an unique id
      *            </p>
      */
-    protected static void traverse (final Component c,
+    public void traverse (final Component c,
             Collection<Component> collection) {
         if (c != null) {
             collection.add (c);
-            if (c instanceof JMenu) {
-                final JMenu m = (JMenu) c;
-                final int k = m.getItemCount ();
-                for (int i = 0 ; i < k ; i++) {
-                    SwingEngine.traverse (m.getItem (i), collection);
-                }
-            } else if (c instanceof Container) {
-                final Component [] s = ((Container) c).getComponents ();
-                for (final Component value : s) {
-                    SwingEngine.traverse (value, collection);
-                }
-            }
+            CustomCodeProxy.doProxy (this,
+                    c, collection);
         }
     }
 
@@ -281,7 +260,7 @@ public class SwingEngine {
     /**
      * Swixml Parser.
      */
-    private final Parser              parser     = new Parser (this);
+    private final Parser<Container> parser     = new Parser<Container> (this);
 
     /**
      * Client object hosting the swingengine, alternative to extending the
@@ -371,7 +350,7 @@ public class SwingEngine {
             }
             this.render (in);
         } catch (final Exception e) {
-            if (SwingEngine.DEBUG_MODE) {
+            if (this.DEBUG_MODE) {
                 System.err.println (e);
             }
         } finally {
@@ -429,10 +408,7 @@ public class SwingEngine {
         while ( (it != null) && it.hasNext ()) {
             final String key = it.next ();
             final Object obj = this.idmap.get (key);
-            if ( (obj instanceof Component)
-                    && ! ((Component) obj).isDisplayable ()) {
-                zombies.add (key);
-            }
+            CustomCodeProxy.doProxy (this, obj, zombies, key);
         }
         for (int i = 0 ; i < zombies.size () ; i++) {
             this.idmap.remove (zombies.get (i));
@@ -449,10 +425,11 @@ public class SwingEngine {
      * @return <code>Component</code>- the GUI component with the given name or
      *         null if not found.
      */
+    @SuppressWarnings ("unchecked")
     public Component find (final String id) {
         Object obj = this.idmap.get (id);
         if ( (obj != null)
-                && !Component.class.isAssignableFrom (obj.getClass ())) {
+                && !(Component.class.isAssignableFrom (obj.getClass ())) {
             obj = null;
         }
         return (Component) obj;
@@ -474,9 +451,10 @@ public class SwingEngine {
      * 
      * @return <code>Iterator</code> GUI components itearator
      */
+    @SuppressWarnings ("unchecked")
     public Iterator<Component> getAllComponentItertor () {
         if (this.components == null) {
-            SwingEngine.traverse (this.root,
+            this.traverse ((Component)this.root,
                     this.components = new ArrayList<Component> ());
         }
         return this.components.iterator ();
@@ -521,16 +499,16 @@ public class SwingEngine {
      */
     public Iterator<Component> getDescendants (final Component c) {
         final List<Component> list = new ArrayList<Component> (12);
-        SwingEngine.traverse (c, list);
+        this.traverse (c, list);
         return list.iterator ();
     }
 
     /**
      * Returns an Iterator for id-ed parsed GUI components.
      * 
-     * @return <code>Iterator</code> GUI components itearator
+     * @return <code>Iterator</code> GUI components iterator
      */
-    public Iterator<Object> getIdComponentItertor () {
+    public Iterator<Object> getIdComponentIterator () {
         return this.idmap.values ().iterator ();
     }
 
@@ -607,7 +585,7 @@ public class SwingEngine {
         try {
             this.parser.parse (jdoc, container);
         } catch (final Exception e) {
-            if (SwingEngine.DEBUG_MODE) {
+            if (this.DEBUG_MODE) {
                 System.err.println (e);
             }
             throw (e);
@@ -812,7 +790,7 @@ public class SwingEngine {
                 // To prevent this, we try to instantiate with a default ctor.
                 //
                 if (flds [i] == null) {
-                    if (!SwingEngine.DEBUG_MODE) {
+                    if (!this.DEBUG_MODE) {
                         try {
                             flds [i].set (obj, flds [i].getType ()
                                     .newInstance ());
@@ -854,7 +832,7 @@ public class SwingEngine {
         try {
             this.root = (Container) this.parser.parse (jdoc);
         } catch (final Exception e) {
-            if (SwingEngine.DEBUG_MODE) {
+            if (this.DEBUG_MODE) {
                 System.err.println (e);
             }
             throw (e);
@@ -864,7 +842,7 @@ public class SwingEngine {
         // initialize all client fields with UI components by their id
         this.mapMembers (this.client);
         if (Frame.class.isAssignableFrom (this.root.getClass ())) {
-            SwingEngine.setAppFrame ((Frame) this.root);
+            this.setAppFrame ((Container) this.root);
         }
         return this.root;
     }
@@ -1042,33 +1020,5 @@ public class SwingEngine {
      */
     public void setResourceBundle (String bundlename) {
         this.localizer.setResourceBundle (bundlename);
-    }
-
-    /**
-     * Displays the GUI during a RAD session. If the root component is neither a
-     * JFrame nor a JDialog, the a JFrame is instantiated and the root is added
-     * into the new frames contentpane.
-     */
-    public void test () {
-        final WindowListener wl = new WindowAdapter () {
-            @Override
-            public void windowClosing (WindowEvent e) {
-                super.windowClosing (e);
-                System.exit (0);
-            }
-        };
-        if (this.root != null) {
-            if (JFrame.class.isAssignableFrom (this.root.getClass ())
-                    || JDialog.class.isAssignableFrom (this.root.getClass ())) {
-                ((Window) this.root).addWindowListener (wl);
-                this.root.setVisible (true);
-            } else {
-                final JFrame jf = new JFrame ("SwiXml Test");
-                jf.getContentPane ().add (this.root);
-                jf.pack ();
-                jf.addWindowListener (wl);
-                jf.setVisible (true);
-            }
-        }
     }
 }

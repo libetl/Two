@@ -52,7 +52,6 @@
 package org.swixml;
 
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.LayoutManager;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -106,7 +105,7 @@ import org.w3c.dom.NodeList;
  * @see org.swixml.ConverterLibrary
  * @SuppressWarnings ({ "unchecked", "deprecation" })
  */
-public class Parser {
+public class Parser<Container> {
 
     //
     // Custom Attributes
@@ -245,7 +244,7 @@ public class Parser {
      *            <code>Object</code> contraints
      * @return <code>Component</code> - the passed in component
      */
-    private static Component addChild (Container parent, Component component,
+    private Component addChild (Container parent, Component component,
             Object constrains) {
         if (component == null) {
             return null;
