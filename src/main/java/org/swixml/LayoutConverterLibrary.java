@@ -51,11 +51,6 @@
 
 package org.swixml;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,6 +60,7 @@ import org.swixml.layoutconverters.FlowLayoutConverter;
 import org.swixml.layoutconverters.FormLayoutConverter;
 import org.swixml.layoutconverters.GridBagLayoutConverter;
 import org.swixml.layoutconverters.GridLayoutConverter;
+import org.swixml.technoproxy.CustomCodeProxy;
 
 /**
  * <p>
@@ -85,9 +81,9 @@ public class LayoutConverterLibrary {
         return LayoutConverterLibrary.instance;
     }
 
-    private final Map<String, LayoutConverter> layoutConverters = new HashMap<String, LayoutConverter> ();
+    private final Map<String, LayoutConverter<?>> layoutConverters = new HashMap<String, LayoutConverter<?>> ();
 
-    private final Map<String, LayoutConverter> layoutIDs        = new HashMap<String, LayoutConverter> ();
+    private final Map<String, LayoutConverter<?>> layoutIDs        = new HashMap<String, LayoutConverter<?>> ();
 
     /**
      * The only available Ctor is private to make this a Singleton
@@ -105,7 +101,7 @@ public class LayoutConverterLibrary {
      *            to produce.
      * @return Instance of the LayoutConverter class.
      */
-    public LayoutConverter getLayoutConverter (Class<?> layoutClass) {
+    public LayoutConverter<?> getLayoutConverter (Class<?> layoutClass) {
         return this.layoutConverters.get (layoutClass.getName ());
     }
 
@@ -119,14 +115,14 @@ public class LayoutConverterLibrary {
      *            <code>LayoutConverter</code> needs to produce.
      * @return Instance of the LayoutConverter class.
      */
-    public LayoutConverter getLayoutConverterByID (String id) {
+    public LayoutConverter<?> getLayoutConverterByID (String id) {
         return this.layoutIDs.get (id.toLowerCase ());
     }
 
     /**
      * Returns all registered layout converters.
      */
-    public Map<String, LayoutConverter> getLayoutConverters () {
+    public Map<String, LayoutConverter<?>> getLayoutConverters () {
         return this.layoutConverters;
     }
 
@@ -139,7 +135,7 @@ public class LayoutConverterLibrary {
      *            Instance of LayoutConverter able to convert Strings into
      *            layout managers or layout constraints.
      */
-    public void register (Class<?> layoutClass, LayoutConverter layoutConverter) {
+    public void register (Class<?> layoutClass, LayoutConverter<?> layoutConverter) {
         this.register (layoutClass.getName (), layoutConverter);
     }
 
@@ -153,7 +149,7 @@ public class LayoutConverterLibrary {
      *            layout managers or layout constraints.
      */
     public void register (String layoutClassName,
-            LayoutConverter layoutConverter) {
+            LayoutConverter<?> layoutConverter) {
         this.layoutConverters.put (layoutClassName, layoutConverter);
         this.layoutIDs.put (layoutConverter.getID ().toLowerCase (),
                 layoutConverter);
@@ -163,11 +159,11 @@ public class LayoutConverterLibrary {
      * Registers <code>LayoutConverters</code> with the LayoutConverterLibrary.
      */
     private void registerLayoutConverters () {
-        this.register (BorderLayout.class, new BorderLayoutConverter ());
-        this.register (CardLayout.class, new CardLayoutConverter ());
-        this.register (FlowLayout.class, new FlowLayoutConverter ());
-        this.register (GridBagLayout.class, new GridBagLayoutConverter ());
-        this.register (GridLayout.class, new GridLayoutConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("BorderLayout"), new BorderLayoutConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("CardLayout"), new CardLayoutConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("FlowLayout"), new FlowLayoutConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("GridBagLayout"), new GridBagLayoutConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("GridLayout"), new GridLayoutConverter ());
 
         // 3rd party layout managers
         this.register ("com.jgoodies.forms.layout.FormLayout",

@@ -70,6 +70,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.swixml.converters.LocaleConverter;
 import org.swixml.converters.PrimitiveConverter;
 import org.swixml.technoproxy.CustomCodeProxy;
+import org.swixml.technoproxy.swing.MacApp;
 import org.swixml.technoproxy.swing.XAction;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;

@@ -53,24 +53,9 @@
 
 package org.swixml;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Insets;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Map;
-
-import javax.swing.Action;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.KeyStroke;
-import javax.swing.border.Border;
 
 import org.swixml.converters.ActionConverter;
 import org.swixml.converters.BorderConverter;
@@ -87,6 +72,7 @@ import org.swixml.converters.PointConverter;
 import org.swixml.converters.PrimitiveConverter;
 import org.swixml.converters.RectangleConverter;
 import org.swixml.converters.StringConverter;
+import org.swixml.technoproxy.CustomCodeProxy;
 
 /**
  * <p>
@@ -216,21 +202,21 @@ public class ConverterLibrary {
      * Registers <code>Converters</code> with the ConverterLibrary.
      */
     private void registerConverters () {
-        this.register (Action.class, new ActionConverter ());
-        this.register (Border.class, new BorderConverter ());
-        this.register (Color.class, new ColorConverter ());
-        this.register (Component.class, new ComponentConverter ());
-        this.register (Dimension.class, new DimensionConverter ());
-        this.register (Font.class, new FontConverter ());
-        this.register (Image.class, new ImageConverter ());
-        this.register (Icon.class, new ImageIconConverter ());
-        this.register (ImageIcon.class, new ImageIconConverter ());
-        this.register (Insets.class, new InsetsConverter ());
-        this.register (KeyStroke.class, new KeyStrokeConverter ());
-        this.register (Locale.class, new LocaleConverter ());
-        this.register (Point.class, new PointConverter ());
-        this.register (Rectangle.class, new RectangleConverter ());
-        this.register (String.class, new StringConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Action"), new ActionConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Border"), new BorderConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Color"), new ColorConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Component"), new ComponentConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Dimension"), new DimensionConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Font"), new FontConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Image"), new ImageConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Icon"), new ImageIconConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("ImageIcon"), new ImageIconConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Insets"), new InsetsConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("KeyStroke"), new KeyStrokeConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Locale"), new LocaleConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Point"), new PointConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Rectangle"), new RectangleConverter ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("String"), new StringConverter ());
         //
         // Register the PrimitiveConverter class for java primitive types
         //

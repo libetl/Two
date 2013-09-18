@@ -51,7 +51,6 @@
 
 package org.swixml;
 
-import java.awt.LayoutManager;
 
 import org.w3c.dom.Element;
 
@@ -65,7 +64,7 @@ import org.w3c.dom.Element;
  * @author Karl Tauber
  * @see LayoutConverterLibrary
  */
-public interface LayoutConverter {
+public interface LayoutConverter<LayoutManager> {
 
     /**
      * <p>

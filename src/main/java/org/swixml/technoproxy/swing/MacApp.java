@@ -50,12 +50,14 @@
  created by Wolf Paulus <wolf_AT_swixml_DOT_org>. For more information
  on the Swixml Project, please see <http://www.swixml.org/>.
  */
-package org.swixml;
+package org.swixml.technoproxy.swing;
 
 import java.awt.event.ActionEvent;
 import java.util.Map;
 
 import javax.swing.Action;
+
+import org.swixml.Parser;
 
 import com.apple.eawt.Application;
 import com.apple.eawt.ApplicationAdapter;

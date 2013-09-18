@@ -52,51 +52,8 @@
  */
 package org.swixml;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JApplet;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JDesktopPane;
-import javax.swing.JEditorPane;
-import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JPopupMenu;
-import javax.swing.JProgressBar;
-import javax.swing.JRadioButton;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JSeparator;
-import javax.swing.JSlider;
-import javax.swing.JSpinner;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.JToggleButton;
-import javax.swing.JToolBar;
-import javax.swing.JTree;
-import javax.swing.table.JTableHeader;
 
-import org.swixml.technoproxy.swing.XDialog;
-import org.swixml.technoproxy.swing.XGlue;
-import org.swixml.technoproxy.swing.XGridBagConstraints;
-import org.swixml.technoproxy.swing.XHBox;
-import org.swixml.technoproxy.swing.XScrollPane;
-import org.swixml.technoproxy.swing.XSplitPane;
-import org.swixml.technoproxy.swing.XTabbedPane;
-import org.swixml.technoproxy.swing.XTitledSeparator;
-import org.swixml.technoproxy.swing.XVBox;
+import org.swixml.technoproxy.CustomCodeProxy;
 
 /**
  * The SwingTagLibrary contains Factories for all Swing Objects that can be
@@ -125,54 +82,54 @@ public final class SwingTagLibrary extends TagLibrary {
 
     /**
      * Registers the tags this TagLibrary is all about. Strategy method called
-     * by the super class, allowing derived classes to change the registration
+     * by the super"), allowing derived")es to change the registration
      * behaviour.
      */
     @Override
     protected void registerTags () {
-        this.registerTag ("Applet", JApplet.class);
-        this.registerTag ("Button", JButton.class);
-        this.registerTag ("ButtonGroup", ButtonGroup.class);
-        this.registerTag ("HBox", XHBox.class);
-        this.registerTag ("VBox", XVBox.class);
-        this.registerTag ("Checkbox", JCheckBox.class);
-        this.registerTag ("CheckBoxMenuItem", JCheckBoxMenuItem.class);
-        this.registerTag ("ComboBox", JComboBox.class);
-        this.registerTag ("Component", JComponent.class);
-        this.registerTag ("DesktopPane", JDesktopPane.class);
-        this.registerTag ("Dialog", XDialog.class);
-        this.registerTag ("EditorPane", JEditorPane.class);
-        this.registerTag ("FormattedTextField", JFormattedTextField.class);
-        this.registerTag ("Frame", JFrame.class);
-        this.registerTag ("Glue", XGlue.class);
-        this.registerTag ("GridBagConstraints", XGridBagConstraints.class);
-        this.registerTag ("InternalFrame", JInternalFrame.class);
-        this.registerTag ("Label", JLabel.class);
-        this.registerTag ("List", JList.class);
-        this.registerTag ("Menu", JMenu.class);
-        this.registerTag ("Menubar", JMenuBar.class);
-        this.registerTag ("Menuitem", JMenuItem.class);
-        this.registerTag ("Panel", JPanel.class);
-        this.registerTag ("PasswordField", JPasswordField.class);
-        this.registerTag ("PopupMenu", JPopupMenu.class);
-        this.registerTag ("ProgressBar", JProgressBar.class);
-        this.registerTag ("RadioButton", JRadioButton.class);
-        this.registerTag ("RadioButtonMenuItem", JRadioButtonMenuItem.class);
-        this.registerTag ("OptionPane", JOptionPane.class);
-        this.registerTag ("ScrollPane", XScrollPane.class);
-        this.registerTag ("Separator", JSeparator.class);
-        this.registerTag ("Slider", JSlider.class);
-        this.registerTag ("Spinner", JSpinner.class);
-        this.registerTag ("SplitPane", XSplitPane.class);
-        this.registerTag ("TabbedPane", XTabbedPane.class);
-        this.registerTag ("Table", JTable.class);
-        this.registerTag ("TableHeader", JTableHeader.class);
-        this.registerTag ("TextArea", JTextArea.class);
-        this.registerTag ("TextField", JTextField.class);
-        this.registerTag ("TextPane", JTextPane.class);
-        this.registerTag ("TitledSeparator", XTitledSeparator.class);
-        this.registerTag ("ToggleButton", JToggleButton.class);
-        this.registerTag ("Tree", JTree.class);
-        this.registerTag ("Toolbar", JToolBar.class);
+        this.registerTag ("Applet", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JApplet"));
+        this.registerTag ("Button", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JButton"));
+        this.registerTag ("ButtonGroup", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("ButtonGroup"));
+        this.registerTag ("HBox", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("XHBox"));
+        this.registerTag ("VBox", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("XVBox"));
+        this.registerTag ("Checkbox", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JCheckBox"));
+        this.registerTag ("CheckBoxMenuItem", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JCheckBoxMenuItem"));
+        this.registerTag ("ComboBox", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JComboBox"));
+        this.registerTag ("Component", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JComponent"));
+        this.registerTag ("DesktopPane", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JDesktopPane"));
+        this.registerTag ("Dialog", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("XDialog"));
+        this.registerTag ("EditorPane", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JEditorPane"));
+        this.registerTag ("FormattedTextField", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JFormattedTextField"));
+        this.registerTag ("Frame", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JFrame"));
+        this.registerTag ("Glue", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("XGlue"));
+        this.registerTag ("GridBagConstraints", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("XGridBagConstraints"));
+        this.registerTag ("InternalFrame", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JInternalFrame"));
+        this.registerTag ("Label", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JLabel"));
+        this.registerTag ("List", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JList"));
+        this.registerTag ("Menu", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JMenu"));
+        this.registerTag ("Menubar", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JMenuBar"));
+        this.registerTag ("Menuitem", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JMenuItem"));
+        this.registerTag ("Panel", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JPanel"));
+        this.registerTag ("PasswordField", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JPasswordField"));
+        this.registerTag ("PopupMenu", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JPopupMenu"));
+        this.registerTag ("ProgressBar", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JProgressBar"));
+        this.registerTag ("RadioButton", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JRadioButton"));
+        this.registerTag ("RadioButtonMenuItem", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JRadioButtonMenuItem"));
+        this.registerTag ("OptionPane", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JOptionPane"));
+        this.registerTag ("ScrollPane", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("XScrollPane"));
+        this.registerTag ("Separator", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JSeparator"));
+        this.registerTag ("Slider", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JSlider"));
+        this.registerTag ("Spinner", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JSpinner"));
+        this.registerTag ("SplitPane", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("XSplitPane"));
+        this.registerTag ("TabbedPane", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("XTabbedPane"));
+        this.registerTag ("Table", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JTable"));
+        this.registerTag ("TableHeader", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JTableHeader"));
+        this.registerTag ("TextArea", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JTextArea"));
+        this.registerTag ("TextField", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JTextField"));
+        this.registerTag ("TextPane", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JTextPane"));
+        this.registerTag ("TitledSeparator", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("XTitledSeparator"));
+        this.registerTag ("ToggleButton", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JToggleButton"));
+        this.registerTag ("Tree", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JTree"));
+        this.registerTag ("Toolbar", CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("JToolBar"));
     }
 }
