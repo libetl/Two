@@ -51,8 +51,6 @@
 
 package org.swixml;
 
-import java.awt.Component;
-import java.awt.LayoutManager;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -66,25 +64,12 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import javax.swing.AbstractButton;
-import javax.swing.Action;
-import javax.swing.ButtonGroup;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.JSplitPane;
-import javax.swing.JToolBar;
-import javax.swing.RootPaneContainer;
-import javax.swing.UIManager;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.swixml.converters.LocaleConverter;
 import org.swixml.converters.PrimitiveConverter;
+import org.swixml.technoproxy.CustomCodeProxy;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -252,7 +237,7 @@ public class Parser<Container> {
         //
         // Set a JMenuBar for JFrames, JDialogs, etc.
         //
-        if (component instanceof JMenuBar) {
+        if (CustomCodeProxy.getTypeAnalyser ().isConvenient (component.getClass (), "MenuBar")) {
 
             try {
                 final Method m = parent.getClass ().getMethod ("setJMenuBar",
@@ -637,7 +622,7 @@ public class Parser<Container> {
                         method.invoke (obj, para); // ATTR SET
 
                     } catch (final NoSuchFieldException e) {
-                        if (SwingEngine.DEBUG_MODE) {
+                        if (AppConstants.DEBUG_MODE) {
                             System.err.println ("Method: " + method.getName ()
                                     + " Attribute " + attr.getName () + " : "
                                     + attr.getValue () + "' not set. ");
@@ -986,7 +971,8 @@ public class Parser<Container> {
         //
         // handle "layout" element or attribute
         //
-        if (obj instanceof Container) {
+        if (obj != null &&
+                CustomCodeProxy.getTypeAnalyser ().isConvenient (obj.getClass (), "Container")) {
             LayoutManager lm = null;
             final Element layoutElement = Parser.getChildByName (element,
                     "layout");
@@ -1004,7 +990,7 @@ public class Parser<Container> {
 
             if (lm == null) {
                 // search for case-insensitive "layout" attribute to ensure
-                // compatibiliity
+                // compatibility
                 Attribute layoutAttr = null;
                 for (int i = 0 ; i < attributes.size () ; i++) {
                     final Attribute attr = attributes.get (i);
@@ -1071,7 +1057,7 @@ public class Parser<Container> {
             }
             final Element child = (Element) nl.item (i);
             //
-            // Prepare for possible groupping through BottonGroup Tag
+            // Prepare for possible grouping through BottonGroup Tag
             //
             if ("buttongroup".equalsIgnoreCase (child.getNodeName ())) {
 
@@ -1145,12 +1131,12 @@ public class Parser<Container> {
             final Element grandchild = Parser.getChildByName (child,
                     "gridbagconstraints");
             if (grandchild != null) {
-                Parser.addChild ((Container) obj,
+                this.addChild ((Container) obj,
                         (Component) this.getSwing (child, null),
                         this.getSwing (grandchild, null));
             } else if (!child.getNodeName ().equals ("constraints")
                     && !child.getNodeName ().equals ("gridbagconstraints")) {
-                Parser.addChild ((Container) obj,
+                this.addChild ((Container) obj,
                         (Component) this.getSwing (child, null), constrains);
             }
         }
@@ -1168,14 +1154,14 @@ public class Parser<Container> {
                     if (JComponent.class.isAssignableFrom (obj.getClass ())) {
                         ((JComponent) obj).putClientProperty (attr.getName (),
                                 attr.getValue ());
-                        if (SwingEngine.DEBUG_MODE) {
+                        if (AppConstants.DEBUG_MODE) {
                             System.out.println ("ClientProperty put: "
                                     + obj.getClass ().getName () + "(" + id
                                     + "): " + attr.getName () + "="
                                     + attr.getValue ());
                         }
                     } else {
-                        if (SwingEngine.DEBUG_MODE) {
+                        if (AppConstants.DEBUG_MODE) {
                             System.err.println (attr.getName ()
                                     + " not applied for tag: <"
                                     + element.getNodeName () + ">");
@@ -1306,7 +1292,7 @@ public class Parser<Container> {
             try {
                 UIManager.setLookAndFeel (plaf);
             } catch (final Exception e) {
-                if (SwingEngine.DEBUG_MODE) {
+                if (AppConstants.DEBUG_MODE) {
                     System.err.println (e);
                 }
             }
@@ -1319,7 +1305,7 @@ public class Parser<Container> {
      * Link actions with the MacOS' system menu bar
      */
     private void supportMacOS () {
-        if (SwingEngine.isMacOSXSupported () && SwingEngine.isMacOSX ()) {
+        if (AppConstants.isMacOSXSupported () && AppConstants.isMacOSX ()) {
             try {
                 MacApp.getInstance ().update (this.mac_map);
             } catch (final Throwable t) {

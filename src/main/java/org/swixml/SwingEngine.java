@@ -72,6 +72,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.swixml.technoproxy.CustomCodeProxy;
+import org.swixml.technoproxy.TypeAnalyser;
 import org.w3c.dom.Document;
 
 /**
@@ -117,67 +118,17 @@ public class SwingEngine<Container, Component, ActionListener> {
     //
 
     /**
-     * Debug / Release Mode
-     */
-    public boolean       DEBUG_MODE                   = false;
-    /**
      * main frame
      */
     private Container    appFrame;
-    /**
-     * static resource bundle
-     */
-    private static String       default_resource_bundle_name = null;
-    /**
-     * static locale
-     */
-    private static Locale       default_locale               = Locale.getDefault ();
-    /**
-     * Check is currently running on a Mac
-     */
-    private static boolean      MAC_OSX                      = false;
-    /**
-     * static Mac OS X Support, set to true to support Mac UI specialties
-     */
-    private static boolean      MAC_OSX_SUPPORTED            = true;
 
-    //
-    // Static Initializer
-    //
-    /** display the swing release version to system out. */
-    static {
-        System.out.println ("SwixML @version@");
-        try {
-            SwingEngine.MAC_OSX = System.getProperty ("os.name").toLowerCase ()
-                    .startsWith (SwingEngine.MAC_OSX_OS_NAME);
-        } catch (final Exception e) {
-            SwingEngine.MAC_OSX = false;
-        }
-    }
+
 
     /**
      * @return <code>Window</code> a parent for all dialogs.
      */
     public Container getAppFrame () {
         return this.appFrame;
-    }
-
-    /**
-     * Indicates if currently running on Mac OS X
-     * 
-     * @return <code>boolean</code>- indicating if currently running on a MAC
-     */
-    public static boolean isMacOSX () {
-        return SwingEngine.MAC_OSX;
-    }
-
-    /**
-     * Indicates state of Mac OS X support (default is true = ON).
-     * 
-     * @return <code>boolean</code>- indicating MacOS support is enabled
-     */
-    public static boolean isMacOSXSupported () {
-        return SwingEngine.MAC_OSX_SUPPORTED;
     }
 
     /**
@@ -195,41 +146,6 @@ public class SwingEngine<Container, Component, ActionListener> {
         }
     }
 
-    /**
-     * Sets the SwingEngine's global locale, to be used by all SwingEngine
-     * instances. This locale can be overwritten however for a single instance,
-     * if a <code>locale</code> attribute is places in the root tag of an XML
-     * descriptor.
-     * 
-     * @param locale
-     *            <code>Locale</code>
-     */
-    public static void setDefaultLocale (Locale locale) {
-        SwingEngine.default_locale = locale;
-    }
-
-    /**
-     * Enables or disables support of Mac OS X GUIs
-     * 
-     * @param osx
-     *            <code>boolean</code>
-     */
-    public static void setMacOSXSuport (boolean osx) {
-        SwingEngine.MAC_OSX_SUPPORTED = osx;
-    }
-
-    /**
-     * Sets the SwingEngine's global resource bundle name, to be used by all
-     * SwingEngine instances. This name can be overwritten however for a single
-     * instance, if a <code>bundle</code> attribute is places in the root tag of
-     * an XML descriptor.
-     * 
-     * @param bundlename
-     *            <code>String</code> the resource bundle name.
-     */
-    public static void setResourceBundleName (String bundlename) {
-        SwingEngine.default_resource_bundle_name = bundlename;
-    }
 
     /**
      * Walks the whole tree to add all components into the
@@ -310,12 +226,12 @@ public class SwingEngine<Container, Component, ActionListener> {
      */
     public SwingEngine () {
         this.client = this;
-        this.setLocale (SwingEngine.default_locale);
+        this.setLocale (AppConstants.getDefault_locale());
         this.getLocalizer ().setResourceBundle (
-                SwingEngine.default_resource_bundle_name);
+                AppConstants.getDefault_resource_bundle_name());
 
         try {
-            if (SwingEngine.isMacOSXSupported () && SwingEngine.isMacOSX ()) {
+            if (AppConstants.isMacOSXSupported () && AppConstants.isMacOSX ()) {
                 // Use apple's ScreenMenuBar instead of the MS-Window style
                 // application's own menu bar
                 System.setProperty ("com.apple.macos.useScreenMenuBar", "true");
@@ -350,7 +266,7 @@ public class SwingEngine<Container, Component, ActionListener> {
             }
             this.render (in);
         } catch (final Exception e) {
-            if (this.DEBUG_MODE) {
+            if (AppConstants.DEBUG_MODE) {
                 System.err.println (e);
             }
         } finally {
@@ -429,7 +345,7 @@ public class SwingEngine<Container, Component, ActionListener> {
     public Component find (final String id) {
         Object obj = this.idmap.get (id);
         if ( (obj != null)
-                && !(Component.class.isAssignableFrom (obj.getClass ())) {
+                && !( CustomCodeProxy.getTypeAnalyser ().isConvenient (this.root.getClass (), "Component"))) {
             obj = null;
         }
         return (Component) obj;
@@ -449,10 +365,10 @@ public class SwingEngine<Container, Component, ActionListener> {
     /**
      * Returns an Iterator for all parsed GUI components.
      * 
-     * @return <code>Iterator</code> GUI components itearator
+     * @return <code>Iterator</code> GUI components iterator
      */
     @SuppressWarnings ("unchecked")
-    public Iterator<Component> getAllComponentItertor () {
+    public Iterator<Component> getAllComponentIterator () {
         if (this.components == null) {
             this.traverse ((Component)this.root,
                     this.components = new ArrayList<Component> ());
@@ -585,7 +501,7 @@ public class SwingEngine<Container, Component, ActionListener> {
         try {
             this.parser.parse (jdoc, container);
         } catch (final Exception e) {
-            if (this.DEBUG_MODE) {
+            if (AppConstants.DEBUG_MODE) {
                 System.err.println (e);
             }
             throw (e);
@@ -790,7 +706,7 @@ public class SwingEngine<Container, Component, ActionListener> {
                 // To prevent this, we try to instantiate with a default ctor.
                 //
                 if (flds [i] == null) {
-                    if (!this.DEBUG_MODE) {
+                    if (!AppConstants.DEBUG_MODE) {
                         try {
                             flds [i].set (obj, flds [i].getType ()
                                     .newInstance ());
@@ -832,7 +748,7 @@ public class SwingEngine<Container, Component, ActionListener> {
         try {
             this.root = (Container) this.parser.parse (jdoc);
         } catch (final Exception e) {
-            if (this.DEBUG_MODE) {
+            if (AppConstants.DEBUG_MODE) {
                 System.err.println (e);
             }
             throw (e);
@@ -841,7 +757,8 @@ public class SwingEngine<Container, Component, ActionListener> {
         this.components = null;
         // initialize all client fields with UI components by their id
         this.mapMembers (this.client);
-        if (Frame.class.isAssignableFrom (this.root.getClass ())) {
+        if (this.root == null ||
+                CustomCodeProxy.getTypeAnalyser ().isConvenient (this.root.getClass (), "Frame")) {
             this.setAppFrame ((Container) this.root);
         }
         return this.root;
@@ -957,30 +874,7 @@ public class SwingEngine<Container, Component, ActionListener> {
      * @return <code>boolean</code> true, if ActionListener was set.
      */
     public boolean setActionListener (final Component c, final ActionListener al) {
-        boolean b = false;
-        if (c != null) {
-            if (Container.class.isAssignableFrom (c.getClass ())) {
-                final Component [] s = ((Container) c).getComponents ();
-                for (final Component value : s) {
-                    b = b | this.setActionListener (value, al);
-                }
-            }
-            if (!b) {
-                if (JMenu.class.isAssignableFrom (c.getClass ())) {
-                    final JMenu m = (JMenu) c;
-                    final int k = m.getItemCount ();
-                    for (int i = 0 ; i < k ; i++) {
-                        b = b | this.setActionListener (m.getItem (i), al);
-                    }
-                } else if (AbstractButton.class
-                        .isAssignableFrom (c.getClass ())) {
-                    ((AbstractButton) c).addActionListener (al);
-                    b = true;
-                }
-            }
-
-        }
-        return b;
+        return CustomCodeProxy.doProxy (this, c, al);
     }
 
     /**
@@ -1005,7 +899,7 @@ public class SwingEngine<Container, Component, ActionListener> {
      *            <code>Locale</code>
      */
     public void setLocale (Locale l) {
-        if (SwingEngine.isMacOSXSupported () && SwingEngine.isMacOSX ()) {
+        if (AppConstants.isMacOSXSupported () && AppConstants.isMacOSX ()) {
             l = new Locale (l.getLanguage (), l.getCountry (),
                     SwingEngine.MAC_OSX_LOCALE_VARIANT);
         }
