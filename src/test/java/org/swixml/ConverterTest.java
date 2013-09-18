@@ -91,9 +91,9 @@ public class ConverterTest extends TestCase {
      */
     @Override
     public void setUp () throws Exception {
-        SwingEngine.DEBUG_MODE = true;
+    	AppConstants.DEBUG_MODE = true;
         final SwingEngine se = new SwingEngine (this);
-        this.container = se.render (ConverterTest.DESCRIPTOR);
+        this.container = (Container) se.render (ConverterTest.DESCRIPTOR);
 
     }
 

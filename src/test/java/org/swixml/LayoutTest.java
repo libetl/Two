@@ -345,9 +345,9 @@ public class LayoutTest extends TestCase {
      */
     @Override
     public void setUp () throws Exception {
-        SwingEngine.DEBUG_MODE = true;
+        AppConstants.DEBUG_MODE = true;
         final SwingEngine se = new SwingEngine (this);
-        this.container = se.render (LayoutTest.DESCRIPTOR);
+        this.container = (Container) se.render (LayoutTest.DESCRIPTOR);
 
     }
 

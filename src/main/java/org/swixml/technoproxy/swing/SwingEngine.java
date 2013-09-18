@@ -6,14 +6,16 @@ import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.List;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.AbstractButton;
 
 import org.swixml.technoproxy.ProxyCode;
 
-public class SwingEngine extends ProxyCode<org.swixml.SwingEngine<Container, Component, ActionListener>> {
+public class SwingEngine extends ProxyCode<org.swixml.SwingEngine<Container, Component, ActionListener, JLabel, ButtonGroup>> {
 
-    public SwingEngine (org.swixml.SwingEngine<Container, Component, ActionListener> source1) {
+    public SwingEngine (org.swixml.SwingEngine<Container, Component, ActionListener, JLabel, ButtonGroup> source1) {
         super (source1);
     }
 

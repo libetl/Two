@@ -58,10 +58,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.StringTokenizer;
 
+import org.swixml.AppConstants;
 import org.swixml.Attribute;
 import org.swixml.Converter;
 import org.swixml.Localizer;
-import org.swixml.SwingEngine;
 
 /**
  * The ColorConverter class defines a Converter that turns the Strings into a
@@ -116,7 +116,7 @@ public class ColorConverter implements Converter {
                     return new Color (Integer.parseInt (
                             st.nextToken ().trim (), 16));
                 } catch (final NumberFormatException e) {
-                    if (SwingEngine.DEBUG_MODE) {
+                    if (AppConstants.DEBUG_MODE) {
                         System.err.println (e);
                     }
                     return null;

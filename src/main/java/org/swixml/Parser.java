@@ -70,6 +70,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.swixml.converters.LocaleConverter;
 import org.swixml.converters.PrimitiveConverter;
 import org.swixml.technoproxy.CustomCodeProxy;
+import org.swixml.technoproxy.swing.XAction;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -90,7 +91,7 @@ import org.w3c.dom.NodeList;
  * @see org.swixml.ConverterLibrary
  * @SuppressWarnings ({ "unchecked", "deprecation" })
  */
-public class Parser<Container> {
+public class Parser<Container, Component, ActionListener, Label, ButtonGroup> {
 
     //
     // Custom Attributes
@@ -408,11 +409,12 @@ public class Parser<Container> {
      * @param grp
      *            <code>ButtonGroup</code>
      */
-    private static void putIntoBtnGrp (Object obj, ButtonGroup grp) {
-        if (AbstractButton.class.isAssignableFrom (obj.getClass ())) {
+    private void putIntoBtnGrp (Object obj, ButtonGroup grp) {
+        if (CustomCodeProxy.getTypeAnalyser ().isConvenient (obj.getClass (), "AbstractButton")) {
             grp.add ((AbstractButton) obj);
-        } else if (JComponent.class.isAssignableFrom (obj.getClass ())) {
-            final JComponent jp = (JComponent) obj;
+        } else if (CustomCodeProxy.getTypeAnalyser ().isConvenient (obj.getClass (), "Container")) {
+            @SuppressWarnings ("unchecked")
+            final Component jp = (Component) obj;
             for (int i = 0 ; i < jp.getComponentCount () ; i++) {
                 Parser.putIntoBtnGrp (jp.getComponent (i), grp);
             }
@@ -422,7 +424,7 @@ public class Parser<Container> {
     /**
      * the calling engine
      */
-    private final SwingEngine         engine;
+    private final SwingEngine<Container, Component, ActionListener, Label, ButtonGroup>         engine;
 
     /**
      * ConverterLib, to access COnverters, converting String in all kinds of
@@ -433,7 +435,7 @@ public class Parser<Container> {
     /**
      * map to store id-id components, needed to support labelFor attributes
      */
-    private final Map<JLabel, String> lbl_map = new HashMap<JLabel, String> ();
+    private final Map<Label, String> lbl_map = new HashMap<Label, String> ();
 
     /**
      * map to store specific Mac OS actions mapping
@@ -474,7 +476,7 @@ public class Parser<Container> {
      * @param engine
      *            <code>SwingEngine</code>
      */
-    public Parser (SwingEngine engine) {
+    public Parser (SwingEngine<Container, Component, ActionListener, Label, ButtonGroup> engine) {
         this.engine = engine;
     }
 
@@ -563,9 +565,9 @@ public class Parser<Container> {
                 continue;
             }
 
-            if (JLabel.class.isAssignableFrom (obj.getClass ())
+            if (CustomCodeProxy.getTypeAnalyser ().isConvenient (obj.getClass (), "Label")
                     && attr.getName ().equalsIgnoreCase ("LabelFor")) {
-                this.lbl_map.put ((JLabel) obj, attr.getValue ());
+                this.lbl_map.put ((Label) obj, attr.getValue ());
                 continue;
             }
 
@@ -1178,9 +1180,9 @@ public class Parser<Container> {
      * Helper Method to Link Labels to InputFields etc.
      */
     private void linkLabels () {
-        final Iterator<JLabel> it = this.lbl_map.keySet ().iterator ();
+        final Iterator<Label> it = this.lbl_map.keySet ().iterator ();
         while ( (it != null) && it.hasNext ()) {
-            final JLabel lbl = (JLabel) it.next ();
+            final Label lbl = (Label) it.next ();
             final String id = this.lbl_map.get (lbl).toString ();
             try {
                 lbl.setLabelFor ((Component) this.engine.getIdMap ().get (id));

@@ -48,7 +48,7 @@ public class ActionGeneratorTest extends TestCase {
     @Override
     public void setUp () throws Exception {
         final SwingEngine se = new SwingEngine (this);
-        this.container = se.render (ActionGeneratorTest.DESCRIPTOR);
+        this.container = (Container) se.render (ActionGeneratorTest.DESCRIPTOR);
     }
 
     public void submit () {

@@ -87,7 +87,7 @@ public class IdTest extends TestCase {
 
     public IdTest () throws Exception {
         super ("ID Tests");
-        SwingEngine.DEBUG_MODE = true;
+        AppConstants.DEBUG_MODE = true;
         new SwingEngine (this).render (IdTest.DESCRIPTOR);
     }
 

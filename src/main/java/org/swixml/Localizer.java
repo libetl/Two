@@ -57,6 +57,8 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.swixml.technoproxy.swing.XTabbedPane;
+
 /**
  * The <code>Localizer</code> class provides consumers with a simple
  * localization tools: <code>getString(key)</code>. Locale and ResourceBundle

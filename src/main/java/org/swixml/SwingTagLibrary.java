@@ -88,6 +88,16 @@ import javax.swing.JToolBar;
 import javax.swing.JTree;
 import javax.swing.table.JTableHeader;
 
+import org.swixml.technoproxy.swing.XDialog;
+import org.swixml.technoproxy.swing.XGlue;
+import org.swixml.technoproxy.swing.XGridBagConstraints;
+import org.swixml.technoproxy.swing.XHBox;
+import org.swixml.technoproxy.swing.XScrollPane;
+import org.swixml.technoproxy.swing.XSplitPane;
+import org.swixml.technoproxy.swing.XTabbedPane;
+import org.swixml.technoproxy.swing.XTitledSeparator;
+import org.swixml.technoproxy.swing.XVBox;
+
 /**
  * The SwingTagLibrary contains Factories for all Swing Objects that can be
  * instatiated by parsing an XML descriptor at runtime.

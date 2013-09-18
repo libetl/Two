@@ -1,5 +1,5 @@
 /*--
- $Id: MenuTest.java,v 1.1 2005/06/04 22:24:06 wolfpaulus Exp $
+ $Id: XSplitPane.java,v 1.1 2004/03/01 07:56:09 wolfpaulus Exp $
 
  Copyright (C) 2003-2007 Wolf Paulus.
  All rights reserved.
@@ -50,54 +50,29 @@
  created by Wolf Paulus <wolf_AT_swixml_DOT_org>. For more information
  on the Swixml Project, please see <http://www.swixml.org/>.
  */
-package org.swixml;
 
-import java.awt.Component;
-import java.awt.Container;
+package org.swixml.technoproxy.swing;
 
-import junit.framework.TestCase;
+import javax.swing.JSplitPane;
 
 /**
- * Test for some JMenuBar specialties.
+ * XSplitPane simply extends JSplitPane to clear components during the
+ * construction process
+ * 
+ * @author <a href="mailto:wolf@paulus.com">Wolf Paulus</a>
+ * @version $Revision: 1.1 $
  */
-public class MenuTest extends TestCase {
-    public static final String DESCRIPTOR = "xml/dialog.xml";
-    private Container          container;
-    private SwingEngine        se;
 
-    public MenuTest () {
-        super ("Test inserting a Menu into a container.");
-    }
-
-    public MenuTest (String s) {
-        super (s);
-    }
-
-    @Override
-    public void setUp () throws Exception {
-        this.se = new SwingEngine (this);
-        this.container = (Container) this.se.render (MenuTest.DESCRIPTOR);
-    }
+public class XSplitPane extends JSplitPane {
 
     /**
-     * Clears the container
-     */
-    public void teardown () {
-        this.container.removeAll ();
-        this.container = null;
-    }
+	 * 
+	 */
+    private static final long serialVersionUID = -2815017707349201336L;
 
-    /**
-     * Tests if a JMenubar is added into a container, even if the container
-     * doesn't provide a setJMenuBar() method.
-     */
-    public void testInclusioin () {
-        final Component menubar = (Component) this.se.find ("menubar");
-        TestCase.assertNotNull (
-                "<menubar> tag in the descriptor requires the instantiation of a JMenuBar obj.",
-                menubar);
-        TestCase.assertNotNull (
-                "Since <menubar> is not the root tag, it needs a parent container",
-                menubar.getParent ());
+    public XSplitPane () {
+        super (JSplitPane.HORIZONTAL_SPLIT, null, null);
+        this.setTopComponent (null);
+        this.setBottomComponent (null);
     }
 }

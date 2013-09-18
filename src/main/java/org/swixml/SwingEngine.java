@@ -72,7 +72,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.swixml.technoproxy.CustomCodeProxy;
-import org.swixml.technoproxy.TypeAnalyser;
 import org.w3c.dom.Document;
 
 /**
@@ -86,7 +85,7 @@ import org.w3c.dom.Document;
  * @version $Revision: 1.5 $
  * @SuppressWarnings ("UnusedDeclaration")
  */
-public class SwingEngine<Container, Component, ActionListener> {
+public class SwingEngine<Container, Component, ActionListener, Label, ButtonGroup> {
     //
     // Static Constants
     //
@@ -176,7 +175,7 @@ public class SwingEngine<Container, Component, ActionListener> {
     /**
      * Swixml Parser.
      */
-    private final Parser<Container> parser     = new Parser<Container> (this);
+    private final Parser<Container, Component, ActionListener, Label, ButtonGroup> parser     = new Parser<Container, Component, ActionListener, Label, ButtonGroup> (this);
 
     /**
      * Client object hosting the swingengine, alternative to extending the
@@ -743,6 +742,7 @@ public class SwingEngine<Container, Component, ActionListener> {
      *            <code>Document</code> xml gui descritptor
      * @return <code>Object</code>- instanced swing object tree root
      */
+    @SuppressWarnings ("unchecked")
     public Container render (final Document jdoc) throws Exception {
         this.idmap.clear ();
         try {

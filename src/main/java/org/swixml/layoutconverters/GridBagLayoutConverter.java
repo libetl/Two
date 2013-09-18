@@ -56,9 +56,9 @@ import java.awt.LayoutManager;
 import java.lang.reflect.Field;
 import java.util.StringTokenizer;
 
+import org.swixml.AppConstants;
 import org.swixml.Attribute;
 import org.swixml.LayoutConverter;
-import org.swixml.SwingEngine;
 import org.swixml.converters.Util;
 import org.w3c.dom.Element;
 
@@ -160,19 +160,19 @@ public class GridBagLayoutConverter implements LayoutConverter {
 
                 }
             } catch (final NoSuchFieldException e) {
-                if (SwingEngine.DEBUG_MODE) {
+                if (AppConstants.DEBUG_MODE) {
                     System.err.println (e.getMessage ());
                 }
             } catch (final SecurityException e) {
-                if (SwingEngine.DEBUG_MODE) {
+                if (AppConstants.DEBUG_MODE) {
                     System.err.println (e.getMessage ());
                 }
             } catch (final IllegalArgumentException e) {
-                if (SwingEngine.DEBUG_MODE) {
+                if (AppConstants.DEBUG_MODE) {
                     System.err.println (e.getMessage ());
                 }
             } catch (final IllegalAccessException e) {
-                if (SwingEngine.DEBUG_MODE) {
+                if (AppConstants.DEBUG_MODE) {
                     System.err.println (e.getMessage ());
                 }
             }

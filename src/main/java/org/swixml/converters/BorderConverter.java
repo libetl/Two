@@ -60,11 +60,11 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
+import org.swixml.AppConstants;
 import org.swixml.Attribute;
 import org.swixml.Converter;
 import org.swixml.ConverterLibrary;
 import org.swixml.Localizer;
-import org.swixml.SwingEngine;
 
 /**
  * The <code>BorderConverter</code> class defines a converter that creates
@@ -195,7 +195,7 @@ public class BorderConverter implements Converter {
             }
             border = (Border) method.invoke (null, args);
         } catch (final Exception e) {
-            if (SwingEngine.DEBUG_MODE) {
+            if (AppConstants.DEBUG_MODE) {
                 System.err.println ("Couldn't create border, "
                         + attr.getValue () + "\n" + e.getMessage ());
             }

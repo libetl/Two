@@ -1,6 +1,4 @@
 /*--
- $Id: MenuTest.java,v 1.1 2005/06/04 22:24:06 wolfpaulus Exp $
-
  Copyright (C) 2003-2007 Wolf Paulus.
  All rights reserved.
 
@@ -50,54 +48,45 @@
  created by Wolf Paulus <wolf_AT_swixml_DOT_org>. For more information
  on the Swixml Project, please see <http://www.swixml.org/>.
  */
-package org.swixml;
+package org.swixml.technoproxy.swing;
 
-import java.awt.Component;
-import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
-import junit.framework.TestCase;
+import javax.swing.AbstractAction;
 
 /**
- * Test for some JMenuBar specialties.
+ * XAction, Action Wrapper to generate Actions on the fly.
+ * 
+ * @author <a href="mailto:wolf@wolfpaulus.com">Wolf Paulus</a>
  */
-public class MenuTest extends TestCase {
-    public static final String DESCRIPTOR = "xml/dialog.xml";
-    private Container          container;
-    private SwingEngine        se;
 
-    public MenuTest () {
-        super ("Test inserting a Menu into a container.");
-    }
+public class XAction extends AbstractAction {
+    /**
+	 * 
+	 */
+    private static final long serialVersionUID = -8615210200349528985L;
+    Method                    method;
+    Object                    client;
 
-    public MenuTest (String s) {
-        super (s);
+    public XAction (Object client, String methodName)
+            throws NoSuchMethodException {
+        this.client = client;
+        if (client != null) {
+            this.method = client.getClass ().getMethod (methodName);
+        }
+
     }
 
     @Override
-    public void setUp () throws Exception {
-        this.se = new SwingEngine (this);
-        this.container = (Container) this.se.render (MenuTest.DESCRIPTOR);
-    }
-
-    /**
-     * Clears the container
-     */
-    public void teardown () {
-        this.container.removeAll ();
-        this.container = null;
-    }
-
-    /**
-     * Tests if a JMenubar is added into a container, even if the container
-     * doesn't provide a setJMenuBar() method.
-     */
-    public void testInclusioin () {
-        final Component menubar = (Component) this.se.find ("menubar");
-        TestCase.assertNotNull (
-                "<menubar> tag in the descriptor requires the instantiation of a JMenuBar obj.",
-                menubar);
-        TestCase.assertNotNull (
-                "Since <menubar> is not the root tag, it needs a parent container",
-                menubar.getParent ());
+    public void actionPerformed (ActionEvent e) {
+        try {
+            this.method.invoke (this.client);
+        } catch (final IllegalAccessException e1) {
+            e1.printStackTrace ();
+        } catch (final InvocationTargetException e1) {
+            e1.printStackTrace ();
+        }
     }
 }

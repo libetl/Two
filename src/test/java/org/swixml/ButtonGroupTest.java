@@ -88,7 +88,7 @@ public class ButtonGroupTest extends TestCase {
     @Override
     public void setUp () throws Exception {
         this.se = new SwingEngine (this);
-        this.container = this.se.render (MappingTest.DESCRIPTOR);
+        this.container = (Container) this.se.render (MappingTest.DESCRIPTOR);
     }
 
     /**

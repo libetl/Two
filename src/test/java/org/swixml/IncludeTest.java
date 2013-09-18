@@ -11,7 +11,7 @@ public class IncludeTest extends TestCase {
     public static final String DESCRIPTOR = "xml/include.xml";
 
     public IncludeTest () {
-        SwingEngine.DEBUG_MODE = true;
+        AppConstants.DEBUG_MODE = true;
     }
 
     public void testCreate () throws Exception {

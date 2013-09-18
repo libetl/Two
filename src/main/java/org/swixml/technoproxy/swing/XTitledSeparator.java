@@ -1,6 +1,4 @@
 /*--
- $Id: MappingTest.java,v 1.2 2005/06/01 00:04:15 wolfpaulus Exp $
-
  Copyright (C) 2003-2007 Wolf Paulus.
  All rights reserved.
 
@@ -50,83 +48,73 @@
  created by Wolf Paulus <wolf_AT_swixml_DOT_org>. For more information
  on the Swixml Project, please see <http://www.swixml.org/>.
  */
-package org.swixml;
 
-import java.awt.Container;
+package org.swixml.technoproxy.swing;
 
-import javax.swing.JButton;
-import javax.swing.JMenuItem;
+import java.awt.BorderLayout;
 
-import junit.framework.TestCase;
+import javax.swing.JComponent;
+import javax.swing.SwingConstants;
+
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 /**
- * Test class running auto-mapping related tests.
+ * A wrapper class for JGoodies Forms
+ * <code>ComponentFactory.createSeparator()</code>, which creates a titled
+ * separator.
  * 
- * @author Wolf Paulus
+ * @author Karl Tauber
  */
-public class MappingTest extends TestCase implements GlobalActions {
-    public static final String DESCRIPTOR = "xml/mappings.xml";
-    private Container          container;
-    private JMenuItem          miAbout;
+public class XTitledSeparator extends JComponent {
 
-    public JButton             b1;
-    public transient JButton   b2;
-    private JButton            b3;
-    private transient JButton  b4;
+    /**
+	 * 
+	 */
+    private static final long serialVersionUID = 9175776683003666865L;
+    private String            text;
+    private int               alignment        = SwingConstants.LEFT;
 
-    public MappingTest () {
-        super (
-                "Test Mapping og XML Tags to JComponent Objects in the SwingEngine's Client");
-    }
-
-    public MappingTest (String s) {
-        super (s);
+    public XTitledSeparator () {
+        super ();
+        this.setLayout (new BorderLayout ());
+        this.update ();
     }
 
     /**
-     * Renders the test GUI into the container field.<br>
-     * Note: Like with every testcase, the setup method is going to be performed
-     * before the execution of every test..() method.
-     * 
-     * @throws Exception
+     * Returns the title alignment. One of <code>SwingConstants.LEFT</code>,
+     * <code>SwingConstants.CENTER</code> or <code>SwingConstants.RIGHT</code>.
      */
-    @Override
-    public void setUp () throws Exception {
-        final SwingEngine se = new SwingEngine (this);
-        this.container = (Container) se.render (MappingTest.DESCRIPTOR);
+    public int getAlignment () {
+        return this.alignment;
     }
 
     /**
-     * Clears the container
+     * Returns the title of the separator.
      */
-    public void teardown () {
-        this.container.removeAll ();
-        this.container = null;
+    public String getText () {
+        return this.text;
     }
 
     /**
-     * Tests if the JButtons were correctly initialized/mapped by the
-     * SwingEngine.
+     * Sets the title alignment. One of <code>SwingConstants.LEFT</code>,
+     * <code>SwingConstants.CENTER</code> or <code>SwingConstants.RIGHT</code>.
      */
-    public void testMappingPublicFields () {
-        TestCase.assertNotNull (
-                "Public Fields, whose names have matching ids the the XML descriptor should be initializd by the SwingEngine.",
-                this.b1);
-        TestCase.assertNull (
-                "Transient Fields must not be initializd by the SwingEngine.",
-                this.b2);
-        TestCase.assertNotNull (
-                "Private Field, whose names have a matching ids the the XML descriptor should be initializd by the SwingEngine.",
-                this.b3);
-        TestCase.assertNull (
-                "Transient Fields must not be initializd by the SwingEngine.",
-                this.b4);
+    public void setAlignment (int alignment) {
+        this.alignment = alignment;
+        this.update ();
     }
 
-    public void testStaticInterfaceMappings () {
-        TestCase.assertNotNull (
-                "aboutAction is statically defined in an Interface and should have been mapped into the private JMenuItem's action",
-                this.miAbout.getAction ());
+    /**
+     * Sets the title of the separator.
+     */
+    public void setText (String text) {
+        this.text = text;
+        this.update ();
     }
 
+    private void update () {
+        this.removeAll ();
+        this.add (DefaultComponentFactory.getInstance ().createSeparator (
+                this.text, this.alignment));
+    }
 }

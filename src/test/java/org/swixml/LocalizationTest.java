@@ -77,7 +77,7 @@ public class LocalizationTest extends TestCase {
 
     public LocalizationTest (String s) throws Exception {
         super (s);
-        this.container = new SwingEngine (this)
+        this.container = (Container) new SwingEngine (this)
                 .render (LocalizationTest.DESCRIPTOR);
     }
 
