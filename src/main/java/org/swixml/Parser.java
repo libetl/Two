@@ -920,7 +920,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
             }
             final Element child = (Element) nl.item (i);
             //
-            // Prepare for possible grouping through BottonGroup Tag
+            // Prepare for possible grouping through ButtonGroup Tag
             //
             if (CustomCodeProxy.doProxy (this, "ButtonGroup", element, obj,
                     child, engine)) {

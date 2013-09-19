@@ -235,17 +235,14 @@ public class ConverterLibrary {
                 CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
                         "KeyStroke"), new KeyStrokeConverter ());
         this.register (
-                CustomCodeProxy.getTypeAnalyser ()
-                        .getCompatibleClass ("Locale"), new LocaleConverter ());
+                java.util.Locale.class, new LocaleConverter ());
         this.register (
                 CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Point"),
                 new PointConverter ());
         this.register (
                 CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
                         "Rectangle"), new RectangleConverter ());
-        this.register (
-                CustomCodeProxy.getTypeAnalyser ()
-                        .getCompatibleClass ("String"), new StringConverter ());
+        this.register (String.class, new StringConverter ());
         //
         // Register the PrimitiveConverter class for java primitive types
         //

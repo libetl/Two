@@ -10,7 +10,7 @@
       <menuitem name="mi_exit" text="Exit" icon="samples/swing/icons/exit.gif" mnemonic="VK_X" Accelerator="control X" ActionCommand="exit"/>
     </menu>
     <menu text="Help">
-      <menuitem name="mi_about" text="About" enabled="true" icon="samples/swing/icons/info.gif" Accelerator="alt A" Action="aboutAction" />
+      <menuitem name="mi_about" text="About" enabled="true" icon="samples/swing/icons/about.gif" Accelerator="alt A" Action="aboutAction" />
     </menu>
   </menubar>
   <panel>

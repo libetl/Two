@@ -5,5 +5,5 @@
       Swixml now understands some XPointer / XInclude syntax
     </label>
   </panel>
-  <panel id="pnl_footer" constraints="BorderLayout.SOUTH" include="xml/include-part.xml#PNL_OK_CANCEL"/>
+  <panel id="pnl_footer" constraints="BorderLayout.SOUTH" include="samples/swing/xml/include-part.xml#PNL_OK_CANCEL"/>
 </frame>
