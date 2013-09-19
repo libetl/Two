@@ -155,7 +155,7 @@ public class SchemaGenerator {
 	}
 
 	/**
-	 * Loops through all tags in Swixml's yag lib.
+	 * Loops through all tags in Swixml's tag lib.
 	 * 
 	 * @param root
 	 *            <code>Element</code> - node tags will be inserted in

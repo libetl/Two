@@ -2,9 +2,12 @@ package org.swixml.technoproxy.swing;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Desktop.Action;
 import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -20,6 +23,7 @@ import javax.swing.JToolBar;
 import javax.swing.RootPaneContainer;
 import javax.swing.UIManager;
 
+import org.swixml.AppConstants;
 import org.swixml.Attribute;
 import org.swixml.SwingEngine;
 import org.swixml.technoproxy.CustomCodeProxy;
@@ -198,6 +202,18 @@ public class Parser
 		return false;
 	}
 	
+	public void getSwingSetLayout (Container obj, LayoutManager lm){
+        obj.setLayout (lm);
+	}
+    
+    public LayoutManager getSwingGetLayout (Container obj){
+        return obj.getLayout ();
+    }
+    
+    public void getSwingPutClientProperty (JComponent obj, Attribute attr){
+        obj.putClientProperty (attr.getName (), attr.getValue ());
+    }
+	
 	public void linkLabelsSetLabelFor (JLabel jl, Component c){
 		jl.setLabelFor (c);
 	}
@@ -205,4 +221,73 @@ public class Parser
 	public void processCustomAttributesSetLookAndFeel (Element element, String plaf) throws Exception {
 		UIManager.setLookAndFeel (plaf);
 	}
+	
+	public Container applyAttributesGetContentPane (RootPaneContainer rpc){
+	    return rpc.getContentPane ();
+	}
+	
+    public Object applyAttributesMacAction (Class<?> paraType, 
+            SwingEngine<Container, Component, ActionListener, JLabel, ButtonGroup, LayoutManager> engine,
+            Attribute attr){
+        Object para = null;
+        if (Action.class.equals (paraType)){
+                try {
+                    para = engine.getClient ().getClass ()
+                            .getField (attr.getValue ())
+                            .get (engine.getClient ());
+                } catch (final NoSuchFieldException e) {
+                    //
+                    // At this point we know that a action attribute
+                    // was put into an XML tag but the client call
+                    // doesn't seem to have an Action member variable with a
+                    // matching name.
+                    // Now we look for a public method that could be
+                    // wrapped into an generated AbstrtactAction
+                    // instead
+                    //
+                    try {
+                        para = new XAction (
+                                engine.getClient (),
+                                attr.getValue ());
+                    } catch (final NoSuchMethodException e1) {
+                        para = null;
+                    }
+                } catch (IllegalArgumentException e) {
+                } catch (IllegalAccessException e) {
+                } catch (SecurityException e) {
+                }
+            }
+        return para;
+        }
+       
+    public void getSwingMacAction (Object initParameter, List<Attribute> attributes, Map<String, Object> macMap){
+        if (Action.class.isInstance (initParameter)) {
+            for (int i = 0, n = attributes.size (); i < n; i++) {
+                final Attribute attrib = attributes.get (i);
+                final String attribName = attrib.getName ();
+                this.getSource ();
+                if ( (attribName != null)
+                        && attribName
+                                .startsWith (org.swixml.Parser.ATTR_MACOS_PREFIX)) {
+                    macMap
+                            .put (attribName, initParameter);
+                }
+            }
+        }
+    }
+    
+
+
+    /**
+     * Link actions with the MacOS' system menu bar
+     */
+    public void parseSupportMacOS (Map<String, Object> macMap) {
+        if (AppConstants.isMacOSXSupported () && AppConstants.isMacOSX ()) {
+            try {
+                MacApp.getInstance ().update (macMap);
+            } catch (final Throwable t) {
+                // intentionally empty
+            }
+        }
+    }
 }

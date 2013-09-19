@@ -70,8 +70,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.swixml.converters.LocaleConverter;
 import org.swixml.converters.PrimitiveConverter;
 import org.swixml.technoproxy.CustomCodeProxy;
-import org.swixml.technoproxy.swing.MacApp;
-import org.swixml.technoproxy.swing.XAction;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -400,7 +398,8 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 	 *             container.BOTTOM_ALIGNMENT
 	 *             </p>
 	 */
-	private List<Attribute> applyAttributes (Object obj, Factory factory,
+	@SuppressWarnings ("unchecked")
+    private List<Attribute> applyAttributes (Object obj, Factory factory,
 	        List<Attribute> attributes) throws Exception {
 		//
 		// pass 1: Make an 'action' the 1st attribute to be processed -
@@ -425,7 +424,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 		final List<Attribute> list = new ArrayList<Attribute> (); // remember
 		                                                          // not applied
 		                                                          // attributes
-		Action action = null; // used to insert an action into the macmap
+		Object action = null; // used to insert an action into the macmap
 
 		while ( (it != null) && it.hasNext ()) { // loop through all available
 			                                     // attributes
@@ -474,32 +473,9 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 						// a getClass().getFields lookup has to be done to find
 						// the correct fields.
 						//
-						if (Action.class.equals (paraType)) {
-							try {
-								para = this.engine.getClient ().getClass ()
-								        .getField (attr.getValue ())
-								        .get (this.engine.getClient ());
-							} catch (final NoSuchFieldException e) {
-								//
-								// At this point we know that a action attribute
-								// was put into an XML tag but the client call
-								// doesn't
-								// seem to have an Action member varible with a
-								// matching name.
-								// Now we look for a public method that could be
-								// wrapped into an generated AbstrtactAction
-								// instead
-								//
-								try {
-									para = new XAction (
-									        this.engine.getClient (),
-									        attr.getValue ());
-								} catch (final NoSuchMethodException e1) {
-									para = null;
-								}
-							}
-							action = (Action) para;
-						} else {
+					    para = CustomCodeProxy.doProxy (this, "MacAction", paraType, engine, attr);
+					    action = para;
+					    if (para == null){
 							para = converter.convert (paraType, attr,
 							        this.engine.getLocalizer ());
 						}
@@ -522,9 +498,9 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 						// displayed by the JFrame. The JFrame class is slightly
 						// incompatible with Frame.
 						//
-						if (obj instanceof RootPaneContainer) {
-							final Container rootpane = ((RootPaneContainer) obj)
-							        .getContentPane ();
+						if (obj != null &&
+						        CustomCodeProxy.getTypeAnalyser ().isConvenient (obj.getClass (), "RootPaneContainer")) {
+							final Container rootpane = CustomCodeProxy.doProxy (this, "GetContentPane", obj);
 							final Factory f = this.engine.getTaglib ()
 							        .getFactory (rootpane.getClass ());
 							final Method m = f.guessSetter (attr.getName ());
@@ -678,7 +654,8 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 	 * @SuppressWarnings ({ "RedundantArrayCreation",
 	 *                   "NullArgumentToVariableArgMethod" })
 	 */
-	public Object getSwing (Element element, Object obj) throws Exception {
+	@SuppressWarnings ("unchecked")
+    public Object getSwing (Element element, Object obj) throws Exception {
 
 		final Factory factory = this.engine.getTaglib ().getFactory (
 		        element.getNodeName ());
@@ -794,18 +771,9 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 							                         // with default ctor
 							initParameter = initClass.newInstance ();
 						}
-						if (Action.class.isInstance (initParameter)) {
-							for (int i = 0, n = attributes.size (); i < n; i++) {
-								final Attribute attrib = attributes.get (i);
-								final String attribName = attrib.getName ();
-								if ( (attribName != null)
-								        && attribName
-								                .startsWith (Parser.ATTR_MACOS_PREFIX)) {
-									this.mac_map
-									        .put (attribName, initParameter);
-								}
-							}
-						}
+
+                        CustomCodeProxy.doProxy (this, "MacAction", initParameter, attributes, this.mac_map);
+
 					}
 				} catch (final ClassNotFoundException e) {
 					System.err.println (Parser.ATTR_INITCLASS
@@ -867,7 +835,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 
 				final String layoutType = Attribute.getAttributeValue (
 				        layoutElement, "type");
-				final LayoutConverter layoutConverter = LayoutConverterLibrary
+				final LayoutConverter<?> layoutConverter = LayoutConverterLibrary
 				        .getInstance ().getLayoutConverterByID (layoutType);
 				if (layoutConverter != null) {
 					lm = (LayoutManager) layoutConverter.convertLayoutElement (layoutElement);
@@ -896,7 +864,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 						layoutType = layoutType.substring (0, index); // strip
 					}
 					// parameters
-					final LayoutConverter layoutConverter = LayoutConverterLibrary
+					final LayoutConverter<?> layoutConverter = LayoutConverterLibrary
 					        .getInstance ().getLayoutConverterByID (layoutType);
 					if (layoutConverter != null) {
 						lm = (LayoutManager) layoutConverter
@@ -906,7 +874,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 			}
 
 			if (lm != null) {
-				((Container) obj).setLayout (lm);
+			    CustomCodeProxy.doProxy (this, "SetLayout", obj, lm);
 			}
 		}
 
@@ -935,8 +903,10 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 
 		final LayoutManager layoutMgr = 
 				obj != null && 
-				CustomCodeProxy.getTypeAnalyser ().isConvenient (obj.getClass (), "Container") ? ((Container) obj)
-		        .getLayout () : null;
+				CustomCodeProxy.getTypeAnalyser ().isConvenient (obj.getClass (), "Container") ? 
+				        CustomCodeProxy.<
+				        Parser<Container, Component, ActionListener, Label, ButtonGroup, LayoutManager>, 
+				        LayoutManager>doProxy (this, "GetLayout", obj): null;
 
 		final NodeList nl = element.getChildNodes ();
 		for (int i = 0; i < nl.getLength (); i++) {
@@ -964,7 +934,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 				                                                 // won't be
 				                                                 // used in
 				                                                 // getSwing(child)
-				final LayoutConverter layoutConverter = LayoutConverterLibrary
+				final LayoutConverter<?> layoutConverter = LayoutConverterLibrary
 				        .getInstance ().getLayoutConverter (
 				                layoutMgr.getClass ());
 				if (layoutConverter != null) {
@@ -979,7 +949,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 			//
 			final Element cce = Parser.getChildByName (child, "constraints");
 			if ( (cce != null) && (layoutMgr != null)) {
-				final LayoutConverter layoutConverter = LayoutConverterLibrary
+				final LayoutConverter<?> layoutConverter = LayoutConverterLibrary
 				        .getInstance ().getLayoutConverter (
 				                layoutMgr.getClass ());
 				if (layoutConverter != null) {
@@ -1016,9 +986,9 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 				final Iterator<Attribute> it = remainingAttrs.iterator ();
 				while ( (it != null) && it.hasNext ()) {
 					final Attribute attr = it.next ();
-					if (JComponent.class.isAssignableFrom (obj.getClass ())) {
-						((JComponent) obj).putClientProperty (attr.getName (),
-						        attr.getValue ());
+					if (obj != null && 
+					        CustomCodeProxy.getTypeAnalyser ().isConvenient (obj.getClass (), "Component")) {
+					    CustomCodeProxy.doProxy (this, "PutClientProperty", obj, attr);
 						if (AppConstants.DEBUG_MODE) {
 							System.out.println ("ClientProperty put: "
 							        + obj.getClass ().getName () + "(" + id
@@ -1079,7 +1049,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 		                .getDocumentElement ()), null);
 
 		this.linkLabels ();
-		this.supportMacOS ();
+		CustomCodeProxy.doProxy (this, "SupportMacOs", this.mac_map);
 
 		this.lbl_map.clear ();
 		this.mac_map.clear ();
@@ -1111,7 +1081,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 		        container);
 
 		this.linkLabels ();
-		this.supportMacOS ();
+        CustomCodeProxy.doProxy (this, "SupportMacOs", this.mac_map);
 
 		this.lbl_map.clear ();
 		this.mac_map.clear ();
@@ -1165,18 +1135,5 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 			element.removeAttribute (Parser.ATTR_PLAF);
 		}
 		return element;
-	}
-
-	/**
-	 * Link actions with the MacOS' system menu bar
-	 */
-	private void supportMacOS () {
-		if (AppConstants.isMacOSXSupported () && AppConstants.isMacOSX ()) {
-			try {
-				MacApp.getInstance ().update (this.mac_map);
-			} catch (final Throwable t) {
-				// intentionally empty
-			}
-		}
 	}
 }
