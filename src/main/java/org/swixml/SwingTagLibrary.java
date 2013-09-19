@@ -52,7 +52,6 @@
  */
 package org.swixml;
 
-
 import org.swixml.technoproxy.CustomCodeProxy;
 
 /**
@@ -67,115 +66,114 @@ import org.swixml.technoproxy.CustomCodeProxy;
  */
 public final class SwingTagLibrary extends TagLibrary {
 
-	private static SwingTagLibrary	INSTANCE	= new SwingTagLibrary ();
+    private static SwingTagLibrary INSTANCE = new SwingTagLibrary ();
 
-	public static SwingTagLibrary getInstance () {
-		return SwingTagLibrary.INSTANCE;
-	}
+    public static SwingTagLibrary getInstance () {
+        return SwingTagLibrary.INSTANCE;
+    }
 
-	/**
-	 * Constructs a Swing Library by registering swings widgets
-	 */
-	private SwingTagLibrary () {
-		this.registerTags ();
-	}
+    /**
+     * Constructs a Swing Library by registering swings widgets
+     */
+    private SwingTagLibrary () {
+        this.registerTags ();
+    }
 
-
-	/**
-	 * Registers the tags this TagLibrary is all about. Strategy method called
-	 * by the super"), allowing derived")es to change the registration
-	 * behaviour.
-	 */
-	@Override
-	protected void registerTags () {
-		this.registerTag ("Applet", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JApplet"));
-		this.registerTag ("Button", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JButton"));
-		this.registerTag ("ButtonGroup", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("ButtonGroup"));
-		this.registerTag ("HBox", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("XHBox"));
-		this.registerTag ("VBox", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("XVBox"));
-		this.registerTag ("Checkbox", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JCheckBox"));
-		this.registerTag ("CheckBoxMenuItem", CustomCodeProxy
-		        .getTypeAnalyser ().getCompatibleClass ("JCheckBoxMenuItem"));
-		this.registerTag ("ComboBox", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JComboBox"));
-		this.registerTag ("Component", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JComponent"));
-		this.registerTag ("DesktopPane", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JDesktopPane"));
-		this.registerTag ("Dialog", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("XDialog"));
-		this.registerTag ("EditorPane", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JEditorPane"));
-		this.registerTag ("FormattedTextField", CustomCodeProxy
-		        .getTypeAnalyser ().getCompatibleClass ("JFormattedTextField"));
-		this.registerTag ("Frame", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JFrame"));
-		this.registerTag ("Glue", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("XGlue"));
-		this.registerTag ("GridBagConstraints", CustomCodeProxy
-		        .getTypeAnalyser ().getCompatibleClass ("XGridBagConstraints"));
-		this.registerTag ("InternalFrame", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JInternalFrame"));
-		this.registerTag ("Label", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JLabel"));
-		this.registerTag ("List", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JList"));
-		this.registerTag ("Menu", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JMenu"));
-		this.registerTag ("Menubar", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JMenuBar"));
-		this.registerTag ("Menuitem", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JMenuItem"));
-		this.registerTag ("Panel", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JPanel"));
-		this.registerTag ("PasswordField", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JPasswordField"));
-		this.registerTag ("PopupMenu", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JPopupMenu"));
-		this.registerTag ("ProgressBar", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JProgressBar"));
-		this.registerTag ("RadioButton", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JRadioButton"));
-		this.registerTag ("RadioButtonMenuItem", CustomCodeProxy
-		        .getTypeAnalyser ().getCompatibleClass ("JRadioButtonMenuItem"));
-		this.registerTag ("OptionPane", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JOptionPane"));
-		this.registerTag ("ScrollPane", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("XScrollPane"));
-		this.registerTag ("Separator", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JSeparator"));
-		this.registerTag ("Slider", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JSlider"));
-		this.registerTag ("Spinner", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JSpinner"));
-		this.registerTag ("SplitPane", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("XSplitPane"));
-		this.registerTag ("TabbedPane", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("XTabbedPane"));
-		this.registerTag ("Table", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JTable"));
-		this.registerTag ("TableHeader", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JTableHeader"));
-		this.registerTag ("TextArea", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JTextArea"));
-		this.registerTag ("TextField", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JTextField"));
-		this.registerTag ("TextPane", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JTextPane"));
-		this.registerTag ("TitledSeparator", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("XTitledSeparator"));
-		this.registerTag ("ToggleButton", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JToggleButton"));
-		this.registerTag ("Tree", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JTree"));
-		this.registerTag ("Toolbar", CustomCodeProxy.getTypeAnalyser ()
-		        .getCompatibleClass ("JToolBar"));
-	}
+    /**
+     * Registers the tags this TagLibrary is all about. Strategy method called
+     * by the super"), allowing derived")es to change the registration
+     * behaviour.
+     */
+    @Override
+    protected void registerTags () {
+        this.registerTag ("Applet", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("Applet"));
+        this.registerTag ("Button", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("Button"));
+        this.registerTag ("ButtonGroup", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("ButtonGroup"));
+        this.registerTag ("HBox", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("XHBox"));
+        this.registerTag ("VBox", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("XVBox"));
+        this.registerTag ("Checkbox", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("CheckBox"));
+        this.registerTag ("CheckBoxMenuItem", CustomCodeProxy
+                .getTypeAnalyser ().getCompatibleClass ("CheckBoxMenuItem"));
+        this.registerTag ("ComboBox", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("ComboBox"));
+        this.registerTag ("Component", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("Component"));
+        this.registerTag ("DesktopPane", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("DesktopPane"));
+        this.registerTag ("Dialog", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("XDialog"));
+        this.registerTag ("EditorPane", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("EditorPane"));
+        this.registerTag ("FormattedTextField", CustomCodeProxy
+                .getTypeAnalyser ().getCompatibleClass ("FormattedTextField"));
+        this.registerTag ("Frame", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("Frame"));
+        this.registerTag ("Glue", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("XGlue"));
+        this.registerTag ("GridBagConstraints", CustomCodeProxy
+                .getTypeAnalyser ().getCompatibleClass ("XGridBagConstraints"));
+        this.registerTag ("InternalFrame", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("InternalFrame"));
+        this.registerTag ("Label", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("Label"));
+        this.registerTag ("List", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("List"));
+        this.registerTag ("Menu", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("Menu"));
+        this.registerTag ("Menubar", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("MenuBar"));
+        this.registerTag ("Menuitem", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("MenuItem"));
+        this.registerTag ("Panel", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("Panel"));
+        this.registerTag ("PasswordField", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("PasswordField"));
+        this.registerTag ("PopupMenu", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("PopupMenu"));
+        this.registerTag ("ProgressBar", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("ProgressBar"));
+        this.registerTag ("RadioButton", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("RadioButton"));
+        this.registerTag ("RadioButtonMenuItem", CustomCodeProxy
+                .getTypeAnalyser ().getCompatibleClass ("JRadioButtonMenuItem"));
+        this.registerTag ("OptionPane", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("OptionPane"));
+        this.registerTag ("ScrollPane", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("XScrollPane"));
+        this.registerTag ("Separator", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("Separator"));
+        this.registerTag ("Slider", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("Slider"));
+        this.registerTag ("Spinner", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("Spinner"));
+        this.registerTag ("SplitPane", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("XSplitPane"));
+        this.registerTag ("TabbedPane", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("XTabbedPane"));
+        this.registerTag ("Table", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("Table"));
+        this.registerTag ("TableHeader", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("TableHeader"));
+        this.registerTag ("TextArea", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("TextArea"));
+        this.registerTag ("TextField", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("TextField"));
+        this.registerTag ("TextPane", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("TextPane"));
+        this.registerTag ("TitledSeparator", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("XTitledSeparator"));
+        this.registerTag ("ToggleButton", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("ToggleButton"));
+        this.registerTag ("Tree", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("Tree"));
+        this.registerTag ("Toolbar", CustomCodeProxy.getTypeAnalyser ()
+                .getCompatibleClass ("ToolBar"));
+    }
 
 }

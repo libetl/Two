@@ -100,146 +100,146 @@ import org.w3c.dom.Element;
  */
 public class GridBagLayoutConverter implements LayoutConverter {
 
-	/**
-	 * Returns always <code>null</code>.
-	 */
-	@Override
-	public Object convertConstraintsAttribute (final Attribute attr) {
-		return null;
-	}
+    /**
+     * Returns always <code>null</code>.
+     */
+    @Override
+    public Object convertConstraintsAttribute (final Attribute attr) {
+        return null;
+    }
 
-	/**
-	 * Returns always <code>null</code>.
-	 */
-	@Override
-	public Object convertConstraintsElement (final Element element) {
-		return null;
-	}
+    /**
+     * Returns always <code>null</code>.
+     */
+    @Override
+    public Object convertConstraintsElement (final Element element) {
+        return null;
+    }
 
-	/**
-	 * <p>
-	 * Creates a GridBagLayout instance.
-	 * </p>
-	 * 
-	 * <p>
-	 * <b>Examples for Valid XML attribute notations:</b>
-	 * </p>
-	 * <ul>
-	 * <li><code>layout="GridBagLayout"</code></li>
-	 * <li><code>layout="GridBagLayout(rowWeights(0,0,1.0,0))"</code></li>
-	 * <li>
-	 * <code>layout="GridBagLayout(columnWeights(0.5, 0.5, 1.0, 99.9))"</code></li>
-	 * <li><code>layout="GridBagLayout(columnWidths(5, 5, 10, 33))"</code></li>
-	 * <li><code>layout="GridBagLayout(rowHeights(5, 5, 10, 33))"</code></li>
-	 * </ul>
-	 */
-	@Override
-	public LayoutManager convertLayoutAttribute (final Attribute attr) {
-		final StringTokenizer st = new StringTokenizer (attr.getValue (), "(,)");
-		st.nextToken (); // skip layout type
+    /**
+     * <p>
+     * Creates a GridBagLayout instance.
+     * </p>
+     * 
+     * <p>
+     * <b>Examples for Valid XML attribute notations:</b>
+     * </p>
+     * <ul>
+     * <li><code>layout="GridBagLayout"</code></li>
+     * <li><code>layout="GridBagLayout(rowWeights(0,0,1.0,0))"</code></li>
+     * <li>
+     * <code>layout="GridBagLayout(columnWeights(0.5, 0.5, 1.0, 99.9))"</code></li>
+     * <li><code>layout="GridBagLayout(columnWidths(5, 5, 10, 33))"</code></li>
+     * <li><code>layout="GridBagLayout(rowHeights(5, 5, 10, 33))"</code></li>
+     * </ul>
+     */
+    @Override
+    public LayoutManager convertLayoutAttribute (final Attribute attr) {
+        final StringTokenizer st = new StringTokenizer (attr.getValue (), "(,)");
+        st.nextToken (); // skip layout type
 
-		//
-		// Gridbag Layouts have some public arrays, accept one but only one.
-		// public double[] rowWeights
-		// public double[] colWeights
-		//
-		final GridBagLayout lm = new GridBagLayout ();
+        //
+        // Gridbag Layouts have some public arrays, accept one but only one.
+        // public double[] rowWeights
+        // public double[] colWeights
+        //
+        final GridBagLayout lm = new GridBagLayout ();
 
-		if (st.hasMoreTokens ()) {
-			try {
-				final String fieldname = st.nextToken ();
-				final Field field = GridBagLayout.class.getField (fieldname);
-				if (field != null) {
-					final Class<?> fieldtype = field.getType ();
+        if (st.hasMoreTokens ()) {
+            try {
+                final String fieldname = st.nextToken ();
+                final Field field = GridBagLayout.class.getField (fieldname);
+                if (field != null) {
+                    final Class<?> fieldtype = field.getType ();
 
-					if (int [].class.equals (fieldtype)) {
-						field.set (lm, Util.ia (st));
-					} else if (double [].class.equals (fieldtype)) {
-						field.set (lm, Util.da (st));
-					}
+                    if (int [].class.equals (fieldtype)) {
+                        field.set (lm, Util.ia (st));
+                    } else if (double [].class.equals (fieldtype)) {
+                        field.set (lm, Util.da (st));
+                    }
 
-				}
-			} catch (final NoSuchFieldException e) {
-				if (AppConstants.DEBUG_MODE) {
-					System.err.println (e.getMessage ());
-				}
-			} catch (final SecurityException e) {
-				if (AppConstants.DEBUG_MODE) {
-					System.err.println (e.getMessage ());
-				}
-			} catch (final IllegalArgumentException e) {
-				if (AppConstants.DEBUG_MODE) {
-					System.err.println (e.getMessage ());
-				}
-			} catch (final IllegalAccessException e) {
-				if (AppConstants.DEBUG_MODE) {
-					System.err.println (e.getMessage ());
-				}
-			}
-		}
-		return lm;
-	}
+                }
+            } catch (final NoSuchFieldException e) {
+                if (AppConstants.DEBUG_MODE) {
+                    System.err.println (e.getMessage ());
+                }
+            } catch (final SecurityException e) {
+                if (AppConstants.DEBUG_MODE) {
+                    System.err.println (e.getMessage ());
+                }
+            } catch (final IllegalArgumentException e) {
+                if (AppConstants.DEBUG_MODE) {
+                    System.err.println (e.getMessage ());
+                }
+            } catch (final IllegalAccessException e) {
+                if (AppConstants.DEBUG_MODE) {
+                    System.err.println (e.getMessage ());
+                }
+            }
+        }
+        return lm;
+    }
 
-	/**
-	 * <p>
-	 * Creates a GridBagLayout instance.
-	 * </p>
-	 * 
-	 * <p>
-	 * <b>Attributes:</b>
-	 * </p>
-	 * <ul>
-	 * <li><code>columnWidths</code> (optional): The minimum column widths.</li>
-	 * <li><code>rowHeights</code> (optional): The minimum row heights.</li>
-	 * <li><code>columnWeights</code> (optional): The column weights.</li>
-	 * <li><code>rowWeights</code> (optional): The row weights.</li>
-	 * </ul>
-	 * 
-	 * <p>
-	 * <b>Examples for Valid XML element notations:</b>
-	 * </p>
-	 * <ul>
-	 * <li><code>&lt;layout type="GridBagLayout"/&gt;</code></li>
-	 * <li>
-	 * <code>&lt;layout type="GridBagLayout" columnWidths="5, 5, 10, 33" rowWeights="0,0,1.0,0"/&gt;</code>
-	 * </li>
-	 * </ul>
-	 */
-	@Override
-	public LayoutManager convertLayoutElement (final Element element) {
-		final String columnWidths = Attribute.getAttributeValue (element,
-		        "columnWidths");
-		final String rowHeights = Attribute.getAttributeValue (element,
-		        "rowHeights");
-		final String columnWeights = Attribute.getAttributeValue (element,
-		        "columnWeights");
-		final String rowWeights = Attribute.getAttributeValue (element,
-		        "rowWeights");
+    /**
+     * <p>
+     * Creates a GridBagLayout instance.
+     * </p>
+     * 
+     * <p>
+     * <b>Attributes:</b>
+     * </p>
+     * <ul>
+     * <li><code>columnWidths</code> (optional): The minimum column widths.</li>
+     * <li><code>rowHeights</code> (optional): The minimum row heights.</li>
+     * <li><code>columnWeights</code> (optional): The column weights.</li>
+     * <li><code>rowWeights</code> (optional): The row weights.</li>
+     * </ul>
+     * 
+     * <p>
+     * <b>Examples for Valid XML element notations:</b>
+     * </p>
+     * <ul>
+     * <li><code>&lt;layout type="GridBagLayout"/&gt;</code></li>
+     * <li>
+     * <code>&lt;layout type="GridBagLayout" columnWidths="5, 5, 10, 33" rowWeights="0,0,1.0,0"/&gt;</code>
+     * </li>
+     * </ul>
+     */
+    @Override
+    public LayoutManager convertLayoutElement (final Element element) {
+        final String columnWidths = Attribute.getAttributeValue (element,
+                "columnWidths");
+        final String rowHeights = Attribute.getAttributeValue (element,
+                "rowHeights");
+        final String columnWeights = Attribute.getAttributeValue (element,
+                "columnWeights");
+        final String rowWeights = Attribute.getAttributeValue (element,
+                "rowWeights");
 
-		final GridBagLayout lm = new GridBagLayout ();
+        final GridBagLayout lm = new GridBagLayout ();
 
-		if (columnWidths != null) {
-			lm.columnWidths = Util.ia (new StringTokenizer (columnWidths, ","));
-		}
-		if (rowHeights != null) {
-			lm.rowHeights = Util.ia (new StringTokenizer (rowHeights, ","));
-		}
-		if (columnWeights != null) {
-			lm.columnWeights = Util
-			        .da (new StringTokenizer (columnWeights, ","));
-		}
-		if (rowWeights != null) {
-			lm.rowWeights = Util.da (new StringTokenizer (rowWeights, ","));
-		}
+        if (columnWidths != null) {
+            lm.columnWidths = Util.ia (new StringTokenizer (columnWidths, ","));
+        }
+        if (rowHeights != null) {
+            lm.rowHeights = Util.ia (new StringTokenizer (rowHeights, ","));
+        }
+        if (columnWeights != null) {
+            lm.columnWeights = Util
+                    .da (new StringTokenizer (columnWeights, ","));
+        }
+        if (rowWeights != null) {
+            lm.rowWeights = Util.da (new StringTokenizer (rowWeights, ","));
+        }
 
-		return lm;
-	}
+        return lm;
+    }
 
-	/**
-	 * Returns "gridbaglayout".
-	 */
-	@Override
-	public String getID () {
-		return "gridbaglayout";
-	}
+    /**
+     * Returns "gridbaglayout".
+     */
+    @Override
+    public String getID () {
+        return "gridbaglayout";
+    }
 }
