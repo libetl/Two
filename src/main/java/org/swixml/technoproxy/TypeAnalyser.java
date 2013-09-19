@@ -8,4 +8,6 @@ public interface TypeAnalyser {
 
     public <T> T instantiate (String clazz, Object... params);
 
+	public <T> Class<T> getMostSuperClass (String string);
+
 }

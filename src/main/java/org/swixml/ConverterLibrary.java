@@ -203,44 +203,44 @@ public class ConverterLibrary {
     private void registerConverters () {
         this.register (
                 CustomCodeProxy.getTypeAnalyser ()
-                        .getCompatibleClass ("Action"), new ActionConverter ());
+                        .getMostSuperClass ("Action"), new ActionConverter ());
         this.register (
                 CustomCodeProxy.getTypeAnalyser ()
-                        .getCompatibleClass ("Border"), new BorderConverter ());
+                        .getMostSuperClass ("Border"), new BorderConverter ());
         this.register (
-                CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Color"),
+                CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("Color"),
                 new ColorConverter ());
         this.register (
-                CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
+                CustomCodeProxy.getTypeAnalyser ().getMostSuperClass (
                         "Component"), new ComponentConverter ());
         this.register (
-                CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
+                CustomCodeProxy.getTypeAnalyser ().getMostSuperClass (
                         "Dimension"), new DimensionConverter ());
         this.register (
-                CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Font"),
+                CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("Font"),
                 new FontConverter ());
         this.register (
-                CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Image"),
+                CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("Image"),
                 new ImageConverter ());
         this.register (
-                CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Icon"),
+                CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("Icon"),
                 new ImageIconConverter ());
         this.register (
-                CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
+                CustomCodeProxy.getTypeAnalyser ().getMostSuperClass (
                         "ImageIcon"), new ImageIconConverter ());
         this.register (
                 CustomCodeProxy.getTypeAnalyser ()
-                        .getCompatibleClass ("Insets"), new InsetsConverter ());
+                        .getMostSuperClass ("Insets"), new InsetsConverter ());
         this.register (
-                CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
+                CustomCodeProxy.getTypeAnalyser ().getMostSuperClass (
                         "KeyStroke"), new KeyStrokeConverter ());
         this.register (
                 java.util.Locale.class, new LocaleConverter ());
         this.register (
-                CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Point"),
+                CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("Point"),
                 new PointConverter ());
         this.register (
-                CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
+                CustomCodeProxy.getTypeAnalyser ().getMostSuperClass (
                         "Rectangle"), new RectangleConverter ());
         this.register (String.class, new StringConverter ());
         //

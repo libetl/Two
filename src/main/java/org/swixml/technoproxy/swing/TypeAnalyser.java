@@ -86,4 +86,30 @@ public class TypeAnalyser implements org.swixml.technoproxy.TypeAnalyser {
         return result;
     }
 
+	@SuppressWarnings ("unchecked")
+    @Override
+    public <T> Class<T> getMostSuperClass (String string) {
+		Class<T> clazz1 = this.getCompatibleClass (string);
+		Class<T> clazz = clazz1;
+		boolean foundSuper = false;
+		do{
+			foundSuper = false;
+			if (clazz.getSuperclass () != null && clazz.getSuperclass ().getSimpleName ().endsWith (string)){
+				clazz = (Class<T>) clazz.getSuperclass ();
+				foundSuper = true;
+			}else{
+				int i = 0;
+				while (i < clazz.getInterfaces ().length && !foundSuper){
+					if (clazz.getInterfaces () [i] != null &&
+							clazz.getInterfaces () [i].getSimpleName ().endsWith (string)){
+						clazz = (Class<T>) clazz.getInterfaces () [i];
+						foundSuper = true;
+					}
+					i++;
+				}
+			}
+		} while (foundSuper);
+	    return clazz;
+    }
+
 }

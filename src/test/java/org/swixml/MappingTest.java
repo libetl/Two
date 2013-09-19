@@ -119,7 +119,7 @@ public class MappingTest extends TestCase implements GlobalActions {
 		        "Private Field, whose names have a matching ids the the XML descriptor should be initializd by the SwingEngine.",
 		        this.b3);
 		TestCase.assertNull (
-		        "Transient Fields must not be initializd by the SwingEngine.",
+		        "Transient Fields must not be initialized by the SwingEngine.",
 		        this.b4);
 	}
 
