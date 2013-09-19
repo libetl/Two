@@ -21,7 +21,7 @@ public class GridBag extends SwingEngine {
 
 	private GridBag () {
 		try {
-			((Container) this.render ("xml/gridbag.xml")).setVisible (true);
+			((Container) this.render ("samples/swing/xml/gridbag.xml")).setVisible (true);
 		} catch (final Exception e) {
 			e.printStackTrace ();
 		}

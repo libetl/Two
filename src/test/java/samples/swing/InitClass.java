@@ -43,7 +43,7 @@ public class InitClass extends WindowAdapter {
 	                          };
 
 	private InitClass () throws Exception {
-		((JComponent) new SwingEngine (this).render ("xml/initclass.xml"))
+		((JComponent) new SwingEngine (this).render ("samples/swing/xml/initclass.xml"))
 		        .setVisible (true);
 	}
 }

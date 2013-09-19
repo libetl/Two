@@ -68,7 +68,7 @@ import junit.framework.TestCase;
  * @author Wolf Paulus
  */
 public class IdTest extends TestCase {
-	public static final String	DESCRIPTOR	= "xml/id.xml";
+	public static final String	DESCRIPTOR	= "samples/swing/xml/id.xml";
 	private JPanel	           pnl1, pnl11, pnl2;
 	private JButton	           btn1, btn2, btn3;
 	private boolean	           b1, b2;

@@ -18,7 +18,7 @@ import org.swixml.SwingEngine;
  * @since swixml (#101)
  */
 public class Accelerator {
-	private static final String	DESCRIPTOR	= "xml/accelerator.xml";
+	private static final String	DESCRIPTOR	= "samples/swing/xml/accelerator.xml";
 
 	public static void main (String [] args) {
 		try {

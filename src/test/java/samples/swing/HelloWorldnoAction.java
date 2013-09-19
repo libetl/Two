@@ -34,7 +34,7 @@ public class HelloWorldnoAction {
 	 * Renders UI at construction
 	 */
 	private HelloWorldnoAction () throws Exception {
-		((JComponent) new SwingEngine (this).render ("xml/helloworld.xml"))
+		((JComponent) new SwingEngine (this).render ("samples/swing/xml/helloworld.xml"))
 		        .setVisible (true);
 	}
 

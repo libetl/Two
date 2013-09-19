@@ -50,7 +50,7 @@ public class ClientAttr extends WindowAdapter {
 
 	private ClientAttr () {
 		try {
-			((JComponent) this.swix.render ("xml/clientattr.xml"))
+			((JComponent) this.swix.render ("samples/swing/xml/clientattr.xml"))
 			        .setVisible (true);
 			this.swix.forget ("x");
 		} catch (final Exception e) {

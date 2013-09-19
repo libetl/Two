@@ -56,7 +56,7 @@ public class SwixApplet extends JApplet {
 		try {
 			String descriptorfile = this.getParameter ("xml");
 			if (descriptorfile == null) {
-				descriptorfile = "xml/applet.xml";
+				descriptorfile = "samples/swing/xml/applet.xml";
 			}
 			new SwingEngine (this).insert (new URL (this.getCodeBase (),
 			        descriptorfile), this);

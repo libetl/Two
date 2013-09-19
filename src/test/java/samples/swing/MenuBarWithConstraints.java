@@ -18,7 +18,7 @@ public class MenuBarWithConstraints {
 	 */
 	public static void main (String [] args) throws Exception {
 		final SwingEngine se = new SwingEngine ();
-		final Container container = (Container) se.render ("xml/menu-bar.xml");
+		final Container container = (Container) se.render ("samples/swing/xml/menu-bar.xml");
 		container.setVisible (true);
 	}
 

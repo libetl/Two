@@ -13,7 +13,7 @@ import org.swixml.SwingEngine;
  * @since swixml (#136)
  */
 public class Layout {
-	private static final String	DESCRIPTOR	= "xml/funlayout.xml";
+	private static final String	DESCRIPTOR	= "samples/swing/xml/funlayout.xml";
 
 	public static void main (String [] args) {
 		try {

@@ -20,7 +20,7 @@ import org.swixml.SwingEngine;
  */
 public class Cards {
 
-	private static final String	DESCRIPTOR	= "xml/cards.xml";
+	private static final String	DESCRIPTOR	= "samples/swing/xml/cards.xml";
 
 	public static void main (String [] args) {
 		try {

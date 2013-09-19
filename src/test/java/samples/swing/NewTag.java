@@ -34,7 +34,7 @@ public class NewTag extends SwingEngine {
 		}
 
 		try {
-			((JComponent) this.render ("xml/newtag.xml")).setVisible (true);
+			((JComponent) this.render ("samples/swing/xml/newtag.xml")).setVisible (true);
 		} catch (final Exception e) {
 			e.printStackTrace ();
 		}

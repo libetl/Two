@@ -11,7 +11,7 @@ import junit.framework.TestCase;
 
 public class ActionGeneratorTest extends TestCase {
 
-	public static final String	DESCRIPTOR	= "xml/action.xml";
+	public static final String	DESCRIPTOR	= "samples/swing/xml/action.xml";
 	private Container	       container;
 	private JButton	           btn1, btn2;
 	private int	               counter;

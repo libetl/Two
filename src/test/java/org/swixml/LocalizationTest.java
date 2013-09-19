@@ -63,7 +63,7 @@ import junit.framework.TestCase;
  * Testcase for localization of Strings and comma separated lists of strings.
  */
 public class LocalizationTest extends TestCase {
-	public static final String	DESCRIPTOR	= "xml/local.xml";
+	public static final String	DESCRIPTOR	= "samples/swing/xml/local.xml";
 
 	private JButton	           btn1, btn2, btn3, btn4, btn5;	// set through
 	                                                            // Swixml

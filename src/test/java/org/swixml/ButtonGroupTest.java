@@ -67,7 +67,7 @@ import junit.framework.TestCase;
  */
 public class ButtonGroupTest extends TestCase {
 
-	public static final String	DESCRIPTOR	= "xml/mappings.xml";
+	public static final String	DESCRIPTOR	= "samples/swing/xml/mappings.xml";
 	private Container	       container;
 	private SwingEngine	       se;
 

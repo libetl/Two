@@ -79,7 +79,7 @@ import com.jgoodies.forms.layout.RowSpec;
  */
 public class LayoutTest extends TestCase {
 
-	private static final String	DESCRIPTOR	= "xml/layout.xml";
+	private static final String	DESCRIPTOR	= "samples/swing/xml/layout.xml";
 
 	/**
 	 * Asserts that two double[] are equal.

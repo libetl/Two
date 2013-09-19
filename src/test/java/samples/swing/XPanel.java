@@ -28,7 +28,7 @@ public class XPanel extends JPanel {
 
 	public void setXml (String resource) {
 		try {
-			this.swix.insert ("xml/" + resource, this);
+			this.swix.insert ("samples/swing/xml/" + resource, this);
 		} catch (final Exception e) {
 			System.err.println (e.getMessage ());
 		}

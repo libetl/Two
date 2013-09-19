@@ -114,7 +114,7 @@ public class Actions extends WindowAdapter implements ActionListener {
 	private Actions () {
 		try {
 			this.swix = new SwingEngine (this);
-			this.swix.render ("xml/actions.xml");
+			this.swix.render ("samples/swing/xml/actions.xml");
 
 			// at this point all AbstractActions are linked with the button etc.
 			// ActionCommands however need to be linked manually, see below ...

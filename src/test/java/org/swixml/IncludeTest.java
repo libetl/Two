@@ -8,7 +8,7 @@ import junit.framework.TestCase;
  * @author <a href="mailto:alex73mail@gmail.com">Alex Buloichik</a>
  */
 public class IncludeTest extends TestCase {
-	public static final String	DESCRIPTOR	= "xml/include.xml";
+	public static final String	DESCRIPTOR	= "samples/swing/xml/include.xml";
 
 	public IncludeTest () {
 		AppConstants.DEBUG_MODE = true;

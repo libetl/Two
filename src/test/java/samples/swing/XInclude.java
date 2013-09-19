@@ -24,7 +24,7 @@ public class XInclude extends WindowAdapter {
 
 	private XInclude () {
 		try {
-			((Container) this.swix.render ("xml/xinclude.xml"))
+			((Container) this.swix.render ("samples/swing/xml/xinclude.xml"))
 			        .setVisible (true);
 		} catch (final Exception e) {
 			e.printStackTrace ();

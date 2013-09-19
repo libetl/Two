@@ -21,7 +21,7 @@ public class CustomTags extends WindowAdapter {
 	public CustomTags () throws Exception {
 		final SwingEngine swix = new SwingEngine (this);
 		swix.getTaglib ().registerTag ("Calendar", JCalendar.class);
-		((JComponent) swix.render ("xml/customtags.xml")).setVisible (true);
+		((JComponent) swix.render ("samples/swing/xml/customtags.xml")).setVisible (true);
 	}
 
 	/**

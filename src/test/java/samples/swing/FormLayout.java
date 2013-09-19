@@ -13,7 +13,7 @@ import org.swixml.SwingEngine;
  * @since swixml (#151)
  */
 public class FormLayout {
-	private static final String	DESCRIPTOR	= "xml/formlayout.xml";
+	private static final String	DESCRIPTOR	= "samples/swing/xml/formlayout.xml";
 
 	public static void main (String [] args) {
 		try {

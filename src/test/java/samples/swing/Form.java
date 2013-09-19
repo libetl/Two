@@ -16,7 +16,7 @@ public class Form extends SwingEngine {
 
 	private Form () {
 		try {
-			((Container) this.render ("xml/form.xml")).setVisible (true);
+			((Container) this.render ("samples/swing/xml/form.xml")).setVisible (true);
 		} catch (final Exception e) {
 			e.printStackTrace ();
 		}

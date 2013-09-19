@@ -61,7 +61,7 @@ import junit.framework.TestCase;
  * Test for some JMenuBar specialties.
  */
 public class MenuTest extends TestCase {
-	public static final String	DESCRIPTOR	= "xml/dialog.xml";
+	public static final String	DESCRIPTOR	= "samples/swing/xml/dialog.xml";
 	private Container	       container;
 	private SwingEngine	       se;
 

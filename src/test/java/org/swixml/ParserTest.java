@@ -8,7 +8,7 @@ import junit.framework.TestCase;
  * Misc. Parser Tests
  */
 public class ParserTest extends TestCase {
-	public static final String	DESCRIPTOR	= "xml/parsethis.xml";
+	public static final String	DESCRIPTOR	= "samples/swing/xml/parsethis.xml";
 	private Container	       container;
 
 	public ParserTest () {

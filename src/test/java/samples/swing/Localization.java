@@ -21,7 +21,7 @@ import org.swixml.SwingEngine;
 
 public class Localization extends WindowAdapter {
 
-	private static final String	DESCRIPTOR	= "xml/localization.xml";
+	private static final String	DESCRIPTOR	= "samples/swing/xml/localization.xml";
 
 	public static void main (String [] args) {
 		try {

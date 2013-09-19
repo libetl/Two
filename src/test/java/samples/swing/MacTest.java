@@ -34,7 +34,7 @@ public class MacTest extends WindowAdapter {
 
 	private MacTest () throws Exception {
 		MacTest.swix = new SwingEngine (this);
-		MacTest.swix.render ("xml/mactester.xml");
+		MacTest.swix.render ("samples/swing/xml/mactester.xml");
 		((Container) MacTest.swix.getRootComponent ()).setVisible (true);
 	}
 

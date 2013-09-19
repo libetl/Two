@@ -91,7 +91,7 @@ public class HelloMac extends WindowAdapter {
 
 	private HelloMac () throws Exception {
 		this.swix = new SwingEngine (this);
-		this.swix.render ("xml/hellomac.xml");
+		this.swix.render ("samples/swing/xml/hellomac.xml");
 		((Component) this.swix.getRootComponent ()).setVisible (true);
 	}
 

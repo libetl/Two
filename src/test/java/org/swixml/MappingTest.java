@@ -65,7 +65,7 @@ import junit.framework.TestCase;
  * @author Wolf Paulus
  */
 public class MappingTest extends TestCase implements GlobalActions {
-	public static final String	DESCRIPTOR	= "xml/mappings.xml";
+	public static final String	DESCRIPTOR	= "samples/swing/xml/mappings.xml";
 	private Container	       container;
 	private JMenuItem	       miAbout;
 

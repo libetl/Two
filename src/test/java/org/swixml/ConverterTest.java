@@ -68,7 +68,7 @@ import junit.framework.TestCase;
  */
 public class ConverterTest extends TestCase {
 
-	private static final String	DESCRIPTOR	= "xml/converter.xml";
+	private static final String	DESCRIPTOR	= "samples/swing/xml/converter.xml";
 	private Container	        container;
 	private JPanel	            pnl;	                           // auto bound
 	                                                               // through
