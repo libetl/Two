@@ -24,9 +24,10 @@ public class TypeAnalyser implements org.swixml.technoproxy.TypeAnalyser {
         if ("FormLayout".equals (string)){
             return (Class<T>)com.jgoodies.forms.layout.FormLayout.class;
         }
-        final List<String> possibilities = Arrays.asList ("javax.swing.tree." + string,
-                "javax.swing.border." + string, "javax.swing.J" + string, 
-                "javax.swing." + string, "java.awt." + string);
+        final List<String> possibilities = Arrays.asList ("org.swixml.technoproxy.swing." + string, 
+                "javax.swing.tree." + string, "javax.swing.border." + string, 
+                "javax.swing.J" + string, "javax.swing." + string, 
+                "java.awt." + string);
 
         for (final String possibility : possibilities) {
             if (c == null) {

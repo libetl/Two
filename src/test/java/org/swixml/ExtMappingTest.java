@@ -93,16 +93,16 @@ public class ExtMappingTest extends MappingTest {
 	@Override
 	public void testMappingPublicFields () {
 		TestCase.assertNotNull (
-		        "Public Fields, whose names have matching ids the the XML descriptor should be initializd by the SwingEngine.",
+		        "Public Fields, whose names have matching ids the the XML descriptor should be initialized by the SwingEngine.",
 		        this.b1);
 		TestCase.assertNotNull (
-		        "Public Fields, whose names have matching ids the the XML descriptor should be initializd by the SwingEngine.",
+		        "Public Fields, whose names have matching ids the the XML descriptor should be initialized by the SwingEngine.",
 		        super.b1);
 		TestCase.assertNotNull (
-		        "Private Field, whose names have a matching ids the the XML descriptor should be initializd by the SwingEngine.",
+		        "Private Field, whose names have a matching ids the the XML descriptor should be initialized by the SwingEngine.",
 		        this.b2);
 		TestCase.assertNotNull (
-		        "Private Field, whose names have a matching ids the the XML descriptor should be initializd by the SwingEngine.",
+		        "Private Field, whose names have a matching ids the the XML descriptor should be initialized by the SwingEngine.",
 		        this.b5);
 	}
 }

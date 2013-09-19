@@ -72,7 +72,7 @@ import org.swixml.technoproxy.CustomCodeProxy;
  */
 
 public class PrimitiveConverter implements Converter, 
-        KeyEvent, InputEvent {
+        KeyEvent, InputEvent, ScrollPaneConstants, SwingConstants {
 
     /** map contains all constant provider types */
     private static Map<String, Class<?>> dictionaries = new HashMap<String, Class<?>> ();

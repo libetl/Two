@@ -9,6 +9,7 @@ import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -368,8 +369,10 @@ public class ExtractInterfaceTest extends TestCase {
 
 	public void testPackage () throws IOException, ClassNotFoundException {
 		final String rootFolder = "/home/lionel/Public/workspace/swixml/src/main/java/";
-		final List<String> listPackages = Arrays.<String> asList (
-		        "javax.swing", "java.awt", "sun.awt");
+		/*final List<String> listPackages = Arrays.<String> asList (
+		        "javax.swing", "java.awt", "sun.awt");*/
+		
+		final List<String> listPackages = Collections.<String>emptyList ();
 		final Map<String, String> replacePackages = new HashMap<String, String> () {
 			/**
              * 
