@@ -70,7 +70,7 @@ public class TypeAnalyser implements org.swixml.technoproxy.TypeAnalyser {
                     Class<?> c1 = constr.getParameterTypes () [i];
                     if (params [i] != null) {
                         assignable &= c1.isAssignableFrom (params [i]
-                                .getClass ());
+                                .getClass ()) || c1.isPrimitive () || params [i].getClass ().isPrimitive ();
                     }
                 }
                 if (assignable) {

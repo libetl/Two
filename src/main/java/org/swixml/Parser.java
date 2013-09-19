@@ -234,7 +234,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
         if (component == null) {
             return null;
         }
-        return CustomCodeProxy.doProxy (this, component, constrains);
+        return CustomCodeProxy.doProxy (this, parent, component, constrains);
 
     }
 

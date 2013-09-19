@@ -211,8 +211,10 @@ public class Parser
         return obj.getLayout ();
     }
 
-    public void getSwingPutClientProperty (JComponent obj, Attribute attr) {
-        obj.putClientProperty (attr.getName (), attr.getValue ());
+    public void getSwingPutClientProperty (Component obj, Attribute attr) {
+        if (obj != null && obj instanceof JComponent){
+          ((JComponent) obj).putClientProperty (attr.getName (), attr.getValue ());
+        }
     }
 
     public void linkLabelsSetLabelFor (JLabel jl, Component c) {
@@ -279,7 +281,7 @@ public class Parser
     /**
      * Link actions with the MacOS' system menu bar
      */
-    public void parseSupportMacOS (Map<String, Object> macMap) {
+    public void parseSupportMacOs (Map<String, Object> macMap) {
         if (AppConstants.isMacOSXSupported () && AppConstants.isMacOSX ()) {
             try {
                 MacApp.getInstance ().update (macMap);

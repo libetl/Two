@@ -108,7 +108,7 @@ public class FontConverter implements Converter {
     @Override
     public Object convert (Class<?> type, Attribute attr, Localizer localizer)
             throws Exception {
-        return CustomCodeProxy.doProxy (this, attr, localizer);
+        return CustomCodeProxy.doProxy (this, type, attr, localizer);
     }
 
     /**
