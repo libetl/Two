@@ -52,12 +52,11 @@
  */
 package org.swixml.converters;
 
-import java.awt.Font;
-import java.awt.GraphicsEnvironment;
 
 import org.swixml.Attribute;
 import org.swixml.Converter;
 import org.swixml.Localizer;
+import org.swixml.technoproxy.CustomCodeProxy;
 
 /**
  * The FontConverter class defines / describes
@@ -67,10 +66,6 @@ import org.swixml.Localizer;
  * @since swixml 1.0
  */
 public class FontConverter implements Converter {
-    /**
-     * converter's return type
-     */
-    public static final Class<?> TEMPLATE = Font.class;
 
     /**
      * Convert the value of the given <code>Attribute</code> object into an
@@ -113,7 +108,7 @@ public class FontConverter implements Converter {
     @Override
     public Object convert (Class<?> type, Attribute attr, Localizer localizer)
             throws Exception {
-        return attr != null ? Font.decode (attr.getValue ()) : null;
+        return CustomCodeProxy.doProxy (this, attr, localizer);
     }
 
     /**
@@ -126,6 +121,6 @@ public class FontConverter implements Converter {
      */
     @Override
     public Class<?> convertsTo () {
-        return FontConverter.TEMPLATE;
+        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Font");
     }
 }

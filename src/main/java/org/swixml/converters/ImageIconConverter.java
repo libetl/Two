@@ -53,12 +53,11 @@
 
 package org.swixml.converters;
 
-import javax.swing.ImageIcon;
-
 import org.swixml.Attribute;
 import org.swixml.Converter;
 import org.swixml.Localizer;
 import org.swixml.Parser;
+import org.swixml.technoproxy.CustomCodeProxy;
 
 /**
  * A Converter that turns a Strings in the form of a filename into an ImageIcon
@@ -70,9 +69,6 @@ import org.swixml.Parser;
  * @see org.swixml.ConverterLibrary
  */
 public class ImageIconConverter implements Converter {
-
-    /** converter's return type */
-    public static final Class<?> TEMPLATE = ImageIcon.class;
 
     /** current classloader */
 
@@ -90,17 +86,15 @@ public class ImageIconConverter implements Converter {
      */
     public static Object conv (final Class<?> type, final Attribute attr,
             Localizer localizer) {
-        ImageIcon icon = null;
+        Object icon = null;
         if (attr != null) {
             if (Parser.LOCALIZED_ATTRIBUTES.contains (attr.getName ()
                     .toLowerCase ())) {
                 attr.setValue (localizer.getString (attr.getValue ()));
             }
             try {
-                // java.net.URL imgURL = Converter.class.getResource(
-                // attr.getValue() );
-                // icon = new ImageIcon( imgURL );
-                icon = new ImageIcon (localizer.getClassLoader ().getResource (
+                icon = CustomCodeProxy.getTypeAnalyser ().instantiate ("ImageIcon",
+                        localizer.getClassLoader ().getResource (
                         attr.getValue ()));
             } catch (final Exception e) {
                 // intentionally empty
@@ -137,6 +131,6 @@ public class ImageIconConverter implements Converter {
      */
     @Override
     public Class<?> convertsTo () {
-        return ImageIconConverter.TEMPLATE;
+        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("ImageIcon");
     }
 }

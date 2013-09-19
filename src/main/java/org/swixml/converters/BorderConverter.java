@@ -58,13 +58,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.border.Border;
 
 import org.swixml.AppConstants;
 import org.swixml.Attribute;
 import org.swixml.Converter;
 import org.swixml.ConverterLibrary;
 import org.swixml.Localizer;
+import org.swixml.technoproxy.CustomCodeProxy;
 
 /**
  * The <code>BorderConverter</code> class defines a converter that creates
@@ -99,10 +99,6 @@ import org.swixml.Localizer;
  * @see org.swixml.ConverterLibrary
  */
 public class BorderConverter implements Converter {
-    /**
-     * converter's return type
-     */
-    public static final Class<?>   TEMPLATE = Border.class;
 
     /**
      * all methods the BorderFactory provides
@@ -123,7 +119,7 @@ public class BorderConverter implements Converter {
     @Override
     public Object convert (final Class<?> type, final Attribute attr,
             Localizer localizer) {
-        Border border = null;
+        Object border = null;
         final List<String> params = this.parse (attr.getValue ()); // border
                                                                    // type +
         // parameters
@@ -193,7 +189,7 @@ public class BorderConverter implements Converter {
                     args [i] = attrib.getValue ();
                 }
             }
-            border = (Border) method.invoke (null, args);
+            border = (Object) method.invoke (null, args);
         } catch (final Exception e) {
             if (AppConstants.DEBUG_MODE) {
                 System.err.println ("Couldn't create border, "
@@ -213,7 +209,7 @@ public class BorderConverter implements Converter {
      */
     @Override
     public Class<?> convertsTo () {
-        return BorderConverter.TEMPLATE;
+        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Border");
     }
 
     /**

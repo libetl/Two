@@ -51,13 +51,12 @@
 
 package org.swixml.layoutconverters;
 
-import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import java.util.StringTokenizer;
 
 import org.swixml.Attribute;
 import org.swixml.LayoutConverter;
 import org.swixml.converters.Util;
+import org.swixml.technoproxy.CustomCodeProxy;
 import org.w3c.dom.Element;
 
 /**
@@ -103,7 +102,7 @@ import org.w3c.dom.Element;
  * @author Karl Tauber
  * @author <a href="mailto:wolf@wolfpaulus.com">Wolf Paulus</a>
  */
-public class GridLayoutConverter implements LayoutConverter {
+public class GridLayoutConverter<GridLayout> implements LayoutConverter<GridLayout> {
 
     /**
      * Returns always <code>null</code>.
@@ -137,17 +136,17 @@ public class GridLayoutConverter implements LayoutConverter {
      * </ul>
      */
     @Override
-    public LayoutManager convertLayoutAttribute (final Attribute attr) {
+    public GridLayout convertLayoutAttribute (final Attribute attr) {
         final StringTokenizer st = new StringTokenizer (attr.getValue (), "(,)");
         st.nextToken (); // skip layout type
 
         final int [] para = Util.ia (st);
         if (4 <= para.length) {
-            return new GridLayout (para [0], para [1], para [2], para [3]);
+            return CustomCodeProxy.getTypeAnalyser ().instantiate ("GridLayout", para [0], para [1], para [2], para [3]);
         } else if (2 <= para.length) {
-            return new GridLayout (para [0], para [1]);
+            return CustomCodeProxy.getTypeAnalyser ().instantiate ("GridLayout", para [0], para [1]);
         } else {
-            return new GridLayout ();
+            return CustomCodeProxy.getTypeAnalyser ().instantiate ("GridLayout");
         }
     }
 
@@ -178,12 +177,12 @@ public class GridLayoutConverter implements LayoutConverter {
      * </ul>
      */
     @Override
-    public LayoutManager convertLayoutElement (final Element element) {
+    public GridLayout convertLayoutElement (final Element element) {
         final int rows = Util.getInteger (element, "rows", 1);
         final int cols = Util.getInteger (element, "columns", 0);
         final int hgap = Util.getInteger (element, "hgap", 0);
         final int vgap = Util.getInteger (element, "vgap", 0);
-        return new GridLayout (rows, cols, hgap, vgap);
+        return CustomCodeProxy.getTypeAnalyser ().instantiate ("GridLayout", rows, cols, hgap, vgap);
     }
 
     /**

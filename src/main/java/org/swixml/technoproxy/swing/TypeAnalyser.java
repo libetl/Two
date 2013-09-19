@@ -18,8 +18,15 @@ public class TypeAnalyser implements org.swixml.technoproxy.TypeAnalyser {
     @Override
     public <T> Class<T> getCompatibleClass (String string) {
         Class<T> c = null;
-        final List<String> possibilities = Arrays.asList ("javax.swing.J"
-                + string, "javax.swing." + string, "java.awt." + string);
+        if ("CellConstraints".equals (string)){
+            return (Class<T>) com.jgoodies.forms.layout.CellConstraints.class;
+        }
+        if ("FormLayout".equals (string)){
+            return (Class<T>)com.jgoodies.forms.layout.FormLayout.class;
+        }
+        final List<String> possibilities = Arrays.asList ("javax.swing.tree." + string,
+                "javax.swing.border." + string, "javax.swing.J" + string, 
+                "javax.swing." + string, "java.awt." + string);
 
         for (final String possibility : possibilities) {
             if (c == null) {

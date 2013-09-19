@@ -121,7 +121,7 @@ public final class Util {
         try {
             return Integer.parseInt (value.trim ());
         } catch (final NumberFormatException e) {
-            // no exceptiion handling required
+            // no exception handling required
             return def;
         }
     }

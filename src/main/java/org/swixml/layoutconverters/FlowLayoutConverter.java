@@ -51,14 +51,13 @@
 
 package org.swixml.layoutconverters;
 
-import java.awt.FlowLayout;
-import java.awt.LayoutManager;
 import java.util.StringTokenizer;
 
 import org.swixml.Attribute;
 import org.swixml.LayoutConverter;
 import org.swixml.converters.PrimitiveConverter;
 import org.swixml.converters.Util;
+import org.swixml.technoproxy.CustomCodeProxy;
 import org.w3c.dom.Element;
 
 /**
@@ -104,13 +103,13 @@ import org.w3c.dom.Element;
  * @author Karl Tauber
  * @author <a href="mailto:wolf@wolfpaulus.com">Wolf Paulus</a>
  */
-public class FlowLayoutConverter implements LayoutConverter {
+public class FlowLayoutConverter<FlowLayout> implements LayoutConverter<FlowLayout> {
 
     /**
      * Returns always <code>null</code>.
      */
     @Override
-    public Object convertConstraintsAttribute (final Attribute attr) {
+    public FlowLayout convertConstraintsAttribute (final Attribute attr) {
         return null;
     }
 
@@ -118,7 +117,7 @@ public class FlowLayoutConverter implements LayoutConverter {
      * Returns always <code>null</code>.
      */
     @Override
-    public Object convertConstraintsElement (final Element element) {
+    public FlowLayout convertConstraintsElement (final Element element) {
         return null;
     }
 
@@ -137,7 +136,7 @@ public class FlowLayoutConverter implements LayoutConverter {
      * </ul>
      */
     @Override
-    public LayoutManager convertLayoutAttribute (final Attribute attr) {
+    public FlowLayout convertLayoutAttribute (final Attribute attr) {
         final StringTokenizer st = new StringTokenizer (attr.getValue (), "(,)");
         st.nextToken (); // skip layout type
 
@@ -147,23 +146,24 @@ public class FlowLayoutConverter implements LayoutConverter {
                 // First FlowLayout parameter might be a pre-defined constant's
                 // name
                 //
-                final Object o = PrimitiveConverter.conv (null, new Attribute (
+                final Object o = new PrimitiveConverter().convert (null, new Attribute (
                         "NA", st.nextToken ()), null);
                 final int [] para = Util.ia (st);
                 //
                 // Remaining paramters should be integer values
                 //
                 if (para.length < 2) {
-                    return new FlowLayout (Integer.valueOf (o.toString ())
-                            .intValue ());
+                    return CustomCodeProxy.getTypeAnalyser ().instantiate ("FlowLayout",
+                            Integer.valueOf (o.toString ()).intValue ());
                 } else {
-                    return new FlowLayout (Integer.valueOf (o.toString ())
+                    return CustomCodeProxy.getTypeAnalyser ().instantiate ("FlowLayout",
+                            Integer.valueOf (o.toString ())
                             .intValue (), para [0], para [1]);
                 }
             }
         } catch (final Exception e) {
         }
-        return new FlowLayout ();
+        return CustomCodeProxy.getTypeAnalyser ().instantiate ("FlowLayout");
     }
 
     /**
@@ -194,12 +194,12 @@ public class FlowLayoutConverter implements LayoutConverter {
      * </ul>
      */
     @Override
-    public LayoutManager convertLayoutElement (final Element element) {
-        int align = FlowLayout.CENTER;
+    public FlowLayout convertLayoutElement (final Element element) {
+        int align = 0;
         final String value = Attribute.getAttributeValue (element, "alignment");
         if (value != null) {
             try {
-                final Object o = PrimitiveConverter.conv (null, new Attribute (
+                final Object o = new PrimitiveConverter().convert (null, new Attribute (
                         "NA", value), null);
                 align = Integer.valueOf (o.toString ()).intValue ();
             } catch (final Exception ex) {
@@ -207,7 +207,7 @@ public class FlowLayoutConverter implements LayoutConverter {
         }
         final int hgap = Util.getInteger (element, "hgap", 5);
         final int vgap = Util.getInteger (element, "vgap", 5);
-        return new FlowLayout (align, hgap, vgap);
+        return CustomCodeProxy.getTypeAnalyser ().instantiate ("FlowLayout", align, hgap, vgap);
     }
 
     /**
@@ -217,4 +217,5 @@ public class FlowLayoutConverter implements LayoutConverter {
     public String getID () {
         return "flowlayout";
     }
+
 }

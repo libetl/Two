@@ -85,7 +85,7 @@ public class PrimitiveConverterTest extends TestCase {
 	 * @see ScrollPaneConstants
 	 */
 	public void testConstantAvailability () throws Exception {
-		final Object obj = PrimitiveConverter.conv (JScrollPane.class,
+		final Object obj = new PrimitiveConverter().convert (JScrollPane.class,
 		        new Attribute ("orientation", "VERTICAL_SCROLLBAR_ALWAYS"),
 		        null);
 		TestCase.assertNotNull (obj);

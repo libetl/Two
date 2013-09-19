@@ -53,13 +53,10 @@
 
 package org.swixml.converters;
 
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
-
 import org.swixml.Attribute;
 import org.swixml.Converter;
 import org.swixml.Localizer;
+import org.swixml.technoproxy.CustomCodeProxy;
 
 /**
  * A Converter that turns a Strings in the form of a filename into an Image
@@ -72,27 +69,6 @@ import org.swixml.Localizer;
  */
 public class ImageConverter implements Converter {
 
-    /** converter's return type */
-    public static final Class<?> TEMPLATE = Image.class;
-
-    /**
-     * Converts a String into an ImageIcon through a Resource lookup
-     * 
-     * @param type
-     *            <code>Class</code> not used
-     * @param attr
-     *            <code>Attribute</code> attribute provides the value to be
-     *            converted
-     * @param localizer
-     *            <code>Localizer</code> allow the use of resource lookups
-     * @return <code>Object</code> - an <code>ImageIcon</code>
-     */
-    public static Object conv (final Class<?> type, final Attribute attr,
-            Localizer localizer) {
-        final ImageIcon icon = (ImageIcon) ImageIconConverter.conv (type, attr,
-                localizer);
-        return icon != null ? icon.getImage () : null;
-    }
 
     /**
      * Converts a String into an ImageIcon through a Resource lookup
@@ -109,7 +85,7 @@ public class ImageConverter implements Converter {
     @Override
     public Object convert (final Class<?> type, final Attribute attr,
             Localizer localizer) {
-        return ImageConverter.conv (type, attr, localizer);
+        return CustomCodeProxy.doProxy (this, type, attr, localizer);
     }
 
     /**
@@ -122,6 +98,6 @@ public class ImageConverter implements Converter {
      */
     @Override
     public Class<?> convertsTo () {
-        return ImageConverter.TEMPLATE;
+        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Image");
     }
 }

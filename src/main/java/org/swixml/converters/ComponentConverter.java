@@ -53,11 +53,10 @@
 
 package org.swixml.converters;
 
-import java.awt.Component;
-
 import org.swixml.Attribute;
 import org.swixml.Converter;
 import org.swixml.Localizer;
+import org.swixml.technoproxy.CustomCodeProxy;
 
 /**
  * The ComponentConverter class defines a dummy converter It's simply here to
@@ -67,10 +66,6 @@ import org.swixml.Localizer;
  * @version $Revision: 1.1 $
  */
 public class ComponentConverter implements Converter {
-    /**
-     * converter's return type
-     */
-    public static final Class<?> TEMPLATE = Component.class;
 
     /**
      * Convert the value of the given <code>Attribute</code> object into an
@@ -80,7 +75,7 @@ public class ComponentConverter implements Converter {
      *            <code>Attribute</code> the attribute, providing the value to
      *            be converted.
      */
-    public static Component conv (Attribute attr) throws Exception {
+    public static Object conv (Attribute attr) throws Exception {
         return null;
     }
 
@@ -111,6 +106,6 @@ public class ComponentConverter implements Converter {
      */
     @Override
     public Class<?> convertsTo () {
-        return ComponentConverter.TEMPLATE;
+        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Component");
     }
 }

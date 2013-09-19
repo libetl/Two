@@ -52,7 +52,6 @@
  */
 package org.swixml.converters;
 
-import java.awt.Event;
 
 public interface InputEvent {
 
@@ -60,25 +59,25 @@ public interface InputEvent {
      * The shift key modifier constant. It is recommended that SHIFT_DOWN_MASK
      * to be used instead.
      */
-    public static final int SHIFT_MASK          = Event.SHIFT_MASK;
+    public static final int SHIFT_MASK          = 1;
 
     /**
      * The control key modifier constant. It is recommended that CTRL_DOWN_MASK
      * to be used instead.
      */
-    public static final int CTRL_MASK           = Event.CTRL_MASK;
+    public static final int CTRL_MASK           = 2;
 
     /**
      * The meta key modifier constant. It is recommended that META_DOWN_MASK to
      * be used instead.
      */
-    public static final int META_MASK           = Event.META_MASK;
+    public static final int META_MASK           = 4;
 
     /**
      * The alt key modifier constant. It is recommended that ALT_DOWN_MASK to be
      * used instead.
      */
-    public static final int ALT_MASK            = Event.ALT_MASK;
+    public static final int ALT_MASK            = 8;
 
     /**
      * The alt-graph key modifier constant.
@@ -95,13 +94,13 @@ public interface InputEvent {
      * The mouse button2 modifier constant. It is recommended that
      * BUTTON2_DOWN_MASK to be used instead.
      */
-    public static final int BUTTON2_MASK        = Event.ALT_MASK;
+    public static final int BUTTON2_MASK        = 8;
 
     /**
      * The mouse button3 modifier constant. It is recommended that
      * BUTTON3_DOWN_MASK to be used instead.
      */
-    public static final int BUTTON3_MASK        = Event.META_MASK;
+    public static final int BUTTON3_MASK        = 4;
 
     /**
      * The SHIFT key extended modifier constant.

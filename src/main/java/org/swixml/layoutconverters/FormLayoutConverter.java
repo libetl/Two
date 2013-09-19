@@ -51,16 +51,14 @@
 
 package org.swixml.layoutconverters;
 
-import java.awt.LayoutManager;
 import java.util.StringTokenizer;
 
 import org.swixml.Attribute;
 import org.swixml.LayoutConverter;
 import org.swixml.converters.Util;
+import org.swixml.technoproxy.CustomCodeProxy;
 import org.w3c.dom.Element;
 
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * A layout converter for <code>com.jgoodies.forms.layout.FormLayout</code>.
@@ -107,7 +105,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  * @author Karl Tauber
  */
-public class FormLayoutConverter implements LayoutConverter {
+public class FormLayoutConverter<FormLayout> implements LayoutConverter<FormLayout> {
 
     /**
      * <p>
@@ -139,7 +137,7 @@ public class FormLayoutConverter implements LayoutConverter {
      */
     @Override
     public Object convertConstraintsAttribute (final Attribute attr) {
-        return new CellConstraints (attr.getValue ());
+        return CustomCodeProxy.getTypeAnalyser ().instantiate ("CellConstraints", attr.getValue ());
     }
 
     /**
@@ -168,7 +166,7 @@ public class FormLayoutConverter implements LayoutConverter {
      * Returns always <code>null</code>.
      */
     @Override
-    public LayoutManager convertLayoutAttribute (final Attribute attr) {
+    public FormLayout convertLayoutAttribute (final Attribute attr) {
         return null;
     }
 
@@ -212,7 +210,7 @@ public class FormLayoutConverter implements LayoutConverter {
      * </ul>
      */
     @Override
-    public LayoutManager convertLayoutElement (final Element element) {
+    public FormLayout convertLayoutElement (final Element element) {
         final String encodedColumnSpecs = Attribute.getAttributeValue (element,
                 "columns");
         final String encodedRowSpecs = Attribute.getAttributeValue (element,
@@ -222,14 +220,10 @@ public class FormLayoutConverter implements LayoutConverter {
         final int [][] rowGroupIndices = this.convertGroupIndices (Attribute
                 .getAttributeValue (element, "rowGroups"));
 
-        final FormLayout lm = new FormLayout (encodedColumnSpecs,
+        final FormLayout lm = CustomCodeProxy.getTypeAnalyser ().instantiate ("FormLayout", encodedColumnSpecs,
                 encodedRowSpecs);
-        if (columnGroupIndices != null) {
-            lm.setColumnGroups (columnGroupIndices);
-        }
-        if (rowGroupIndices != null) {
-            lm.setRowGroups (rowGroupIndices);
-        }
+        CustomCodeProxy.doProxy (this, lm, columnGroupIndices, rowGroupIndices);
+
 
         return lm;
     }

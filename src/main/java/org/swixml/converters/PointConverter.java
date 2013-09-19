@@ -53,12 +53,12 @@
 
 package org.swixml.converters;
 
-import java.awt.Point;
 import java.util.StringTokenizer;
 
 import org.swixml.Attribute;
 import org.swixml.Converter;
 import org.swixml.Localizer;
+import org.swixml.technoproxy.CustomCodeProxy;
 
 /**
  * A Converter that turns a Strings into Point objects
@@ -69,8 +69,6 @@ import org.swixml.Localizer;
  * @see org.swixml.ConverterLibrary
  */
 public class PointConverter implements Converter {
-    /** converter's return type */
-    public static final Class<?> TEMPLATE = Point.class;
 
     /**
      * Converts a String into an Point object
@@ -96,7 +94,7 @@ public class PointConverter implements Converter {
             if (st.hasMoreTokens ()) {
                 y = Integer.parseInt (st.nextToken ().trim ());
             }
-            return new Point (x, y);
+            return CustomCodeProxy.getTypeAnalyser ().instantiate ("Point", x, y);
         }
         return null;
     }
@@ -111,6 +109,6 @@ public class PointConverter implements Converter {
      */
     @Override
     public Class<?> convertsTo () {
-        return PointConverter.TEMPLATE;
+        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Point");
     }
 }

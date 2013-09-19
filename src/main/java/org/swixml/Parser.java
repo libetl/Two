@@ -545,7 +545,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                 //
                 if (paraType.isPrimitive ()) {
                     try {
-                        method.invoke (obj, PrimitiveConverter.conv (paraType,
+                        method.invoke (obj, new PrimitiveConverter ().convert (paraType,
                                 attr, this.engine.getLocalizer ())); // ATTR SET
                     } catch (final Exception e) {
                         list.add (attr);

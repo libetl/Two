@@ -162,22 +162,22 @@ public class LayoutConverterLibrary {
     private void registerLayoutConverters () {
         this.register (
                 CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
-                        "BorderLayout"), new BorderLayoutConverter ());
+                        "BorderLayout"), new BorderLayoutConverter<Object> ());
         this.register (
                 CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
-                        "CardLayout"), new CardLayoutConverter ());
+                        "CardLayout"), new CardLayoutConverter<Object>  ());
         this.register (
                 CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
-                        "FlowLayout"), new FlowLayoutConverter ());
+                        "FlowLayout"), new FlowLayoutConverter<Object>  ());
         this.register (
                 CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
-                        "GridBagLayout"), new GridBagLayoutConverter ());
+                        "GridBagLayout"), new GridBagLayoutConverter<Object>  ());
         this.register (
                 CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
-                        "GridLayout"), new GridLayoutConverter ());
+                        "GridLayout"), new GridLayoutConverter<Object>  ());
 
         // 3rd party layout managers
         this.register ("com.jgoodies.forms.layout.FormLayout",
-                new FormLayoutConverter ());
+                new FormLayoutConverter<Object>  ());
     }
 }

@@ -52,12 +52,12 @@
  */
 package org.swixml.converters;
 
-import java.awt.Insets;
 import java.util.StringTokenizer;
 
 import org.swixml.Attribute;
 import org.swixml.Converter;
 import org.swixml.Localizer;
+import org.swixml.technoproxy.CustomCodeProxy;
 
 /**
  * The <code>InsetsConverter</code> class defines a converter that creates
@@ -80,9 +80,6 @@ import org.swixml.Localizer;
  */
 public class InsetsConverter implements Converter {
 
-    /** converter's return type */
-    public static final Class<?> TEMPLATE = Insets.class;
-
     /**
      * Converts a Strings into an Insets object
      * 
@@ -97,7 +94,7 @@ public class InsetsConverter implements Converter {
     @Override
     public Object convert (final Class<?> type, final Attribute attr,
             Localizer localizer) {
-        Insets insets = null;
+        Object insets = null;
         if (attr != null) {
             final StringTokenizer st = new StringTokenizer (attr.getValue (),
                     "(,)");
@@ -106,7 +103,8 @@ public class InsetsConverter implements Converter {
             }
             final int [] param = Util.ia (st);
             if (4 <= param.length) {
-                insets = new Insets (param [0], param [1], param [2], param [3]);
+                insets = CustomCodeProxy.getTypeAnalyser ().instantiate ("Insets",
+                        param [0], param [1], param [2], param [3]);
             }
         }
         return insets;
@@ -122,6 +120,6 @@ public class InsetsConverter implements Converter {
      */
     @Override
     public Class<?> convertsTo () {
-        return InsetsConverter.TEMPLATE;
+        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Insets");
     }
 }

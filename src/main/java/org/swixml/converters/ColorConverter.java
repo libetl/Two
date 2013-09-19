@@ -53,7 +53,6 @@
 
 package org.swixml.converters;
 
-import java.awt.Color;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.StringTokenizer;
@@ -62,6 +61,7 @@ import org.swixml.AppConstants;
 import org.swixml.Attribute;
 import org.swixml.Converter;
 import org.swixml.Localizer;
+import org.swixml.technoproxy.CustomCodeProxy;
 
 /**
  * The ColorConverter class defines a Converter that turns the Strings into a
@@ -85,8 +85,6 @@ import org.swixml.Localizer;
  * </pre>
  */
 public class ColorConverter implements Converter {
-    /** converter's return type */
-    public static final Class<?> TEMPLATE = Color.class;
 
     /**
      * Returns a <code>java.awt.Color</code> runtime object
@@ -98,12 +96,13 @@ public class ColorConverter implements Converter {
      * @return runtime type is subclass of <code>java.awt.Color</code>
      */
     public static Object conv (final Class<?> type, final Attribute attr) {
+        Class<?> c = CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Color");
         if (attr != null) {
             try {
-                final Field field = Color.class.getField (attr.getValue ());
-                if (Color.class.equals (field.getType ())
+                final Field field = c.getField (attr.getValue ());
+                if (c.equals (field.getType ())
                         && Modifier.isStatic (field.getModifiers ())) {
-                    return field.get (Color.class);
+                    return field.get (c);
                 }
             } catch (final NoSuchFieldException e) {
             } catch (final SecurityException e) {
@@ -113,7 +112,7 @@ public class ColorConverter implements Converter {
                     ",");
             if (1 == st.countTokens ()) {
                 try {
-                    return new Color (Integer.parseInt (
+                    return CustomCodeProxy.getTypeAnalyser ().instantiate ("Color", Integer.parseInt (
                             st.nextToken ().trim (), 16));
                 } catch (final NumberFormatException e) {
                     if (AppConstants.DEBUG_MODE) {
@@ -124,13 +123,13 @@ public class ColorConverter implements Converter {
             }
             final int [] para = Util.ia (st);
             if (4 <= para.length) {
-                return new Color (para [0], para [1], para [2], para [3]);
+                return CustomCodeProxy.getTypeAnalyser ().instantiate ("Color", para [0], para [1], para [2], para [3]);
             }
             if (3 <= para.length) {
-                return new Color (para [0], para [1], para [2]);
+                return CustomCodeProxy.getTypeAnalyser ().instantiate ("Color", para [0], para [1], para [2]);
             }
             if (1 <= para.length) {
-                return new Color (para [0]);
+                return CustomCodeProxy.getTypeAnalyser ().instantiate ("Color", para [0]);
             }
         }
         return null;
@@ -161,7 +160,7 @@ public class ColorConverter implements Converter {
      */
     @Override
     public Class<?> convertsTo () {
-        return ColorConverter.TEMPLATE;
+        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Color");
     }
 
 }

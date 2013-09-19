@@ -51,8 +51,6 @@
 
 package org.swixml.layoutconverters;
 
-import java.awt.GridBagLayout;
-import java.awt.LayoutManager;
 import java.lang.reflect.Field;
 import java.util.StringTokenizer;
 
@@ -60,6 +58,7 @@ import org.swixml.AppConstants;
 import org.swixml.Attribute;
 import org.swixml.LayoutConverter;
 import org.swixml.converters.Util;
+import org.swixml.technoproxy.CustomCodeProxy;
 import org.w3c.dom.Element;
 
 /**
@@ -98,7 +97,7 @@ import org.w3c.dom.Element;
  * @author Karl Tauber
  * @author <a href="mailto:wolf@wolfpaulus.com">Wolf Paulus</a>
  */
-public class GridBagLayoutConverter implements LayoutConverter {
+public class GridBagLayoutConverter<GridBagLayout> implements LayoutConverter<GridBagLayout> {
 
     /**
      * Returns always <code>null</code>.
@@ -134,7 +133,7 @@ public class GridBagLayoutConverter implements LayoutConverter {
      * </ul>
      */
     @Override
-    public LayoutManager convertLayoutAttribute (final Attribute attr) {
+    public GridBagLayout convertLayoutAttribute (final Attribute attr) {
         final StringTokenizer st = new StringTokenizer (attr.getValue (), "(,)");
         st.nextToken (); // skip layout type
 
@@ -143,12 +142,12 @@ public class GridBagLayoutConverter implements LayoutConverter {
         // public double[] rowWeights
         // public double[] colWeights
         //
-        final GridBagLayout lm = new GridBagLayout ();
+        final GridBagLayout lm = CustomCodeProxy.getTypeAnalyser ().instantiate ("GridBagLayout");
 
         if (st.hasMoreTokens ()) {
             try {
                 final String fieldname = st.nextToken ();
-                final Field field = GridBagLayout.class.getField (fieldname);
+                final Field field = lm.getClass ().getField (fieldname);
                 if (field != null) {
                     final Class<?> fieldtype = field.getType ();
 
@@ -206,7 +205,7 @@ public class GridBagLayoutConverter implements LayoutConverter {
      * </ul>
      */
     @Override
-    public LayoutManager convertLayoutElement (final Element element) {
+    public GridBagLayout convertLayoutElement (final Element element) {
         final String columnWidths = Attribute.getAttributeValue (element,
                 "columnWidths");
         final String rowHeights = Attribute.getAttributeValue (element,
@@ -216,22 +215,11 @@ public class GridBagLayoutConverter implements LayoutConverter {
         final String rowWeights = Attribute.getAttributeValue (element,
                 "rowWeights");
 
-        final GridBagLayout lm = new GridBagLayout ();
+        final GridBagLayout lm = CustomCodeProxy.getTypeAnalyser ().instantiate ("GridBagLayout");
 
-        if (columnWidths != null) {
-            lm.columnWidths = Util.ia (new StringTokenizer (columnWidths, ","));
-        }
-        if (rowHeights != null) {
-            lm.rowHeights = Util.ia (new StringTokenizer (rowHeights, ","));
-        }
-        if (columnWeights != null) {
-            lm.columnWeights = Util
-                    .da (new StringTokenizer (columnWeights, ","));
-        }
-        if (rowWeights != null) {
-            lm.rowWeights = Util.da (new StringTokenizer (rowWeights, ","));
-        }
 
+        CustomCodeProxy.doProxy (this, lm, columnWidths, rowHeights, columnWeights, rowWeights);
+        
         return lm;
     }
 

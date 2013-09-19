@@ -52,14 +52,14 @@
  */
 package org.swixml.converters;
 
-import javax.swing.Action;
 
 import org.swixml.Attribute;
 import org.swixml.Converter;
 import org.swixml.Localizer;
+import org.swixml.technoproxy.CustomCodeProxy;
 
 /**
- * The ActionConverter is a tagging class that is only used to regsiter the
+ * The ActionConverter is a tagging class that is only used to register the
  * Action.class with the ConverterLibrary
  * 
  * @author <a href="mailto:wolf@paulus.com">Wolf Paulus</a>
@@ -95,6 +95,6 @@ public class ActionConverter implements Converter {
      */
     @Override
     public Class<?> convertsTo () {
-        return Action.class;
+        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Action");
     }
 }

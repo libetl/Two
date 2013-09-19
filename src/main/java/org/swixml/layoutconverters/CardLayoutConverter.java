@@ -51,13 +51,12 @@
 
 package org.swixml.layoutconverters;
 
-import java.awt.CardLayout;
-import java.awt.LayoutManager;
 import java.util.StringTokenizer;
 
 import org.swixml.Attribute;
 import org.swixml.LayoutConverter;
 import org.swixml.converters.Util;
+import org.swixml.technoproxy.CustomCodeProxy;
 import org.w3c.dom.Element;
 
 /**
@@ -98,7 +97,7 @@ import org.w3c.dom.Element;
  * @author Karl Tauber
  * @author <a href="mailto:wolf@wolfpaulus.com">Wolf Paulus</a>
  */
-public class CardLayoutConverter implements LayoutConverter {
+public class CardLayoutConverter<CardLayout> implements LayoutConverter<CardLayout> {
 
     /**
      * Converts CardLayout constraints. The attribute value is used as card
@@ -141,15 +140,15 @@ public class CardLayoutConverter implements LayoutConverter {
      * </ul>
      */
     @Override
-    public LayoutManager convertLayoutAttribute (final Attribute attr) {
+    public CardLayout convertLayoutAttribute (final Attribute attr) {
         final StringTokenizer st = new StringTokenizer (attr.getValue (), "(,)");
         st.nextToken (); // skip layout type
 
         final int [] para = Util.ia (st);
         if (para.length < 2) {
-            return new CardLayout ();
+            return CustomCodeProxy.getTypeAnalyser ().instantiate ("CardLayout");
         } else {
-            return new CardLayout (para [0], para [1]);
+            return CustomCodeProxy.getTypeAnalyser ().instantiate ("CardLayout", para [0], para [1]);
         }
     }
 
@@ -175,10 +174,10 @@ public class CardLayoutConverter implements LayoutConverter {
      * </ul>
      */
     @Override
-    public LayoutManager convertLayoutElement (final Element element) {
+    public CardLayout convertLayoutElement (final Element element) {
         final int hgap = Util.getInteger (element, "hgap", 0);
         final int vgap = Util.getInteger (element, "vgap", 0);
-        return new CardLayout (hgap, vgap);
+        return CustomCodeProxy.getTypeAnalyser ().instantiate ("CardLayout", hgap, vgap);
     }
 
     /**

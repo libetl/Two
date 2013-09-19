@@ -53,12 +53,12 @@
 
 package org.swixml.converters;
 
-import java.awt.Dimension;
 import java.util.StringTokenizer;
 
 import org.swixml.Attribute;
 import org.swixml.Converter;
 import org.swixml.Localizer;
+import org.swixml.technoproxy.CustomCodeProxy;
 
 /**
  * A Converter that turns a Strings in the form: width,height into Dimension
@@ -78,8 +78,6 @@ import org.swixml.Localizer;
  */
 
 public final class DimensionConverter implements Converter {
-    /** converter's return type */
-    public static final Class<?> TEMPLATE = Dimension.class;
 
     /**
      * Converts a String into an Dimension object
@@ -105,7 +103,7 @@ public final class DimensionConverter implements Converter {
             if (st.hasMoreTokens ()) {
                 height = Integer.parseInt (st.nextToken ().trim ());
             }
-            return new Dimension (width, height);
+            return CustomCodeProxy.getTypeAnalyser ().instantiate ("Dimension", width, height);
         }
         return null;
     }
@@ -120,6 +118,6 @@ public final class DimensionConverter implements Converter {
      */
     @Override
     public Class<?> convertsTo () {
-        return DimensionConverter.TEMPLATE;
+        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Dimension");
     }
 }

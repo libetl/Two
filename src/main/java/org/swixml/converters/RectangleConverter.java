@@ -53,12 +53,12 @@
 
 package org.swixml.converters;
 
-import java.awt.Rectangle;
 import java.util.StringTokenizer;
 
 import org.swixml.Attribute;
 import org.swixml.Converter;
 import org.swixml.Localizer;
+import org.swixml.technoproxy.CustomCodeProxy;
 
 /**
  * A Converter that turns a Strings in the form: width,height into Rectangle
@@ -78,8 +78,6 @@ import org.swixml.Localizer;
  */
 
 public final class RectangleConverter implements Converter {
-    /** converter's return type */
-    public static final Class<?> TEMPLATE = Rectangle.class;
 
     /**
      * Converts a String into a Rectangle object
@@ -113,7 +111,7 @@ public final class RectangleConverter implements Converter {
             if (st.hasMoreTokens ()) {
                 height = Integer.parseInt (st.nextToken ().trim ());
             }
-            return new Rectangle (x, y, width, height);
+            return CustomCodeProxy.getTypeAnalyser ().instantiate ("Rectangle", x, y, width, height);
         }
         return null;
     }
@@ -128,6 +126,6 @@ public final class RectangleConverter implements Converter {
      */
     @Override
     public Class<?> convertsTo () {
-        return RectangleConverter.TEMPLATE;
+        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Rectangle");
     }
 }

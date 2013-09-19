@@ -59,6 +59,7 @@ import org.swixml.Attribute;
 import org.swixml.Converter;
 import org.swixml.Localizer;
 import org.swixml.Parser;
+import org.swixml.technoproxy.CustomCodeProxy;
 
 /**
  * A Converter that turns a Strings in the form of a filename into an KeyStroke
@@ -81,9 +82,6 @@ import org.swixml.Parser;
  * @see org.swixml.ConverterLibrary
  */
 public class KeyStrokeConverter implements Converter {
-
-    /** converter's return type */
-    public static final Class<?> TEMPLATE = KeyStroke.class;
 
     /**
      * Converts a String into an KeyStroke.
@@ -126,7 +124,7 @@ public class KeyStrokeConverter implements Converter {
      *         String, or null if the specified String is null, or is formatted
      *         incorrectly
      */
-    public static Object conv (final Class<?> type, final Attribute attr,
+    public Object convert (final Class<?> type, final Attribute attr,
             Localizer localizer) {
         KeyStroke keyStroke = null;
         if (attr != null) {
@@ -140,24 +138,6 @@ public class KeyStrokeConverter implements Converter {
     }
 
     /**
-     * Converts a String into an KeyStroke through a Resource lookup
-     * 
-     * @param type
-     *            <code>Class</code> not used
-     * @param attr
-     *            <code>Attribute</code> attribute provides the value to be
-     *            converted
-     * @param localizer
-     *            <code>Localizer</code> allow the use of resource lookups
-     * @return <code>Object</code> - a <code>KeyStroke</code>
-     */
-    @Override
-    public Object convert (final Class<?> type, final Attribute attr,
-            Localizer localizer) {
-        return KeyStrokeConverter.conv (type, attr, localizer);
-    }
-
-    /**
      * A <code>Converters</code> conversTo method informs about the Class<?>
      * type the converter is returning when its <code>convert</code> method is
      * called
@@ -167,6 +147,6 @@ public class KeyStrokeConverter implements Converter {
      */
     @Override
     public Class<?> convertsTo () {
-        return KeyStrokeConverter.TEMPLATE;
+        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("KeyStroke");
     }
 }

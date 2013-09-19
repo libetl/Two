@@ -53,26 +53,14 @@
 
 package org.swixml.converters;
 
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTabbedPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingConstants;
-import javax.swing.border.TitledBorder;
-import javax.swing.tree.TreeSelectionModel;
 
 import org.swixml.Attribute;
 import org.swixml.Converter;
 import org.swixml.Localizer;
 import org.swixml.Parser;
+import org.swixml.technoproxy.CustomCodeProxy;
 
 /**
  * The <code>PrimitiveConverter</code> class defines a converter that creates
@@ -83,27 +71,25 @@ import org.swixml.Parser;
  * @see org.swixml.ConverterLibrary
  */
 
-public class PrimitiveConverter implements Converter, SwingConstants,
-        ScrollPaneConstants, KeyEvent, InputEvent {
+public class PrimitiveConverter implements Converter, 
+        KeyEvent, InputEvent {
 
-    /** converter's return type */
-    public static final Class<?>         TEMPLATE     = Object.class;
     /** map contains all constant provider types */
     private static Map<String, Class<?>> dictionaries = new HashMap<String, Class<?>> ();
     /**
      * Static Initializer, setting up the initial constant providers
      */
     static {
-        PrimitiveConverter.addConstantProvider (JTabbedPane.class);
-        PrimitiveConverter.addConstantProvider (JScrollPane.class);
-        PrimitiveConverter.addConstantProvider (JSplitPane.class);
-        PrimitiveConverter.addConstantProvider (GridBagConstraints.class);
-        PrimitiveConverter.addConstantProvider (FlowLayout.class);
-        PrimitiveConverter.addConstantProvider (ListSelectionModel.class);
-        PrimitiveConverter.addConstantProvider (TreeSelectionModel.class);
-        PrimitiveConverter.addConstantProvider (JDialog.class);
-        PrimitiveConverter.addConstantProvider (JFrame.class);
-        PrimitiveConverter.addConstantProvider (TitledBorder.class);
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("TabbedPane"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("ScrollPane"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("SplitPane"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("GridBagConstraints"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("FlowLayout"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("ListSelectionModel"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("TreeSelectionModel"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Dialog"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Frame"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("TitledBorder"));
     }
 
     /**
@@ -134,7 +120,7 @@ public class PrimitiveConverter implements Converter, SwingConstants,
      * @throws IllegalAccessException
      *             if a matching field can not be accessed
      */
-    public static Object conv (final Class<?> type, final Attribute attr,
+    public Object convert (final Class<?> type, final Attribute attr,
             final Localizer localizer) throws NoSuchFieldException,
             IllegalAccessException {
         Object obj = null;
@@ -179,22 +165,6 @@ public class PrimitiveConverter implements Converter, SwingConstants,
         return obj;
     }
 
-    /**
-     * Converts String into java primitive type
-     * 
-     * @param type
-     *            <code>Class</code> target type
-     * @param attr
-     *            <code>Attribute</code> value field needs to provide
-     *            convertable String
-     * @return <code>Object</code> primitive wrapped into wrapper object
-     * @throws Exception
-     */
-    @Override
-    public Object convert (final Class<?> type, final Attribute attr,
-            final Localizer localizer) throws Exception {
-        return PrimitiveConverter.conv (type, attr, localizer);
-    }
 
     /**
      * A <code>Converters</code> conversTo method informs about the Class<?>
@@ -206,6 +176,6 @@ public class PrimitiveConverter implements Converter, SwingConstants,
      */
     @Override
     public Class<?> convertsTo () {
-        return PrimitiveConverter.TEMPLATE;
+        return Object.class;
     }
 }

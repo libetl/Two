@@ -162,7 +162,7 @@ public class SchemaGenerator {
      * @return <code>Element</code> - passed in root.
      */
     private static Element addSwixmlTags (Document schema, Element root) {
-        final TagLibrary taglib = new SwingEngine ().getTaglib ();
+        final TagLibrary taglib = new SwingEngine<Object, Object, Object, Object, Object, Object> ().getTaglib ();
         for (final Object name : new TreeSet<String> (taglib.getTagClasses ()
                 .keySet ())) {
             final Element elem = schema.createElementNS (
