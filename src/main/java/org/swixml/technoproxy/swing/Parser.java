@@ -2,7 +2,6 @@ package org.swixml.technoproxy.swing;
 
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Desktop.Action;
 import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Method;
@@ -10,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.AbstractButton;
+import javax.swing.Action;
 import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -230,7 +230,7 @@ public class Parser
         return rpc.getContentPane ();
     }
 
-    public Object applyAttributesMacAction (
+    public Object applyAttributesSetAction (
             Class<?> paraType,
             SwingEngine<Container, Component, ActionListener, JLabel, ButtonGroup, LayoutManager> engine,
             Attribute attr) {

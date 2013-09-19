@@ -473,7 +473,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                         // a getClass().getFields lookup has to be done to find
                         // the correct fields.
                         //
-                        para = CustomCodeProxy.doProxy (this, "MacAction",
+                        para = CustomCodeProxy.doProxy (this, "SetAction",
                                 paraType, engine, attr);
                         action = para;
                         if (para == null) {
