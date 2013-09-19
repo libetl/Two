@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
@@ -53,6 +54,8 @@ public class TypeAnalyser implements org.swixml.technoproxy.TypeAnalyser {
                 && (JMenuBar.class.equals (c) || MenuBar.class.equals (c));
         result |= "Container".equals (test)
                 && (Container.class.isAssignableFrom (c));
+        result |= "AbstractButton".equals (test)
+                && (AbstractButton.class.isAssignableFrom (c));
         return result;
     }
 
