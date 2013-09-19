@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.swixml.SwingEngine;
@@ -75,7 +76,7 @@ public class Cards {
 	                                     };
 
 	private Cards () throws Exception {
-		((JComponent) this.swix.render (Cards.DESCRIPTOR)).setVisible (true);
+		((JFrame) this.swix.render (Cards.DESCRIPTOR)).setVisible (true);
 		this.showAction.actionPerformed (null);
 	}
 

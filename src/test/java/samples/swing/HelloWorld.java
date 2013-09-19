@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -48,7 +49,7 @@ public class HelloWorld {
 
 	/** Renders UI at construction */
 	private HelloWorld () throws Exception {
-		((JComponent) new SwingEngine (this).render ("samples/swing/xml/helloworld.xml"))
+		((JFrame) new SwingEngine (this).render ("samples/swing/xml/helloworld.xml"))
 		        .setVisible (true);
 	}
 }
