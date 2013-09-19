@@ -141,7 +141,7 @@ public final class SwingTagLibrary extends TagLibrary {
         this.registerTag ("RadioButton", CustomCodeProxy.getTypeAnalyser ()
                 .getCompatibleClass ("RadioButton"));
         this.registerTag ("RadioButtonMenuItem", CustomCodeProxy
-                .getTypeAnalyser ().getCompatibleClass ("JRadioButtonMenuItem"));
+                .getTypeAnalyser ().getCompatibleClass ("RadioButtonMenuItem"));
         this.registerTag ("OptionPane", CustomCodeProxy.getTypeAnalyser ()
                 .getCompatibleClass ("OptionPane"));
         this.registerTag ("ScrollPane", CustomCodeProxy.getTypeAnalyser ()
