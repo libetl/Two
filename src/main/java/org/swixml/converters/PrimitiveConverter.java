@@ -80,16 +80,18 @@ public class PrimitiveConverter implements Converter,
      * Static Initializer, setting up the initial constant providers
      */
     static {
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("TabbedPane"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("ScrollPane"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("SplitPane"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("GridBagConstraints"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("FlowLayout"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("ListSelectionModel"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("TreeSelectionModel"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Dialog"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Frame"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("TitledBorder"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("TabbedPane"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("ScrollPane"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("SplitPane"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("GridBagConstraints"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("FlowLayout"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("ListSelectionModel"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("TreeSelectionModel"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("Dialog"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("Frame"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("TitledBorder"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("JFrame"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("JDialog"));
     }
 
     /**
