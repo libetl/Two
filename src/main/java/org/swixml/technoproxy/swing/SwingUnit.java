@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.swixml.technoproxy.ProxyCode;
-import org.swixml.technoproxy.TechnoUnit;
+import org.swixml.technoproxy.PlatformUnit;
 
-public class SwingUnit implements TechnoUnit {
+public class SwingUnit implements PlatformUnit {
 
     private final Map<String, Class<? extends ProxyCode<?>>> proxyClasses = new HashMap<String, Class<? extends ProxyCode<?>>> () {
                                                                               /**

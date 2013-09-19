@@ -10,7 +10,7 @@ import org.swixml.technoproxy.swing.SwingUnit;
 
 public class CustomCodeProxy {
 
-    private static Map<String, TechnoUnit> units = new HashMap<String, TechnoUnit> () {
+    private static Map<String, PlatformUnit> units = new HashMap<String, PlatformUnit> () {
                                                      /**
          * 
          */
@@ -32,14 +32,14 @@ public class CustomCodeProxy {
         try {
             final StackTraceElement ste = Thread.currentThread ()
                     .getStackTrace () [2];
-            final TechnoUnit unit = CustomCodeProxy.units.get (Techno.NAME);
+            final PlatformUnit unit = CustomCodeProxy.units.get (Platform.NAME);
             final Class<?> c = unit.getProxyClasses ().get (
                     source.getClass ().getName ());
 
             final String simpleClassName = ste.getClassName ().substring (
                     ste.getClassName ().lastIndexOf ('.') + 1);
             final String proxyClassPrefix = "org.swixml.technoproxy."
-                    + Techno.NAME;
+                    + Platform.NAME;
             final String proxyClassSubPackage = ste.getClassName ().substring (
                     "org.swixml.".length (),
                     ste.getClassName ().lastIndexOf ('.') + 1);
@@ -77,7 +77,7 @@ public class CustomCodeProxy {
     }
 
     public static TypeAnalyser getTypeAnalyser () {
-        final TechnoUnit unit = CustomCodeProxy.units.get (Techno.NAME);
+        final PlatformUnit unit = CustomCodeProxy.units.get (Platform.NAME);
         return unit.getTypeAnalyser ();
     }
 }

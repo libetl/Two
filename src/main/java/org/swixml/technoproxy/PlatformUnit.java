@@ -2,7 +2,7 @@ package org.swixml.technoproxy;
 
 import java.util.Map;
 
-public interface TechnoUnit {
+public interface PlatformUnit {
 
     public Map<String, Class<? extends ProxyCode<?>>> getProxyClasses ();
 

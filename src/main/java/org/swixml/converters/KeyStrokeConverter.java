@@ -53,8 +53,6 @@
 
 package org.swixml.converters;
 
-import javax.swing.KeyStroke;
-
 import org.swixml.Attribute;
 import org.swixml.Converter;
 import org.swixml.Localizer;
@@ -78,7 +76,6 @@ import org.swixml.technoproxy.CustomCodeProxy;
  * @author <a href="mailto:wolf@paulus.com">Wolf Paulus</a>
  * @author <a href="mailto:Eric.LAFARGUE@cec.eu.int">Eric Lafargue</a>
  * @version $Revision: 1.1 $
- * @see javax.swing.KeyStroke#getKeyStroke(java.lang.String)
  * @see org.swixml.ConverterLibrary
  */
 public class KeyStrokeConverter implements Converter {
@@ -126,13 +123,13 @@ public class KeyStrokeConverter implements Converter {
      */
     public Object convert (final Class<?> type, final Attribute attr,
             Localizer localizer) {
-        KeyStroke keyStroke = null;
+        Object keyStroke = null;
         if (attr != null) {
             if (Parser.LOCALIZED_ATTRIBUTES.contains (attr.getName ()
                     .toLowerCase ())) {
                 attr.setValue (localizer.getString (attr.getValue ()));
             }
-            keyStroke = KeyStroke.getKeyStroke (attr.getValue ());
+            keyStroke = CustomCodeProxy.doProxy (this, attr);
         }
         return keyStroke;
     }

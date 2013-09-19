@@ -57,8 +57,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
-
 import org.swixml.AppConstants;
 import org.swixml.Attribute;
 import org.swixml.Converter;
@@ -69,7 +67,7 @@ import org.swixml.technoproxy.CustomCodeProxy;
 /**
  * The <code>BorderConverter</code> class defines a converter that creates
  * Border objects based on a provided String. The BorderConverter internally
- * uses the <code>javax.swing.BorderFactory</code> and its static
+ * uses the <code>BorderFactory</code> and its static
  * <i>create</i>.. methods to instantiate different kinds of borders, based on
  * the given String.<br>
  * Additional parameters to create a border need to be comma separated and
@@ -94,8 +92,6 @@ import org.swixml.technoproxy.CustomCodeProxy;
  * 
  * @author <a href="mailto:wolf@wolfpaulus.com">Wolf Paulus</a>
  * @version $Revision: 1.1 $
- * @see javax.swing.BorderFactory
- * @see javax.swing.border.AbstractBorder
  * @see org.swixml.ConverterLibrary
  */
 public class BorderConverter implements Converter {
@@ -103,10 +99,10 @@ public class BorderConverter implements Converter {
     /**
      * all methods the BorderFactory provides
      */
-    private static final Method [] METHODS  = BorderFactory.class.getMethods ();
+    private static final Method [] METHODS  = CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("BorderFactory").getMethods ();
 
     /**
-     * Returns a <code>javax.swing Border</code>
+     * Returns a <code>Border</code>
      * 
      * @param type
      *            <code>Class</code> not used
@@ -133,7 +129,7 @@ public class BorderConverter implements Converter {
         //
         if (n == 0) {
             try {
-                method = BorderFactory.class.getMethod ("create" + borderType);
+                method = CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("BorderFactory").getMethod ("create" + borderType);
 
             } catch (final NoSuchMethodException e) {
                 // intent. empty
@@ -145,7 +141,7 @@ public class BorderConverter implements Converter {
         }
         if (n == 1) {
             try {
-                method = BorderFactory.class.getMethod ("create" + borderType,
+                method = CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("BorderFactory").getMethod ("create" + borderType,
                         new Class<?> [] { String.class });
             } catch (final NoSuchMethodException e) {
                 // no need to do anything here.
