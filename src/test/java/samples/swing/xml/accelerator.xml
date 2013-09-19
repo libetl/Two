@@ -2,14 +2,14 @@
 <frame name="mainframe" size="640,480" title="S W I X M L" plaf="com.sun.java.swing.plaf.windows.WindowsLookAndFeel">
   <menubar name="menubar">
     <menu name="filemenu" text="File">
-      <menuitem name="mi_new" text="New" icon="icons/new.gif" mnemonic="VK_N" accelerator="control N" Action="newAction"/>
-      <menuitem name="mi_open" text="Open" icon="icons/open.gif" mnemonic="VK_O" Accelerator="control O" ActionCommand="open"/>
-      <menuitem name="mi_save" text="Save" icon="icons/save.gif" mnemonic="VK_S" ActionCommand="save"/>
+      <menuitem name="mi_new" text="New" icon="samples/swing/icons/new.gif" mnemonic="VK_N" accelerator="control N" Action="newAction"/>
+      <menuitem name="mi_open" text="Open" icon="samples/swing/icons/open.gif" mnemonic="VK_O" Accelerator="control O" ActionCommand="open"/>
+      <menuitem name="mi_save" text="Save" icon="samples/swing/icons/save.gif" mnemonic="VK_S" ActionCommand="save"/>
       <separator/>
-      <menuitem name="mi_exit" text="Exit" icon="icons/exit.gif" mnemonic="VK_X" Accelerator="control X" ActionCommand="exit"/>
+      <menuitem name="mi_exit" text="Exit" icon="samples/swing/icons/exit.gif" mnemonic="VK_X" Accelerator="control X" ActionCommand="exit"/>
     </menu>
     <menu text="Help">
-      <menuitem name="mi_about" text="About" enabled="true" icon="icons/info.gif" Accelerator="alt A" Action="aboutAction" />
+      <menuitem name="mi_about" text="About" enabled="true" icon="samples/swing/icons/info.gif" Accelerator="alt A" Action="aboutAction" />
     </menu>
   </menubar>
 
@@ -23,9 +23,9 @@
         </scrollPane>
         <panel layout="borderlayout">
           <panel constraints="BorderLayout.NORTH">
-            <button name="btn_copy" ToolTipText="JPanel" enabled="true" BorderPainted="false" FocusPainted="false" icon="icons/copy.gif" size="24,24"/>
-            <button name="btn_paste" ToolTipText="JButton" enabled="true" BorderPainted="false" FocusPainted="false" icon="icons/paste.gif" size="24,24"/>
-            <button name="btn_cut" ToolTipText="JLabel" enabled="true" icon="icons/cut.gif" BorderPainted="false" FocusPainted="false" size="24,24"/>
+            <button name="btn_copy" ToolTipText="JPanel" enabled="true" BorderPainted="false" FocusPainted="false" icon="samples/swing/icons/copy.gif" size="24,24"/>
+            <button name="btn_paste" ToolTipText="JButton" enabled="true" BorderPainted="false" FocusPainted="false" icon="samples/swing/icons/paste.gif" size="24,24"/>
+            <button name="btn_cut" ToolTipText="JLabel" enabled="true" icon="samples/swing/icons/cut.gif" BorderPainted="false" FocusPainted="false" size="24,24"/>
           </panel>
           <scrollPane constraints="BorderLayout.CENTER">
             <table name="table"/>
