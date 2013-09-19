@@ -177,7 +177,7 @@ public class LayoutConverterLibrary {
                         "GridLayout"), new GridLayoutConverter<Object>  ());
 
         // 3rd party layout managers
-        this.register ("com.jgoodies.forms.layout.FormLayout",
-                new FormLayoutConverter<Object>  ());
+        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
+                "FormLayout"), new FormLayoutConverter<Object>  ());
     }
 }

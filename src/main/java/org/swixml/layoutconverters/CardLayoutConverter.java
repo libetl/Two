@@ -60,7 +60,7 @@ import org.swixml.technoproxy.CustomCodeProxy;
 import org.w3c.dom.Element;
 
 /**
- * A layout converter for <code>java.awt.CardLayout</code>.
+ * A layout converter for <code>CardLayout</code>.
  * 
  * <p>
  * <b>Examples:</b>

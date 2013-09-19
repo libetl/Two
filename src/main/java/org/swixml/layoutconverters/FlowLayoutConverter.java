@@ -61,7 +61,7 @@ import org.swixml.technoproxy.CustomCodeProxy;
 import org.w3c.dom.Element;
 
 /**
- * A layout converter for <code>java.awt.FlowLayout</code>.
+ * A layout converter for <code>FlowLayout</code>.
  * 
  * <p>
  * <b>Examples:</b>

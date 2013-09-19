@@ -81,8 +81,7 @@ import org.swixml.technoproxy.CustomCodeProxy;
  * </p>
  * <p>
  * General purpose data type converters are able to convert Strings into objects
- * that are usually as parameters when setters are called on javax.swing
- * objects.
+ * that are usually as parameters when setters are called on objects.
  * 
  * <pre>
  * Available Converter include converters able to produce

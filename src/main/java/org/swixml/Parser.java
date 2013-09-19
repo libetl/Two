@@ -643,15 +643,14 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
     }
 
     /**
-     * Recursively converts <code>org.jdom.Element</code>s into
-     * <code>javax.swing</code> or <code>java.awt</code> objects
+     * Recursively converts <code>org.jdom.Element</code>s into objects
      * 
      * @param element
      *            <code>org.jdom.Element</code> XML tag
      * @param obj
      *            <code>Object</code> if not null, only this elements children
      *            will be processed, not the element itself
-     * @return <code>java.awt.Container</code> representing the GUI
+     * @return <code>Container</code> representing the GUI
      *         impementation of the XML tag.
      * @throws Exception
      *             - if parsing fails
@@ -1036,7 +1035,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
     }
 
     /**
-     * Converts XML into a javax.swing object tree.
+     * Converts XML into an object tree.
      * 
      * <pre>
      *    Reads XML from the provied <code>Reader</code> and builds an intermediate jdom document.
@@ -1045,7 +1044,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
      * 
      * @param jdoc
      *            <code>Document</code> providing the XML document
-     * @return <code>java.awt.Container</code> root object for the swing object
+     * @return <code>Container</code> root object for the swing object
      *         tree
      * @throws Exception
      *             if parsing fails
@@ -1066,7 +1065,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
     }
 
     /**
-     * Converts XML into a javax.swing object tree.
+     * Converts XML into an object tree.
      * 
      * <pre>
      * Note: This parse method does not return a swing object but converts all <b>sub</b> nodes

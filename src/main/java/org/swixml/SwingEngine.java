@@ -200,8 +200,7 @@ public class SwingEngine<Container, Component, ActionListener, Label, ButtonGrou
     }
 
     /**
-     * Constructs a new SwingEngine, rendering the provided XML into a
-     * javax.swing UI
+     * Constructs a new SwingEngine, rendering the provided XML into an UI
      * 
      * @param resource
      *            <code>String</code>
@@ -245,8 +244,8 @@ public class SwingEngine<Container, Component, ActionListener, Label, ButtonGrou
     }
 
     /**
-     * Constructs a new SwingEngine, rendering the provided XML into a
-     * javax.swing UI
+     * Constructs a new SwingEngine, rendering the provided XML into an
+     *  UI
      * 
      * @param resource
      *            <code>String</code>
@@ -408,7 +407,7 @@ public class SwingEngine<Container, Component, ActionListener, Label, ButtonGrou
     /**
      * Returns the root component of the generated Swing UI.
      * 
-     * @return <code>Component</code>- the root component of the javax.swing ui
+     * @return <code>Component</code>- the root component of the UI
      */
     public Container getRootComponent () {
         return this.root;

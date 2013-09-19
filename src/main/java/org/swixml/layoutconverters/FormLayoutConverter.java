@@ -61,7 +61,7 @@ import org.w3c.dom.Element;
 
 
 /**
- * A layout converter for <code>com.jgoodies.forms.layout.FormLayout</code>.
+ * A layout converter for <code>FormLayout</code>.
  * 
  * <p>
  * <b>Examples:</b>
@@ -122,7 +122,7 @@ public class FormLayoutConverter<FormLayout> implements LayoutConverter<FormLayo
      * <li><code>"x, y, w, h, hAlign, vAlign"</code></li>
      * </ul>
      * <p>
-     * See JGoodies FormLayout for details.
+     * See FormLayout for details.
      * </p>
      * 
      * <p>
@@ -180,9 +180,9 @@ public class FormLayoutConverter<FormLayout> implements LayoutConverter<FormLayo
      * </p>
      * <ul>
      * <li><code>columns</code> (required): The column specifications as
-     * documented in JGoodies FormLayout.</li>
+     * documented in FormLayout.</li>
      * <li><code>row</code> (required): The row specifications as documented in
-     * JGoodies FormLayout.</li>
+     * FormLayout.</li>
      * <li><code>columnGroups</code> (optional): The column groups, where each
      * column in a group gets the same group wide width. Groups are separated by
      * semicolons, column indices in a group are separated by colons. E.g.

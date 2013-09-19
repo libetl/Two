@@ -73,7 +73,6 @@ import org.swixml.technoproxy.CustomCodeProxy;
  * 
  * @author <a href="mailto:wolf@paulus.com">Wolf Paulus</a>
  * @version $Revision: 1.1 $
- * @see java.awt.Rectangle
  * @see org.swixml.ConverterLibrary
  */
 

@@ -62,7 +62,7 @@ import org.swixml.technoproxy.CustomCodeProxy;
 import org.w3c.dom.Element;
 
 /**
- * A layout converter for <code>java.awt.GridBagLayout</code>.
+ * A layout converter for <code>GridBagLayout</code>.
  * 
  * <p>
  * <b>Examples:</b>

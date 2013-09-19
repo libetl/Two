@@ -70,7 +70,7 @@ import org.swixml.technoproxy.CustomCodeProxy;
  * @author <a href="mailto:wolf@paulus.com">Wolf Paulus</a>
  * @version $Revision: 1.1 $
  * 
- * @see java.awt.Color
+ * 
  * 
  * 
  *      <h3>Examples for Valid XML attribute notations:</h3>
@@ -87,13 +87,13 @@ import org.swixml.technoproxy.CustomCodeProxy;
 public class ColorConverter implements Converter {
 
     /**
-     * Returns a <code>java.awt.Color</code> runtime object
+     * Returns a <code>Color</code> runtime object
      * 
      * @param type
      *            <code>Class</code> not used
      * @param attr
      *            <code>Attribute</code> value needs to provide a String
-     * @return runtime type is subclass of <code>java.awt.Color</code>
+     * @return runtime type is subclass of <code>Color</code>
      */
     public static Object conv (final Class<?> type, final Attribute attr) {
         Class<?> c = CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Color");
@@ -136,13 +136,13 @@ public class ColorConverter implements Converter {
     }
 
     /**
-     * Returns a <code>java.awt.Color</code> runtime object
+     * Returns a <code>Color</code> runtime object
      * 
      * @param type
      *            <code>Class</code> not used
      * @param attr
      *            <code>Attribute</code> value needs to provide a String
-     * @return runtime type is subclass of <code>java.awt.Color</code>
+     * @return runtime type is subclass of <code>Color</code>
      */
     @Override
     public Object convert (final Class<?> type, final Attribute attr,
