@@ -5,6 +5,11 @@ import java.util.Map;
 
 import org.swixml.technoproxy.ProxyCode;
 import org.swixml.technoproxy.PlatformUnit;
+import org.swixml.technoproxy.swing.converter.FontConverter;
+import org.swixml.technoproxy.swing.converter.ImageConverter;
+import org.swixml.technoproxy.swing.converter.KeyStrokeConverter;
+import org.swixml.technoproxy.swing.layoutconverters.FormLayoutConverter;
+import org.swixml.technoproxy.swing.layoutconverters.GridBagLayoutConverter;
 
 public class SwingUnit implements PlatformUnit {
 
@@ -23,6 +28,26 @@ public class SwingUnit implements PlatformUnit {
                                                                                           org.swixml.Parser.class
                                                                                                   .getName (),
                                                                                           Parser.class);
+                                                                                  this.put (
+                                                                                          org.swixml.converters.FontConverter.class
+                                                                                                  .getName (),
+                                                                                          FontConverter.class);
+                                                                                  this.put (
+                                                                                          org.swixml.converters.ImageConverter.class
+                                                                                                  .getName (),
+                                                                                                  ImageConverter.class);
+                                                                                  this.put (
+                                                                                          org.swixml.converters.KeyStrokeConverter.class
+                                                                                                  .getName (),
+                                                                                                  KeyStrokeConverter.class);
+                                                                                  this.put (
+                                                                                          org.swixml.layoutconverters.FormLayoutConverter.class
+                                                                                                  .getName (),
+                                                                                                  FormLayoutConverter.class);
+                                                                                  this.put (
+                                                                                          org.swixml.layoutconverters.GridBagLayoutConverter.class
+                                                                                                  .getName (),
+                                                                                                  GridBagLayoutConverter.class);
                                                                               }
                                                                           };
 

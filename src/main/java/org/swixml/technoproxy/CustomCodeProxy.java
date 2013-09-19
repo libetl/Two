@@ -30,21 +30,14 @@ public class CustomCodeProxy {
     @SuppressWarnings ("unchecked")
     public static <T, R> R doProxy (T source, String suffix, Object... params) {
         try {
-            final StackTraceElement ste = Thread.currentThread ()
-                    .getStackTrace () [2];
+            final StackTraceElement ste = "doProxy".equals (Thread.currentThread ()
+                    .getStackTrace () [2].getMethodName ()) ? Thread.currentThread ()
+                            .getStackTrace () [3] : Thread.currentThread ()
+                            .getStackTrace () [2];
             final PlatformUnit unit = CustomCodeProxy.units.get (Platform.NAME);
             final Class<?> c = unit.getProxyClasses ().get (
                     source.getClass ().getName ());
 
-            final String simpleClassName = ste.getClassName ().substring (
-                    ste.getClassName ().lastIndexOf ('.') + 1);
-            final String proxyClassPrefix = "org.swixml.technoproxy."
-                    + Platform.NAME;
-            final String proxyClassSubPackage = ste.getClassName ().substring (
-                    "org.swixml.".length (),
-                    ste.getClassName ().lastIndexOf ('.') + 1);
-            final String realClassName = proxyClassPrefix
-                    + proxyClassSubPackage + simpleClassName;
             final Method [] ms = c.getMethods ();
             Method m = null;
             int i = 0;
@@ -55,14 +48,9 @@ public class CustomCodeProxy {
                 }
                 i++;
             }
-            final Constructor<ProxyCode<T>> constr = (Constructor<ProxyCode<T>>) Class
-                    .forName (realClassName).getConstructor (Object.class);
+            final Constructor<ProxyCode<T>> constr = (Constructor<ProxyCode<T>>) c.getConstructors () [0];
             final ProxyCode<T> pc = constr.newInstance (source);
             return (R) m.invoke (pc, params);
-        } catch (final ClassNotFoundException e) {
-            throw new ProxyCodeException (e);
-        } catch (final NoSuchMethodException e) {
-            throw new ProxyCodeException (e);
         } catch (final SecurityException e) {
             throw new ProxyCodeException (e);
         } catch (final InstantiationException e) {
