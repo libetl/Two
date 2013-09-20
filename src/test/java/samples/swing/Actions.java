@@ -9,6 +9,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
@@ -139,7 +140,7 @@ public class Actions extends WindowAdapter implements ActionListener {
 			// this object's actionPerformed(). Therefore, when clicked, both
 			// actionPerformed() methods are getting called
 			//
-			((JComponent) this.swix.getRootComponent ()).setVisible (true);
+			((JFrame) this.swix.getRootComponent ()).setVisible (true);
 		} catch (final Exception e) {
 			e.printStackTrace ();
 		}
