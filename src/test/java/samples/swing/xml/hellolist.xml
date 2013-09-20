@@ -7,7 +7,7 @@
 
   <panel constraints="BorderLayout.CENTER">
 	<scrollpane>
-    <list id="mList" initclass="Model" Font="ARIAL-BOLD-14" VisibleRowCount="3"/>
+    <list id="mList" initclass="samples.swing.Model" Font="ARIAL-BOLD-14" VisibleRowCount="3"/>
 	</scrollpane>
   </panel>
 </frame>

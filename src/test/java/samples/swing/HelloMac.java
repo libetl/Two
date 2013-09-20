@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.swixml.SwingEngine;
@@ -92,7 +93,7 @@ public class HelloMac extends WindowAdapter {
 	private HelloMac () throws Exception {
 		this.swix = new SwingEngine (this);
 		this.swix.render ("samples/swing/xml/hellomac.xml");
-		((Component) this.swix.getRootComponent ()).setVisible (true);
+		((JFrame) this.swix.getRootComponent ()).setVisible (true);
 	}
 
 	/**
