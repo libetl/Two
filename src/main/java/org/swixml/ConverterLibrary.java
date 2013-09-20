@@ -232,7 +232,7 @@ public class ConverterLibrary {
                 CustomCodeProxy.getTypeAnalyser ()
                         .getMostSuperClass ("Insets"), new InsetsConverter ());
         this.register (
-                CustomCodeProxy.getTypeAnalyser ().getMostSuperClass (
+                CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
                         "KeyStroke"), new KeyStrokeConverter ());
         this.register (
                 java.util.Locale.class, new LocaleConverter ());
