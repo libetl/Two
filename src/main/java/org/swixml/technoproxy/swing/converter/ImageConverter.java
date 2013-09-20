@@ -16,10 +16,10 @@ import org.swixml.technoproxy.ProxyCode;
  * @version $Revision: 1.1 $
  * @since swixml 1.0
  */
-public class ImageConverter extends ProxyCode<org.swixml.converters.FontConverter> {
+public class ImageConverter extends ProxyCode<org.swixml.converters.ImageConverter> {
 
  
-    public ImageConverter (org.swixml.converters.FontConverter source1) {
+    public ImageConverter (org.swixml.converters.ImageConverter source1) {
         super (source1);
     }
 
