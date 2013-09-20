@@ -3,7 +3,7 @@ package samples.swing;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -20,7 +20,7 @@ public class HelloList extends WindowAdapter {
 	private JList<?>	mList; /* instantiated by swixml when rendering the UI */
 
 	private HelloList () throws Exception {
-		((JComponent) new SwingEngine (this).render ("./xml/hellolist.xml"))
+		((JFrame) new SwingEngine (this).render ("samples/swing/xml/hellolist.xml"))
 		        .setVisible (true);
 		System.out.println (this.mList.getModel ().getSize ());
 		this.mList.addListSelectionListener (new ListSelectionListener () {

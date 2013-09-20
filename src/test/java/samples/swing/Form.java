@@ -1,6 +1,7 @@
 package samples.swing;
 
-import java.awt.Container;
+
+import javax.swing.JFrame;
 
 import org.swixml.SwingEngine;
 
@@ -16,7 +17,7 @@ public class Form extends SwingEngine {
 
 	private Form () {
 		try {
-			((Container) this.render ("samples/swing/xml/form.xml")).setVisible (true);
+			((JFrame) this.render ("samples/swing/xml/form.xml")).setVisible (true);
 		} catch (final Exception e) {
 			e.printStackTrace ();
 		}

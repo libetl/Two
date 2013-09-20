@@ -16,7 +16,7 @@
       <button text="4"/>
     </internalframe>
 
-    <internalframe Title="Border Layout" Bounds="390,10,150,150" Layout="borderlayout" Visible="true" Resizable="true">
+    <internalframe Title="Border Layout" Bounds="390,10,150,150" Layout="BorderLayout" Visible="true" Resizable="true">
       <button constraints="BorderLayout.NORTH">1</button>
       <button constraints="BorderLayout.EAST">2</button>
       <button constraints="BorderLayout.SOUTH">3</button>

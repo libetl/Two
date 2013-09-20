@@ -1,6 +1,6 @@
 package samples.swing;
 
-import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -34,7 +34,7 @@ public class HelloWorldnoAction {
 	 * Renders UI at construction
 	 */
 	private HelloWorldnoAction () throws Exception {
-		((JComponent) new SwingEngine (this).render ("samples/swing/xml/helloworld.xml"))
+		((JFrame) new SwingEngine (this).render ("samples/swing/xml/helloworld.xml"))
 		        .setVisible (true);
 	}
 

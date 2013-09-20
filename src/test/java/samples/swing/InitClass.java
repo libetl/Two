@@ -6,7 +6,7 @@ import java.awt.event.WindowAdapter;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
+import javax.swing.JFrame;
 
 import org.swixml.SwingEngine;
 
@@ -43,7 +43,7 @@ public class InitClass extends WindowAdapter {
 	                          };
 
 	private InitClass () throws Exception {
-		((JComponent) new SwingEngine (this).render ("samples/swing/xml/initclass.xml"))
+		((JFrame) new SwingEngine (this).render ("samples/swing/xml/initclass.xml"))
 		        .setVisible (true);
 	}
 }

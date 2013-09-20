@@ -4,7 +4,7 @@
      <label  Font="Comic Sans MS-BOLD-12"	Foreground="blue">
        ComboBox
      </label>
-     <combobox initclass="ComboModel"  Action="DO_SELECT" PrototypeDisplayValue="1234567890|1234567890" />
+     <combobox initclass="samples.swing.ComboModel"  Action="DO_SELECT" PrototypeDisplayValue="1234567890|1234567890" />
    </panel>
    <panel constraints="BorderLayout.SOUTH">
      <button>OK</button>

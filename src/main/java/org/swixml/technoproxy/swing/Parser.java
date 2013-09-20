@@ -208,6 +208,10 @@ public class Parser
     }
 
     public LayoutManager getSwingGetLayout (Container obj) {
+        if (obj instanceof RootPaneContainer && ((RootPaneContainer) obj).getRootPane () != null
+                && ((RootPaneContainer) obj).getRootPane ().getContentPane () != null){
+            return ((RootPaneContainer) obj).getRootPane ().getContentPane ().getLayout ();
+        }
         return obj.getLayout ();
     }
 

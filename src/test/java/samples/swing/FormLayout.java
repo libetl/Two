@@ -1,6 +1,6 @@
 package samples.swing;
 
-import java.awt.Container;
+import javax.swing.JFrame;
 
 import org.swixml.SwingEngine;
 
@@ -24,7 +24,7 @@ public class FormLayout {
 	}
 
 	private FormLayout () throws Exception {
-		((Container) new SwingEngine (this).render (FormLayout.DESCRIPTOR))
+		((JFrame) new SwingEngine (this).render (FormLayout.DESCRIPTOR))
 		        .setVisible (true);
 	}
 }
