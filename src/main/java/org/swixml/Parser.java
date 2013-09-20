@@ -720,6 +720,11 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
         if (obj == null) {
             Object initParameter = null;
 
+            if (element.getChildNodes ().getLength () == 1 && element.getChildNodes ().item (0).getNodeType () == Node.TEXT_NODE){
+                element.setAttribute (Parser.ATTR_INITCLASS, String.class.getName ());
+                initParameter = element.getChildNodes ().item (0).getNodeValue ().trim ();
+            }
+            
             if (Attribute.getAttributeValue (element, Parser.ATTR_INITCLASS) != null) {
                 final StringTokenizer st = new StringTokenizer (
                         Attribute.getAttributeValue (element,
@@ -732,7 +737,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                                 .nextToken ()); // load
                         // update
                         // type
-                        try { // look for a getInstance() methode
+                        try { // look for a getInstance() method
                             final Method factoryMethod = initClass
                                     .getMethod (Parser.GETINSTANCE);
                             if (Modifier.isStatic (factoryMethod

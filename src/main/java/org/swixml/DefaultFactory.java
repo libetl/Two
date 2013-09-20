@@ -220,7 +220,7 @@ public final class DefaultFactory implements Factory {
 
     /**
      * Creates a new Object which class is {@link #getTemplate()}. A default
-     * costructior is only used if no constructor is available, accepting the
+     * costructor is only used if no constructor is available, accepting the
      * provided parameter
      * 
      * @param parameter
