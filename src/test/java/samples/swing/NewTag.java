@@ -2,7 +2,7 @@ package samples.swing;
 
 import java.util.TimeZone;
 
-import javax.swing.JComponent;
+import javax.swing.JFrame;
 
 import org.swixml.ConverterLibrary;
 import org.swixml.SwingEngine;
@@ -19,7 +19,7 @@ public class NewTag extends SwingEngine {
 	private NewTag () {
 		//
 		// Register a new new Converter,
-		// Generally, Converters should be regsitered before Tags
+		// Generally, Converters should be registered before Tags
 		//
 		ConverterLibrary.getInstance ().register (TimeZone.class,
 		        new TimeZoneConverter ());
@@ -34,7 +34,7 @@ public class NewTag extends SwingEngine {
 		}
 
 		try {
-			((JComponent) this.render ("samples/swing/xml/newtag.xml")).setVisible (true);
+			((JFrame) this.render ("samples/swing/xml/newtag.xml")).setVisible (true);
 		} catch (final Exception e) {
 			e.printStackTrace ();
 		}

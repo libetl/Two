@@ -1,6 +1,7 @@
 package samples.swing;
 
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.net.URL;
 
 import javax.swing.AbstractAction;
@@ -58,8 +59,9 @@ public class SwixApplet extends JApplet {
 			if (descriptorfile == null) {
 				descriptorfile = "samples/swing/xml/applet.xml";
 			}
-			new SwingEngine (this).insert (new URL (this.getCodeBase (),
-			        descriptorfile), this);
+			new SwingEngine (this).insert (
+			        new URL ("file://" + new File (this.getCodeBase ().getFile ()).getParentFile ().getParent () +
+			                "/src/test/java/" + descriptorfile), this);
 			this.setVisible (true);
 		} catch (final Exception e) {
 			e.printStackTrace ();

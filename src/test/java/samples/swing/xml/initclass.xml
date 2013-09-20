@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<frame size="320,240" title="InitClass Attribute Sample">
+<frame size="320,240" title="InitClass Attribute Sample" layout="BorderLayout">
    <panel constraints="BorderLayout.CENTER" Border="EtchedBorder">
      <label  Font="Comic Sans MS-BOLD-12"	Foreground="blue">
        ComboBox

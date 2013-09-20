@@ -3,12 +3,12 @@
 	<panel layout="BorderLayout">
 	  <menubar constraints="BorderLayout.SOUTH">
 	      <menu text="This should appear at the bottom">
-		      <menuitem text="and exits the program" initclass="ExitAction"/>
+		      <menuitem text="and exits the program" initclass="samples.swing.ExitAction"/>
 	      </menu>
 	  </menubar>
 	  <menubar constraints="BorderLayout.NORTH">
 	      <menu text="This should appear at the top">
-		      <menuitem text="...and exits the program as well" initclass="ExitAction"/>
+		      <menuitem text="...and exits the program as well" initclass="samples.swing.ExitAction"/>
 	      </menu>
 	  </menubar>
 	</panel>
