@@ -307,7 +307,7 @@ public final class DefaultFactory implements Factory {
             } // end for i - loop all Ctors
 
             //
-            // instantiate using ctor with mathcing parameter array or throw
+            // instantiate using ctor with matching parameter array or throw
             // IllegalArgumentException
             //
             if (ctor != null) {

@@ -598,9 +598,9 @@ public class SwingEngine<Container, Component, ActionListener, Label, ButtonGrou
 
     /**
      * Introspects the given object's class and initializes its non-transient
-     * fields with objects that have been instanced during parsing. Mappping
+     * fields with objects that have been instanced during parsing. Mapping
      * happens based on type and field name: the fields name has to be equal to
-     * the tag id, psecified in the XML descriptor. The fields class has to be
+     * the tag id, specified in the XML descriptor. The fields class has to be
      * assignable (equals or super class..) from the class that was used to
      * instance the tag.
      * 

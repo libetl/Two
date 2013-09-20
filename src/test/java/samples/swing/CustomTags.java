@@ -3,7 +3,7 @@ package samples.swing;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JComponent;
+import javax.swing.JFrame;
 
 import org.swixml.SwingEngine;
 
@@ -21,7 +21,7 @@ public class CustomTags extends WindowAdapter {
 	public CustomTags () throws Exception {
 		final SwingEngine swix = new SwingEngine (this);
 		swix.getTaglib ().registerTag ("Calendar", JCalendar.class);
-		((JComponent) swix.render ("samples/swing/xml/customtags.xml")).setVisible (true);
+		((JFrame) swix.render ("samples/swing/xml/customtags.xml")).setVisible (true);
 	}
 
 	/**
