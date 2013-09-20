@@ -80,6 +80,8 @@
 	</profiles>
 
 	<dependencies>
+    
+        <!-- Swing part dependencies -->
 		<dependency>
 			<groupId>jgoodies</groupId>
 			<artifactId>forms</artifactId>
@@ -95,6 +97,13 @@
 			<artifactId>jcalendar</artifactId>
 			<version>1.3.2</version>
 		</dependency>
+        
+        <!-- Html part dependencies -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.7.2</version>
+        </dependency>
             
 	</dependencies>
 </project>
