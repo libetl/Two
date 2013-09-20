@@ -30,7 +30,9 @@ public class AppConstants {
     //
     /** display the swing release version to system out. */
     static {
-        System.out.println ("SwixML @version@");
+        if (AppConstants.DEBUG_MODE){
+          System.out.println ("SwixML @version@");
+        }
         try {
             AppConstants.MAC_OSX = System.getProperty ("os.name")
                     .toLowerCase ().startsWith (SwingEngine.MAC_OSX_OS_NAME);
