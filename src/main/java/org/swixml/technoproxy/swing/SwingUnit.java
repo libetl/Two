@@ -29,6 +29,10 @@ public class SwingUnit implements PlatformUnit {
                                                                                                   .getName (),
                                                                                           Parser.class);
                                                                                   this.put (
+                                                                                          org.swixml.SwingTagLibrary.class
+                                                                                                  .getName (),
+                                                                                          SwingTagLibrary.class);
+                                                                                  this.put (
                                                                                           org.swixml.converters.FontConverter.class
                                                                                                   .getName (),
                                                                                           FontConverter.class);

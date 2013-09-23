@@ -1,5 +1,7 @@
 package org.swixml.technoproxy.jsoup;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +12,7 @@ import org.swixml.Attribute;
 import org.swixml.SwingEngine;
 import org.swixml.technoproxy.CustomCodeProxy;
 import org.swixml.technoproxy.ProxyCode;
+import org.swixml.technoproxy.ProxyCodeException;
 import org.w3c.dom.Element;
 
 public class Parser
@@ -119,7 +122,7 @@ public class Parser
             //
             // add the recently add container entries into the btngroup
             //
-            final org.jsoup.nodes.Element btnGroup = new org.jsoup.nodes.Element (Tag.valueOf ("div"), null);
+            final org.jsoup.nodes.Element btnGroup = new org.jsoup.nodes.Element (Tag.valueOf ("div"), "");
             btnGroup.addClass ("buttongroup");
             // incase the button group was given an id attr. it should also
             // be put into the idmap.
@@ -157,7 +160,7 @@ public class Parser
     public void linkLabelsSetLabelFor (org.jsoup.nodes.TextNode jl, org.jsoup.nodes.Element c) {
         String uuid = UUID.randomUUID ().toString ();
         c.attr ("name", uuid);
-        org.jsoup.nodes.Element label = new org.jsoup.nodes.Element (Tag.valueOf ("label"), null);
+        org.jsoup.nodes.Element label = new org.jsoup.nodes.Element (Tag.valueOf ("label"), "");
         label.attr ("for", uuid);
         c.parent ().insertChildren (c.parent ().siblingIndex (), Arrays.asList (label));
     }
@@ -193,6 +196,16 @@ public class Parser
             }
         }
         return para;
+    }
+    
+    public void applyAttributesMethodInvoke (
+            Method method, Object obj, Attribute attr, Object para) {
+      try {
+        method.invoke (obj, attr.getName (), para);
+    } catch (IllegalAccessException | IllegalArgumentException
+            | InvocationTargetException e) {
+        throw new ProxyCodeException (e);
+    } // ATTR SET
     }
 
     public void getSwingMacAction (Object initParameter,

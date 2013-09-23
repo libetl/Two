@@ -51,7 +51,7 @@
  on the Swixml Project, please see <http://www.swixml.org/>.
  */
 
-package org.swixml;
+package org.swixml.technoproxy.swing;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -59,6 +59,9 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+
+import org.swixml.ConverterLibrary;
+import org.swixml.Factory;
 
 /**
  * The <code>DefaultFactory</code> is a default implementation of the
@@ -71,7 +74,7 @@ import java.util.Iterator;
  * @author <a href="mailto:wolf@paulus.com">Wolf Paulus</a>
  * @version $Revision: 1.1 $
  */
-public final class DefaultFactory implements Factory {
+public final class SwingFactory implements Factory {
 
     /** Collection for all setter methods */
     private final Collection<Method> setters           = new ArrayList<Method> ();
@@ -98,7 +101,7 @@ public final class DefaultFactory implements Factory {
      *            of the parameter type.
      *            </p>
      */
-    public DefaultFactory (Class<?> template) {
+    public SwingFactory (Class<?> template) {
         this.template = template;
         //
         // Collects all set<Methods> that require a single parameter, which can
@@ -220,7 +223,7 @@ public final class DefaultFactory implements Factory {
 
     /**
      * Creates a new Object which class is {@link #getTemplate()}. A default
-     * costructor is only used if no constructor is available, accepting the
+     * constructor is only used if no constructor is available, accepting the
      * provided parameter
      * 
      * @param parameter
@@ -287,8 +290,7 @@ public final class DefaultFactory implements Factory {
             for (int i = 0 ; (ctor == null) && (i < constructors.length) ; i++) {
                 final Class<?> cParams[] = constructors [i]
                         .getParameterTypes (); // ctor's
-                // paramter
-                // types
+                // parameter types
 
                 if (cParams.length == pTypes.length) {
                     ctor = constructors [i]; // potential match found ...

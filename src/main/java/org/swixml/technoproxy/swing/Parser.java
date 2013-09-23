@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,7 @@ import org.swixml.Attribute;
 import org.swixml.SwingEngine;
 import org.swixml.technoproxy.CustomCodeProxy;
 import org.swixml.technoproxy.ProxyCode;
+import org.swixml.technoproxy.ProxyCodeException;
 import org.w3c.dom.Element;
 
 public class Parser
@@ -266,6 +268,16 @@ public class Parser
         return para;
     }
 
+    public void applyAttributesMethodInvoke (
+            Method method, Object obj, Attribute attr, Object para) {
+      try {
+        method.invoke (obj, para);
+    } catch (IllegalAccessException | IllegalArgumentException
+            | InvocationTargetException e) {
+        throw new ProxyCodeException (e);
+    } // ATTR SET
+    }
+    
     public void getSwingMacAction (Object initParameter,
             List<Attribute> attributes, Map<String, Object> macMap) {
         if (Action.class.isInstance (initParameter)) {

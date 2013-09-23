@@ -36,7 +36,7 @@ public class TypeAnalyser implements org.swixml.technoproxy.TypeAnalyser {
     @SuppressWarnings ("unchecked")
     @Override
     public <T> T instantiate (String clazz, Object... params) {
-        Element e = new Element (Tag.valueOf ("div"), null);
+        Element e = new Element (Tag.valueOf ("div"), "");
         e.addClass (clazz);
         return (T) e;
     }

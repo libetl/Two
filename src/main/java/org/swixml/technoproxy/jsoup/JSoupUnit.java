@@ -29,13 +29,17 @@ public class JSoupUnit implements PlatformUnit {
                                                                                                   .getName (),
                                                                                           Parser.class);
                                                                                   this.put (
+                                                                                          org.swixml.SwingTagLibrary.class
+                                                                                                  .getName (),
+                                                                                          SwingTagLibrary.class);
+                                                                                  this.put (
                                                                                           org.swixml.converters.FontConverter.class
                                                                                                   .getName (),
                                                                                           FontConverter.class);
                                                                                   this.put (
                                                                                           org.swixml.converters.ImageConverter.class
                                                                                                   .getName (),
-                                                                                                  ImageConverter.class);
+                                                                                          ImageConverter.class);
                                                                                   this.put (
                                                                                           org.swixml.converters.KeyStrokeConverter.class
                                                                                                   .getName (),

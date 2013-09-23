@@ -58,6 +58,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.swixml.technoproxy.CustomCodeProxy;
+
 /**
  * A skeletal impementation of a TagLibrary<br>
  * A TagLibrary has a collection of Factories. Every Tag is mapped to a Factory
@@ -170,7 +172,7 @@ public abstract class TagLibrary {
      *            <code>Class</code> the java class that represents the tag
      */
     public void registerTag (String name, Class<?> template) {
-        this.registerTag (name, new DefaultFactory (template));
+        CustomCodeProxy.doProxy (this, template, name);
     }
 
     /**

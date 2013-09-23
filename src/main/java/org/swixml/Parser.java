@@ -481,7 +481,8 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                                     this.engine.getLocalizer ());
                         }
 
-                        method.invoke (obj, para); // ATTR SET
+                        CustomCodeProxy.doProxy (this, "MethodInvoke",
+                                method, obj, attr, para);
 
                     } catch (final NoSuchFieldException e) {
                         if (AppConstants.DEBUG_MODE) {
