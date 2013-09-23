@@ -59,6 +59,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
 import org.swixml.ConverterLibrary;
 import org.swixml.Factory;
@@ -198,8 +199,10 @@ public final class JSoupFactory implements Factory {
      * @throws Exception
      */
     @Override
-    public Object newInstance () throws Exception {
-        return new org.jsoup.nodes.Element (Tag.valueOf ("div"), "");
+    public Object newInstance (String mainClass) throws Exception {
+        Element e = new org.jsoup.nodes.Element (Tag.valueOf ("div"), "");
+        e.addClass (mainClass);
+        return e;
     }
 
     /**
@@ -214,10 +217,11 @@ public final class JSoupFactory implements Factory {
      * @throws Exception
      */
     @Override
-    public Object newInstance (Object parameter) throws Exception {
+    public Object newInstance (String mainClass, Object parameter) throws Exception {
         // parameter
         org.jsoup.nodes.Element result = new org.jsoup.nodes.Element (Tag.valueOf ("div"), "");
         result.attr ("name", parameter.toString ());
+        result.addClass (mainClass);
         return result;
     }
 
@@ -240,61 +244,12 @@ public final class JSoupFactory implements Factory {
      * 
      */
     @Override
-    public Object newInstance (Object [] parameter)
+    public Object newInstance (String mainClass, Object [] parameter)
             throws InstantiationException, IllegalAccessException,
             InvocationTargetException {
-        if (parameter != null) {
-            final Class<?> pTypes[] = new Class<?> [parameter.length]; // parameter
-            // types
-            final Constructor<?> constructors[] = this.template
-                    .getConstructors ();
-            Constructor<?> ctor = null;
-
-            //
-            // init. parameter type array
-            //
-            for (int i = 0 ; i < pTypes.length ; i++) {
-                pTypes [i] = parameter [i].getClass ();
-            }
-
-            //
-            // find matching Ctor
-            //
-            for (int i = 0 ; (ctor == null) && (i < constructors.length) ; i++) {
-                final Class<?> cParams[] = constructors [i]
-                        .getParameterTypes (); // ctor's
-                // parameter
-                // types
-
-                if (cParams.length == pTypes.length) {
-                    ctor = constructors [i]; // potential match found ...
-                    for (int j = 0 ; (ctor != null) && (j < cParams.length) ; j++) {
-                        if (cParams [j].equals (Object.class)) {
-                            if (!cParams [j].equals (pTypes [j])) {
-                                ctor = null; // dismissed
-                            }
-                        } else {
-                            if (!cParams [j].isAssignableFrom (pTypes [j])) {
-                                ctor = null; // dismissed
-                            }
-                        }
-                    } // end for j - loop Ctor's parameter
-                }
-            } // end for i - loop all Ctors
-
-            //
-            // instantiate using ctor with matching parameter array or throw
-            // IllegalArgumentException
-            //
-            if (ctor != null) {
-                return ctor.newInstance (parameter);
-            } else { // no matching constructor was found
-                throw new IllegalArgumentException (
-                        "unable to find constructor, accepting:" + pTypes);
-            }
-        } else {
-            return this.template.newInstance ();
-        }
+        org.jsoup.nodes.Element e = new org.jsoup.nodes.Element (Tag.valueOf ("div"), "");
+        e.addClass (mainClass);
+        return e;
     }
 
     /**

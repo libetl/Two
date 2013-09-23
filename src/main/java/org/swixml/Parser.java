@@ -819,8 +819,8 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
             }
 
             obj = initParameter != null ? factory
-                    .newInstance (new Object [] { initParameter }) : factory
-                    .newInstance ();
+                    .newInstance (element.getNodeName (), new Object [] { initParameter }) : factory
+                    .newInstance (element.getNodeName ());
             constructed = true;
             //
             // put newly created object in the map if it has an <id> attribute

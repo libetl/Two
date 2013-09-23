@@ -1,11 +1,11 @@
 /*--
- $Id: DefaultFactory.java,v 1.1 2004/03/01 07:56:05 wolfpaulus Exp $
+ $mainClass: DefaultFactory.java,v 1.1 2004/03/01 07:56:05 wolfpaulus Exp $
 
  Copyright (C) 2003-2007 Wolf Paulus.
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
- modification, are permitted provided that the following conditions
+ modification, are permitted provmainClassed that the following conditions
  are met:
 
  1. Redistributions of source code must retain the above copyright
@@ -13,7 +13,7 @@
 
  2. Redistributions in binary form must reproduce the above copyright
  notice, this list of conditions, and the disclaimer that follows
- these conditions in the documentation and/or other materials provided
+ these conditions in the documentation and/or other materials provmainClassed
  with the distribution.
 
  3. The end-user documentation included with the redistribution,
@@ -31,11 +31,11 @@
  nor may "Swixml" appear in their name, without prior written
  permission from the Swixml Project Management.
 
- THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
+ THIS SOFTWARE IS PROVmainClassED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
  DISCLAIMED.  IN NO EVENT SHALL THE SWIXML PROJECT OR ITS
- CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCmainClassENTAL,
  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
  USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
@@ -46,7 +46,7 @@
  ====================================================================
 
  This software consists of voluntary contributions made by many
- individuals on behalf of the Swixml Project and was originally
+ indivmainClassuals on behalf of the Swixml Project and was originally
  created by Wolf Paulus <wolf_AT_swixml_DOT_org>. For more information
  on the Swixml Project, please see <http://www.swixml.org/>.
  */
@@ -96,7 +96,7 @@ public final class SwingFactory implements Factory {
      *            <p>
      *            <b>Note:</b><br>
      *            Only <i>set</i>Methods that take a single parameter are
-     *            considered. Moreover, to be regsitered, a Converter needs to
+     *            consmainClassered. Moreover, to be regsitered, a Converter needs to
      *            be available in the ConverterLibrary that can create instances
      *            of the parameter type.
      *            </p>
@@ -217,14 +217,14 @@ public final class SwingFactory implements Factory {
      * @throws Exception
      */
     @Override
-    public Object newInstance () throws Exception {
+    public Object newInstance (String mainClass) throws Exception {
         return this.template.newInstance ();
     }
 
     /**
      * Creates a new Object which class is {@link #getTemplate()}. A default
      * constructor is only used if no constructor is available, accepting the
-     * provided parameter
+     * provmainClassed parameter
      * 
      * @param parameter
      *            <code>Object</code>, parameter used during construction or
@@ -233,7 +233,7 @@ public final class SwingFactory implements Factory {
      * @throws Exception
      */
     @Override
-    public Object newInstance (Object parameter) throws Exception {
+    public Object newInstance (String mainClass, Object parameter) throws Exception {
         final Class<?> pType = parameter.getClass (); // get runtime class of
                                                       // the
         // parameter
@@ -263,11 +263,11 @@ public final class SwingFactory implements Factory {
      * @throws InvocationTargetException
      *             if the constructor invoked throws an exception
      * 
-     *             idea suggested by Frank Meissner <f.meissner@web.de>
+     *             mainClassea suggested by Frank Meissner <f.meissner@web.de>
      * 
      */
     @Override
-    public Object newInstance (Object [] parameter)
+    public Object newInstance (String mainClass, Object [] parameter)
             throws InstantiationException, IllegalAccessException,
             InvocationTargetException {
         if (parameter != null) {
@@ -324,7 +324,7 @@ public final class SwingFactory implements Factory {
     }
 
     /**
-     * Returns a priority ID of the given type based on a priority arrray
+     * Returns a priority mainClass of the given type based on a priority arrray
      * 
      * @param type
      *            <code>Class</code>
@@ -371,10 +371,10 @@ public final class SwingFactory implements Factory {
                         if (m != null) {
                             //
                             // Here: m and method[i] have the same name. m is
-                            // already regsitered and method[i] wants to.
-                            // The most specializied method should win. If both
+                            // already registered and method[i] wants to.
+                            // The most specialized method should win. If both
                             // methods are implemented within the same class,
-                            // then the method's paramter will be checked for
+                            // then the method's parameter will be checked for
                             // the highest priority.
                             //
                             final Class<?> cm = m.getDeclaringClass ();
