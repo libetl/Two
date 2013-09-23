@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.swixml.technoproxy.jsoup.JSoupUnit;
 import org.swixml.technoproxy.swing.SwingUnit;
 
 public class CustomCodeProxy {
@@ -20,6 +21,9 @@ public class CustomCodeProxy {
                                                          this.put (
                                                                  "swing",
                                                                  new SwingUnit ());
+                                                         this.put (
+                                                                 "html",
+                                                                 new JSoupUnit ());
                                                      }
                                                  };
 
