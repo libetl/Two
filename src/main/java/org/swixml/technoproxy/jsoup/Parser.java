@@ -82,6 +82,8 @@ public class Parser
             // add component into container
             //
             parent.appendChild (component);
+        }else{
+            parent.appendChild (component);
         }
         return component;
     }
