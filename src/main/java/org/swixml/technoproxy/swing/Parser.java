@@ -135,9 +135,9 @@ public class Parser
                 parent.add (component);
             }
 
-        } else if (parent instanceof Container) {
+        }else if (parent instanceof Container) {
             //
-            // add compontent into container
+            // add component into container
             //
             if (constrains == null) {
                 parent.add (component);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dialog size="640,480" title="SWIXML Test Descriptor" DefaultCloseOperation="JFrame.EXIT_ON_CLOSE">
+<dialog size="640,480" title="SWIXML Test Descriptor" DefaultCloseOperation="WindowConstants.DISPOSE_ON_CLOSE">
   <panel layout="BorderLayout">
   <menubar id="menubar" name="menubar" constraints="BorderLayout.NORTH">
     <menu name="filemenu" text="File">

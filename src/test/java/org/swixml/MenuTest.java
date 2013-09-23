@@ -91,7 +91,7 @@ public class MenuTest extends TestCase {
 	 * Tests if a JMenubar is added into a container, even if the container
 	 * doesn't provide a setJMenuBar() method.
 	 */
-	public void testInclusioin () {
+	public void testInclusion () {
 		final Component menubar = (Component) this.se.find ("menubar");
 		TestCase.assertNotNull (
 		        "<menubar> tag in the descriptor requires the instantiation of a JMenuBar obj.",

@@ -91,6 +91,7 @@ public class PrimitiveConverter implements Converter,
         PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("Frame"));
         PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("TitledBorder"));
         PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("JFrame"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("WindowConstants"));
         PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("JDialog"));
     }
 
