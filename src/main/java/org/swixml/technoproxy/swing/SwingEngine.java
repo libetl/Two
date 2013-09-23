@@ -34,7 +34,7 @@ public class SwingEngine
      * <p/>
      * 
      * <pre>
-     *  Backtracking algorithm: if al was set for a child component, its not being set for its parent
+     *  Backtracking algorithm: if all was set for a child component, its not being set for its parent
      * </pre>.
      * 
      * @param c

@@ -45,7 +45,7 @@ public class Parser
         // Set a JMenuBar for JFrames, JDialogs, etc.
         //
         if (CustomCodeProxy.getTypeAnalyser ().isConvenient (
-                component.getClass (), "MenuBar")) {
+                component, "MenuBar")) {
 
             try {
                 final Method m = parent.getClass ().getMethod ("setJMenuBar",
@@ -156,11 +156,11 @@ public class Parser
      *            <code>ButtonGroup</code>
      */
     private void putIntoBtnGrp (Object obj, ButtonGroup grp) {
-        if (CustomCodeProxy.getTypeAnalyser ().isConvenient (obj.getClass (),
+        if (CustomCodeProxy.getTypeAnalyser ().isConvenient (obj,
                 "AbstractButton")) {
             grp.add ((AbstractButton) obj);
         } else if (CustomCodeProxy.getTypeAnalyser ().isConvenient (
-                obj.getClass (), "Container")) {
+                obj, "Container")) {
             final JComponent jp = (JComponent) obj;
             for (int i = 0 ; i < jp.getComponentCount () ; i++) {
                 this.putIntoBtnGrp (jp.getComponent (i), grp);

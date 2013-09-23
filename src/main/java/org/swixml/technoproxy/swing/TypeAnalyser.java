@@ -44,8 +44,12 @@ public class TypeAnalyser implements org.swixml.technoproxy.TypeAnalyser {
     }
 
     @Override
-    public boolean isConvenient (Class<?> c, String test) {
+    public boolean isConvenient (Object o, String test) {
         boolean result = false;
+        if (o == null){
+            return result;
+        }
+        Class<?> c = o.getClass ();
         result |= "Frame".equals (test)
                 && (JFrame.class.equals (c) || Frame.class.equals (c));
         result |= "Component".equals (test)

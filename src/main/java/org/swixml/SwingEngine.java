@@ -297,7 +297,7 @@ public class SwingEngine<Container, Component, ActionListener, Label, ButtonGrou
         Object obj = this.idmap.get (id);
         if ( (obj != null)
                 && ! (CustomCodeProxy.getTypeAnalyser ().isConvenient (
-                        this.root.getClass (), "Component"))) {
+                        this.root, "Component"))) {
             obj = null;
         }
         return (Component) obj;
@@ -719,7 +719,7 @@ public class SwingEngine<Container, Component, ActionListener, Label, ButtonGrou
         this.mapMembers (this.client);
         if ( (this.root == null)
                 || CustomCodeProxy.getTypeAnalyser ().isConvenient (
-                        this.root.getClass (), "Frame")) {
+                        this.root, "Frame")) {
             this.setAppFrame (this.root);
         }
         return this.root;

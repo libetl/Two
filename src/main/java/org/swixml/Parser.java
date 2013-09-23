@@ -447,7 +447,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
             }
 
             if (CustomCodeProxy.getTypeAnalyser ().isConvenient (
-                    obj.getClass (), "Label")
+                    obj, "Label")
                     && attr.getName ().equalsIgnoreCase ("LabelFor")) {
                 this.lbl_map.put ((Label) obj, attr.getValue ());
                 continue;
@@ -501,7 +501,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                         //
                         if (obj != null
                                 && CustomCodeProxy.getTypeAnalyser ()
-                                        .isConvenient (obj.getClass (),
+                                        .isConvenient (obj,
                                                 "RootPaneContainer")) {
                             final Container rootpane = CustomCodeProxy.doProxy (
                                     this, "GetContentPane", obj);
@@ -835,7 +835,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
         //
         if (obj != null
                 && CustomCodeProxy.getTypeAnalyser ().isConvenient (
-                        obj.getClass (), "Container")) {
+                        obj, "Container")) {
             LayoutManager lm = null;
             final Element layoutElement = Parser.getChildByName (element,
                     "layout");
@@ -913,7 +913,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 
         final LayoutManager layoutMgr = obj != null
                 && CustomCodeProxy.getTypeAnalyser ().isConvenient (
-                        obj.getClass (), "Container") ? CustomCodeProxy
+                        obj, "Container") ? CustomCodeProxy
                 .<Parser<Container, Component, ActionListener, Label, ButtonGroup, LayoutManager>, LayoutManager> doProxy (
                         this, "GetLayout", obj)
                 : null;
@@ -998,7 +998,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                     final Attribute attr = it.next ();
                     if (obj != null
                             && CustomCodeProxy.getTypeAnalyser ().isConvenient (
-                                    obj.getClass (), "Component")) {
+                                    obj, "Component")) {
                         CustomCodeProxy.doProxy (this, "PutClientProperty",
                                 obj, attr);
                         if (AppConstants.DEBUG_MODE) {
