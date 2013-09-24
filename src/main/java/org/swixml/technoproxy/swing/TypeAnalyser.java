@@ -13,7 +13,9 @@ import javax.swing.AbstractButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
-public class TypeAnalyser implements org.swixml.technoproxy.TypeAnalyser {
+import org.swixml.technoproxy.ProxyCodeException;
+
+public class TypeAnalyser extends org.swixml.technoproxy.TypeAnalyser {
 
     @SuppressWarnings ("unchecked")
     @Override
@@ -63,6 +65,7 @@ public class TypeAnalyser implements org.swixml.technoproxy.TypeAnalyser {
         return result;
     }
 
+    
     @SuppressWarnings ("unchecked")
     @Override
     public <T> T instantiate (String clazz, Object... params) {
@@ -86,6 +89,7 @@ public class TypeAnalyser implements org.swixml.technoproxy.TypeAnalyser {
                     } catch (InstantiationException | IllegalAccessException
                             | IllegalArgumentException
                             | InvocationTargetException e) {
+                        throw new ProxyCodeException (e);
                     }
                 }
             }

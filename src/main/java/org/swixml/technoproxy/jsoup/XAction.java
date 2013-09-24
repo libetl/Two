@@ -72,6 +72,11 @@ public class XAction extends ActionListener {
 
     }
 
+    
+    public XAction () {
+
+    }
+    
     @Override
     public void actionPerformed (ActionEvent e) {
         try {

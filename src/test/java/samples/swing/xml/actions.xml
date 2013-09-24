@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<frame id="frame" title="Swixml - Action Sample" size="360,200" layout="BorderLayout">
+<frame id="frame" title="Swixml - Action Sample" size="360,200" layout="BorderLayout" visible="true">
   <menubar id="mb">
     <menu id="mu_file" text="File">
       <menuitem text="New" icon="samples/swing/icons/new.gif" mnemonic="VK_N" Action="newAction"/>

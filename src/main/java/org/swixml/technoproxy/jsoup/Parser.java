@@ -26,65 +26,8 @@ public class Parser
 
     public org.jsoup.nodes.Element addChild (org.jsoup.nodes.Element parent, org.jsoup.nodes.Element component,
             Object constrains) {
-        if (CustomCodeProxy.getTypeAnalyser ().isConvenient (
-                component, "MenuBar")) {
-            parent.appendChild (component);
-
-        } else if (CustomCodeProxy.getTypeAnalyser ().isConvenient (
-                parent, "RootPaneContainer")) {
-            //
-            // add component into RootContainr
-            // All Swing top-level containers contain a JRootPane as their only
-            // child.
-            // The content pane provided by the root pane should contain all the
-            // non-menu components.
-            //
-            if (CustomCodeProxy.getTypeAnalyser ().isConvenient (
-                    component, "LayoutManager")) {
-                this.getSwingSetLayout (parent, component);
-            } else {
-                this.getSwingSetLayout (parent, constrains);
-            }
-        } else if (CustomCodeProxy.getTypeAnalyser ().isConvenient (
-                parent, "ScrollPane")) {
-            //
-            // add component into a ScrollPane
-            //
-            parent.appendChild (component);
-        } else if (CustomCodeProxy.getTypeAnalyser ().isConvenient (
-                parent, "SplitPane")) {
-            //
-            // add component into a SplitPane
-            //
-            parent.appendChild (component);
-        } else if ( (CustomCodeProxy.getTypeAnalyser ().isConvenient (
-                parent, "MenuBar"))
-                && (CustomCodeProxy.getTypeAnalyser ().isConvenient (
-                        component, "Menu"))) {
-            //
-            // add Menu into a MenuBar
-            //
-            parent.appendChild (component);
-        } else if (CustomCodeProxy.getTypeAnalyser ().isConvenient (
-                component, "Separator")) {
-            //
-            // add Separator to a Menu, Toolbar or PopupMenu
-            //
-            try {
-                parent.appendChild (component);
-            } catch (final ClassCastException e) {
-                parent.appendChild (component);
-            }
-
-        } else if (CustomCodeProxy.getTypeAnalyser ().isConvenient (
-                parent, "Container")) {
-            //
-            // add component into container
-            //
-            parent.appendChild (component);
-        }else{
-            parent.appendChild (component);
-        }
+ 
+        parent.appendChild (component);
         return component;
     }
 

@@ -78,7 +78,11 @@ public class XAction extends AbstractAction {
         }
 
     }
+    
+    public XAction () {
 
+    }
+    
     @Override
     public void actionPerformed (ActionEvent e) {
         try {

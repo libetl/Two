@@ -3,11 +3,14 @@ package org.swixml.technoproxy.jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
 
-public class TypeAnalyser implements org.swixml.technoproxy.TypeAnalyser {
+public class TypeAnalyser extends org.swixml.technoproxy.TypeAnalyser {
 
     @SuppressWarnings ("unchecked")
     @Override
     public <T> Class<T> getCompatibleClass (String string) {
+        if ("Action".equalsIgnoreCase (string)){
+            return (Class<T>) XAction.class;
+        }
         return (Class<T>) Element.class;
     }
 
