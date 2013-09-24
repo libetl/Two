@@ -212,11 +212,18 @@ public class Parser
     
     public Object parseSurroundObj (org.w3c.dom.Document jdoc, org.jsoup.nodes.Element obj, String name){
         org.jsoup.nodes.Document d = new org.jsoup.nodes.Document ("");
+        org.jsoup.nodes.Element link = new org.jsoup.nodes.Element (Tag.valueOf ("link"), "");
+        Class<?> mainClass = SwingEngine.class;
+        String folder = mainClass.getProtectionDomain().getCodeSource().getLocation().getPath();
+        link.attr ("rel", "stylesheet");
+        link.attr ("type", "text/css");
+        link.attr ("href", folder + "org/swixml/metalUIHtml.css");
         d.appendChild (new org.jsoup.nodes.DocumentType ("html", "", "", ""));
         d.appendChild (new org.jsoup.nodes.Element (Tag.valueOf ("html"), ""));
         d.child (0).appendChild (new org.jsoup.nodes.Element (Tag.valueOf ("head"), ""));
+        d.child (0).child (0).appendChild (link);
         d.child (0).child (0).appendChild (new org.jsoup.nodes.Element (Tag.valueOf ("title"), ""));
-        d.child (0).child (0).child (0).appendChild (new org.jsoup.nodes.TextNode (name, ""));
+        d.child (0).child (0).child (1).appendChild (new org.jsoup.nodes.TextNode (name, ""));
         d.child (0).appendChild (new org.jsoup.nodes.Element (Tag.valueOf ("body"), ""));
         d.getElementsByTag ("body").iterator ().next ().appendChild (obj);
         return d;
