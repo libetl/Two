@@ -1,0 +1,18 @@
+.frame {
+	background-color:#eeeeee;
+}
+
+.menubar {
+        height : 20px;
+        width: 100%;
+        overflow:hidden;
+}
+
+.menuitem {
+        display:none;
+}
+
+.menu {
+        float:left;
+        margin-right:30px;
+}
