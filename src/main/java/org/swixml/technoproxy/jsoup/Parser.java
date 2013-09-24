@@ -124,7 +124,7 @@ public class Parser
             org.jsoup.nodes.TextNode, Object, Object> engine,
             Attribute attr) {
         Object para = null;
-        if (XAction.class.equals (paraType)) {
+        if ("action".equalsIgnoreCase (attr.getName ())) {
             try {
                 para = engine.getClient ().getClass ()
                         .getField (attr.getValue ()).get (engine.getClient ());
@@ -188,8 +188,11 @@ public class Parser
         }else if ("font".equalsIgnoreCase (attr.getName ())){
             ((org.jsoup.nodes.Element)obj).attr ("style",
                     ((org.jsoup.nodes.Element)obj).attr ("style") + ";font:" + attr.getValue ());
+        }else if ("action".equalsIgnoreCase (attr.getName ())){
+            ((org.jsoup.nodes.Element)obj).attr ("onclick",
+                    "javascript:" + para.getClass ().getName () + "." + "actionPerformed (e);");
         }else{
-          method.invoke (obj, attr.getName (), para);
+          method.invoke (obj, attr.getName (), para.toString ());
         }
     } catch (IllegalAccessException | IllegalArgumentException
             | InvocationTargetException e) {
