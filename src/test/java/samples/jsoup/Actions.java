@@ -20,7 +20,7 @@ import org.swixml.technoproxy.jsoup.SeeWebpage;
 public class Actions  {
 	public static void main (String [] args) {
 		AppConstants.DEBUG_MODE = true;
-		Platform.NAME = "swing";
+		Platform.NAME = "html";
 		new Actions (true);
 	}
 
