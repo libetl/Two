@@ -13,7 +13,6 @@ import org.swixml.SwingEngine;
 import org.swixml.technoproxy.CustomCodeProxy;
 import org.swixml.technoproxy.ProxyCode;
 import org.swixml.technoproxy.ProxyCodeException;
-import org.w3c.dom.Element;
 
 public class Parser
         extends
@@ -53,9 +52,9 @@ public class Parser
     }
 
     public boolean getSwingButtonGroup (
-            Element element,
+            org.w3c.dom.Element element,
             Object obj,
-            Element child,
+            org.w3c.dom.Element child,
             SwingEngine<Object, org.jsoup.nodes.Element, ActionListener, org.jsoup.nodes.TextNode, Object, Object> engine)
             throws Exception {
         if ("buttongroup".equalsIgnoreCase (child.getNodeName ())) {
@@ -146,7 +145,11 @@ public class Parser
     public void applyAttributesMethodInvoke (
             Method method, Object obj, Attribute attr, Object para) {
       try {
-        method.invoke (obj, attr.getName (), para);
+        if ("text".equalsIgnoreCase (attr.getName ())){
+          ((org.jsoup.nodes.Element)obj).appendChild (new org.jsoup.nodes.TextNode (attr.getValue (), ""));  
+        }else{
+          method.invoke (obj, attr.getName (), para);
+        }
     } catch (IllegalAccessException | IllegalArgumentException
             | InvocationTargetException e) {
         throw new ProxyCodeException (e);
@@ -161,5 +164,17 @@ public class Parser
      * Link actions with the MacOS' system menu bar
      */
     public void parseSupportMacOs (Map<String, Object> macMap) {
+    }
+    
+    public Object parseSurroundObj (org.w3c.dom.Document jdoc, org.jsoup.nodes.Element obj, String name){
+        org.jsoup.nodes.Document d = new org.jsoup.nodes.Document ("");
+        d.appendChild (new org.jsoup.nodes.DocumentType ("html", "", "", ""));
+        d.appendChild (new org.jsoup.nodes.Element (Tag.valueOf ("html"), ""));
+        d.child (0).appendChild (new org.jsoup.nodes.Element (Tag.valueOf ("head"), ""));
+        d.child (0).child (0).appendChild (new org.jsoup.nodes.Element (Tag.valueOf ("title"), ""));
+        d.child (0).child (0).child (0).appendChild (new org.jsoup.nodes.TextNode (name, ""));
+        d.child (0).appendChild (new org.jsoup.nodes.Element (Tag.valueOf ("body"), ""));
+        d.getElementsByTag ("body").iterator ().next ().appendChild (obj);
+        return d;
     }
 }

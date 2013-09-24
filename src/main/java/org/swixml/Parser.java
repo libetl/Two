@@ -1055,14 +1055,15 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
      * @throws Exception
      *             if parsing fails
      */
-    public Object parse (Document jdoc) throws Exception {
+    public Object parse (Document jdoc, String name) throws Exception {
         this.jdoc = jdoc;
         this.lbl_map.clear ();
-        final Object obj = this
+        Object obj = this
                 .getSwing (this.processCustomAttributes (jdoc
                         .getDocumentElement ()), null);
 
         this.linkLabels ();
+        obj = CustomCodeProxy.doProxy (this, "SurroundObj", jdoc, obj, name);
         CustomCodeProxy.doProxy (this, "SupportMacOs", this.mac_map);
 
         this.lbl_map.clear ();
@@ -1075,7 +1076,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
      * 
      * <pre>
      * Note: This parse method does not return a swing object but converts all <b>sub</b> nodes
-     * of the xml documents root into seing objects and adds those into the provided container.
+     * of the xml documents root into seeing objects and adds those into the provided container.
      * This is useful when a JApplet for instance already exists and need to get some gui inserted.
      * </pre>
      * 

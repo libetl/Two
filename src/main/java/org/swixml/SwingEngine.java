@@ -215,7 +215,7 @@ public class SwingEngine<Container, Component, ActionListener, Label, ButtonGrou
             if (in == null) {
                 throw new IOException (SwingEngine.IO_ERROR_MSG + resource);
             }
-            this.render (in);
+            this.render (in, resource);
         } catch (final Exception e) {
             if (AppConstants.DEBUG_MODE) {
                 System.err.println (e);
@@ -703,10 +703,10 @@ public class SwingEngine<Container, Component, ActionListener, Label, ButtonGrou
      * @return <code>Object</code>- instanced swing object tree root
      */
     @SuppressWarnings ("unchecked")
-    public Container render (final Document jdoc) throws Exception {
+    public Container render (final Document jdoc, String name) throws Exception {
         this.idmap.clear ();
         try {
-            this.root = (Container) this.parser.parse (jdoc);
+            this.root = (Container) this.parser.parse (jdoc, name);
         } catch (final Exception e) {
             if (AppConstants.DEBUG_MODE) {
                 System.err.println (e);
@@ -736,9 +736,10 @@ public class SwingEngine<Container, Component, ActionListener, Label, ButtonGrou
         if (xml_file == null) {
             throw new IOException ();
         }
+        String simpleName = xml_file.getName ();
         final FileInputStream in = new FileInputStream (xml_file);
         try {
-            return this.render (in);
+            return this.render (in, simpleName);
         } finally {
             try {
                 in.close ();
@@ -755,14 +756,14 @@ public class SwingEngine<Container, Component, ActionListener, Label, ButtonGrou
      *            <code>Reader</code> xml-file path info
      * @return <code>Object</code>- instanced swing object tree root
      */
-    public Container render (final InputStream xml_reader) throws Exception {
+    public Container render (final InputStream xml_reader, String simpleName) throws Exception {
         if (xml_reader == null) {
             throw new IOException ();
         }
         try {
             final DocumentBuilder builder = DocumentBuilderFactory
                     .newInstance ().newDocumentBuilder ();
-            return this.render (builder.parse (xml_reader));
+            return this.render (builder.parse (xml_reader), simpleName);
         } catch (final Exception e) {
             System.err.println (e);
         }
@@ -778,12 +779,13 @@ public class SwingEngine<Container, Component, ActionListener, Label, ButtonGrou
      */
     public Container render (final String resource) throws Exception {
         Container obj = null;
+        String simpleName = (resource.indexOf ('/') == -1 ? resource : resource.substring (resource.lastIndexOf ('/')));
         final InputStream in = this.cl.getResourceAsStream (resource);
         if (in == null) {
             throw new IOException (SwingEngine.IO_ERROR_MSG + resource);
         }
         try {
-            obj = this.render (in);
+            obj = this.render (in, simpleName);
         } finally {
             try {
                 in.close ();
@@ -804,12 +806,16 @@ public class SwingEngine<Container, Component, ActionListener, Label, ButtonGrou
      */
     public Container render (final URL url) throws Exception {
         Container obj = null;
+        if (url == null){
+            throw new IllegalArgumentException ("SwingEngine.render called with a null URL");
+        }
+        String simpleName = (url.getFile ().indexOf ('/') == -1 ? url.getFile () : url.getFile ().substring (url.getFile ().lastIndexOf ('/')));
         final InputStream in = url.openStream ();
         if (in == null) {
             throw new IOException (SwingEngine.IO_ERROR_MSG + url.toString ());
         }
         try {
-            obj = this.render (in);
+            obj = this.render (in, simpleName);
         } finally {
             try {
                 in.close ();

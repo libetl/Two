@@ -306,4 +306,8 @@ public class Parser
             }
         }
     }
+    
+    public Object parseSurroundObj (org.w3c.dom.Document jdoc, Object obj){
+        return obj;
+    }
 }
