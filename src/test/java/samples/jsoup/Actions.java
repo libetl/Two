@@ -1,12 +1,8 @@
 package samples.jsoup;
 
 
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowEvent;
 
-import javax.swing.JComboBox;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
+import java.lang.reflect.InvocationTargetException;
 
 import org.swixml.AppConstants;
 import org.swixml.SwingEngine;
@@ -29,9 +25,9 @@ public class Actions  {
 	}
 
 	private SwingEngine	swix;
-	public JMenuItem	mi_exit, mi_save;
+	public Object	mi_exit, mi_save;
 
-	public JPanel	    pnl_North;
+	public Object	    pnl_North;
 	//
 	// For every Actions, there needs to be a
 	// public AbstractAction member variables with an anonymous inner class
@@ -41,13 +37,9 @@ public class Actions  {
 	/** <code>Action</code> newAction handles the <em>new</em> action attribute */
 	public Object	    newAction	= new Object (){
 
-		                               /**
-		 * 
-		 */
-		                               private static final long	serialVersionUID	= 9164625122840770636L;
 
 		                               public void actionPerformed (
-		                                       ActionEvent e) {
+		                                       Object e) {
 			                               System.out.println ("New"); // show
 			                                                           // the
 			                                                           // access
@@ -55,13 +47,15 @@ public class Actions  {
 			                                                           // class
 			                                                           // member
 			                                                           // ..
-			                               //this.setEnabled (false); // disables
-			                                                        // ALL
-			                                                        // buttons
-			                                                        // that are
-			                                                        // tied to
-			                                                        // this
-			                                                        // action
+			                               try {
+                                            Object o = e.getClass ().getMethod ("getSource").invoke (e);
+                                            o.getClass ().getMethod ("setEnabled", boolean.class).invoke (o, false);
+                                        } catch (IllegalAccessException
+                                                | IllegalArgumentException
+                                                | InvocationTargetException
+                                                | NoSuchMethodException
+                                                | SecurityException e1) {
+                                        }
 		                               }
 	                               };
 
@@ -70,34 +64,36 @@ public class Actions  {
 	 * attribute
 	 */
 	public Object	    openAction	= new Object () {
-		                               /**
-		 * 
-		 */
-		                               private static final long	serialVersionUID	= -7450982892262328242L;
 
 		                               /** Invoked when an action occurs. */
 		                               public void actionPerformed (
-		                                       ActionEvent e) {
+		                                       Object e) {
 			                               System.out.println ("Open");
 		                               }
 	                               };
 
 	/** <code>Action</code> petAction handles the <em>combobox</em> */
 	public Object	    petAction	= new Object () {
-		                               /**
-		 * 
-		 */
-		                               private static final long	serialVersionUID	= 1901168394709054787L;
 
 		                               public void actionPerformed (
-		                                       ActionEvent e) {
-			                               System.out
-			                                       .println ( ((JComboBox<?>) e
-			                                               .getSource ())
-			                                               .getSelectedItem ()
-			                                               .toString ());
-		                               }
-	                               };
+		                                       Object e) {
+                                        try {
+                                            Object o = e.getClass ().getMethod ("getSource").invoke (e);
+                                            if (o instanceof javax.swing.JComboBox<?>){
+                                                System.out
+                                                        .println ( ((javax.swing.JComboBox<?>) o)
+                                                                .getSelectedItem ()
+                                                                .toString ());
+                                            }
+                                        } catch (IllegalAccessException
+                                                | IllegalArgumentException
+                                                | InvocationTargetException
+                                                | NoSuchMethodException
+                                                | SecurityException e1) {
+                                            e1.printStackTrace();
+                                        }
+	                               }
+	};
 
 	//
 	// Implement ActionListener
@@ -110,19 +106,40 @@ public class Actions  {
 	private Actions (boolean start) {
 		try 
 		{
-		    //Duplicate "this" to have a compliant ActionListener object
-		      this.newAction = CustomCodeProxy.getTypeAnalyser ().makeFieldExtendsClass (this.newAction, 
+            //Make all Actions implements the adequate superclass quietly
+            this.newAction = CustomCodeProxy.getTypeAnalyser ().addMethodDelegateSingleParameter (this.newAction.getClass (),
+                    "actionPerformed",
+                  CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("ActionEvent"));
+		      this.newAction = CustomCodeProxy.getTypeAnalyser ().makeFieldExtendsClass (this.newAction.getClass (), 
 		            CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Action"));
 
-		      //Make all Actions implements the adequate superclass quietly
-              this.openAction = CustomCodeProxy.getTypeAnalyser ().makeFieldExtendsClass (this.openAction, 
+              this.openAction = CustomCodeProxy.getTypeAnalyser ().addMethodDelegateSingleParameter (this.openAction.getClass (),
+                      "actionPerformed",
+                    CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("ActionEvent"));
+              this.openAction = CustomCodeProxy.getTypeAnalyser ().makeFieldExtendsClass (this.openAction.getClass (), 
                     CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Action"));
 
-              this.petAction = CustomCodeProxy.getTypeAnalyser ().makeFieldExtendsClass (this.petAction, 
+              this.petAction = CustomCodeProxy.getTypeAnalyser ().addMethodDelegateSingleParameter (this.petAction.getClass (),
+                      "actionPerformed",
+                    CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("ActionEvent"));
+              this.petAction = CustomCodeProxy.getTypeAnalyser ().makeFieldExtendsClass (this.petAction.getClass (), 
                     CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Action"));
-            
-              Object newActionsObject = CustomCodeProxy.getTypeAnalyser ().makeFieldExtendsClass (this, 
+
+              //Duplicate "this" to have a compliant ActionListener object
+              Object newActionsObject = CustomCodeProxy.getTypeAnalyser ().addMethodDelegateSingleParameter (this.getClass (),
+                      "actionPerformed",
+                    CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("ActionEvent"));
+              newActionsObject = CustomCodeProxy.getTypeAnalyser ().makeFieldExtendsClass (newActionsObject.getClass (), 
                       CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Action"));
+
+              
+              Object newActionsObject2 = CustomCodeProxy.getTypeAnalyser ().addMethodDelegateSingleParameter (this.getClass (),
+                      "windowClosing",
+                    CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("WindowEvent"));
+              newActionsObject2 = CustomCodeProxy.getTypeAnalyser ().makeFieldExtendsClass (newActionsObject2.getClass (), 
+                      CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("WindowAdapter"));
+              
+              
               newActionsObject.getClass ().getDeclaredField ("newAction").set (newActionsObject, this.newAction);
               newActionsObject.getClass ().getDeclaredField ("openAction").set (newActionsObject, this.openAction);
               newActionsObject.getClass ().getDeclaredField ("petAction").set (newActionsObject, this.petAction);
@@ -130,19 +147,21 @@ public class Actions  {
 			Object element = this.swix.render ("samples/swing/xml/actions.xml");
 			if ("Element".equals (element.getClass ().getSimpleName ())){
 			    SeeWebpage.see (element.toString ());
-			}
+			}else{
 			// at this point all AbstractActions are linked with the button etc.
 			// ActionCommands however need to be linked manually, see below ...
 
 			// add this class as an action listener to all buttons inside the
 			// panel with the id = center_panel
-			this.swix.setActionListener (this.pnl_North, newActionsObject);
+			this.swix.setActionListener (newActionsObject.getClass ().getDeclaredField ("pnl_North").get (newActionsObject), newActionsObject);
 			// add this class as an action listener to MenuItem with the id =
 			// mi_exit.
-			//this.mi_exit.addActionListener (this);
-			// add this class as an action listener to MenuItem with the id =
+			javax.swing.JMenuItem mi_exit = (javax.swing.JMenuItem) newActionsObject.getClass ().getDeclaredField ("mi_exit").get (newActionsObject);
+			mi_exit.addActionListener ((java.awt.event.ActionListener)newActionsObject);
+            // add this class as an action listener to MenuItem with the id =
 			// mi_save
-			//this.mi_save.addActionListener (this);
+            javax.swing.JMenuItem mi_save = (javax.swing.JMenuItem) newActionsObject.getClass ().getDeclaredField ("mi_save").get (newActionsObject);
+            mi_save.addActionListener ((java.awt.event.ActionListener)newActionsObject);
 			//
 			// Note, the mi_about MenuItem was not linked at all so far.
 			// Therefore, no action is performed when this
@@ -154,7 +173,7 @@ public class Actions  {
 			// this object's actionPerformed(). Therefore, when clicked, both
 			// actionPerformed() methods are getting called
 			//
-			//((JFrame) this.swix.getRootComponent ()).setVisible (true);
+			}
 		} catch (final Exception e) {
 			e.printStackTrace ();
 		}
@@ -167,15 +186,22 @@ public class Actions  {
 	/**
 	 * Invoked when an action occurs.
 	 */
-	public void actionPerformed (ActionEvent e) {
-		final String command = e.getActionCommand ();
-		if ("AC_EXIT".equals (command)) {
-			this.windowClosing (null);
-		} else if ("AC_SAVE".equals (command)) {
-			System.out.println ("Save");
-		} else {
-			System.out.println ("Click");
-		}
+	public void actionPerformed (Object e) {
+		String command;
+        try {
+            command = (String) e.getClass ().getMethod ("getActionCommand").invoke (e);
+            if ("AC_EXIT".equals (command)) {
+                this.windowClosing (null);
+            } else if ("AC_SAVE".equals (command)) {
+                System.out.println ("Save");
+            } else {
+                System.out.println ("Click");
+            }
+        } catch (IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException | NoSuchMethodException
+                | SecurityException e1) {
+            e1.printStackTrace();
+        }
 	}
 
 	//
@@ -188,7 +214,7 @@ public class Actions  {
 	 * window while processing this event, the window close operation will be
 	 * cancelled.
 	 */
-	public void windowClosing (WindowEvent e) {
+	public void windowClosing (Object e) {
 		System.out.println ("Good Bye!");
 		System.exit (0);
 	}

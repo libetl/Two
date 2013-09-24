@@ -8,6 +8,15 @@ public class TypeAnalyser extends org.swixml.technoproxy.TypeAnalyser {
     @SuppressWarnings ("unchecked")
     @Override
     public <T> Class<T> getCompatibleClass (String string) {
+        if ("WindowAdapter".equalsIgnoreCase (string)){
+            return (Class<T>) WindowAdapter.class;
+        }
+        if ("WindowEvent".equalsIgnoreCase (string)){
+            return (Class<T>) WindowEvent.class;
+        }
+        if ("ActionEvent".equalsIgnoreCase (string)){
+            return (Class<T>) ActionEvent.class;
+        }
         if ("Action".equalsIgnoreCase (string)){
             return (Class<T>) XAction.class;
         }

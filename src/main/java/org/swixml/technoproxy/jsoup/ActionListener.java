@@ -1,6 +1,5 @@
 package org.swixml.technoproxy.jsoup;
 
-import java.awt.event.WindowEvent;
 import java.util.EventListener;
 
 

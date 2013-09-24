@@ -83,14 +83,15 @@ public class XAction extends AbstractAction {
 
     }
     
-    @Override
     public void actionPerformed (ActionEvent e) {
+        if (this.method != null){
         try {
             this.method.invoke (this.client);
         } catch (final IllegalAccessException e1) {
             e1.printStackTrace ();
         } catch (final InvocationTargetException e1) {
             e1.printStackTrace ();
+        }
         }
     }
 }

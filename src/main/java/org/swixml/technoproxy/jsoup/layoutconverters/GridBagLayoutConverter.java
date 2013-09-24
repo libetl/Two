@@ -1,8 +1,5 @@
 package org.swixml.technoproxy.jsoup.layoutconverters;
 
-import java.util.StringTokenizer;
-
-import org.swixml.converters.Util;
 import org.swixml.technoproxy.ProxyCode;
 
 public class GridBagLayoutConverter extends ProxyCode<org.swixml.layoutconverters.GridBagLayoutConverter<org.jsoup.nodes.Element>> {

@@ -31,6 +31,7 @@ public class TypeAnalyser extends org.swixml.technoproxy.TypeAnalyser {
         		"org.swixml.technoproxy.swing." + string, "javax.swing.table.J" + string,                 
                 "javax.swing.tree." + string, "javax.swing.border." + string, 
                 "javax.swing.J" + string, "javax.swing." + string, 
+                "java.awt.event." + string,
                 "java.awt." + string);
 
         for (final String possibility : possibilities) {
