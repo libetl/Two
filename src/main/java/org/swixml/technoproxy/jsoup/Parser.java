@@ -147,6 +147,47 @@ public class Parser
       try {
         if ("text".equalsIgnoreCase (attr.getName ())){
           ((org.jsoup.nodes.Element)obj).appendChild (new org.jsoup.nodes.TextNode (attr.getValue (), ""));  
+        }else if ("layout".equalsIgnoreCase (attr.getName ())){
+            ((org.jsoup.nodes.Element)obj).addClass (attr.getValue ());
+        }else if ("constraints".equalsIgnoreCase (attr.getName ())){
+            ((org.jsoup.nodes.Element)obj).addClass (attr.getValue ().replace ('.', 'A'));
+        }else if ("icon".equalsIgnoreCase (attr.getName ())){
+            Class<?> mainClass;
+            try {
+                mainClass = Class.forName (Thread.currentThread ().getStackTrace () [Thread.currentThread ().getStackTrace ().length - 1].getClassName ());
+                String folder = mainClass.getProtectionDomain().getCodeSource().getLocation().getPath();
+                ((org.jsoup.nodes.Element)obj).attr ("style",
+                        ((org.jsoup.nodes.Element)obj).attr ("style") + ";background-image:url('" + folder +
+                        attr.getValue () +"')");
+            } catch (ClassNotFoundException e) {
+            }
+        }else if ("tooltiptext".equalsIgnoreCase (attr.getName ())){
+            ((org.jsoup.nodes.Element)obj).attr ("title", attr.getValue ()) ;
+        }else if ("enabled".equalsIgnoreCase (attr.getName ())){
+            ((org.jsoup.nodes.Element)obj).attr ("style",
+                    ((org.jsoup.nodes.Element)obj).attr ("style") + ";enabled:" + attr.getValue () +"");
+        }else if ("borderpainted".equalsIgnoreCase (attr.getName ())){
+            ((org.jsoup.nodes.Element)obj).attr ("style",
+                    ((org.jsoup.nodes.Element)obj).attr ("style") + ";border: solid 1px #000");
+        }else if ("visible".equalsIgnoreCase (attr.getName ())){
+            if ("true".equalsIgnoreCase (attr.getValue ())){
+                ((org.jsoup.nodes.Element)obj).attr ("style",
+                        ((org.jsoup.nodes.Element)obj).attr ("style") + ";display:block");
+            }else if ("false".equalsIgnoreCase (attr.getValue ())){
+                ((org.jsoup.nodes.Element)obj).attr ("style",
+                        ((org.jsoup.nodes.Element)obj).attr ("style") + ";display:none");                
+            }
+        }else if ("size".equalsIgnoreCase (attr.getName ())){
+            int width = Integer.parseInt (attr.getValue ().split (",") [0]);
+            int height = Integer.parseInt (attr.getValue ().split (",") [1]);
+            ((org.jsoup.nodes.Element)obj).attr ("style",
+                    ((org.jsoup.nodes.Element)obj).attr ("style") + ";width:" + width +"px;height:" + height + "px");
+        }else if ("foreground".equalsIgnoreCase (attr.getName ())){
+            ((org.jsoup.nodes.Element)obj).attr ("style",
+                    ((org.jsoup.nodes.Element)obj).attr ("style") + ";font-color:" + attr.getValue ());
+        }else if ("font".equalsIgnoreCase (attr.getName ())){
+            ((org.jsoup.nodes.Element)obj).attr ("style",
+                    ((org.jsoup.nodes.Element)obj).attr ("style") + ";font:" + attr.getValue ());
         }else{
           method.invoke (obj, attr.getName (), para);
         }
