@@ -216,6 +216,7 @@ public class Parser
         org.jsoup.nodes.Element link1 = new org.jsoup.nodes.Element (Tag.valueOf ("link"), "");
         org.jsoup.nodes.Element link2 = new org.jsoup.nodes.Element (Tag.valueOf ("link"), "");
         org.jsoup.nodes.Element script = new org.jsoup.nodes.Element (Tag.valueOf ("script"), "");
+        org.jsoup.nodes.Element script2 = new org.jsoup.nodes.Element (Tag.valueOf ("script"), "");
         org.jsoup.nodes.Element meta = new org.jsoup.nodes.Element (Tag.valueOf ("meta"), "");
         Class<?> mainClass = SwingEngine.class;
         String folder = mainClass.getProtectionDomain().getCodeSource().getLocation().getPath();
@@ -224,12 +225,14 @@ public class Parser
         link.attr ("href", folder + "org/swixml/technoproxy/jsoup/metalUIHtml.css");
         link1.attr ("rel", "stylesheet");
         link1.attr ("type", "text/css");
-        link1.attr ("href", "//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css");
+        link1.attr ("href", "http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css");
         link2.attr ("rel", "stylesheet");
         link2.attr ("type", "text/css");
-        link2.attr ("href", "//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css");
+        link2.attr ("href", "http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css");
         script.attr ("type", "text/javascript");
-        script.attr ("src", "//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js");
+        script.attr ("src", "http://code.jquery.com/jquery.js");
+        script2.attr ("type", "text/javascript");
+        script2.attr ("src", "http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js");
         meta.attr ("name", "viewport");
         meta.attr ("content", "width=device-width, initial-scale=1.0");
         d.appendChild (new org.jsoup.nodes.DocumentType ("html", "", "", ""));
@@ -239,9 +242,10 @@ public class Parser
         d.child (0).child (0).appendChild (link1);
         d.child (0).child (0).appendChild (link2);
         d.child (0).child (0).appendChild (script);
+        d.child (0).child (0).appendChild (script2);
         d.child (0).child (0).appendChild (meta);
         d.child (0).child (0).appendChild (new org.jsoup.nodes.Element (Tag.valueOf ("title"), ""));
-        d.child (0).child (0).child (5).appendChild (new org.jsoup.nodes.TextNode (name, ""));
+        d.child (0).child (0).child (6).appendChild (new org.jsoup.nodes.TextNode (name, ""));
         d.child (0).appendChild (new org.jsoup.nodes.Element (Tag.valueOf ("body"), ""));
         d.getElementsByTag ("body").iterator ().next ().appendChild (obj);
         return d;
