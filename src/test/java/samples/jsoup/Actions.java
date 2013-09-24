@@ -145,7 +145,7 @@ public class Actions  {
               newActionsObject.getClass ().getDeclaredField ("petAction").set (newActionsObject, this.petAction);
 			this.swix = new SwingEngine (newActionsObject);
 			Object element = this.swix.render ("samples/swing/xml/actions.xml");
-			if ("Element".equals (element.getClass ().getSimpleName ())){
+			if ("Document".equals (element.getClass ().getSimpleName ())){
 			    SeeWebpage.see (element.toString ());
 			}else{
 			// at this point all AbstractActions are linked with the button etc.
