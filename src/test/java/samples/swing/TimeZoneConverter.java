@@ -2,9 +2,9 @@ package samples.swing;
 
 import java.util.SimpleTimeZone;
 
-import org.swixml.Attribute;
-import org.swixml.Converter;
-import org.swixml.Localizer;
+import org.twixml.Attribute;
+import org.twixml.Converter;
+import org.twixml.Localizer;
 
 public class TimeZoneConverter implements Converter {
 	/**

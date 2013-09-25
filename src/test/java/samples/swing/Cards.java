@@ -9,7 +9,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.swixml.SwingEngine;
+import org.twixml.TwiXML;
 
 /**
  * The <code>Cards</code> class shows an example for the usage of a CardLayout.
@@ -31,7 +31,7 @@ public class Cards {
 		}
 	}
 
-	private final SwingEngine	swix	 = new SwingEngine (this);
+	private final TwiXML	swix	 = new TwiXML (this);
 
 	/** panel with a CardLayout */
 	public JPanel	          pnl;

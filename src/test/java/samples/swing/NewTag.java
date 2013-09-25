@@ -4,13 +4,13 @@ import java.util.TimeZone;
 
 import javax.swing.JFrame;
 
-import org.swixml.ConverterLibrary;
-import org.swixml.SwingEngine;
+import org.twixml.ConverterLibrary;
+import org.twixml.TwiXML;
 
 /**
  * Extend the TagLib with a new Class<?> and a new Converter
  */
-public class NewTag extends SwingEngine {
+public class NewTag extends TwiXML {
 
 	public static void main (String [] args) {
 		new NewTag ();

@@ -11,7 +11,7 @@ import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import org.swixml.SwingEngine;
+import org.twixml.TwiXML;
 
 /**
  * The HelloMac class shows a couple of the Mac specifics exposed
@@ -30,7 +30,7 @@ public class HelloMac extends WindowAdapter {
 		new HelloMac ();
 	}
 
-	private final SwingEngine	swix;
+	private final TwiXML	swix;
 
 	public Action	          actionAbout	= new AbstractAction () {
 		                                      /**
@@ -60,7 +60,7 @@ public class HelloMac extends WindowAdapter {
 		                                              ActionEvent e) {
 			                                      try {
 				                                      new java.net.URL (
-				                                              "http://www.swixml.org/apidocs/index.html")
+				                                              "http://www.twixml.org/apidocs/index.html")
 				                                              .getContent ();
 			                                      } catch (final IOException e1) {
 				                                      e1.printStackTrace ();
@@ -91,7 +91,7 @@ public class HelloMac extends WindowAdapter {
 	                                      };
 
 	private HelloMac () throws Exception {
-		this.swix = new SwingEngine (this);
+		this.swix = new TwiXML (this);
 		this.swix.render ("samples/swing/xml/hellomac.xml");
 		((JFrame) this.swix.getRootComponent ()).setVisible (true);
 	}

@@ -3,7 +3,7 @@ package samples.swing;
 import java.awt.Container;
 import java.awt.event.WindowAdapter;
 
-import org.swixml.SwingEngine;
+import org.twixml.TwiXML;
 
 /**
  * The XInclude class shows in simple way how to use xml includes.
@@ -20,7 +20,7 @@ public class XInclude extends WindowAdapter {
 		new XInclude ();
 	}
 
-	private final SwingEngine	swix	= new SwingEngine (this);
+	private final TwiXML	swix	= new TwiXML (this);
 
 	private XInclude () {
 		try {

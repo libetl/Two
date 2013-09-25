@@ -5,7 +5,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
-import org.swixml.SwingEngine;
+import org.twixml.TwiXML;
 
 import com.toedter.calendar.JCalendar;
 
@@ -19,7 +19,7 @@ public class CustomTags extends WindowAdapter {
 	}
 
 	public CustomTags () throws Exception {
-		final SwingEngine swix = new SwingEngine (this);
+		final TwiXML swix = new TwiXML (this);
 		swix.getTaglib ().registerTag ("Calendar", JCalendar.class);
 		((JFrame) swix.render ("samples/swing/xml/customtags.xml")).setVisible (true);
 	}

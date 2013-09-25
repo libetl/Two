@@ -3,12 +3,12 @@ package samples.swing;
 
 import javax.swing.JFrame;
 
-import org.swixml.SwingEngine;
+import org.twixml.TwiXML;
 
 /**
  * The Form class shows how to do a simple JGoodies FormLayout
  */
-public class Form extends SwingEngine {
+public class Form extends TwiXML {
 	public static void main (String [] args) {
 		new Form ();
 	}

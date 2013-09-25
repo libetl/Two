@@ -13,8 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-import org.swixml.AppConstants;
-import org.swixml.SwingEngine;
+import org.twixml.AppConstants;
+import org.twixml.TwiXML;
 
 /**
  * The Actions class shows how to use the <code>Actions</code> and
@@ -30,7 +30,7 @@ public class Actions extends WindowAdapter implements ActionListener {
 		new Actions ();
 	}
 
-	private SwingEngine	swix;
+	private TwiXML	swix;
 	public JMenuItem	mi_exit, mi_save;
 
 	public JPanel	    pnl_North;
@@ -114,7 +114,7 @@ public class Actions extends WindowAdapter implements ActionListener {
 	 */
 	private Actions () {
 		try {
-			this.swix = new SwingEngine (this);
+			this.swix = new TwiXML (this);
 			this.swix.render ("samples/swing/xml/actions.xml");
 
 			// at this point all AbstractActions are linked with the button etc.

@@ -2,7 +2,7 @@ package samples.swing;
 
 import java.awt.Container;
 
-import org.swixml.SwingEngine;
+import org.twixml.TwiXML;
 
 /**
  * The Layout class shows the use of layout managers
@@ -24,7 +24,7 @@ public class Layout {
 	}
 
 	private Layout () throws Exception {
-		((Container) new SwingEngine (this).render (Layout.DESCRIPTOR))
+		((Container) new TwiXML (this).render (Layout.DESCRIPTOR))
 		        .setVisible (true);
 	}
 }

@@ -8,7 +8,7 @@ import javax.swing.Action;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
-import org.swixml.SwingEngine;
+import org.twixml.TwiXML;
 
 /**
  * The InitClass class demonstrates how to use the initclass attribute. Date:
@@ -43,7 +43,7 @@ public class InitClass extends WindowAdapter {
 	                          };
 
 	private InitClass () throws Exception {
-		((JFrame) new SwingEngine (this).render ("samples/swing/xml/initclass.xml"))
+		((JFrame) new TwiXML (this).render ("samples/swing/xml/initclass.xml"))
 		        .setVisible (true);
 	}
 }

@@ -9,10 +9,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
-import org.swixml.SwingEngine;
+import org.twixml.TwiXML;
 
 /**
- * The ClientAttr shows in the usage of client attributes in swixml tags.
+ * The ClientAttr shows in the usage of client attributes in twixml tags.
  * 
  * @author <a href="mailto:wolf@paulus.com">Wolf Paulus</a>
  * @version $Revision: 1.1 $
@@ -24,7 +24,7 @@ public class ClientAttr extends WindowAdapter {
 		new ClientAttr ();
 	}
 
-	private final SwingEngine	swix	= new SwingEngine (this);
+	private final TwiXML	swix	= new TwiXML (this);
 	public JButton	          btn;
 	public JTextArea	      ta;
 

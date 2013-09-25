@@ -8,7 +8,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JApplet;
 import javax.swing.JTextField;
 
-import org.swixml.SwingEngine;
+import org.twixml.TwiXML;
 
 /**
  * The SwixmlApplet class shows how to use the SwixmlmlEngine to create
@@ -59,7 +59,7 @@ public class SwixApplet extends JApplet {
 			if (descriptorfile == null) {
 				descriptorfile = "samples/swing/xml/applet.xml";
 			}
-			new SwingEngine (this).insert (
+			new TwiXML (this).insert (
 			        new URL ("file://" + new File (this.getCodeBase ().getFile ()).getParentFile ().getParent () +
 			                "/src/test/java/" + descriptorfile), this);
 			this.setVisible (true);

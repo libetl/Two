@@ -7,7 +7,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JOptionPane;
 
-import org.swixml.SwingEngine;
+import org.twixml.TwiXML;
 
 /**
  * The Accelerator shows in the usage of accelerators.
@@ -28,7 +28,7 @@ public class Accelerator {
 		}
 	}
 
-	SwingEngine	  swix	        = new SwingEngine (this);
+	TwiXML	  swix	        = new TwiXML (this);
 
 	public Action	newAction	= new AbstractAction () {
 		                            /**

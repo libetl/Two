@@ -2,7 +2,7 @@ package samples.swing;
 
 import java.awt.Container;
 
-import org.swixml.SwingEngine;
+import org.twixml.TwiXML;
 
 /**
  * The GridBag class shows how to do a simple GridBag layout
@@ -12,7 +12,7 @@ import org.swixml.SwingEngine;
  * 
  * @since swixml 0.5
  */
-public class GridBag extends SwingEngine {
+public class GridBag extends TwiXML {
 	public static void main (String [] args) {
 		new GridBag ();
 	}

@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import org.swixml.SwingEngine;
+import org.twixml.TwiXML;
 
 public class HelloWorldnoAction {
 	/**
@@ -34,7 +34,7 @@ public class HelloWorldnoAction {
 	 * Renders UI at construction
 	 */
 	private HelloWorldnoAction () throws Exception {
-		((JFrame) new SwingEngine (this).render ("samples/swing/xml/helloworld.xml"))
+		((JFrame) new TwiXML (this).render ("samples/swing/xml/helloworld.xml"))
 		        .setVisible (true);
 	}
 

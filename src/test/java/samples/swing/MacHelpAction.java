@@ -21,7 +21,7 @@ public class MacHelpAction extends AbstractAction {
 	@Override
 	public void actionPerformed (ActionEvent e) {
 		try {
-			new java.net.URL ("http://www.swixml.org/apidocs/index.html")
+			new java.net.URL ("http://www.twixml.org/apidocs/index.html")
 			        .getContent ();
 		} catch (final IOException e1) {
 			e1.printStackTrace ();

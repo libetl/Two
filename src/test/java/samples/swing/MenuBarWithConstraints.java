@@ -2,7 +2,7 @@ package samples.swing;
 
 import java.awt.Container;
 
-import org.swixml.SwingEngine;
+import org.twixml.TwiXML;
 
 // $Id: MenuBarWithConstraints.java,v 1.1 2005/08/22 21:20:01 tichy Exp $
 /**
@@ -17,7 +17,7 @@ public class MenuBarWithConstraints {
 	 *             if something goes wrong
 	 */
 	public static void main (String [] args) throws Exception {
-		final SwingEngine se = new SwingEngine ();
+		final TwiXML se = new TwiXML ();
 		final Container container = (Container) se.render ("samples/swing/xml/menu-bar.xml");
 		container.setVisible (true);
 	}

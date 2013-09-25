@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <frame  
-	xmlns="http://www.swixml.org/2007/SwixmlTags"
+	xmlns="http://www.twixml.org/2007/SwixmlTags"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.swixml.org/2007/SwixmlTags http://www.swixml.org/2007/swixml.xsd"
+	xsi:schemaLocation="http://www.twixml.org/2007/SwixmlTags http://www.twixml.org/2007/twixml.xsd"
 	title="Swixml: List Demo" size="400,260" defaultCloseOperation="JFrame.EXIT_ON_CLOSE">
 
   <panel constraints="BorderLayout.CENTER">

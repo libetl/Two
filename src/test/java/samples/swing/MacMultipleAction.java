@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  * Demonstrates delivering of a valid action command from the ActionEvent.
  * 
  * On MacOS, this contains strings like
- * {@link org.swixml.Parser#ATTR_MACOS_ABOUT} when the attribute
+ * {@link org.twixml.Parser#ATTR_MACOS_ABOUT} when the attribute
  * <code>"macos_about"</code> was set to <code>true</code>. See the provided
  * file <code>mactester.xml</code> as an usage example. This allows specifying
  * of multiple <code>"macos_*"</code> attributes for one

@@ -3,7 +3,7 @@ package samples.swing;
 import java.awt.Container;
 import java.awt.event.WindowAdapter;
 
-import org.swixml.SwingEngine;
+import org.twixml.TwiXML;
 
 /**
  * The HelloMac class shows a couple of the Mac specifics exposed
@@ -15,12 +15,12 @@ import org.swixml.SwingEngine;
  * @since swixml 1.1
  */
 public class MacTest extends WindowAdapter {
-	private static SwingEngine	swix;
+	private static TwiXML	swix;
 
 	/**
 	 * @return
 	 */
-	public static SwingEngine getSwix () {
+	public static TwiXML getSwix () {
 		// TODO Auto-generated method stub
 		return MacTest.swix;
 	}
@@ -33,7 +33,7 @@ public class MacTest extends WindowAdapter {
 	}
 
 	private MacTest () throws Exception {
-		MacTest.swix = new SwingEngine (this);
+		MacTest.swix = new TwiXML (this);
 		MacTest.swix.render ("samples/swing/xml/mactester.xml");
 		((Container) MacTest.swix.getRootComponent ()).setVisible (true);
 	}

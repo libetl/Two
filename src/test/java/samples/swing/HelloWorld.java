@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import org.swixml.SwingEngine;
+import org.twixml.TwiXML;
 
 public class HelloWorld {
 	/** Makes the class bootable */
@@ -49,7 +49,7 @@ public class HelloWorld {
 
 	/** Renders UI at construction */
 	private HelloWorld () throws Exception {
-		((JFrame) new SwingEngine (this).render ("samples/swing/xml/helloworld.xml"))
+		((JFrame) new TwiXML (this).render ("samples/swing/xml/helloworld.xml"))
 		        .setVisible (true);
 	}
 }

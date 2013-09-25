@@ -2,7 +2,7 @@ package samples.swing;
 
 import javax.swing.JPanel;
 
-import org.swixml.SwingEngine;
+import org.twixml.TwiXML;
 
 /**
  * This file contains proprietary information of CarlsbadCubes Copying or
@@ -24,7 +24,7 @@ public class XPanel extends JPanel {
 	 * 
 	 */
 	private static final long	serialVersionUID	= 1503710571522599188L;
-	private final SwingEngine	swix	         = new SwingEngine (this);
+	private final TwiXML	swix	         = new TwiXML (this);
 
 	public void setXml (String resource) {
 		try {

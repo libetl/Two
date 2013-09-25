@@ -17,7 +17,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JOptionPane;
 
-import org.swixml.SwingEngine;
+import org.twixml.TwiXML;
 
 public class Localization extends WindowAdapter {
 
@@ -31,7 +31,7 @@ public class Localization extends WindowAdapter {
 		}
 	}
 
-	SwingEngine	  swix	          = new SwingEngine (this);
+	TwiXML	  swix	          = new TwiXML (this);
 
 	public Action	actionOptions	= new AbstractAction () {
 		                              /**
