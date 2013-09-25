@@ -13,6 +13,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
@@ -31,17 +33,49 @@ import org.twixml.Factory;
  * @version $Revision: 1.1 $
  */
 public final class JSoupFactory implements Factory {
+    private static final Map<String, String> TAG               = new HashMap<String, String> () {
+                                                                   /**
+         * 
+         */
+                                                                   private static final long serialVersionUID = -4838706878848755022L;
+
+                                                                   {
+                                                                       this.put (
+                                                                               "menubar",
+                                                                               "nav");
+                                                                       this.put (
+                                                                               "menuitem",
+                                                                               "li");
+                                                                   }
+                                                               };
+    private static final Map<String, String> MATCHING          = new HashMap<String, String> () {
+                                                                   private static final long serialVersionUID = -4838706878848755022L;
+                                                                   {
+                                                                       this.put (
+                                                                               "menubar",
+                                                                               "navbar navbar-nav");
+                                                                       this.put (
+                                                                               "menu",
+                                                                               "dropdown");
+                                                                       this.put (
+                                                                               "button",
+                                                                               "btn");
+                                                                       this.put (
+                                                                               "menuitem",
+                                                                               "");
+                                                                   }
+                                                               };
 
     /** Collection for all setter methods */
-    private final Collection<Method> setters           = new ArrayList<Method> ();
+    private final Collection<Method>         setters           = new ArrayList<Method> ();
 
     /** The factory creates instances of this Class<?> */
-    private final Class<?>           template;
+    private final Class<?>                   template;
 
     /** Priority to resolve method name clashes */
-    protected Class<?> []            parameterPriority = { String.class,
-            float.class, double.class, boolean.class, char.class, long.class,
-            byte.class, int.class                     };
+    protected Class<?> []                    parameterPriority = {
+            String.class, float.class, double.class, boolean.class, char.class,
+            long.class, byte.class, int.class                 };
 
     /**
      * Creates a new Factory for the given <code>Class</code> template.
@@ -57,13 +91,25 @@ public final class JSoupFactory implements Factory {
      *            of the parameter type.
      *            </p>
      */
-    public JSoupFactory (Class<?> template) {
+    public JSoupFactory (final Class<?> template) {
         this.template = template;
         //
         // Collects all set<Methods> that require a single parameter, which can
         // be created by an Converter.
         //
         this.registerSetters ();
+    }
+
+    @Override
+    public Object getLeaf (final Object obj) {
+        if (! (obj instanceof org.jsoup.nodes.Element)) {
+            return obj;
+        }
+        Element element = (org.jsoup.nodes.Element) obj;
+        while (element.children ().size () > 0) {
+            element = element.child (element.children ().size () - 1);
+        }
+        return element;
     }
 
     /**
@@ -76,7 +122,7 @@ public final class JSoupFactory implements Factory {
      * @see org.twixml.Factory#getSetter(java.lang.Class)
      */
     @Override
-    public Method getSetter (Class<?> template) {
+    public Method getSetter (final Class<?> template) {
         try {
             return org.jsoup.nodes.Element.class.getDeclaredMethod ("attr",
                     String.class, String.class);
@@ -99,7 +145,7 @@ public final class JSoupFactory implements Factory {
      * </pre>
      */
     @Override
-    public Method getSetter (String name) {
+    public Method getSetter (final String name) {
         try {
             return org.jsoup.nodes.Element.class.getDeclaredMethod ("attr",
                     String.class, String.class);
@@ -141,7 +187,7 @@ public final class JSoupFactory implements Factory {
      * </pre>
      */
     @Override
-    public Method guessSetter (String name) {
+    public Method guessSetter (final String name) {
         try {
             return org.jsoup.nodes.Element.class.getDeclaredMethod ("attr",
                     String.class, String.class);
@@ -157,9 +203,15 @@ public final class JSoupFactory implements Factory {
      * @throws Exception
      */
     @Override
-    public Object newInstance (String mainClass) throws Exception {
-        Element e = new org.jsoup.nodes.Element (Tag.valueOf ("div"), "");
-        e.addClass (mainClass);
+    public Object newInstance (final String mainClass) throws Exception {
+        final String tagName = JSoupFactory.TAG.get (mainClass) != null ? JSoupFactory.TAG
+                .get (mainClass) : "div";
+        final String className = JSoupFactory.MATCHING.get (mainClass) != null ? JSoupFactory.MATCHING
+                .get (mainClass) : mainClass;
+        org.jsoup.nodes.Element e = new org.jsoup.nodes.Element (
+                Tag.valueOf (tagName), "");
+        e.addClass (className);
+        e = this.specialCases (e, mainClass);
         return e;
     }
 
@@ -175,13 +227,18 @@ public final class JSoupFactory implements Factory {
      * @throws Exception
      */
     @Override
-    public Object newInstance (String mainClass, Object parameter)
+    public Object newInstance (final String mainClass, final Object parameter)
             throws Exception {
+        final String tagName = JSoupFactory.TAG.get (mainClass) != null ? JSoupFactory.TAG
+                .get (mainClass) : "div";
         // parameter
+        final String className = JSoupFactory.MATCHING.get (mainClass) != null ? JSoupFactory.MATCHING
+                .get (mainClass) : mainClass;
         org.jsoup.nodes.Element result = new org.jsoup.nodes.Element (
-                Tag.valueOf ("div"), "");
-        result.attr ("name", parameter.toString ());
-        result.addClass (mainClass);
+                Tag.valueOf (tagName), "");
+        result.attr ("name", className);
+        result.addClass (JSoupFactory.MATCHING.get (mainClass));
+        result = this.specialCases (result, mainClass);
         return result;
     }
 
@@ -204,12 +261,17 @@ public final class JSoupFactory implements Factory {
      * 
      */
     @Override
-    public Object newInstance (String mainClass, Object [] parameter)
+    public Object newInstance (final String mainClass, final Object [] parameter)
             throws InstantiationException, IllegalAccessException,
             InvocationTargetException {
+        final String tagName = JSoupFactory.TAG.get (mainClass) != null ? JSoupFactory.TAG
+                .get (mainClass) : "div";
+        final String className = JSoupFactory.MATCHING.get (mainClass) != null ? JSoupFactory.MATCHING
+                .get (mainClass) : mainClass;
         org.jsoup.nodes.Element e = new org.jsoup.nodes.Element (
-                Tag.valueOf ("div"), "");
-        e.addClass (mainClass);
+                Tag.valueOf (tagName), "");
+        e.addClass (className);
+        e = this.specialCases (e, mainClass);
         return e;
     }
 
@@ -220,7 +282,7 @@ public final class JSoupFactory implements Factory {
      *            <code>Class</code>
      * @return <code>int</code> parameter type priority
      */
-    protected int priority (Class<?> type) {
+    protected int priority (final Class<?> type) {
         for (int i = 0 ; i < this.parameterPriority.length ; i++) {
             if (type.isAssignableFrom (this.parameterPriority [i])) {
                 return i;
@@ -261,10 +323,10 @@ public final class JSoupFactory implements Factory {
                         if (m != null) {
                             //
                             // Here: m and method[i] have the same name. m is
-                            // already regsitered and method[i] wants to.
-                            // The most specializied method should win. If both
+                            // already registered and method[i] wants to.
+                            // The most specialized method should win. If both
                             // methods are implemented within the same class,
-                            // then the method's paramter will be checked for
+                            // then the method's parameter will be checked for
                             // the highest priority.
                             //
                             final Class<?> cm = m.getDeclaringClass ();
@@ -297,7 +359,26 @@ public final class JSoupFactory implements Factory {
      * @param method
      *            <code>Method</code>
      */
-    public void removeSetter (Method method) {
+    public void removeSetter (final Method method) {
         this.setters.remove (method);
+    }
+
+    private Element specialCases (Element e, final String mainClass) {
+        if ("menubar".equals (mainClass)) {
+            e = new org.jsoup.nodes.Element (Tag.valueOf ("div"), "");
+            e.addClass ("collapse navbar-collapse navbar-ex1-collapse");
+            e.append ("<ul class=\"nav navbar-nav\"></ul>");
+        } else if ("menu".equals (mainClass)) {
+            e = new org.jsoup.nodes.Element (Tag.valueOf ("li"), "");
+            e.addClass ("dropdown");
+            e.append ("<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">[text]<b class=\"caret\"></b></a>");
+            e.append ("<ul class=\"dropdown-menu\"></ul>");
+        } else if ("menuitem".equals (mainClass)) {
+            e = new org.jsoup.nodes.Element (Tag.valueOf ("li"), "");
+            e.append ("<a href=\"#\">[text]</a>");
+        } else if ("menubar".equals (mainClass)) {
+            e.attr ("role", "navigation");
+        }
+        return e;
     }
 }

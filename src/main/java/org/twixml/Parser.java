@@ -152,7 +152,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                                                                     + "print";
 
     /**
-     * Attribute name that flags an Action as the default Re-Open Applicaiton
+     * Attribute name that flags an Action as the default Re-Open Application
      * handler on a Mac
      */
     public static final String         ATTR_MACOS_REOPEN    = Parser.ATTR_MACOS_PREFIX
@@ -621,6 +621,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
     @SuppressWarnings ("unchecked")
     public Object getGUI (final Element element, Object obj) throws Exception {
 
+        Object leaf = obj;
         final Factory factory = this.engine.getTaglib ().getFactory (
                 element.getNodeName ());
         // look for <id> attribute value
@@ -784,6 +785,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
             obj = initParameter != null ? factory.newInstance (
                     element.getNodeName (), new Object [] { initParameter })
                     : factory.newInstance (element.getNodeName ());
+            leaf = factory.getLeaf (obj);
             constructed = true;
             //
             // put newly created object in the map if it has an <id> attribute
@@ -938,12 +940,13 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
             final Element grandchild = Parser.getChildByName (child,
                     "gridbagconstraints");
             if (grandchild != null) {
-                this.addChild ((Container) obj,
+                this.addChild ((Container) leaf,
                         (Component) this.getGUI (child, null),
                         this.getGUI (grandchild, null));
             } else if (!child.getNodeName ().equals ("constraints")
                     && !child.getNodeName ().equals ("gridbagconstraints")) {
-                this.addChild ((Container) obj,
+
+                this.addChild ((Container) leaf,
                         (Component) this.getGUI (child, null), constrains);
             }
         }

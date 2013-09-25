@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.jsoup.parser.Tag;
+import org.jsoup.select.Elements;
 import org.twixml.Attribute;
 import org.twixml.TwiXML;
 import org.twixml.technoproxy.CustomCodeProxy;
@@ -39,9 +40,23 @@ public class Parser
             final Object obj, final Attribute attr, final Object para) {
         try {
             if ("text".equalsIgnoreCase (attr.getName ())) {
-                ((org.jsoup.nodes.Element) obj)
-                        .appendChild (new org.jsoup.nodes.TextNode (attr
-                                .getValue (), ""));
+                Elements elements = ((org.jsoup.nodes.Element) obj)
+                        .getElementsByClass ("dropdown-toggle");
+                if (elements.size () > 0) {
+                    final String oldContent = elements.get (0).child (0)
+                            .toString ();
+                    elements.get (0).html (attr.getValue () + oldContent);
+                } else {
+                    elements = ((org.jsoup.nodes.Element) obj)
+                            .getElementsByTag ("a");
+                    if (elements.size () > 0) {
+                        elements.get (0).text (attr.getValue ());
+                    } else {
+                        ((org.jsoup.nodes.Element) obj)
+                                .appendChild (new org.jsoup.nodes.TextNode (
+                                        attr.getValue (), ""));
+                    }
+                }
             } else if ("layout".equalsIgnoreCase (attr.getName ())) {
                 ((org.jsoup.nodes.Element) obj).addClass (attr.getValue ());
             } else if ("constraints".equalsIgnoreCase (attr.getName ())) {
@@ -58,8 +73,8 @@ public class Parser
                     ((org.jsoup.nodes.Element) obj).attr (
                             "style",
                             ((org.jsoup.nodes.Element) obj).attr ("style")
-                                    + ";background-image:url('" + folder
-                                    + attr.getValue () + "')");
+                                    + ";background:url('" + folder
+                                    + attr.getValue () + "') no-repeat");
                 } catch (final ClassNotFoundException e) {
                 }
             } else if ("tooltiptext".equalsIgnoreCase (attr.getName ())) {

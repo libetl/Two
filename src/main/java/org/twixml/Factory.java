@@ -25,6 +25,15 @@ public interface Factory {
     static final String ADDER_ID  = "add";
 
     /**
+     * Eventually, the obj generated itself a tree. The leaf has to be
+     * considered instead of the parent.
+     * 
+     * @param obj
+     * @return
+     */
+    Object getLeaf (Object obj);
+
+    /**
      * Returns a setter method, which accepts a parameter of the given type
      * 
      * @param template

@@ -110,6 +110,14 @@ public final class SwingFactory implements Factory {
         this.registerSetters ();
     }
 
+    @Override
+    /**
+     * This impl nevers cares of leaves because it was designed to support the correct hierarchy in SwingUI.
+     */
+    public Object getLeaf (final Object obj) {
+        return obj;
+    }
+
     /**
      * Returns a Setter Method that accepts the given class as a parameter
      * 
