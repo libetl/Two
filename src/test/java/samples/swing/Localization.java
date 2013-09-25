@@ -18,12 +18,13 @@ import javax.swing.Action;
 import javax.swing.JOptionPane;
 
 import org.twixml.TwiXML;
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 public class Localization extends WindowAdapter {
 
     private static final String DESCRIPTOR = "samples/swing/xml/localization.xml";
 
-    public static void main (String [] args) {
+    public static void main (final String [] args) {
         try {
             new Localization ();
         } catch (final Exception e) {
@@ -31,7 +32,7 @@ public class Localization extends WindowAdapter {
         }
     }
 
-    TwiXML        swix          = new TwiXML (this);
+    TwiXML        swix          = new SwingTwiXML (this);
 
     public Action actionOptions = new AbstractAction () {
                                     /**
@@ -40,7 +41,8 @@ public class Localization extends WindowAdapter {
                                     private static final long serialVersionUID = 890920772898342595L;
 
                                     @Override
-                                    public void actionPerformed (ActionEvent e) {
+                                    public void actionPerformed (
+                                            final ActionEvent e) {
                                         JOptionPane
                                                 .showMessageDialog (
                                                         (Component) Localization.this.swix
@@ -61,7 +63,8 @@ public class Localization extends WindowAdapter {
                                     private static final long serialVersionUID = 2740809806068831299L;
 
                                     @Override
-                                    public void actionPerformed (ActionEvent e) {
+                                    public void actionPerformed (
+                                            final ActionEvent e) {
                                         JOptionPane
                                                 .showMessageDialog (
                                                         (Component) Localization.this.swix
@@ -77,7 +80,8 @@ public class Localization extends WindowAdapter {
                                     private static final long serialVersionUID = 4207507042461976117L;
 
                                     @Override
-                                    public void actionPerformed (ActionEvent e) {
+                                    public void actionPerformed (
+                                            final ActionEvent e) {
                                         JOptionPane
                                                 .showMessageDialog (
                                                         (Component) Localization.this.swix
@@ -93,7 +97,8 @@ public class Localization extends WindowAdapter {
                                     private static final long serialVersionUID = -5765311360570438534L;
 
                                     @Override
-                                    public void actionPerformed (ActionEvent e) {
+                                    public void actionPerformed (
+                                            final ActionEvent e) {
                                         JOptionPane
                                                 .showMessageDialog (
                                                         (Component) Localization.this.swix
@@ -116,7 +121,7 @@ public class Localization extends WindowAdapter {
      * operation can be overridden at this point.
      */
     @Override
-    public void windowClosing (WindowEvent e) {
+    public void windowClosing (final WindowEvent e) {
         super.windowClosing (e);
         System.exit (0);
     }

@@ -1,8 +1,6 @@
 package samples.swing;
 
-import java.awt.Container;
-
-import org.twixml.TwiXML;
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * The GridBag class shows how to do a simple GridBag layout
@@ -12,8 +10,8 @@ import org.twixml.TwiXML;
  * 
  * @since swixml 0.5
  */
-public class GridBag extends TwiXML {
-    public static void main (String [] args) {
+public class GridBag {
+    public static void main (final String [] args) {
         new GridBag ();
     }
 
@@ -21,7 +19,7 @@ public class GridBag extends TwiXML {
 
     private GridBag () {
         try {
-            ((Container) this.render ("samples/swing/xml/gridbag.xml"))
+            new SwingTwiXML ().render ("samples/swing/xml/gridbag.xml")
                     .setVisible (true);
         } catch (final Exception e) {
             e.printStackTrace ();

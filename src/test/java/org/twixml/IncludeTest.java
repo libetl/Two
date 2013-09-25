@@ -1,9 +1,8 @@
 package org.twixml;
 
-import org.twixml.AppConstants;
-import org.twixml.TwiXML;
-
 import junit.framework.TestCase;
+
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * Test class running include related tests.
@@ -18,6 +17,6 @@ public class IncludeTest extends TestCase {
     }
 
     public void testCreate () throws Exception {
-        new TwiXML (this).render (IncludeTest.DESCRIPTOR);
+        new SwingTwiXML (this).render (IncludeTest.DESCRIPTOR);
     }
 }

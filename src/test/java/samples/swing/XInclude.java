@@ -4,6 +4,7 @@ import java.awt.Container;
 import java.awt.event.WindowAdapter;
 
 import org.twixml.TwiXML;
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * The XInclude class shows in simple way how to use xml includes.
@@ -16,11 +17,11 @@ import org.twixml.TwiXML;
  * @since swixml 0.95
  */
 public class XInclude extends WindowAdapter {
-    public static void main (String [] args) {
+    public static void main (final String [] args) {
         new XInclude ();
     }
 
-    private final TwiXML swix = new TwiXML (this);
+    private final TwiXML swix = new SwingTwiXML (this);
 
     private XInclude () {
         try {

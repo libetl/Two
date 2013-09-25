@@ -11,9 +11,9 @@ package org.twixml;
 import java.awt.Component;
 import java.awt.Container;
 
-import org.twixml.TwiXML;
-
 import junit.framework.TestCase;
+
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * Test for some JMenuBar specialties.
@@ -27,13 +27,13 @@ public class MenuTest extends TestCase {
         super ("Test inserting a Menu into a container.");
     }
 
-    public MenuTest (String s) {
+    public MenuTest (final String s) {
         super (s);
     }
 
     @Override
     public void setUp () throws Exception {
-        this.se = new TwiXML (this);
+        this.se = new SwingTwiXML (this);
         this.container = (Container) this.se.render (MenuTest.DESCRIPTOR);
     }
 

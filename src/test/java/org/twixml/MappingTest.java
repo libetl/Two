@@ -13,9 +13,9 @@ import java.awt.Container;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 
-import org.twixml.TwiXML;
-
 import junit.framework.TestCase;
+
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * Test class running auto-mapping related tests.
@@ -37,7 +37,7 @@ public class MappingTest extends TestCase implements GlobalActions {
                 "Test Mapping og XML Tags to JComponent Objects in the SwingEngine's Client");
     }
 
-    public MappingTest (String s) {
+    public MappingTest (final String s) {
         super (s);
     }
 
@@ -50,7 +50,7 @@ public class MappingTest extends TestCase implements GlobalActions {
      */
     @Override
     public void setUp () throws Exception {
-        final TwiXML se = new TwiXML (this);
+        final TwiXML se = new SwingTwiXML (this);
         this.container = (Container) se.render (MappingTest.DESCRIPTOR);
     }
 

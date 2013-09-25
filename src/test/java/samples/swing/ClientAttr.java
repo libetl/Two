@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
 import org.twixml.TwiXML;
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * The ClientAttr shows in the usage of client attributes in twixml tags.
@@ -20,11 +21,11 @@ import org.twixml.TwiXML;
  * @since swixml 0.98
  */
 public class ClientAttr extends WindowAdapter {
-    public static void main (String [] args) {
+    public static void main (final String [] args) {
         new ClientAttr ();
     }
 
-    private final TwiXML swix = new TwiXML (this);
+    private final TwiXML swix = new SwingTwiXML (this);
     public JButton       btn;
     public JTextArea     ta;
 
@@ -35,7 +36,8 @@ public class ClientAttr extends WindowAdapter {
                                   private static final long serialVersionUID = -4764666452966921115L;
 
                                   @Override
-                                  public void actionPerformed (ActionEvent e) {
+                                  public void actionPerformed (
+                                          final ActionEvent e) {
                                       ClientAttr.this.ta.setText ("X:"
                                               + ClientAttr.this.btn
                                                       .getClientProperty ("X")

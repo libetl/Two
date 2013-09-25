@@ -13,9 +13,9 @@ import java.awt.Container;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
 
-import org.twixml.TwiXML;
-
 import junit.framework.TestCase;
+
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * Testcase for localization of Strings and comma separated lists of strings.
@@ -35,9 +35,9 @@ public class LocalizationTest extends TestCase {
         this ("Test Localization of for key strings and comma separated keys");
     }
 
-    public LocalizationTest (String s) throws Exception {
+    public LocalizationTest (final String s) throws Exception {
         super (s);
-        this.container = (Container) new TwiXML (this)
+        this.container = new SwingTwiXML (this)
                 .render (LocalizationTest.DESCRIPTOR);
     }
 

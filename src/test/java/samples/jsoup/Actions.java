@@ -4,8 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.twixml.AppConstants;
 import org.twixml.TwiXML;
+import org.twixml.technoproxy.jsoup.JSoupTwiXML;
 import org.twixml.technoproxy.jsoup.SeeWebpage;
-import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * Twixml is magic. Change only the Impl object to display the result in a
@@ -105,7 +105,7 @@ public class Actions {
      */
     private Actions (final boolean start) {
         try {
-            this.swix = new SwingTwiXML ();
+            this.swix = new JSoupTwiXML ();
 
             // Make all Actions implements the adequate superclass quietly
             this.newAction = this.swix.getTypeAnalyser ()

@@ -8,7 +8,7 @@ import javax.swing.Action;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
-import org.twixml.TwiXML;
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * The InitClass class demonstrates how to use the initclass attribute. Date:
@@ -20,7 +20,7 @@ import org.twixml.TwiXML;
  */
 
 public class InitClass extends WindowAdapter {
-    public static void main (String [] args) {
+    public static void main (final String [] args) {
         try {
             new InitClass ();
         } catch (final Exception e) {
@@ -35,7 +35,7 @@ public class InitClass extends WindowAdapter {
                                 private static final long serialVersionUID = 4291115453689257148L;
 
                                 @Override
-                                public void actionPerformed (ActionEvent e) {
+                                public void actionPerformed (final ActionEvent e) {
                                     System.out.println ( ((JComboBox<?>) e
                                             .getSource ()).getSelectedItem ()
                                             .toString ());
@@ -43,7 +43,7 @@ public class InitClass extends WindowAdapter {
                             };
 
     private InitClass () throws Exception {
-        ((JFrame) new TwiXML (this).render ("samples/swing/xml/initclass.xml"))
-                .setVisible (true);
+        ((JFrame) new SwingTwiXML (this)
+                .render ("samples/swing/xml/initclass.xml")).setVisible (true);
     }
 }

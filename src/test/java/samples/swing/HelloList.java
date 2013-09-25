@@ -8,7 +8,7 @@ import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.twixml.TwiXML;
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 public class HelloList extends WindowAdapter {
 
@@ -20,8 +20,8 @@ public class HelloList extends WindowAdapter {
     private JList<?> mList; /* instantiated by twixml when rendering the UI */
 
     private HelloList () throws Exception {
-        ((JFrame) new TwiXML (this).render ("samples/swing/xml/hellolist.xml"))
-                .setVisible (true);
+        ((JFrame) new SwingTwiXML (this)
+                .render ("samples/swing/xml/hellolist.xml")).setVisible (true);
         System.out.println (this.mList.getModel ().getSize ());
         this.mList.addListSelectionListener (new ListSelectionListener () {
             @Override

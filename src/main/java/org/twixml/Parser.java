@@ -315,8 +315,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
         }
         return CustomCodeProxy
                 .<Parser<Container, Component, ActionListener, Label, ButtonGroup, LayoutManager>, Component> doProxy (
-                        this.engine.getClass ().getSimpleName (), this, parent,
-                        component, constrains);
+                        this, parent, component, constrains);
 
     }
 
@@ -407,9 +406,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                 continue;
             }
 
-            if (CustomCodeProxy.getTypeAnalyser (
-                    (Class<TwiXML<?, ?, ?, ?, ?, ?>>) this.engine.getClass ())
-                    .isConvenient (obj, "Label")
+            if (CustomCodeProxy.getTypeAnalyser ().isConvenient (obj, "Label")
                     && attr.getName ().equalsIgnoreCase ("LabelFor")) {
                 this.lbl_map.put ((Label) obj, attr.getValue ());
                 continue;
@@ -435,18 +432,16 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                         // a getClass().getFields lookup has to be done to find
                         // the correct fields.
                         //
-                        para = CustomCodeProxy.doProxy (this.engine.getClass ()
-                                .getSimpleName (), this, "SetAction", paraType,
-                                this.engine, attr);
+                        para = CustomCodeProxy.doProxy (this, "SetAction",
+                                paraType, this.engine, attr);
                         action = para;
                         if (para == null) {
                             para = converter.convert (paraType, attr,
                                     this.engine.getLocalizer ());
                         }
 
-                        CustomCodeProxy.doProxy (this.engine.getClass ()
-                                .getSimpleName (), this, "MethodInvoke",
-                                method, obj, attr, para);
+                        CustomCodeProxy.doProxy (this, "MethodInvoke", method,
+                                obj, attr, para);
 
                     } catch (final NoSuchFieldException e) {
                         if (AppConstants.DEBUG_MODE) {
@@ -466,12 +461,9 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                         //
                         if ( (obj != null)
                                 && CustomCodeProxy
-                                        .getTypeAnalyser (
-                                                (Class<TwiXML<?, ?, ?, ?, ?, ?>>) this.engine
-                                                        .getClass ())
+                                        .getTypeAnalyser ()
                                         .isConvenient (obj, "RootPaneContainer")) {
                             final Container rootpane = CustomCodeProxy.doProxy (
-                                    this.engine.getClass ().getSimpleName (),
                                     this, "GetContentPane", obj);
                             final Factory f = this.engine.getTaglib ()
                                     .getFactory (rootpane.getClass ());
@@ -752,8 +744,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                             initParameter = initClass.newInstance ();
                         }
 
-                        CustomCodeProxy.doProxy (this.engine.getClass ()
-                                .getSimpleName (), this, "MacAction",
+                        CustomCodeProxy.doProxy (this, "MacAction",
                                 initParameter, attributes, this.mac_map);
 
                     }
@@ -807,9 +798,8 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
         // handle "layout" element or attribute
         //
         if ( (obj != null)
-                && CustomCodeProxy.getTypeAnalyser (
-                        (Class<TwiXML<?, ?, ?, ?, ?, ?>>) this.engine
-                                .getClass ()).isConvenient (obj, "Container")) {
+                && CustomCodeProxy.getTypeAnalyser ().isConvenient (obj,
+                        "Container")) {
             LayoutManager lm = null;
             final Element layoutElement = Parser.getChildByName (element,
                     "layout");
@@ -858,8 +848,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
             }
 
             if (lm != null) {
-                CustomCodeProxy.doProxy (this.engine.getClass ()
-                        .getSimpleName (), this, "SetLayout", obj, lm);
+                CustomCodeProxy.doProxy (this, "SetLayout", obj, lm);
             }
         }
 
@@ -886,14 +875,10 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
         // process child tags
         //
 
-        final LayoutManager layoutMgr = (obj != null)
-                && CustomCodeProxy.getTypeAnalyser (
-                        (Class<TwiXML<?, ?, ?, ?, ?, ?>>) this.engine
-                                .getClass ()).isConvenient (obj, "Container") ? CustomCodeProxy
-                .<Parser<Container, Component, ActionListener, Label, ButtonGroup, LayoutManager>, LayoutManager> doProxy (
-                        this.engine.getClass ().getSimpleName (), this,
-                        "GetLayout", obj)
-                : null;
+        final LayoutManager layoutMgr = (LayoutManager) ( (obj != null)
+                && CustomCodeProxy.getTypeAnalyser ().isConvenient (obj,
+                        "Container") ? CustomCodeProxy.doProxy (this,
+                "GetLayout", obj) : null);
 
         final NodeList nl = element.getChildNodes ();
         for (int i = 0 ; i < nl.getLength () ; i++) {
@@ -904,8 +889,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
             //
             // Prepare for possible grouping through ButtonGroup Tag
             //
-            if (CustomCodeProxy.doProxy (this.engine.getClass ()
-                    .getSimpleName (), this, "ButtonGroup", element, obj,
+            if (CustomCodeProxy.doProxy (this, "ButtonGroup", element, obj,
                     child, this.engine)) {
                 continue;
             }
@@ -975,13 +959,9 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                 while ( (it != null) && it.hasNext ()) {
                     final Attribute attr = it.next ();
                     if ( (obj != null)
-                            && CustomCodeProxy
-                                    .getTypeAnalyser (
-                                            (Class<TwiXML<?, ?, ?, ?, ?, ?>>) this.engine
-                                                    .getClass ()).isConvenient (
-                                            obj, "Component")) {
-                        CustomCodeProxy.doProxy (this.engine.getClass ()
-                                .getSimpleName (), this, "PutClientProperty",
+                            && CustomCodeProxy.getTypeAnalyser ().isConvenient (
+                                    obj, "Component")) {
+                        CustomCodeProxy.doProxy (this, "PutClientProperty",
                                 obj, attr);
                         if (AppConstants.DEBUG_MODE) {
                             System.out.println ("ClientProperty put: "
@@ -1013,8 +993,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
             final Label lbl = it.next ();
             final String id = this.lbl_map.get (lbl).toString ();
             try {
-                CustomCodeProxy.doProxy (this.engine.getClass ()
-                        .getSimpleName (), this, "SetLabelFor", lbl,
+                CustomCodeProxy.doProxy (this, "SetLabelFor", lbl,
                         ((Component) this.engine.getIdMap ().get (id)));
             } catch (final ClassCastException e) {
                 // intent. empty.
@@ -1047,8 +1026,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                 container);
 
         this.linkLabels ();
-        CustomCodeProxy.doProxy (this.engine.getClass ().getSimpleName (),
-                this, "SupportMacOs", this.mac_map);
+        CustomCodeProxy.doProxy (this, "SupportMacOs", this.mac_map);
 
         this.lbl_map.clear ();
         this.mac_map.clear ();
@@ -1077,11 +1055,8 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                         .getDocumentElement ()), null);
 
         this.linkLabels ();
-        obj = CustomCodeProxy.doProxy (
-                this.engine.getClass ().getSimpleName (), this, "SurroundObj",
-                jdoc, obj, name);
-        CustomCodeProxy.doProxy (this.engine.getClass ().getSimpleName (),
-                this, "SupportMacOs", this.mac_map);
+        obj = CustomCodeProxy.doProxy (this, "SurroundObj", jdoc, obj, name);
+        CustomCodeProxy.doProxy (this, "SupportMacOs", this.mac_map);
 
         this.lbl_map.clear ();
         this.mac_map.clear ();
@@ -1128,9 +1103,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                 Parser.ATTR_PLAF);
         if ( (plaf != null) && (0 < plaf.length ())) {
             try {
-                CustomCodeProxy.doProxy (this.engine.getClass ()
-                        .getSimpleName (), this, "SetLookAndFeel", element,
-                        plaf);
+                CustomCodeProxy.doProxy (this, "SetLookAndFeel", element, plaf);
             } catch (final Exception e) {
                 if (AppConstants.DEBUG_MODE) {
                     System.err.println (e);

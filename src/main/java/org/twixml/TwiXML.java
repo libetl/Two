@@ -42,7 +42,7 @@ import org.w3c.dom.Document;
  * @version $Revision: 1.5 $
  * @SuppressWarnings ("UnusedDeclaration")
  */
-public class TwiXML<Container, Component, ActionListener, Label, ButtonGroup, LayoutManager> {
+public abstract class TwiXML<Container, Component, ActionListener, Label, ButtonGroup, LayoutManager> {
     //
     // Static Constants
     //
@@ -131,7 +131,7 @@ public class TwiXML<Container, Component, ActionListener, Label, ButtonGroup, La
                                                                                                                                  .getClassLoader ();
 
     /**
-     * Default ctor for a SwingEngine.
+     * Default ctor for a TwiXML.
      */
     public TwiXML () {
         this.client = this;
@@ -139,6 +139,8 @@ public class TwiXML<Container, Component, ActionListener, Label, ButtonGroup, La
         this.getLocalizer ().setResourceBundle (
                 AppConstants.getDefault_resource_bundle_name ());
 
+        // Set impl now
+        System.setProperty ("platform.name", this.getClass ().getSimpleName ());
         try {
             if (AppConstants.isMacOSXSupported () && AppConstants.isMacOSX ()) {
                 // Use apple's ScreenMenuBar instead of the MS-Window style
@@ -381,11 +383,8 @@ public class TwiXML<Container, Component, ActionListener, Label, ButtonGroup, La
         return this.taglib;
     }
 
-    @SuppressWarnings ({ "unchecked" })
     public TypeAnalyser getTypeAnalyser () {
-        return CustomCodeProxy
-                .getTypeAnalyser ((Class<TwiXML<?, ?, ?, ?, ?, ?>>) this
-                        .getClass ());
+        return CustomCodeProxy.getTypeAnalyser ();
     }
 
     /**
@@ -668,6 +667,9 @@ public class TwiXML<Container, Component, ActionListener, Label, ButtonGroup, La
     @SuppressWarnings ("unchecked")
     public Container render (final Document jdoc, final String name)
             throws Exception {
+
+        // Set impl now
+        System.setProperty ("platform.name", this.getClass ().getSimpleName ());
         this.idmap.clear ();
         try {
             this.root = (Container) this.parser.parse (jdoc, name);
@@ -682,9 +684,8 @@ public class TwiXML<Container, Component, ActionListener, Label, ButtonGroup, La
         // initialize all client fields with UI components by their id
         this.mapMembers (this.client);
         if ( (this.root == null)
-                || CustomCodeProxy.getTypeAnalyser (
-                        (Class<TwiXML<?, ?, ?, ?, ?, ?>>) this.getClass ())
-                        .isConvenient (this.root, "Frame")) {
+                || CustomCodeProxy.getTypeAnalyser ().isConvenient (this.root,
+                        "Frame")) {
             this.setAppFrame (this.root);
         }
         return this.root;
@@ -812,7 +813,7 @@ public class TwiXML<Container, Component, ActionListener, Label, ButtonGroup, La
      */
     public boolean setActionListener (final Component c, final ActionListener al) {
         return CustomCodeProxy.<TwiXML<?, ?, ?, ?, ?, ?>, Boolean> doProxy (
-                this.getClass ().getSimpleName (), this, c, al);
+                this, c, al);
     }
 
     /**

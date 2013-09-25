@@ -8,6 +8,8 @@ import javax.swing.Action;
 import javax.swing.JOptionPane;
 
 import org.twixml.TwiXML;
+import org.twixml.technoproxy.jsoup.SeeWebpage;
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * The Accelerator shows in the usage of accelerators.
@@ -20,7 +22,7 @@ import org.twixml.TwiXML;
 public class Accelerator {
     private static final String DESCRIPTOR = "samples/swing/xml/accelerator.xml";
 
-    public static void main (String [] args) {
+    public static void main (final String [] args) {
         try {
             new Accelerator ();
         } catch (final Exception e) {
@@ -28,7 +30,7 @@ public class Accelerator {
         }
     }
 
-    TwiXML        swix        = new TwiXML (this);
+    TwiXML        swix        = new SwingTwiXML (this);
 
     public Action newAction   = new AbstractAction () {
                                   /**
@@ -37,7 +39,8 @@ public class Accelerator {
                                   private static final long serialVersionUID = -6521606410982495882L;
 
                                   @Override
-                                  public void actionPerformed (ActionEvent e) {
+                                  public void actionPerformed (
+                                          final ActionEvent e) {
                                       JOptionPane.showMessageDialog (
                                               (Component) Accelerator.this.swix
                                                       .getRootComponent (),
@@ -52,7 +55,8 @@ public class Accelerator {
                                   private static final long serialVersionUID = 4882366063782590844L;
 
                                   @Override
-                                  public void actionPerformed (ActionEvent e) {
+                                  public void actionPerformed (
+                                          final ActionEvent e) {
                                       JOptionPane
                                               .showMessageDialog (
                                                       (Component) Accelerator.this.swix
@@ -62,8 +66,9 @@ public class Accelerator {
                               };
 
     public Accelerator () throws Exception {
-        ((Component) this.swix.render (Accelerator.DESCRIPTOR))
-                .setVisible (true);
+        final Object o = this.swix.render (Accelerator.DESCRIPTOR);
+        if ( (o != null) && "Document".equals (o.getClass ().getSimpleName ())) {
+            SeeWebpage.see (o.toString ());
+        }
     }
-
 }

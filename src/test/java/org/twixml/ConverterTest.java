@@ -15,10 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
-import org.twixml.AppConstants;
-import org.twixml.TwiXML;
-
 import junit.framework.TestCase;
+
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * Test class running converter related tests.
@@ -38,7 +37,7 @@ public class ConverterTest extends TestCase {
         super ("Test converter related things");
     }
 
-    public ConverterTest (String s) {
+    public ConverterTest (final String s) {
         super (s);
     }
 
@@ -52,7 +51,7 @@ public class ConverterTest extends TestCase {
     @Override
     public void setUp () throws Exception {
         AppConstants.DEBUG_MODE = true;
-        final TwiXML se = new TwiXML (this);
+        final TwiXML se = new SwingTwiXML (this);
         this.container = (Container) se.render (ConverterTest.DESCRIPTOR);
 
     }

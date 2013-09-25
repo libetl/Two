@@ -2,10 +2,9 @@ package org.twixml;
 
 import java.awt.Container;
 
-import org.twixml.AppConstants;
-import org.twixml.TwiXML;
-
 import junit.framework.TestCase;
+
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * Misc. Parser Tests
@@ -28,7 +27,7 @@ public class ParserTest extends TestCase {
     @Override
     public void setUp () throws Exception {
         AppConstants.DEBUG_MODE = true;
-        final TwiXML se = new TwiXML (this);
+        final TwiXML se = new SwingTwiXML (this);
         this.container = (Container) se.render (ParserTest.DESCRIPTOR);
     }
 

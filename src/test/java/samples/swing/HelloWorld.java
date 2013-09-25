@@ -8,11 +8,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import org.twixml.TwiXML;
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 public class HelloWorld {
     /** Makes the class bootable */
-    public static void main (String [] args) throws Exception {
+    public static void main (final String [] args) throws Exception {
         new HelloWorld ();
     }
 
@@ -36,7 +36,8 @@ public class HelloWorld {
                                  private static final long serialVersionUID = 8700061266817868946L;
 
                                  @Override
-                                 public void actionPerformed (ActionEvent e) {
+                                 public void actionPerformed (
+                                         final ActionEvent e) {
                                      HelloWorld.this.tf
                                              .setText (HelloWorld.this.tf
                                                      .getText () + '#');
@@ -48,7 +49,7 @@ public class HelloWorld {
 
     /** Renders UI at construction */
     private HelloWorld () throws Exception {
-        ((JFrame) new TwiXML (this).render ("samples/swing/xml/helloworld.xml"))
-                .setVisible (true);
+        ((JFrame) new SwingTwiXML (this)
+                .render ("samples/swing/xml/helloworld.xml")).setVisible (true);
     }
 }

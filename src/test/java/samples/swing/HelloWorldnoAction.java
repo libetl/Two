@@ -4,13 +4,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import org.twixml.TwiXML;
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 public class HelloWorldnoAction {
     /**
      * Makes the class bootable
      */
-    public static void main (String [] args) throws Exception {
+    public static void main (final String [] args) throws Exception {
         new HelloWorldnoAction ();
     }
 
@@ -34,8 +34,8 @@ public class HelloWorldnoAction {
      * Renders UI at construction
      */
     private HelloWorldnoAction () throws Exception {
-        ((JFrame) new TwiXML (this).render ("samples/swing/xml/helloworld.xml"))
-                .setVisible (true);
+        ((JFrame) new SwingTwiXML (this)
+                .render ("samples/swing/xml/helloworld.xml")).setVisible (true);
     }
 
     /**

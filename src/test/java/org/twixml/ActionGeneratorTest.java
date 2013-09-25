@@ -7,9 +7,9 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
 
-import org.twixml.TwiXML;
-
 import junit.framework.TestCase;
+
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 public class ActionGeneratorTest extends TestCase {
 
@@ -26,7 +26,7 @@ public class ActionGeneratorTest extends TestCase {
 
                                                 @Override
                                                 public void actionPerformed (
-                                                        ActionEvent e) {
+                                                        final ActionEvent e) {
                                                     ActionGeneratorTest.this
                                                             .submit ();
                                                 }
@@ -36,7 +36,7 @@ public class ActionGeneratorTest extends TestCase {
         super ("Test auto generation of Action wrappers");
     }
 
-    public ActionGeneratorTest (String s) {
+    public ActionGeneratorTest (final String s) {
         super (s);
     }
 
@@ -49,7 +49,7 @@ public class ActionGeneratorTest extends TestCase {
      */
     @Override
     public void setUp () throws Exception {
-        final TwiXML se = new TwiXML (this);
+        final TwiXML se = new SwingTwiXML (this);
         this.container = (Container) se.render (ActionGeneratorTest.DESCRIPTOR);
     }
 

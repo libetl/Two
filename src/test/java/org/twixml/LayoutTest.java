@@ -20,11 +20,10 @@ import java.lang.reflect.Field;
 
 import javax.swing.JPanel;
 
-import org.twixml.AppConstants;
-import org.twixml.TwiXML;
-
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
+
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -43,8 +42,8 @@ public class LayoutTest extends TestCase {
     /**
      * Asserts that two double[] are equal.
      */
-    private static void assertEquals (String message, double [] expected,
-            double [] actual) {
+    private static void assertEquals (final String message,
+            final double [] expected, final double [] actual) {
         if (expected == null) {
             TestCase.assertNull (message, actual);
         } else {
@@ -64,8 +63,8 @@ public class LayoutTest extends TestCase {
     /**
      * Asserts that two int[] are equal.
      */
-    private static void assertEquals (String message, int [] expected,
-            int [] actual) {
+    private static void assertEquals (final String message,
+            final int [] expected, final int [] actual) {
         if (expected == null) {
             TestCase.assertNull (message, actual);
         } else {
@@ -85,8 +84,8 @@ public class LayoutTest extends TestCase {
     /**
      * Asserts that two int[][] are equal.
      */
-    private static void assertEquals (String message, int [][] expected,
-            int [][] actual) {
+    private static void assertEquals (final String message,
+            final int [][] expected, final int [][] actual) {
         if (expected == null) {
             TestCase.assertNull (message, actual);
         } else {
@@ -103,8 +102,8 @@ public class LayoutTest extends TestCase {
         }
     }
 
-    private static void checkBorderLayout (String message, JPanel borderPanel,
-            int hgap, int vgap) {
+    private static void checkBorderLayout (final String message,
+            final JPanel borderPanel, final int hgap, final int vgap) {
         final LayoutManager layout = borderPanel.getLayout ();
         TestCase.assertTrue (message, layout instanceof BorderLayout);
 
@@ -115,8 +114,8 @@ public class LayoutTest extends TestCase {
                 borderLayout.getVgap ());
     }
 
-    private static void checkCardLayout (String message, JPanel cardPanel,
-            int hgap, int vgap) {
+    private static void checkCardLayout (final String message,
+            final JPanel cardPanel, final int hgap, final int vgap) {
         final LayoutManager layout = cardPanel.getLayout ();
         TestCase.assertTrue (message, layout instanceof CardLayout);
 
@@ -125,8 +124,9 @@ public class LayoutTest extends TestCase {
         TestCase.assertEquals (message + ": vgap ", vgap, cardLayout.getVgap ());
     }
 
-    private static void checkFlowLayout (String message, JPanel flowPanel,
-            int align, int hgap, int vgap) {
+    private static void checkFlowLayout (final String message,
+            final JPanel flowPanel, final int align, final int hgap,
+            final int vgap) {
         final LayoutManager layout = flowPanel.getLayout ();
         TestCase.assertTrue (message, layout instanceof FlowLayout);
 
@@ -137,10 +137,10 @@ public class LayoutTest extends TestCase {
         TestCase.assertEquals (message + ": vgap ", vgap, flowLayout.getVgap ());
     }
 
-    private static void checkFormLayout (String message, JPanel formPanel,
-            String encodedColumnSpecs, String encodedRowSpecs,
-            int [][] columnGroupIndices, int [][] rowGroupIndices,
-            String... expectedConstraints) {
+    private static void checkFormLayout (final String message,
+            final JPanel formPanel, final String encodedColumnSpecs,
+            final String encodedRowSpecs, final int [][] columnGroupIndices,
+            final int [][] rowGroupIndices, final String... expectedConstraints) {
         final LayoutManager layout = formPanel.getLayout ();
         TestCase.assertTrue (message, layout instanceof FormLayout);
 
@@ -191,8 +191,8 @@ public class LayoutTest extends TestCase {
         }
     }
 
-    private static void checkGridBagConstraints (String message,
-            GridBagConstraints expected, GridBagConstraints actual) {
+    private static void checkGridBagConstraints (final String message,
+            final GridBagConstraints expected, final GridBagConstraints actual) {
         TestCase.assertEquals (message + ": gridx ", expected.gridx,
                 actual.gridx);
         TestCase.assertEquals (message + ": gridy ", expected.gridy,
@@ -222,9 +222,10 @@ public class LayoutTest extends TestCase {
                 actual.ipady);
     }
 
-    private static void checkGridBagLayout (String message,
-            JPanel gridBagPanel, int columnWidths[], int rowHeights[],
-            double columnWeights[], double rowWeights[]) {
+    private static void checkGridBagLayout (final String message,
+            final JPanel gridBagPanel, final int columnWidths[],
+            final int rowHeights[], final double columnWeights[],
+            final double rowWeights[]) {
         final LayoutManager layout = gridBagPanel.getLayout ();
         TestCase.assertTrue (message, layout instanceof GridBagLayout);
 
@@ -239,8 +240,9 @@ public class LayoutTest extends TestCase {
                 gridBagLayout.rowWeights);
     }
 
-    private static void checkGridLayout (String message, JPanel gridPanel,
-            int rows, int cols, int hgap, int vgap) {
+    private static void checkGridLayout (final String message,
+            final JPanel gridPanel, final int rows, final int cols,
+            final int hgap, final int vgap) {
         final LayoutManager layout = gridPanel.getLayout ();
         TestCase.assertTrue (message, layout instanceof GridLayout);
 
@@ -305,7 +307,7 @@ public class LayoutTest extends TestCase {
     @Override
     public void setUp () throws Exception {
         AppConstants.DEBUG_MODE = true;
-        final TwiXML se = new TwiXML (this);
+        final TwiXML se = new SwingTwiXML (this);
         this.container = (Container) se.render (LayoutTest.DESCRIPTOR);
 
     }

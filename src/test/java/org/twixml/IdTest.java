@@ -16,10 +16,9 @@ import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import org.twixml.AppConstants;
-import org.twixml.TwiXML;
-
 import junit.framework.TestCase;
+
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * Test class running id and refid related tests.
@@ -39,7 +38,7 @@ public class IdTest extends TestCase {
 
                                               @Override
                                               public void actionPerformed (
-                                                      ActionEvent e) {
+                                                      final ActionEvent e) {
                                                   IdTest.this.b1 = true;
                                               }
                                           };
@@ -47,7 +46,7 @@ public class IdTest extends TestCase {
     public IdTest () throws Exception {
         super ("ID Tests");
         AppConstants.DEBUG_MODE = true;
-        new TwiXML (this).render (IdTest.DESCRIPTOR);
+        new SwingTwiXML (this).render (IdTest.DESCRIPTOR);
     }
 
     public void m1 () {

@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.twixml.TwiXML;
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * The <code>Cards</code> class shows an example for the usage of a CardLayout.
@@ -22,7 +23,7 @@ public class Cards {
 
     private static final String DESCRIPTOR = "samples/swing/xml/cards.xml";
 
-    public static void main (String [] args) {
+    public static void main (final String [] args) {
         try {
             new Cards ();
         } catch (final Exception e) {
@@ -30,7 +31,7 @@ public class Cards {
         }
     }
 
-    private final TwiXML swix       = new TwiXML (this);
+    private final TwiXML swix       = new SwingTwiXML (this);
 
     /** panel with a CardLayout */
     public JPanel        pnl;
@@ -44,7 +45,7 @@ public class Cards {
 
                                         @Override
                                         public void actionPerformed (
-                                                ActionEvent e) {
+                                                final ActionEvent e) {
                                             final CardLayout cl = (CardLayout) (Cards.this.pnl
                                                     .getLayout ());
                                             cl.next (Cards.this.pnl);
@@ -60,7 +61,7 @@ public class Cards {
 
                                         @Override
                                         public void actionPerformed (
-                                                ActionEvent e) {
+                                                final ActionEvent e) {
                                             // System.err.println(
                                             // "ActionCommand=" +
                                             // e.getActionCommand() );

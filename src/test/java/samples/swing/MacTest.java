@@ -4,6 +4,7 @@ import java.awt.Container;
 import java.awt.event.WindowAdapter;
 
 import org.twixml.TwiXML;
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * The HelloMac class shows a couple of the Mac specifics exposed
@@ -28,12 +29,12 @@ public class MacTest extends WindowAdapter {
     //
     // Make the class bootable
     //
-    public static void main (String [] args) throws Exception {
+    public static void main (final String [] args) throws Exception {
         new MacTest ();
     }
 
     private MacTest () throws Exception {
-        MacTest.swix = new TwiXML (this);
+        MacTest.swix = new SwingTwiXML (this);
         MacTest.swix.render ("samples/swing/xml/mactester.xml");
         ((Container) MacTest.swix.getRootComponent ()).setVisible (true);
     }

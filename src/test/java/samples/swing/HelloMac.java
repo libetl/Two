@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.twixml.TwiXML;
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * The HelloMac class shows a couple of the Mac specifics exposed
@@ -26,7 +27,7 @@ public class HelloMac extends WindowAdapter {
     //
     // Make the class bootable
     //
-    public static void main (String [] args) throws Exception {
+    public static void main (final String [] args) throws Exception {
         new HelloMac ();
     }
 
@@ -40,7 +41,7 @@ public class HelloMac extends WindowAdapter {
 
                                          @Override
                                          public void actionPerformed (
-                                                 ActionEvent e) {
+                                                 final ActionEvent e) {
                                              JOptionPane
                                                      .showMessageDialog (
                                                              (Component) HelloMac.this.swix
@@ -57,7 +58,7 @@ public class HelloMac extends WindowAdapter {
 
                                          @Override
                                          public void actionPerformed (
-                                                 ActionEvent e) {
+                                                 final ActionEvent e) {
                                              try {
                                                  new java.net.URL (
                                                          "http://www.twixml.org/apidocs/index.html")
@@ -76,7 +77,7 @@ public class HelloMac extends WindowAdapter {
 
                                          @Override
                                          public void actionPerformed (
-                                                 ActionEvent e) {
+                                                 final ActionEvent e) {
                                              JOptionPane
                                                      .showMessageDialog (
                                                              (Component) HelloMac.this.swix
@@ -90,7 +91,7 @@ public class HelloMac extends WindowAdapter {
                                      };
 
     private HelloMac () throws Exception {
-        this.swix = new TwiXML (this);
+        this.swix = new SwingTwiXML (this);
         this.swix.render ("samples/swing/xml/hellomac.xml");
         ((JFrame) this.swix.getRootComponent ()).setVisible (true);
     }
@@ -100,7 +101,7 @@ public class HelloMac extends WindowAdapter {
      * operation can be overridden at this point.
      */
     @Override
-    public void windowClosing (WindowEvent e) {
+    public void windowClosing (final WindowEvent e) {
         super.windowClosing (e);
         System.exit (0);
     }

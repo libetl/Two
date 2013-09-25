@@ -2,7 +2,7 @@ package samples.swing;
 
 import java.awt.Container;
 
-import org.twixml.TwiXML;
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * The Layout class shows the use of layout managers
@@ -15,7 +15,7 @@ import org.twixml.TwiXML;
 public class Layout {
     private static final String DESCRIPTOR = "samples/swing/xml/funlayout.xml";
 
-    public static void main (String [] args) {
+    public static void main (final String [] args) {
         try {
             new Layout ();
         } catch (final Exception e) {
@@ -24,7 +24,7 @@ public class Layout {
     }
 
     private Layout () throws Exception {
-        ((Container) new TwiXML (this).render (Layout.DESCRIPTOR))
+        new SwingTwiXML (this).render (Layout.DESCRIPTOR)
                 .setVisible (true);
     }
 }

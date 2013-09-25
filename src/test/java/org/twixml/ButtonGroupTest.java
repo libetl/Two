@@ -14,9 +14,9 @@ import java.util.Enumeration;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 
-import org.twixml.TwiXML;
-
 import junit.framework.TestCase;
+
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * The somewhat odd ButtonGroup class doesn't really fit into the way Swixml
@@ -45,7 +45,7 @@ public class ButtonGroupTest extends TestCase {
      */
     @Override
     public void setUp () throws Exception {
-        this.se = new TwiXML (this);
+        this.se = new SwingTwiXML (this);
         this.container = (Container) this.se.render (MappingTest.DESCRIPTOR);
     }
 

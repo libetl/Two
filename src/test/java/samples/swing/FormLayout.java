@@ -2,7 +2,7 @@ package samples.swing;
 
 import javax.swing.JFrame;
 
-import org.twixml.TwiXML;
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * The Layout class shows the use of layout managers
@@ -15,7 +15,7 @@ import org.twixml.TwiXML;
 public class FormLayout {
     private static final String DESCRIPTOR = "samples/swing/xml/formlayout.xml";
 
-    public static void main (String [] args) {
+    public static void main (final String [] args) {
         try {
             new FormLayout ();
         } catch (final Exception e) {
@@ -24,7 +24,7 @@ public class FormLayout {
     }
 
     private FormLayout () throws Exception {
-        ((JFrame) new TwiXML (this).render (FormLayout.DESCRIPTOR))
+        ((JFrame) new SwingTwiXML (this).render (FormLayout.DESCRIPTOR))
                 .setVisible (true);
     }
 }

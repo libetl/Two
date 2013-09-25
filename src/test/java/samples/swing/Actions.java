@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import org.twixml.AppConstants;
 import org.twixml.TwiXML;
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * The Actions class shows how to use the <code>Actions</code> and
@@ -24,7 +25,7 @@ import org.twixml.TwiXML;
  * @since swixml #065
  */
 public class Actions extends WindowAdapter implements ActionListener {
-    public static void main (String [] args) {
+    public static void main (final String [] args) {
         AppConstants.DEBUG_MODE = true;
         new Actions ();
     }
@@ -48,7 +49,8 @@ public class Actions extends WindowAdapter implements ActionListener {
                                     private static final long serialVersionUID = 9164625122840770636L;
 
                                     @Override
-                                    public void actionPerformed (ActionEvent e) {
+                                    public void actionPerformed (
+                                            final ActionEvent e) {
                                         System.out.println ("New"); // show
                                                                     // the
                                                                     // access
@@ -78,7 +80,8 @@ public class Actions extends WindowAdapter implements ActionListener {
 
                                     /** Invoked when an action occurs. */
                                     @Override
-                                    public void actionPerformed (ActionEvent e) {
+                                    public void actionPerformed (
+                                            final ActionEvent e) {
                                         System.out.println ("Open");
                                     }
                                 };
@@ -91,7 +94,8 @@ public class Actions extends WindowAdapter implements ActionListener {
                                     private static final long serialVersionUID = 1901168394709054787L;
 
                                     @Override
-                                    public void actionPerformed (ActionEvent e) {
+                                    public void actionPerformed (
+                                            final ActionEvent e) {
                                         System.out
                                                 .println ( ((JComboBox<?>) e
                                                         .getSource ())
@@ -110,7 +114,7 @@ public class Actions extends WindowAdapter implements ActionListener {
      */
     private Actions () {
         try {
-            this.swix = new TwiXML (this);
+            this.swix = new SwingTwiXML (this);
             this.swix.render ("samples/swing/xml/actions.xml");
 
             // at this point all AbstractActions are linked with the button etc.
@@ -150,7 +154,7 @@ public class Actions extends WindowAdapter implements ActionListener {
      * Invoked when an action occurs.
      */
     @Override
-    public void actionPerformed (ActionEvent e) {
+    public void actionPerformed (final ActionEvent e) {
         final String command = e.getActionCommand ();
         if ("AC_EXIT".equals (command)) {
             this.windowClosing (null);
@@ -172,7 +176,7 @@ public class Actions extends WindowAdapter implements ActionListener {
      * cancelled.
      */
     @Override
-    public void windowClosing (WindowEvent e) {
+    public void windowClosing (final WindowEvent e) {
         System.out.println ("Good Bye!");
         super.windowClosing (e);
         System.exit (0);

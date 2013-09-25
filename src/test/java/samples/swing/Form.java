@@ -2,21 +2,24 @@ package samples.swing;
 
 import javax.swing.JFrame;
 
-import org.twixml.TwiXML;
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
- * The Form class shows how to do a simple JGoodies FormLayout
+ * The Form class shows how to do a simple JGoodies FormLayout. The previous
+ * "extends SwingEngine" triggers a NullPointerException and is discouraged (it
+ * is not a good Java practice).
  */
-public class Form extends TwiXML {
-    public static void main (String [] args) {
+public class Form {
+    public static void main (final String [] args) {
         new Form ();
     }
 
     /** Default ctor for a SwingEngine. */
 
     private Form () {
+        super ();
         try {
-            ((JFrame) this.render ("samples/swing/xml/form.xml"))
+            ((JFrame) new SwingTwiXML ().render ("samples/swing/xml/form.xml"))
                     .setVisible (true);
         } catch (final Exception e) {
             e.printStackTrace ();

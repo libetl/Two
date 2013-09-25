@@ -6,6 +6,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 
 import org.twixml.TwiXML;
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 import com.toedter.calendar.JCalendar;
 
@@ -14,12 +15,12 @@ public class CustomTags extends WindowAdapter {
     //
     // Make the class bootable
     //
-    public static void main (String [] args) throws Exception {
+    public static void main (final String [] args) throws Exception {
         new CustomTags ();
     }
 
     public CustomTags () throws Exception {
-        final TwiXML swix = new TwiXML (this);
+        final TwiXML swix = new SwingTwiXML (this);
         swix.getTaglib ().registerTag ("Calendar", JCalendar.class);
         ((JFrame) swix.render ("samples/swing/xml/customtags.xml"))
                 .setVisible (true);
@@ -30,7 +31,7 @@ public class CustomTags extends WindowAdapter {
      * operation can be overridden at this point.
      */
     @Override
-    public void windowClosing (WindowEvent e) {
+    public void windowClosing (final WindowEvent e) {
         super.windowClosing (e);
         System.exit (0);
     }

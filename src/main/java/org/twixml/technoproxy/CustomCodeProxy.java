@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.twixml.AppConstants;
-import org.twixml.TwiXML;
 import org.twixml.technoproxy.jsoup.JSoupUnit;
 import org.twixml.technoproxy.swing.SwingUnit;
 
@@ -29,28 +28,21 @@ public class CustomCodeProxy {
                                                        }
                                                    };
 
-    public static <T, R> R doProxy (final String platformName, final T source,
-            final Object... params) {
-        final String platformName1 = "TwiXML".equals (platformName) ? "SwingTwiXML"
-                : platformName;
-        return CustomCodeProxy.doProxy (platformName1, source, "", params);
+    public static <T, R> R doProxy (final T source, final Object... params) {
+        return CustomCodeProxy.doProxy (source, "", params);
     }
 
     @SuppressWarnings ("unchecked")
-    public static <T, R> R doProxy (final String platformName1, final T source,
-            final String suffix, final Object... params) {
-        final String platformName = "TwiXML".equals (platformName1) ? "SwingTwiXML"
-                : platformName1;
+    public static <T, R> R doProxy (final T source, final String suffix,
+            final Object... params) {
         try {
 
             final StackTraceElement ste = "doProxy".equals (Thread
-                    .currentThread ().getStackTrace () [2].getMethodName ()) ? ("doProxy"
-                    .equals (Thread.currentThread ().getStackTrace () [3]
-                            .getMethodName ()) ? Thread.currentThread ()
-                    .getStackTrace () [4] : Thread.currentThread ()
-                    .getStackTrace () [3]) : Thread.currentThread ()
-                    .getStackTrace () [2];
-            final PlatformUnit unit = CustomCodeProxy.units.get (platformName);
+                    .currentThread ().getStackTrace () [2].getMethodName ()) ? Thread
+                    .currentThread ().getStackTrace () [3] : Thread
+                    .currentThread ().getStackTrace () [2];
+            final PlatformUnit unit = CustomCodeProxy.units
+                    .get (CustomCodeProxy.getPlatformName ());
             final Class<?> c = unit.getProxyClasses ().get (
                     source.getClass ().getName ());
 
@@ -79,17 +71,6 @@ public class CustomCodeProxy {
         } catch (final InvocationTargetException e) {
             throw new ProxyCodeException (e);
         }
-    }
-
-    public static <T, R> R doProxy (final T source, final Object... params) {
-        return CustomCodeProxy.doProxy (CustomCodeProxy.getPlatformName (),
-                source, params);
-    }
-
-    public static <T, R> R doProxy (final T source, final String suffix,
-            final Object... params) {
-        return CustomCodeProxy.doProxy (CustomCodeProxy.getPlatformName (),
-                source, suffix, params);
     }
 
     private static String getPlatformName () {
@@ -125,17 +106,6 @@ public class CustomCodeProxy {
     public static TypeAnalyser getTypeAnalyser () {
         final PlatformUnit unit = CustomCodeProxy.units.get (CustomCodeProxy
                 .getPlatformName ());
-        return unit.getTypeAnalyser ();
-    }
-
-    public static TypeAnalyser getTypeAnalyser (
-            final Class<TwiXML<?, ?, ?, ?, ?, ?>> engineType) {
-        PlatformUnit unit = CustomCodeProxy.units.get (engineType
-                .getSimpleName ());
-        if ( (engineType == null)
-                || "TwiXML".equals (engineType.getSimpleName ())) {
-            unit = CustomCodeProxy.units.get ("SwingTwiXML");
-        }
         return unit.getTypeAnalyser ();
     }
 }

@@ -3,6 +3,7 @@ package samples.swing;
 import javax.swing.JPanel;
 
 import org.twixml.TwiXML;
+import org.twixml.technoproxy.swing.SwingTwiXML;
 
 /**
  * This file contains proprietary information of CarlsbadCubes Copying or
@@ -24,9 +25,9 @@ public class XPanel extends JPanel {
 	 * 
 	 */
     private static final long serialVersionUID = 1503710571522599188L;
-    private final TwiXML      swix             = new TwiXML (this);
+    private final TwiXML      swix             = new SwingTwiXML (this);
 
-    public void setXml (String resource) {
+    public void setXml (final String resource) {
         try {
             this.swix.insert ("samples/swing/xml/" + resource, this);
         } catch (final Exception e) {

@@ -21,4 +21,15 @@ public class SwingTwiXML
         extends
         TwiXML<Container, Component, ActionListener, JLabel, ButtonGroup, LayoutManager> {
 
+    public SwingTwiXML () {
+        super ();
+    }
+
+    public SwingTwiXML (final Object o) {
+        super (o);
+    }
+
+    public SwingTwiXML (final String s) {
+        super (s);
+    }
 }
