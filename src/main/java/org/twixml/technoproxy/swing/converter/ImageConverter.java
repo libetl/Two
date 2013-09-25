@@ -1,6 +1,4 @@
-
 package org.twixml.technoproxy.swing.converter;
-
 
 import javax.swing.ImageIcon;
 
@@ -16,9 +14,9 @@ import org.twixml.technoproxy.ProxyCode;
  * @version $Revision: 1.1 $
  * @since swixml 1.0
  */
-public class ImageConverter extends ProxyCode<org.twixml.converters.ImageConverter> {
+public class ImageConverter extends
+        ProxyCode<org.twixml.converters.ImageConverter> {
 
- 
     public ImageConverter (org.twixml.converters.ImageConverter source1) {
         super (source1);
     }

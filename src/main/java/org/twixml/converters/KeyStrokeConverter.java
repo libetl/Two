@@ -77,6 +77,7 @@ public class KeyStrokeConverter implements Converter {
      *         String, or null if the specified String is null, or is formatted
      *         incorrectly
      */
+    @Override
     public Object convert (final Class<?> type, final Attribute attr,
             Localizer localizer) {
         Object keyStroke = null;
@@ -100,6 +101,7 @@ public class KeyStrokeConverter implements Converter {
      */
     @Override
     public Class<?> convertsTo () {
-        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("KeyStroke");
+        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
+                "KeyStroke");
     }
 }

@@ -27,8 +27,8 @@ import org.twixml.technoproxy.CustomCodeProxy;
  * @see org.twixml.ConverterLibrary
  */
 
-public class PrimitiveConverter implements Converter, 
-        KeyEvent, InputEvent, ScrollPaneConstants, SwingConstants {
+public class PrimitiveConverter implements Converter, KeyEvent, InputEvent,
+        ScrollPaneConstants, SwingConstants {
 
     /** map contains all constant provider types */
     private static Map<String, Class<?>> dictionaries = new HashMap<String, Class<?>> ();
@@ -36,19 +36,32 @@ public class PrimitiveConverter implements Converter,
      * Static Initializer, setting up the initial constant providers
      */
     static {
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("TabbedPane"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("ScrollPane"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("SplitPane"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("GridBagConstraints"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("FlowLayout"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("ListSelectionModel"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("TreeSelectionModel"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("Dialog"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("Frame"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("TitledBorder"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("JFrame"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("WindowConstants"));
-        PrimitiveConverter.addConstantProvider (CustomCodeProxy.getTypeAnalyser ().getMostSuperClass ("JDialog"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy
+                .getTypeAnalyser ().getMostSuperClass ("TabbedPane"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy
+                .getTypeAnalyser ().getMostSuperClass ("ScrollPane"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy
+                .getTypeAnalyser ().getMostSuperClass ("SplitPane"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy
+                .getTypeAnalyser ().getMostSuperClass ("GridBagConstraints"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy
+                .getTypeAnalyser ().getMostSuperClass ("FlowLayout"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy
+                .getTypeAnalyser ().getMostSuperClass ("ListSelectionModel"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy
+                .getTypeAnalyser ().getMostSuperClass ("TreeSelectionModel"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy
+                .getTypeAnalyser ().getMostSuperClass ("Dialog"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy
+                .getTypeAnalyser ().getMostSuperClass ("Frame"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy
+                .getTypeAnalyser ().getMostSuperClass ("TitledBorder"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy
+                .getTypeAnalyser ().getMostSuperClass ("JFrame"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy
+                .getTypeAnalyser ().getMostSuperClass ("WindowConstants"));
+        PrimitiveConverter.addConstantProvider (CustomCodeProxy
+                .getTypeAnalyser ().getMostSuperClass ("JDialog"));
     }
 
     /**
@@ -79,6 +92,7 @@ public class PrimitiveConverter implements Converter,
      * @throws IllegalAccessException
      *             if a matching field can not be accessed
      */
+    @Override
     public Object convert (final Class<?> type, final Attribute attr,
             final Localizer localizer) throws NoSuchFieldException,
             IllegalAccessException {
@@ -123,7 +137,6 @@ public class PrimitiveConverter implements Converter,
 
         return obj;
     }
-
 
     /**
      * A <code>Converters</code> conversTo method informs about the Class<?>

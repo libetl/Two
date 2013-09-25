@@ -14,16 +14,16 @@ import javax.swing.JOptionPane;
  * @author $Author: tichy $
  */
 public class MacExitAction extends AbstractAction {
-	/**
+    /**
 	 * 
 	 */
-	private static final long	serialVersionUID	= -4901187209372755308L;
+    private static final long serialVersionUID = -4901187209372755308L;
 
-	@Override
-	public void actionPerformed (ActionEvent e) {
-		JOptionPane.showMessageDialog ((Component) MacTest.getSwix ()
-		        .getRootComponent (), MacTest.getSwix ().getLocalizer ()
-		        .getString ("mis_Exit"));
-		System.exit (0);
-	}
+    @Override
+    public void actionPerformed (ActionEvent e) {
+        JOptionPane.showMessageDialog ((Component) MacTest.getSwix ()
+                .getRootComponent (), MacTest.getSwix ().getLocalizer ()
+                .getString ("mis_Exit"));
+        System.exit (0);
+    }
 }

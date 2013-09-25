@@ -27,13 +27,12 @@ import org.twixml.converters.ImageIconConverter;
  */
 
 public class XTabbedPane extends JTabbedPane {
-    
+
     int lastUsedTab = 0;
 
-    
     @Override
     public Component add (Component component) {
-        if (super.getTabCount () > lastUsedTab){
+        if (super.getTabCount () > lastUsedTab) {
             super.setComponentAt (lastUsedTab++, component);
             return component;
         }
@@ -63,7 +62,7 @@ public class XTabbedPane extends JTabbedPane {
         final StringTokenizer st = new StringTokenizer (icons, ",");
         final int n = st.countTokens ();
         for (int i = 0 ; i < n ; i++) {
-            while (super.getTabCount () <= i){
+            while (super.getTabCount () <= i) {
                 super.insertTab ("New tab" + i, null, null, null, i);
             }
             super.setDisabledIconAt (i, (ImageIcon) ImageIconConverter.conv (
@@ -108,7 +107,7 @@ public class XTabbedPane extends JTabbedPane {
         final StringTokenizer st = new StringTokenizer (displaymnemonics, ",");
         final int n = st.countTokens ();
         for (int i = 0 ; i < n ; i++) {
-            while (super.getTabCount () <= i){
+            while (super.getTabCount () <= i) {
                 super.insertTab ("New tab" + i, null, null, null, i);
             }
             super.setDisplayedMnemonicIndexAt (i,
@@ -133,7 +132,7 @@ public class XTabbedPane extends JTabbedPane {
         final StringTokenizer st = new StringTokenizer (enabled, ",");
         final int n = st.countTokens ();
         for (int i = 0 ; i < n ; i++) {
-            while (super.getTabCount () <= i){
+            while (super.getTabCount () <= i) {
                 super.insertTab ("New tab" + i, null, null, null, i);
             }
             super.setEnabledAt (i, Boolean.valueOf (st.nextToken ().trim ())
@@ -160,7 +159,7 @@ public class XTabbedPane extends JTabbedPane {
         final StringTokenizer st = new StringTokenizer (icons, ",");
         final int n = st.countTokens ();
         for (int i = 0 ; i < n ; i++) {
-            while (super.getTabCount () <= i){
+            while (super.getTabCount () <= i) {
                 super.insertTab ("New tab" + i, null, null, null, i);
             }
             super.setIconAt (i, (ImageIcon) ImageIconConverter.conv (null,
@@ -194,7 +193,7 @@ public class XTabbedPane extends JTabbedPane {
         final StringTokenizer st = new StringTokenizer (mnemonics, ",");
         final int n = st.countTokens ();
         for (int i = 0 ; i < n ; i++) {
-            while (super.getTabCount () <= i){
+            while (super.getTabCount () <= i) {
                 super.insertTab ("New tab" + i, null, null, null, i);
             }
             super.setMnemonicAt (i, Integer.parseInt (st.nextToken ().trim ()));
@@ -215,7 +214,7 @@ public class XTabbedPane extends JTabbedPane {
         final StringTokenizer st = new StringTokenizer (titles, ",");
         final int n = st.countTokens ();
         for (int i = 0 ; i < n ; i++) {
-            while (super.getTabCount () <= i){
+            while (super.getTabCount () <= i) {
                 super.insertTab ("New tab" + i, null, null, null, i);
             }
             super.setTitleAt (i, st.nextToken ().trim ());
@@ -240,7 +239,7 @@ public class XTabbedPane extends JTabbedPane {
         final StringTokenizer st = new StringTokenizer (toolTipTexts, ",");
         final int n = st.countTokens ();
         for (int i = 0 ; i < n ; i++) {
-            while (super.getTabCount () <= i){
+            while (super.getTabCount () <= i) {
                 super.insertTab ("New tab" + i, null, null, null, i);
             }
             super.setToolTipTextAt (i, st.nextToken ().trim ());

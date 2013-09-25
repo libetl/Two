@@ -1,6 +1,4 @@
-
 package org.twixml.technoproxy.jsoup.converter;
-
 
 import org.twixml.Attribute;
 import org.twixml.technoproxy.ProxyCode;
@@ -12,16 +10,15 @@ import org.twixml.technoproxy.ProxyCode;
  * @version $Revision: 1.1 $
  * @since swixml 1.0
  */
-public class KeyStrokeConverter extends ProxyCode<org.twixml.converters.KeyStrokeConverter> {
+public class KeyStrokeConverter extends
+        ProxyCode<org.twixml.converters.KeyStrokeConverter> {
 
- 
     public KeyStrokeConverter (org.twixml.converters.KeyStrokeConverter source1) {
         super (source1);
     }
 
-    public Object convert (Attribute attr)
-            throws Exception {
-        //return KeyStroke.getKeyStroke (attr.getValue ());
+    public Object convert (Attribute attr) throws Exception {
+        // return KeyStroke.getKeyStroke (attr.getValue ());
         return null;
     }
 }

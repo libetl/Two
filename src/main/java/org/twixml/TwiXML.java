@@ -32,8 +32,8 @@ import org.twixml.technoproxy.TypeAnalyser;
 import org.w3c.dom.Document;
 
 /**
- * The SwingEngine class is the rendering engine able to convert an XML
- * descriptor into a java.swing UI.
+ * The TwiXML class is the rendering engine able to convert an XML descriptor
+ * into another form
  * <p/>
  * <img src="doc-files/swixml_1_0.png" ALIGN="center">
  * </p>

@@ -58,7 +58,8 @@ import org.w3c.dom.Element;
  * @author Karl Tauber
  * @author <a href="mailto:wolf@wolfpaulus.com">Wolf Paulus</a>
  */
-public class GridLayoutConverter<GridLayout> implements LayoutConverter<GridLayout> {
+public class GridLayoutConverter<GridLayout> implements
+        LayoutConverter<GridLayout> {
 
     /**
      * Returns always <code>null</code>.
@@ -98,11 +99,14 @@ public class GridLayoutConverter<GridLayout> implements LayoutConverter<GridLayo
 
         final int [] para = Util.ia (st);
         if (4 <= para.length) {
-            return CustomCodeProxy.getTypeAnalyser ().instantiate ("GridLayout", para [0], para [1], para [2], para [3]);
+            return CustomCodeProxy.getTypeAnalyser ().instantiate (
+                    "GridLayout", para [0], para [1], para [2], para [3]);
         } else if (2 <= para.length) {
-            return CustomCodeProxy.getTypeAnalyser ().instantiate ("GridLayout", para [0], para [1]);
+            return CustomCodeProxy.getTypeAnalyser ().instantiate (
+                    "GridLayout", para [0], para [1]);
         } else {
-            return CustomCodeProxy.getTypeAnalyser ().instantiate ("GridLayout");
+            return CustomCodeProxy.getTypeAnalyser ()
+                    .instantiate ("GridLayout");
         }
     }
 
@@ -138,7 +142,8 @@ public class GridLayoutConverter<GridLayout> implements LayoutConverter<GridLayo
         final int cols = Util.getInteger (element, "columns", 0);
         final int hgap = Util.getInteger (element, "hgap", 0);
         final int vgap = Util.getInteger (element, "vgap", 0);
-        return CustomCodeProxy.getTypeAnalyser ().instantiate ("GridLayout", rows, cols, hgap, vgap);
+        return CustomCodeProxy.getTypeAnalyser ().instantiate ("GridLayout",
+                rows, cols, hgap, vgap);
     }
 
     /**

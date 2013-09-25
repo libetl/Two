@@ -1,6 +1,4 @@
-
 package org.twixml.technoproxy.jsoup.converter;
-
 
 import org.twixml.Attribute;
 import org.twixml.Localizer;
@@ -13,9 +11,9 @@ import org.twixml.technoproxy.ProxyCode;
  * @version $Revision: 1.1 $
  * @since swixml 1.0
  */
-public class FontConverter extends ProxyCode<org.twixml.converters.FontConverter> {
+public class FontConverter extends
+        ProxyCode<org.twixml.converters.FontConverter> {
 
- 
     public FontConverter (org.twixml.converters.FontConverter source1) {
         super (source1);
     }

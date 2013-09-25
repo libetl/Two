@@ -13,18 +13,18 @@ import org.twixml.TwiXML;
  * @since swixml (#136)
  */
 public class Layout {
-	private static final String	DESCRIPTOR	= "samples/swing/xml/funlayout.xml";
+    private static final String DESCRIPTOR = "samples/swing/xml/funlayout.xml";
 
-	public static void main (String [] args) {
-		try {
-			new Layout ();
-		} catch (final Exception e) {
-			System.err.println (e.getMessage ());
-		}
-	}
+    public static void main (String [] args) {
+        try {
+            new Layout ();
+        } catch (final Exception e) {
+            System.err.println (e.getMessage ());
+        }
+    }
 
-	private Layout () throws Exception {
-		((Container) new TwiXML (this).render (Layout.DESCRIPTOR))
-		        .setVisible (true);
-	}
+    private Layout () throws Exception {
+        ((Container) new TwiXML (this).render (Layout.DESCRIPTOR))
+                .setVisible (true);
+    }
 }

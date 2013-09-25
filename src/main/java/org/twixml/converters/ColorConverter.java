@@ -29,9 +29,9 @@ import org.twixml.technoproxy.CustomCodeProxy;
  * 
  * 
  * 
- *      <h3>Examples for Valid XML attribute notations:</h3>
+ *          <h3>Examples for Valid XML attribute notations:</h3>
  * 
- *      <pre>
+ *          <pre>
  * <b>The following example show valid xml attributes to create Color objects:</b><br>
  * <ul>
  * <li>background="3399CC"</li>
@@ -52,7 +52,8 @@ public class ColorConverter implements Converter {
      * @return runtime type is subclass of <code>Color</code>
      */
     public static Object conv (final Class<?> type, final Attribute attr) {
-        Class<?> c = CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Color");
+        Class<?> c = CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
+                "Color");
         if (attr != null) {
             try {
                 final Field field = c.getField (attr.getValue ());
@@ -68,8 +69,9 @@ public class ColorConverter implements Converter {
                     ",");
             if (1 == st.countTokens ()) {
                 try {
-                    return CustomCodeProxy.getTypeAnalyser ().instantiate ("Color", Integer.parseInt (
-                            st.nextToken ().trim (), 16));
+                    return CustomCodeProxy.getTypeAnalyser ().instantiate (
+                            "Color",
+                            Integer.parseInt (st.nextToken ().trim (), 16));
                 } catch (final NumberFormatException e) {
                     if (AppConstants.DEBUG_MODE) {
                         System.err.println (e);
@@ -79,13 +81,16 @@ public class ColorConverter implements Converter {
             }
             final int [] para = Util.ia (st);
             if (4 <= para.length) {
-                return CustomCodeProxy.getTypeAnalyser ().instantiate ("Color", para [0], para [1], para [2], para [3]);
+                return CustomCodeProxy.getTypeAnalyser ().instantiate ("Color",
+                        para [0], para [1], para [2], para [3]);
             }
             if (3 <= para.length) {
-                return CustomCodeProxy.getTypeAnalyser ().instantiate ("Color", para [0], para [1], para [2]);
+                return CustomCodeProxy.getTypeAnalyser ().instantiate ("Color",
+                        para [0], para [1], para [2]);
             }
             if (1 <= para.length) {
-                return CustomCodeProxy.getTypeAnalyser ().instantiate ("Color", para [0]);
+                return CustomCodeProxy.getTypeAnalyser ().instantiate ("Color",
+                        para [0]);
             }
         }
         return null;

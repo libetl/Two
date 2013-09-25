@@ -66,7 +66,8 @@ public final class RectangleConverter implements Converter {
             if (st.hasMoreTokens ()) {
                 height = Integer.parseInt (st.nextToken ().trim ());
             }
-            return CustomCodeProxy.getTypeAnalyser ().instantiate ("Rectangle", x, y, width, height);
+            return CustomCodeProxy.getTypeAnalyser ().instantiate ("Rectangle",
+                    x, y, width, height);
         }
         return null;
     }
@@ -81,6 +82,7 @@ public final class RectangleConverter implements Converter {
      */
     @Override
     public Class<?> convertsTo () {
-        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Rectangle");
+        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
+                "Rectangle");
     }
 }

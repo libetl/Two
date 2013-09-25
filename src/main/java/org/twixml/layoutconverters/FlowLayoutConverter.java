@@ -59,7 +59,8 @@ import org.w3c.dom.Element;
  * @author Karl Tauber
  * @author <a href="mailto:wolf@wolfpaulus.com">Wolf Paulus</a>
  */
-public class FlowLayoutConverter<FlowLayout> implements LayoutConverter<FlowLayout> {
+public class FlowLayoutConverter<FlowLayout> implements
+        LayoutConverter<FlowLayout> {
 
     /**
      * Returns always <code>null</code>.
@@ -102,19 +103,21 @@ public class FlowLayoutConverter<FlowLayout> implements LayoutConverter<FlowLayo
                 // First FlowLayout parameter might be a pre-defined constant's
                 // name
                 //
-                final Object o = new PrimitiveConverter().convert (null, new Attribute (
-                        "NA", st.nextToken ()), null);
+                final Object o = new PrimitiveConverter ().convert (null,
+                        new Attribute ("NA", st.nextToken ()), null);
                 final int [] para = Util.ia (st);
                 //
                 // Remaining paramters should be integer values
                 //
                 if (para.length < 2) {
-                    return CustomCodeProxy.getTypeAnalyser ().instantiate ("FlowLayout",
+                    return CustomCodeProxy.getTypeAnalyser ().instantiate (
+                            "FlowLayout",
                             Integer.valueOf (o.toString ()).intValue ());
                 } else {
-                    return CustomCodeProxy.getTypeAnalyser ().instantiate ("FlowLayout",
-                            Integer.valueOf (o.toString ())
-                            .intValue (), para [0], para [1]);
+                    return CustomCodeProxy.getTypeAnalyser ().instantiate (
+                            "FlowLayout",
+                            Integer.valueOf (o.toString ()).intValue (),
+                            para [0], para [1]);
                 }
             }
         } catch (final Exception e) {
@@ -155,15 +158,16 @@ public class FlowLayoutConverter<FlowLayout> implements LayoutConverter<FlowLayo
         final String value = Attribute.getAttributeValue (element, "alignment");
         if (value != null) {
             try {
-                final Object o = new PrimitiveConverter().convert (null, new Attribute (
-                        "NA", value), null);
+                final Object o = new PrimitiveConverter ().convert (null,
+                        new Attribute ("NA", value), null);
                 align = Integer.valueOf (o.toString ()).intValue ();
             } catch (final Exception ex) {
             }
         }
         final int hgap = Util.getInteger (element, "hgap", 5);
         final int vgap = Util.getInteger (element, "vgap", 5);
-        return CustomCodeProxy.getTypeAnalyser ().instantiate ("FlowLayout", align, hgap, vgap);
+        return CustomCodeProxy.getTypeAnalyser ().instantiate ("FlowLayout",
+                align, hgap, vgap);
     }
 
     /**

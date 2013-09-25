@@ -16,18 +16,18 @@ import org.twixml.TwiXML;
  * @since swixml 0.95
  */
 public class XInclude extends WindowAdapter {
-	public static void main (String [] args) {
-		new XInclude ();
-	}
+    public static void main (String [] args) {
+        new XInclude ();
+    }
 
-	private final TwiXML	swix	= new TwiXML (this);
+    private final TwiXML swix = new TwiXML (this);
 
-	private XInclude () {
-		try {
-			((Container) this.swix.render ("samples/swing/xml/xinclude.xml"))
-			        .setVisible (true);
-		} catch (final Exception e) {
-			e.printStackTrace ();
-		}
-	}
+    private XInclude () {
+        try {
+            ((Container) this.swix.render ("samples/swing/xml/xinclude.xml"))
+                    .setVisible (true);
+        } catch (final Exception e) {
+            e.printStackTrace ();
+        }
+    }
 }

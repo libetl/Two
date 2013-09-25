@@ -6,14 +6,17 @@ import java.util.StringTokenizer;
 import org.twixml.converters.Util;
 import org.twixml.technoproxy.ProxyCode;
 
-public class GridBagLayoutConverter extends ProxyCode<org.twixml.layoutconverters.GridBagLayoutConverter<GridBagLayout>> {
+public class GridBagLayoutConverter
+        extends
+        ProxyCode<org.twixml.layoutconverters.GridBagLayoutConverter<GridBagLayout>> {
 
     public GridBagLayoutConverter (
             org.twixml.layoutconverters.GridBagLayoutConverter<GridBagLayout> source1) {
         super (source1);
     }
-    
-    public void convertLayoutElement (GridBagLayout lm, String columnWidths, String rowHeights, String columnWeights, String rowWeights){
+
+    public void convertLayoutElement (GridBagLayout lm, String columnWidths,
+            String rowHeights, String columnWeights, String rowWeights) {
 
         if (columnWidths != null) {
             lm.columnWidths = Util.ia (new StringTokenizer (columnWidths, ","));

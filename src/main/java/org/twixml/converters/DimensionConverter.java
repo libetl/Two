@@ -58,7 +58,8 @@ public final class DimensionConverter implements Converter {
             if (st.hasMoreTokens ()) {
                 height = Integer.parseInt (st.nextToken ().trim ());
             }
-            return CustomCodeProxy.getTypeAnalyser ().instantiate ("Dimension", width, height);
+            return CustomCodeProxy.getTypeAnalyser ().instantiate ("Dimension",
+                    width, height);
         }
         return null;
     }
@@ -73,6 +74,7 @@ public final class DimensionConverter implements Converter {
      */
     @Override
     public Class<?> convertsTo () {
-        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Dimension");
+        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
+                "Dimension");
     }
 }

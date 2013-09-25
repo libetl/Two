@@ -53,7 +53,8 @@ import org.w3c.dom.Element;
  * @author Karl Tauber
  * @author <a href="mailto:wolf@wolfpaulus.com">Wolf Paulus</a>
  */
-public class GridBagLayoutConverter<GridBagLayout> implements LayoutConverter<GridBagLayout> {
+public class GridBagLayoutConverter<GridBagLayout> implements
+        LayoutConverter<GridBagLayout> {
 
     /**
      * Returns always <code>null</code>.
@@ -98,7 +99,8 @@ public class GridBagLayoutConverter<GridBagLayout> implements LayoutConverter<Gr
         // public double[] rowWeights
         // public double[] colWeights
         //
-        final GridBagLayout lm = CustomCodeProxy.getTypeAnalyser ().instantiate ("GridBagLayout");
+        final GridBagLayout lm = CustomCodeProxy.getTypeAnalyser ()
+                .instantiate ("GridBagLayout");
 
         if (st.hasMoreTokens ()) {
             try {
@@ -171,11 +173,12 @@ public class GridBagLayoutConverter<GridBagLayout> implements LayoutConverter<Gr
         final String rowWeights = Attribute.getAttributeValue (element,
                 "rowWeights");
 
-        final GridBagLayout lm = CustomCodeProxy.getTypeAnalyser ().instantiate ("GridBagLayout");
+        final GridBagLayout lm = CustomCodeProxy.getTypeAnalyser ()
+                .instantiate ("GridBagLayout");
 
+        CustomCodeProxy.doProxy (this, lm, columnWidths, rowHeights,
+                columnWeights, rowWeights);
 
-        CustomCodeProxy.doProxy (this, lm, columnWidths, rowHeights, columnWeights, rowWeights);
-        
         return lm;
     }
 

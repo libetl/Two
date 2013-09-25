@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * The MapApp in jsoup is useless
  */
-public class MacApp  {
+public class MacApp {
 
     private static MacApp INSTANCE = null;
 
@@ -26,15 +26,13 @@ public class MacApp  {
 
     // ////////////////////////////////////////////////
 
-
-
     private MacApp () {
-        //stub constructor
+        // stub constructor
     }
 
     public void update (Map<String, Object> action_map) {
 
-        //stub method
+        // stub method
     }
 
 }

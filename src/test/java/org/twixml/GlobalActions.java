@@ -21,30 +21,30 @@ import javax.swing.JOptionPane;
  * @author Wolf Paulus
  */
 public interface GlobalActions {
-	Action	quitAction	= new AbstractAction () {
-		                    /**
+    Action quitAction  = new AbstractAction () {
+                           /**
 		 * 
 		 */
-		                    private static final long	serialVersionUID	= -838048201909219582L;
+                           private static final long serialVersionUID = -838048201909219582L;
 
-		                    @Override
-		                    public void actionPerformed (ActionEvent arg0) {
-			                    // Quit the program...
-			                    System.exit (0);
-		                    }
-	                    };
+                           @Override
+                           public void actionPerformed (ActionEvent arg0) {
+                               // Quit the program...
+                               System.exit (0);
+                           }
+                       };
 
-	Action	aboutAction	= new AbstractAction () {
-		                    /**
+    Action aboutAction = new AbstractAction () {
+                           /**
          * 
          */
-		                    private static final long	serialVersionUID	= -4358489161049932137L;
+                           private static final long serialVersionUID = -4358489161049932137L;
 
-		                    @Override
-		                    public void actionPerformed (ActionEvent arg0) {
-			                    // show 'About Application' dialog
-			                    JOptionPane.showMessageDialog (null,
-			                            "Test Case");
-		                    }
-	                    };
+                           @Override
+                           public void actionPerformed (ActionEvent arg0) {
+                               // show 'About Application' dialog
+                               JOptionPane
+                                       .showMessageDialog (null, "Test Case");
+                           }
+                       };
 }

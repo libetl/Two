@@ -13,18 +13,18 @@ import org.twixml.TwiXML;
  * @since swixml (#151)
  */
 public class FormLayout {
-	private static final String	DESCRIPTOR	= "samples/swing/xml/formlayout.xml";
+    private static final String DESCRIPTOR = "samples/swing/xml/formlayout.xml";
 
-	public static void main (String [] args) {
-		try {
-			new FormLayout ();
-		} catch (final Exception e) {
-			System.err.println (e.getMessage ());
-		}
-	}
+    public static void main (String [] args) {
+        try {
+            new FormLayout ();
+        } catch (final Exception e) {
+            System.err.println (e.getMessage ());
+        }
+    }
 
-	private FormLayout () throws Exception {
-		((JFrame) new TwiXML (this).render (FormLayout.DESCRIPTOR))
-		        .setVisible (true);
-	}
+    private FormLayout () throws Exception {
+        ((JFrame) new TwiXML (this).render (FormLayout.DESCRIPTOR))
+                .setVisible (true);
+    }
 }

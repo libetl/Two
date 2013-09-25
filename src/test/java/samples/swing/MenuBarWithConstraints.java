@@ -11,15 +11,16 @@ import org.twixml.TwiXML;
  */
 public class MenuBarWithConstraints {
 
-	/**
-	 * @param args
-	 * @throws Exception
-	 *             if something goes wrong
-	 */
-	public static void main (String [] args) throws Exception {
-		final TwiXML se = new TwiXML ();
-		final Container container = (Container) se.render ("samples/swing/xml/menu-bar.xml");
-		container.setVisible (true);
-	}
+    /**
+     * @param args
+     * @throws Exception
+     *             if something goes wrong
+     */
+    public static void main (String [] args) throws Exception {
+        final TwiXML se = new TwiXML ();
+        final Container container = (Container) se
+                .render ("samples/swing/xml/menu-bar.xml");
+        container.setVisible (true);
+    }
 
 }

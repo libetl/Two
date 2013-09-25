@@ -12,31 +12,32 @@ import org.twixml.TwiXML;
  */
 public class NewTag extends TwiXML {
 
-	public static void main (String [] args) {
-		new NewTag ();
-	}
+    public static void main (String [] args) {
+        new NewTag ();
+    }
 
-	private NewTag () {
-		//
-		// Register a new new Converter,
-		// Generally, Converters should be registered before Tags
-		//
-		ConverterLibrary.getInstance ().register (TimeZone.class,
-		        new TimeZoneConverter ());
-		//
-		// Register a Tag that uses a SwingEngine itself ...
-		//
-		this.getTaglib ().registerTag ("xpanel", XPanel.class);
-		try {
-			this.getTaglib ().registerTag ("redlabel", RedLabel.class);
-		} catch (final Exception e) {
-			System.err.println (e.getMessage ());
-		}
+    private NewTag () {
+        //
+        // Register a new new Converter,
+        // Generally, Converters should be registered before Tags
+        //
+        ConverterLibrary.getInstance ().register (TimeZone.class,
+                new TimeZoneConverter ());
+        //
+        // Register a Tag that uses a SwingEngine itself ...
+        //
+        this.getTaglib ().registerTag ("xpanel", XPanel.class);
+        try {
+            this.getTaglib ().registerTag ("redlabel", RedLabel.class);
+        } catch (final Exception e) {
+            System.err.println (e.getMessage ());
+        }
 
-		try {
-			((JFrame) this.render ("samples/swing/xml/newtag.xml")).setVisible (true);
-		} catch (final Exception e) {
-			e.printStackTrace ();
-		}
-	}
+        try {
+            ((JFrame) this.render ("samples/swing/xml/newtag.xml"))
+                    .setVisible (true);
+        } catch (final Exception e) {
+            e.printStackTrace ();
+        }
+    }
 }

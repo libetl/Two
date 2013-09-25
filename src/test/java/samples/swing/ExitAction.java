@@ -12,13 +12,13 @@ import javax.swing.AbstractAction;
  * {@link javax.swing.AbstractButton} objects.
  */
 public class ExitAction extends AbstractAction {
-	/**
+    /**
 	 * 
 	 */
-	private static final long	serialVersionUID	= 1404305704663546773L;
+    private static final long serialVersionUID = 1404305704663546773L;
 
-	@Override
-	public void actionPerformed (ActionEvent e) {
-		System.exit (0);
-	}
+    @Override
+    public void actionPerformed (ActionEvent e) {
+        System.exit (0);
+    }
 }

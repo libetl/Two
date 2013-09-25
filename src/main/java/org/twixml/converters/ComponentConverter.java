@@ -62,6 +62,7 @@ public class ComponentConverter implements Converter {
      */
     @Override
     public Class<?> convertsTo () {
-        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("Component");
+        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
+                "Component");
     }
 }

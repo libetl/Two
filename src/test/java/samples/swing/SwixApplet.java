@@ -23,48 +23,49 @@ import org.twixml.TwiXML;
 
 public class SwixApplet extends JApplet {
 
-	/**
+    /**
 	 * 
 	 */
-	private static final long	serialVersionUID	= -6405498067196986041L;
-	/**
-	 * JTextField member gets instantiated through Swixml (look for id="tf" in
-	 * the xml descriptor)
-	 */
-	public JTextField	      tf;
-	/**
-	 * Action appends a '#' to the textfields content.
-	 */
-	public AbstractAction	  submit	         = new AbstractAction () {
-		                                             /**
+    private static final long serialVersionUID = -6405498067196986041L;
+    /**
+     * JTextField member gets instantiated through Swixml (look for id="tf" in
+     * the xml descriptor)
+     */
+    public JTextField         tf;
+    /**
+     * Action appends a '#' to the textfields content.
+     */
+    public AbstractAction     submit           = new AbstractAction () {
+                                                   /**
 		 * 
 		 */
-		                                             private static final long	serialVersionUID	= 6593730401971589010L;
+                                                   private static final long serialVersionUID = 6593730401971589010L;
 
-		                                             @Override
-		                                             public void actionPerformed (
-		                                                     ActionEvent e) {
-			                                             SwixApplet.this.tf
-			                                                     .setText (SwixApplet.this.tf
-			                                                             .getText () + '#');
-		                                             }
-	                                             };
+                                                   @Override
+                                                   public void actionPerformed (
+                                                           ActionEvent e) {
+                                                       SwixApplet.this.tf
+                                                               .setText (SwixApplet.this.tf
+                                                                       .getText () + '#');
+                                                   }
+                                               };
 
-	@Override
-	public void init () {
+    @Override
+    public void init () {
 
-		super.init ();
-		try {
-			String descriptorfile = this.getParameter ("xml");
-			if (descriptorfile == null) {
-				descriptorfile = "samples/swing/xml/applet.xml";
-			}
-			new TwiXML (this).insert (
-			        new URL ("file://" + new File (this.getCodeBase ().getFile ()).getParentFile ().getParent () +
-			                "/src/test/java/" + descriptorfile), this);
-			this.setVisible (true);
-		} catch (final Exception e) {
-			e.printStackTrace ();
-		}
-	}
+        super.init ();
+        try {
+            String descriptorfile = this.getParameter ("xml");
+            if (descriptorfile == null) {
+                descriptorfile = "samples/swing/xml/applet.xml";
+            }
+            new TwiXML (this).insert (new URL ("file://"
+                    + new File (this.getCodeBase ().getFile ())
+                            .getParentFile ().getParent () + "/src/test/java/"
+                    + descriptorfile), this);
+            this.setVisible (true);
+        } catch (final Exception e) {
+            e.printStackTrace ();
+        }
+    }
 }

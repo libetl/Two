@@ -121,19 +121,20 @@ public class LayoutConverterLibrary {
                         "BorderLayout"), new BorderLayoutConverter<Object> ());
         this.register (
                 CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
-                        "CardLayout"), new CardLayoutConverter<Object>  ());
+                        "CardLayout"), new CardLayoutConverter<Object> ());
         this.register (
                 CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
-                        "FlowLayout"), new FlowLayoutConverter<Object>  ());
+                        "FlowLayout"), new FlowLayoutConverter<Object> ());
         this.register (
                 CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
-                        "GridBagLayout"), new GridBagLayoutConverter<Object>  ());
+                        "GridBagLayout"), new GridBagLayoutConverter<Object> ());
         this.register (
                 CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
-                        "GridLayout"), new GridLayoutConverter<Object>  ());
+                        "GridLayout"), new GridLayoutConverter<Object> ());
 
         // 3rd party layout managers
-        this.register (CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
-                "FormLayout"), new FormLayoutConverter<Object>  ());
+        this.register (
+                CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
+                        "FormLayout"), new FormLayoutConverter<Object> ());
     }
 }

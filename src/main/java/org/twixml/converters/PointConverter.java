@@ -49,7 +49,8 @@ public class PointConverter implements Converter {
             if (st.hasMoreTokens ()) {
                 y = Integer.parseInt (st.nextToken ().trim ());
             }
-            return CustomCodeProxy.getTypeAnalyser ().instantiate ("Point", x, y);
+            return CustomCodeProxy.getTypeAnalyser ().instantiate ("Point", x,
+                    y);
         }
         return null;
     }

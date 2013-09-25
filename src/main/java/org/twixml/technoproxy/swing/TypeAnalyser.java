@@ -21,17 +21,18 @@ public class TypeAnalyser extends org.twixml.technoproxy.TypeAnalyser {
     @Override
     public <T> Class<T> getCompatibleClass (String string) {
         Class<T> c = null;
-        if ("CellConstraints".equals (string)){
+        if ("CellConstraints".equals (string)) {
             return (Class<T>) com.jgoodies.forms.layout.CellConstraints.class;
         }
-        if ("FormLayout".equals (string)){
-            return (Class<T>)com.jgoodies.forms.layout.FormLayout.class;
+        if ("FormLayout".equals (string)) {
+            return (Class<T>) com.jgoodies.forms.layout.FormLayout.class;
         }
-        final List<String> possibilities = Arrays.asList ("org.twixml.technoproxy.swing.X" + string,
-        		"org.twixml.technoproxy.swing." + string, "javax.swing.table.J" + string,                 
-                "javax.swing.tree." + string, "javax.swing.border." + string, 
-                "javax.swing.J" + string, "javax.swing." + string, 
-                "java.awt.event." + string,
+        final List<String> possibilities = Arrays.asList (
+                "org.twixml.technoproxy.swing.X" + string,
+                "org.twixml.technoproxy.swing." + string, "javax.swing.table.J"
+                        + string, "javax.swing.tree." + string,
+                "javax.swing.border." + string, "javax.swing.J" + string,
+                "javax.swing." + string, "java.awt.event." + string,
                 "java.awt." + string);
 
         for (final String possibility : possibilities) {
@@ -49,7 +50,7 @@ public class TypeAnalyser extends org.twixml.technoproxy.TypeAnalyser {
     @Override
     public boolean isConvenient (Object o, String test) {
         boolean result = false;
-        if (o == null){
+        if (o == null) {
             return result;
         }
         Class<?> c = o.getClass ();
@@ -66,7 +67,6 @@ public class TypeAnalyser extends org.twixml.technoproxy.TypeAnalyser {
         return result;
     }
 
-    
     @SuppressWarnings ("unchecked")
     @Override
     public <T> T instantiate (String clazz, Object... params) {
@@ -81,7 +81,9 @@ public class TypeAnalyser extends org.twixml.technoproxy.TypeAnalyser {
                     Class<?> c1 = constr.getParameterTypes () [i];
                     if (params [i] != null) {
                         assignable &= c1.isAssignableFrom (params [i]
-                                .getClass ()) || c1.isPrimitive () || params [i].getClass ().isPrimitive ();
+                                .getClass ())
+                                || c1.isPrimitive ()
+                                || params [i].getClass ().isPrimitive ();
                     }
                 }
                 if (assignable) {
@@ -98,30 +100,33 @@ public class TypeAnalyser extends org.twixml.technoproxy.TypeAnalyser {
         return result;
     }
 
-	@SuppressWarnings ("unchecked")
+    @SuppressWarnings ("unchecked")
     @Override
     public <T> Class<T> getMostSuperClass (String string) {
-		Class<T> clazz1 = this.getCompatibleClass (string);
-		Class<T> clazz = clazz1;
-		boolean foundSuper = false;
-		do{
-			foundSuper = false;
-			if (clazz.getSuperclass () != null && clazz.getSuperclass ().getSimpleName ().endsWith (string)){
-				clazz = (Class<T>) clazz.getSuperclass ();
-				foundSuper = true;
-			}else{
-				int i = 0;
-				while (i < clazz.getInterfaces ().length && !foundSuper){
-					if (clazz.getInterfaces () [i] != null &&
-							clazz.getInterfaces () [i].getSimpleName ().endsWith (string)){
-						clazz = (Class<T>) clazz.getInterfaces () [i];
-						foundSuper = true;
-					}
-					i++;
-				}
-			}
-		} while (foundSuper);
-	    return clazz;
+        Class<T> clazz1 = this.getCompatibleClass (string);
+        Class<T> clazz = clazz1;
+        boolean foundSuper = false;
+        do {
+            foundSuper = false;
+            if (clazz.getSuperclass () != null
+                    && clazz.getSuperclass ().getSimpleName ()
+                            .endsWith (string)) {
+                clazz = (Class<T>) clazz.getSuperclass ();
+                foundSuper = true;
+            } else {
+                int i = 0;
+                while (i < clazz.getInterfaces ().length && !foundSuper) {
+                    if (clazz.getInterfaces () [i] != null
+                            && clazz.getInterfaces () [i].getSimpleName ()
+                                    .endsWith (string)) {
+                        clazz = (Class<T>) clazz.getInterfaces () [i];
+                        foundSuper = true;
+                    }
+                    i++;
+                }
+            }
+        } while (foundSuper);
+        return clazz;
     }
 
 }

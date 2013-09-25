@@ -20,17 +20,17 @@ import org.twixml.TwiXML;
 
 public class XPanel extends JPanel {
 
-	/**
+    /**
 	 * 
 	 */
-	private static final long	serialVersionUID	= 1503710571522599188L;
-	private final TwiXML	swix	         = new TwiXML (this);
+    private static final long serialVersionUID = 1503710571522599188L;
+    private final TwiXML      swix             = new TwiXML (this);
 
-	public void setXml (String resource) {
-		try {
-			this.swix.insert ("samples/swing/xml/" + resource, this);
-		} catch (final Exception e) {
-			System.err.println (e.getMessage ());
-		}
-	}
+    public void setXml (String resource) {
+        try {
+            this.swix.insert ("samples/swing/xml/" + resource, this);
+        } catch (final Exception e) {
+            System.err.println (e.getMessage ());
+        }
+    }
 }

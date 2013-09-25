@@ -58,8 +58,8 @@ public class InsetsConverter implements Converter {
             }
             final int [] param = Util.ia (st);
             if (4 <= param.length) {
-                insets = CustomCodeProxy.getTypeAnalyser ().instantiate ("Insets",
-                        param [0], param [1], param [2], param [3]);
+                insets = CustomCodeProxy.getTypeAnalyser ().instantiate (
+                        "Insets", param [0], param [1], param [2], param [3]);
             }
         }
         return insets;

@@ -25,26 +25,26 @@ import org.twixml.converters.PrimitiveConverter;
  */
 public class PrimitiveConverterTest extends TestCase {
 
-	public PrimitiveConverterTest () {
-		this (PrimitiveConverterTest.class.getSimpleName ());
-	}
+    public PrimitiveConverterTest () {
+        this (PrimitiveConverterTest.class.getSimpleName ());
+    }
 
-	public PrimitiveConverterTest (String string) {
-		super (string);
+    public PrimitiveConverterTest (String string) {
+        super (string);
 
-	}
+    }
 
-	/**
-	 * This test worked successfully only after PrimitiveConverter also
-	 * <code>implements ScrollPaneConstants</code>
-	 * 
-	 * @throws Exception
-	 * @see ScrollPaneConstants
-	 */
-	public void testConstantAvailability () throws Exception {
-		final Object obj = new PrimitiveConverter().convert (JScrollPane.class,
-		        new Attribute ("orientation", "VERTICAL_SCROLLBAR_ALWAYS"),
-		        null);
-		TestCase.assertNotNull (obj);
-	}
+    /**
+     * This test worked successfully only after PrimitiveConverter also
+     * <code>implements ScrollPaneConstants</code>
+     * 
+     * @throws Exception
+     * @see ScrollPaneConstants
+     */
+    public void testConstantAvailability () throws Exception {
+        final Object obj = new PrimitiveConverter ().convert (
+                JScrollPane.class, new Attribute ("orientation",
+                        "VERTICAL_SCROLLBAR_ALWAYS"), null);
+        TestCase.assertNotNull (obj);
+    }
 }

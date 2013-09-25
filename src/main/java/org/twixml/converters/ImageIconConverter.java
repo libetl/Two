@@ -48,9 +48,10 @@ public class ImageIconConverter implements Converter {
                 attr.setValue (localizer.getString (attr.getValue ()));
             }
             try {
-                icon = CustomCodeProxy.getTypeAnalyser ().instantiate ("ImageIcon",
+                icon = CustomCodeProxy.getTypeAnalyser ().instantiate (
+                        "ImageIcon",
                         localizer.getClassLoader ().getResource (
-                        attr.getValue ()));
+                                attr.getValue ()));
             } catch (final Exception e) {
                 // intentionally empty
             }
@@ -86,6 +87,7 @@ public class ImageIconConverter implements Converter {
      */
     @Override
     public Class<?> convertsTo () {
-        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass ("ImageIcon");
+        return CustomCodeProxy.getTypeAnalyser ().getCompatibleClass (
+                "ImageIcon");
     }
 }

@@ -16,8 +16,8 @@ import java.lang.reflect.Method;
  */
 
 public class XAction extends ActionListener {
-    Method                    method;
-    Object                    client;
+    Method method;
+    Object client;
 
     public XAction (Object client, String methodName)
             throws NoSuchMethodException {
@@ -28,11 +28,10 @@ public class XAction extends ActionListener {
 
     }
 
-    
     public XAction () {
 
     }
-    
+
     @Override
     public void actionPerformed (ActionEvent e) {
         try {

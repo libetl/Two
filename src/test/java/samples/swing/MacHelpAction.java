@@ -13,18 +13,18 @@ import javax.swing.AbstractAction;
  * @author $Author: tichy $
  */
 public class MacHelpAction extends AbstractAction {
-	/**
+    /**
 	 * 
 	 */
-	private static final long	serialVersionUID	= -46501717446085283L;
+    private static final long serialVersionUID = -46501717446085283L;
 
-	@Override
-	public void actionPerformed (ActionEvent e) {
-		try {
-			new java.net.URL ("http://www.twixml.org/apidocs/index.html")
-			        .getContent ();
-		} catch (final IOException e1) {
-			e1.printStackTrace ();
-		}
-	}
+    @Override
+    public void actionPerformed (ActionEvent e) {
+        try {
+            new java.net.URL ("http://www.twixml.org/apidocs/index.html")
+                    .getContent ();
+        } catch (final IOException e1) {
+            e1.printStackTrace ();
+        }
+    }
 }

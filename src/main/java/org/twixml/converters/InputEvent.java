@@ -8,7 +8,6 @@
  */
 package org.twixml.converters;
 
-
 public interface InputEvent {
 
     /**

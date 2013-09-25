@@ -1,6 +1,5 @@
 package org.twixml.technoproxy;
 
-
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -8,7 +7,6 @@ import javassist.CtConstructor;
 import javassist.CtMethod;
 import javassist.NotFoundException;
 import javassist.bytecode.DuplicateMemberException;
-
 
 public abstract class TypeAnalyser {
 
@@ -18,27 +16,28 @@ public abstract class TypeAnalyser {
 
     public abstract <T> T instantiate (String clazz, Object... params);
 
-	public abstract <T> Class<T> getMostSuperClass (String string);
-	
-	private void makeNewEmptyConstructor (CtClass cc){
+    public abstract <T> Class<T> getMostSuperClass (String string);
+
+    private void makeNewEmptyConstructor (CtClass cc) {
 
         try {
-        CtConstructor ctc = new CtConstructor (new CtClass[0], cc);
+            CtConstructor ctc = new CtConstructor (new CtClass [0], cc);
             ctc.setBody ("super ();");
-        
-        cc.addConstructor (ctc);
-        }catch (DuplicateMemberException dme){
-            //This is not disturbing at all.
+
+            cc.addConstructor (ctc);
+        } catch (DuplicateMemberException dme) {
+            // This is not disturbing at all.
         } catch (CannotCompileException e) {
         }
-	}
-	
-	public <T> Object makeFieldExtendsClass (Class<?> source, Class<T> c){
-	    ClassPool cp = ClassPool.getDefault ();
-	    try {
+    }
+
+    public <T> Object makeFieldExtendsClass (Class<?> source, Class<T> c) {
+        ClassPool cp = ClassPool.getDefault ();
+        try {
             CtClass cc = cp.get (source.getName ());
             CtClass superc = cp.get (c.getName ());
-            cc.setName (cc.getName ().replace ('$', 'A') + "Extends" + c.getSimpleName ());
+            cc.setName (cc.getName ().replace ('$', 'A') + "Extends"
+                    + c.getSimpleName ());
             cc.setSuperclass (superc);
             Class<?> c2 = cc.toClass ();
             Object o2 = c2.newInstance ();
@@ -55,18 +54,21 @@ public abstract class TypeAnalyser {
         } catch (IllegalAccessException e) {
             throw new ProxyCodeException (e);
         }
-	}
+    }
 
-    public Object addMethodDelegateSingleParameter (Class<? extends Object> class1,
-            String methodName, Class<Object> compatibleClass) {
+    public Object addMethodDelegateSingleParameter (
+            Class<? extends Object> class1, String methodName,
+            Class<Object> compatibleClass) {
         ClassPool cp = ClassPool.getDefault ();
         try {
             CtClass cc = cp.get (class1.getName ());
-            CtMethod method = new CtMethod (cp.get (void.class.getName ()), methodName, 
-                    new CtClass [] {cp.get (compatibleClass.getName ())}, cc);
+            CtMethod method = new CtMethod (cp.get (void.class.getName ()),
+                    methodName, new CtClass [] { cp.get (compatibleClass
+                            .getName ()) }, cc);
             method.setBody ("$0." + methodName + " ((Object) $1);");
             method.setModifiers (cc.getModifiers () | javassist.Modifier.PUBLIC);
-            cc.setName (cc.getName ().replace ('$', 'A') + "Delegate" + methodName);
+            cc.setName (cc.getName ().replace ('$', 'A') + "Delegate"
+                    + methodName);
             cc.setModifiers (cc.getModifiers () | javassist.Modifier.PUBLIC);
             cc.addMethod (method);
             this.makeNewEmptyConstructor (cc);
@@ -84,5 +86,5 @@ public abstract class TypeAnalyser {
             throw new ProxyCodeException (e);
         }
     }
-	
+
 }

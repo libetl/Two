@@ -13,17 +13,18 @@ import org.twixml.TwiXML;
  * @since swixml 0.5
  */
 public class GridBag extends TwiXML {
-	public static void main (String [] args) {
-		new GridBag ();
-	}
+    public static void main (String [] args) {
+        new GridBag ();
+    }
 
-	/** Default ctor for a SwingEngine. */
+    /** Default ctor for a SwingEngine. */
 
-	private GridBag () {
-		try {
-			((Container) this.render ("samples/swing/xml/gridbag.xml")).setVisible (true);
-		} catch (final Exception e) {
-			e.printStackTrace ();
-		}
-	}
+    private GridBag () {
+        try {
+            ((Container) this.render ("samples/swing/xml/gridbag.xml"))
+                    .setVisible (true);
+        } catch (final Exception e) {
+            e.printStackTrace ();
+        }
+    }
 }

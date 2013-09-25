@@ -8,7 +8,6 @@
  */
 package org.twixml.converters;
 
-
 import org.twixml.Attribute;
 import org.twixml.Converter;
 import org.twixml.Localizer;

@@ -15,7 +15,8 @@ public class TwiXML
     }
 
     public void cleanup (Object obj, List<String> zombies, String key) {
-        if ( (obj instanceof org.jsoup.nodes.Element) && ! ((org.jsoup.nodes.Element) obj).hasClass ("visible")) {
+        if ( (obj instanceof org.jsoup.nodes.Element)
+                && ! ((org.jsoup.nodes.Element) obj).hasClass ("visible")) {
             zombies.add (key);
         }
     }
@@ -29,16 +30,19 @@ public class TwiXML
      * </pre>.
      * 
      * @param c
-     *            <code>org.jsoup.nodes.Element</code> start org.jsoup.nodes.Element
+     *            <code>org.jsoup.nodes.Element</code> start
+     *            org.jsoup.nodes.Element
      * @param al
      *            <code>ActionListener</code>
      * @return <code>boolean</code> true, if ActionListener was set.
      */
-    public boolean setActionListener (final org.jsoup.nodes.Element c, final ActionListener al) {
+    public boolean setActionListener (final org.jsoup.nodes.Element c,
+            final ActionListener al) {
         boolean b = false;
         if (c != null) {
             if (c.hasClass ("container")) {
-                final org.jsoup.select.Elements s = ((org.jsoup.nodes.Element) c).getAllElements ();
+                final org.jsoup.select.Elements s = c
+                        .getAllElements ();
                 for (final org.jsoup.nodes.Element value : s) {
                     b = b | this.setActionListener (value, al);
                 }
@@ -50,7 +54,8 @@ public class TwiXML
                         b = b | this.setActionListener (c.child (i), al);
                     }
                 } else if (c.hasClass ("button")) {
-                    c.attr ("onclick", "javascript:" + al.getClass ().getSimpleName () + " (e)");
+                    c.attr ("onclick", "javascript:"
+                            + al.getClass ().getSimpleName () + " (e)");
                     b = true;
                 }
             }
@@ -59,7 +64,8 @@ public class TwiXML
         return b;
     }
 
-    public void traverse (final org.jsoup.nodes.Element c, Collection<org.jsoup.nodes.Element> collection) {
+    public void traverse (final org.jsoup.nodes.Element c,
+            Collection<org.jsoup.nodes.Element> collection) {
         if (c.hasClass ("menu")) {
             final int k = c.childNodeSize ();
             for (int i = 0 ; i < k ; i++) {

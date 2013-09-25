@@ -78,7 +78,8 @@ public final class JSoupFactory implements Factory {
     @Override
     public Method getSetter (Class<?> template) {
         try {
-            return org.jsoup.nodes.Element.class.getDeclaredMethod ("attr", String.class, String.class);
+            return org.jsoup.nodes.Element.class.getDeclaredMethod ("attr",
+                    String.class, String.class);
         } catch (NoSuchMethodException | SecurityException e) {
             return null;
         }
@@ -100,7 +101,8 @@ public final class JSoupFactory implements Factory {
     @Override
     public Method getSetter (String name) {
         try {
-            return org.jsoup.nodes.Element.class.getDeclaredMethod ("attr", String.class, String.class);
+            return org.jsoup.nodes.Element.class.getDeclaredMethod ("attr",
+                    String.class, String.class);
         } catch (NoSuchMethodException | SecurityException e) {
             return null;
         }
@@ -141,7 +143,8 @@ public final class JSoupFactory implements Factory {
     @Override
     public Method guessSetter (String name) {
         try {
-            return org.jsoup.nodes.Element.class.getDeclaredMethod ("attr", String.class, String.class);
+            return org.jsoup.nodes.Element.class.getDeclaredMethod ("attr",
+                    String.class, String.class);
         } catch (NoSuchMethodException | SecurityException e) {
             return null;
         }
@@ -172,9 +175,11 @@ public final class JSoupFactory implements Factory {
      * @throws Exception
      */
     @Override
-    public Object newInstance (String mainClass, Object parameter) throws Exception {
+    public Object newInstance (String mainClass, Object parameter)
+            throws Exception {
         // parameter
-        org.jsoup.nodes.Element result = new org.jsoup.nodes.Element (Tag.valueOf ("div"), "");
+        org.jsoup.nodes.Element result = new org.jsoup.nodes.Element (
+                Tag.valueOf ("div"), "");
         result.attr ("name", parameter.toString ());
         result.addClass (mainClass);
         return result;
@@ -202,7 +207,8 @@ public final class JSoupFactory implements Factory {
     public Object newInstance (String mainClass, Object [] parameter)
             throws InstantiationException, IllegalAccessException,
             InvocationTargetException {
-        org.jsoup.nodes.Element e = new org.jsoup.nodes.Element (Tag.valueOf ("div"), "");
+        org.jsoup.nodes.Element e = new org.jsoup.nodes.Element (
+                Tag.valueOf ("div"), "");
         e.addClass (mainClass);
         return e;
     }

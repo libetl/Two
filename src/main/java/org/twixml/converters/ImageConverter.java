@@ -24,7 +24,6 @@ import org.twixml.technoproxy.CustomCodeProxy;
  */
 public class ImageConverter implements Converter {
 
-
     /**
      * Converts a String into an ImageIcon through a Resource lookup
      * 

@@ -15,7 +15,6 @@ import org.twixml.converters.Util;
 import org.twixml.technoproxy.CustomCodeProxy;
 import org.w3c.dom.Element;
 
-
 /**
  * A layout converter for <code>FormLayout</code>.
  * 
@@ -61,7 +60,8 @@ import org.w3c.dom.Element;
  * 
  * @author Karl Tauber
  */
-public class FormLayoutConverter<FormLayout> implements LayoutConverter<FormLayout> {
+public class FormLayoutConverter<FormLayout> implements
+        LayoutConverter<FormLayout> {
 
     /**
      * <p>
@@ -93,7 +93,8 @@ public class FormLayoutConverter<FormLayout> implements LayoutConverter<FormLayo
      */
     @Override
     public Object convertConstraintsAttribute (final Attribute attr) {
-        return CustomCodeProxy.getTypeAnalyser ().instantiate ("CellConstraints", attr.getValue ());
+        return CustomCodeProxy.getTypeAnalyser ().instantiate (
+                "CellConstraints", attr.getValue ());
     }
 
     /**
@@ -176,10 +177,9 @@ public class FormLayoutConverter<FormLayout> implements LayoutConverter<FormLayo
         final int [][] rowGroupIndices = this.convertGroupIndices (Attribute
                 .getAttributeValue (element, "rowGroups"));
 
-        final FormLayout lm = CustomCodeProxy.getTypeAnalyser ().instantiate ("FormLayout", encodedColumnSpecs,
-                encodedRowSpecs);
+        final FormLayout lm = CustomCodeProxy.getTypeAnalyser ().instantiate (
+                "FormLayout", encodedColumnSpecs, encodedRowSpecs);
         CustomCodeProxy.doProxy (this, lm, columnGroupIndices, rowGroupIndices);
-
 
         return lm;
     }

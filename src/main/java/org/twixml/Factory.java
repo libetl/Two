@@ -108,7 +108,8 @@ public interface Factory {
      * @throws InvocationTargetException
      *             if the constructor invoked throws an exception
      */
-    Object newInstance (String id, Object [] parameter) throws InstantiationException,
-            IllegalAccessException, InvocationTargetException;
+    Object newInstance (String id, Object [] parameter)
+            throws InstantiationException, IllegalAccessException,
+            InvocationTargetException;
 
 }
