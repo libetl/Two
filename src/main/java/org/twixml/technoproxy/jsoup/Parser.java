@@ -57,6 +57,12 @@ public class Parser
                                         attr.getValue (), ""));
                     }
                 }
+            }
+            if ("title".equalsIgnoreCase (attr.getName ())
+                    && ((org.jsoup.nodes.Element) obj)
+                            .hasClass ("panel panel-default")) {
+                ((org.jsoup.nodes.Element) obj).getElementsByTag ("h3")
+                        .first ().text (attr.getValue ());
             } else if ("layout".equalsIgnoreCase (attr.getName ())) {
                 ((org.jsoup.nodes.Element) obj).addClass (attr.getValue ());
             } else if ("constraints".equalsIgnoreCase (attr.getName ())) {
@@ -85,9 +91,10 @@ public class Parser
                         ((org.jsoup.nodes.Element) obj).attr ("style")
                                 + ";enabled:" + attr.getValue () + "");
             } else if ("borderpainted".equalsIgnoreCase (attr.getName ())) {
-                ((org.jsoup.nodes.Element) obj).attr ("style",
-                        ((org.jsoup.nodes.Element) obj).attr ("style")
-                                + ";border: solid 1px #000");
+                ((org.jsoup.nodes.Element) obj)
+                        .attr ("style",
+                                ((org.jsoup.nodes.Element) obj).attr ("style")
+                                        + ";box-shadow: 0 1px 0 rgba(128, 128, 128, 0.5) inset, 0 1px 1px rgba(0, 0, 0, 0.075)");
             } else if ("visible".equalsIgnoreCase (attr.getName ())) {
                 if ("true".equalsIgnoreCase (attr.getValue ())) {
                     ((org.jsoup.nodes.Element) obj).attr ("style",
@@ -101,8 +108,12 @@ public class Parser
             } else if ("size".equalsIgnoreCase (attr.getName ())) {
                 final int width = Integer.parseInt (attr.getValue ()
                         .split (",") [0]);
-                final int height = Integer.parseInt (attr.getValue ().split (
-                        ",") [1]);
+                int height = Integer
+                        .parseInt (attr.getValue ().split (",") [1]);
+                if ( ((org.jsoup.nodes.Element) obj)
+                        .hasClass ("panel panel-default")) {
+                    height += 40;
+                }
                 ((org.jsoup.nodes.Element) obj).attr ("style",
                         ((org.jsoup.nodes.Element) obj).attr ("style")
                                 + ";width:" + width + "px;height:" + height

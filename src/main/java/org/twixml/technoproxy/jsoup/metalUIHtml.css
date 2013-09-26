@@ -16,3 +16,11 @@
         float:left;
         margin-right:30px;
 }
+
+.panel {
+	background-color:#eeeeee !important;
+}
+
+.label {
+	color:#000000 !important;
+}
