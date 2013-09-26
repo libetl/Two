@@ -1,13 +1,5 @@
 package org.twixml.technoproxy.jsoup;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.LayoutManager;
-import java.awt.event.ActionListener;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JLabel;
-
 import org.twixml.TwiXML;
 
 /**
@@ -19,7 +11,7 @@ import org.twixml.TwiXML;
  */
 public class JSoupTwiXML
         extends
-        TwiXML<Container, Component, ActionListener, JLabel, ButtonGroup, LayoutManager> {
+        TwiXML<org.jsoup.nodes.Document, org.jsoup.nodes.Element, ActionListener, org.jsoup.nodes.TextNode, org.jsoup.nodes.Element, LayoutManager> {
 
     public JSoupTwiXML () {
         super ();
