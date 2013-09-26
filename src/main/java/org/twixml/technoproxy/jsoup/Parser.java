@@ -64,8 +64,16 @@ public class Parser
                 ((org.jsoup.nodes.Element) obj).getElementsByTag ("h3")
                         .first ().text (attr.getValue ());
             } else if ("layout".equalsIgnoreCase (attr.getName ())) {
+                ((org.jsoup.nodes.Element) obj).addClass (attr.getValue ()
+                        .replace ('.', 'A'));
                 ((org.jsoup.nodes.Element) obj).addClass (attr.getValue ());
             } else if ("constraints".equalsIgnoreCase (attr.getName ())) {
+                if (attr.getValue ().startsWith ("BorderLayout.")) {
+                    if (attr.getValue ().endsWith ("SOUTH")
+                            || attr.getValue ().endsWith ("NORTH")) {
+                        ((org.jsoup.nodes.Element) obj).addClass ("btn-block");
+                    }
+                }
                 ((org.jsoup.nodes.Element) obj).addClass (attr.getValue ()
                         .replace ('.', 'A'));
             } else if ("icon".equalsIgnoreCase (attr.getName ())) {

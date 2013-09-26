@@ -322,7 +322,9 @@ public final class JSoupFactory implements Factory {
 
     private Element specialCases (Element e, final String mainClass,
             final Object [] parameter) {
-        if ("label".equals (mainClass) && (parameter.length > 0)) {
+        if ("button".equals (mainClass) && (parameter.length > 0)) {
+            e.appendChild (new TextNode (parameter [0].toString (), ""));
+        } else if ("label".equals (mainClass) && (parameter.length > 0)) {
             e.appendChild (new TextNode (parameter [0].toString (), ""));
         } else if ("combobox".equals (mainClass)) {
             e = new org.jsoup.nodes.Element (Tag.valueOf ("select"), "");
@@ -354,7 +356,8 @@ public final class JSoupFactory implements Factory {
         } else if ("separator".equals (mainClass)) {
             e = new org.jsoup.nodes.Element (Tag.valueOf ("li"), "");
             e.addClass ("divider");
-        } else if ("frame".equals (mainClass)) {
+        } else if ("frame".equals (mainClass)
+                || "internalframe".equals (mainClass)) {
             e = new org.jsoup.nodes.Element (Tag.valueOf ("div"), "");
             e.addClass ("panel panel-default");
             e.append ("<div class=\"panel-heading\"><h3 class=\"panel-title\">Panel title</h3></div>");

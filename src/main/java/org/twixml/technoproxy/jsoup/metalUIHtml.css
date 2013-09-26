@@ -48,3 +48,30 @@ body > .panel {
 .navbar-nav > li > a {
 	border-radius: 0 15px 0px 15px !important;
 }
+
+.BorderLayoutAEAST {
+	float:right;
+}
+
+.BorderLayoutAWEST {
+}
+
+.BorderLayoutASOUTH {
+}
+
+.panel-body {
+    height: inherit;
+    padding: 0 !important;
+}
+
+.desktoppane {
+    height: inherit;
+	overflow:auto;
+}
+
+.panel-heading {
+}
+
+body > .panel {
+	padding-bottom:40px !important;
+}
