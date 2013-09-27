@@ -1,6 +1,7 @@
 package org.twixml.technoproxy.jsoup.layout;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.jsoup.nodes.Element;
@@ -12,8 +13,24 @@ public class BorderLayout extends LayoutManager {
     public void addConstraintedElement (final Element parent,
             final Element component, final String constraint) {
         final Elements e = parent.getElementsByClass (constraint.toString ());
-        if (e.size () == 1) {
-            e.first ().appendChild (component);
+        Element candidate = null;
+        final Iterator<Element> it = e.iterator ();
+        while ( (candidate == null) && it.hasNext ()) {
+            final Element tmp = it.next ();
+            if ( (tmp.parent () == parent)
+                    || ( (tmp.parent () != null)
+                            && (tmp.parent ().className () != null)
+                            && tmp.parent ().className ()
+                                    .contains ("BORDERLAYOUTLANE") && (tmp
+                            .parent ().parent () == parent))) {
+                candidate = tmp;
+            }
+        }
+        if (candidate != null) {
+            candidate.appendChild (component);
+            if (Arrays.asList ("WEST", "CENTER", "EAST").contains (constraint)) {
+                component.parent ().parent ().attr ("style", "min-height:50px");
+            }
         } else {
             parent.appendChild (component);
         }
@@ -28,9 +45,16 @@ public class BorderLayout extends LayoutManager {
                 "text-left", "text-center", "text-right", "text-center");
         final List<String> sizes = Arrays.<String> asList ("col-xs-12",
                 "col-xs-4", "col-xs-4", "col-xs-4", "col-xs-12");
-        for (int i = 0 ; i < regions.size () ; i++) {
-            leaf.append ("<div class=\"" + aligns.get (i) + " " + sizes.get (i)
-                    + " " + regions.get (i) + "\"></div>");
+        leaf.append ("<div class=\"" + aligns.get (0) + " " + sizes.get (0)
+                + " " + regions.get (0) + "\"></div>");
+        leaf.append ("<div class=\"col-xs-12 BORDERLAYOUTLANE\"></div>");
+        leaf.append ("<div class=\"" + aligns.get (4) + " " + sizes.get (4)
+                + " " + regions.get (4) + "\"></div>");
+        for (int i = 1 ; i < 4 ; i++) {
+            leaf.child (1).append (
+                    "<div class=\"" + aligns.get (i) + " " + sizes.get (i)
+                            + " " + regions.get (i) + "\"></div>");
+
         }
     }
 

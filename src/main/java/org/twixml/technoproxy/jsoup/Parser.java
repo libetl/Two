@@ -29,7 +29,10 @@ public class Parser
             final org.jsoup.nodes.Element parent,
             final org.jsoup.nodes.Element component, final LayoutManager lm,
             final Object constraints) {
-        if ( (lm != null) && (constraints != null)
+        if ( (component.className () != null)
+                && component.className ().contains ("navbar-ex1-collapse")) {
+            parent.prependChild (component);
+        } else if ( (lm != null) && (constraints != null)
                 && (constraints instanceof String)) {
             lm.addConstraintedElement (parent, component,
                     constraints.toString ());
