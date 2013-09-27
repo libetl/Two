@@ -232,13 +232,12 @@ public class Parser
                     .getConstructor (pt)
                     .newInstance (
                             (Object) params.substring (1, params.length () - 1)
-                                    .split (",")) : Class.forName (
-                    LayoutManager.class.getPackage ().getName () + "." + clazz)
+                                    .split (",")) : CustomCodeProxy
+                    .getTypeAnalyser ().getCompatibleClass (clazz)
                     .newInstance ());
         } catch (InstantiationException | IllegalAccessException
-                | ClassNotFoundException | IllegalArgumentException
-                | InvocationTargetException | NoSuchMethodException
-                | SecurityException e1) {
+                | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException e1) {
             return null;
         }
     }
