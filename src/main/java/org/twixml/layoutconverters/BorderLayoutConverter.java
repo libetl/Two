@@ -7,7 +7,6 @@
 
 package org.twixml.layoutconverters;
 
-import java.lang.reflect.Field;
 import java.util.StringTokenizer;
 
 import org.twixml.Attribute;
@@ -67,20 +66,7 @@ public class BorderLayoutConverter<BorderLayout> implements
      */
     @Override
     public Object convertConstraintsAttribute (final Attribute attr) {
-        final String value = attr.getValue ();
-        final Field [] fields = CustomCodeProxy.getTypeAnalyser ()
-                .getCompatibleClass ("BorderLayout").getFields ();
-        for (final Field field : fields) {
-            if (value.endsWith (field.getName ())) {
-                try {
-                    return field.get (CustomCodeProxy.getTypeAnalyser ()
-                            .getCompatibleClass ("BorderLayout"));
-                } catch (final Exception e) {
-                }
-                break;
-            }
-        }
-        return null;
+        return CustomCodeProxy.doProxy (this, attr);
     }
 
     /**

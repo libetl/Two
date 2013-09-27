@@ -8,6 +8,7 @@ import org.twixml.technoproxy.ProxyCode;
 import org.twixml.technoproxy.swing.converter.FontConverter;
 import org.twixml.technoproxy.swing.converter.ImageConverter;
 import org.twixml.technoproxy.swing.converter.KeyStrokeConverter;
+import org.twixml.technoproxy.swing.layoutconverters.BorderLayoutConverter;
 import org.twixml.technoproxy.swing.layoutconverters.FormLayoutConverter;
 import org.twixml.technoproxy.swing.layoutconverters.GridBagLayoutConverter;
 
@@ -52,6 +53,10 @@ public class SwingUnit implements PlatformUnit {
                                                                                           org.twixml.layoutconverters.GridBagLayoutConverter.class
                                                                                                   .getName (),
                                                                                           GridBagLayoutConverter.class);
+                                                                                  this.put (
+                                                                                          org.twixml.layoutconverters.BorderLayoutConverter.class
+                                                                                                  .getName (),
+                                                                                          BorderLayoutConverter.class);
                                                                               }
                                                                           };
 

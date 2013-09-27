@@ -1,6 +1,7 @@
 package org.twixml.technoproxy.jsoup;
 
 import org.twixml.TwiXML;
+import org.twixml.technoproxy.jsoup.layout.LayoutManager;
 
 /**
  * The SwingTwiXML is the main class adapter for the JsoupUnit. Usage of this

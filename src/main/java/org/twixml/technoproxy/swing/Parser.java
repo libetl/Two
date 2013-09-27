@@ -263,7 +263,9 @@ public class Parser
         }
     }
 
-    public void getGUISetLayout (final Container obj, final LayoutManager lm) {
+    public void getGUISetLayout (final Container obj, final Container leaf,
+            final LayoutManager lm) {
+        // In swing mode, the object is supposed to be the leaf as well
         obj.setLayout (lm);
     }
 

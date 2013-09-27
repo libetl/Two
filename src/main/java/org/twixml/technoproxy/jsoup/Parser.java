@@ -14,6 +14,7 @@ import org.twixml.TwiXML;
 import org.twixml.technoproxy.CustomCodeProxy;
 import org.twixml.technoproxy.ProxyCode;
 import org.twixml.technoproxy.ProxyCodeException;
+import org.twixml.technoproxy.jsoup.layout.LayoutManager;
 
 public class Parser
         extends
@@ -26,9 +27,18 @@ public class Parser
 
     public org.jsoup.nodes.Element addChild (
             final org.jsoup.nodes.Element parent,
-            final org.jsoup.nodes.Element component, final Object constrains) {
-
-        parent.appendChild (component);
+            final org.jsoup.nodes.Element component, final Object constraints) {
+        if ( (constraints != null) && (constraints instanceof String)) {
+            final Elements e = parent.getElementsByClass (constraints
+                    .toString ());
+            if (e.size () == 1) {
+                e.first ().appendChild (component);
+            } else {
+                parent.appendChild (component);
+            }
+        } else {
+            parent.appendChild (component);
+        }
         return component;
     }
 
@@ -57,22 +67,16 @@ public class Parser
                                         attr.getValue (), ""));
                     }
                 }
-            }
-            if ("title".equalsIgnoreCase (attr.getName ())
+            } else if ("title".equalsIgnoreCase (attr.getName ())
                     && ((org.jsoup.nodes.Element) obj)
                             .hasClass ("panel panel-default")) {
                 ((org.jsoup.nodes.Element) obj).getElementsByTag ("h3")
                         .first ().text (attr.getValue ());
             } else if ("layout".equalsIgnoreCase (attr.getName ())) {
-                ((org.jsoup.nodes.Element) obj).addClass (attr.getValue ()
-                        .replace ('.', 'A'));
                 ((org.jsoup.nodes.Element) obj).addClass (attr.getValue ());
             } else if ("constraints".equalsIgnoreCase (attr.getName ())) {
                 if (attr.getValue ().startsWith ("BorderLayout.")) {
-                    if (attr.getValue ().endsWith ("SOUTH")
-                            || attr.getValue ().endsWith ("NORTH")) {
-                        ((org.jsoup.nodes.Element) obj).addClass ("btn-block");
-                    }
+                    attr.hashCode ();
                 }
                 ((org.jsoup.nodes.Element) obj).addClass (attr.getValue ()
                         .replace ('.', 'A'));
@@ -208,8 +212,36 @@ public class Parser
     }
 
     public Object getGUIGetLayout (final Object obj) {
-        return new LayoutManager (
-                ((org.jsoup.nodes.Element) obj).attr ("style"));
+        if (! (obj instanceof org.jsoup.nodes.Element)) {
+            return null;
+        }
+        final org.jsoup.nodes.Element e = (org.jsoup.nodes.Element) obj;
+        final String attr = e.attr ("layout").trim ();
+        if (attr.length () == 0) {
+            return null;
+        }
+        final String clazz = attr.substring (0, attr.indexOf ('[')).trim ();
+        final String params = attr.substring (attr.indexOf ('[')).trim ();
+        final Class<?> [] pt = new Class<?> [params.indexOf (',') == -1 ? 0
+                : params.split (",").length];
+        Arrays.fill (pt, int.class);
+        try {
+            return (pt.length > 0 ? Class
+                    .forName (
+                            LayoutManager.class.getPackage ().getName () + "."
+                                    + clazz)
+                    .getConstructor (pt)
+                    .newInstance (
+                            (Object) params.substring (1, params.length () - 1)
+                                    .split (",")) : Class.forName (
+                    LayoutManager.class.getPackage ().getName () + "." + clazz)
+                    .newInstance ());
+        } catch (InstantiationException | IllegalAccessException
+                | ClassNotFoundException | IllegalArgumentException
+                | InvocationTargetException | NoSuchMethodException
+                | SecurityException e1) {
+            return null;
+        }
     }
 
     public void getGUIMacAction (final Object initParameter,
@@ -223,11 +255,9 @@ public class Parser
         }
     }
 
-    public void getGUISetLayout (final Object obj, final Object lm) {
-        if ( (obj != null) && (obj instanceof org.jsoup.nodes.Element)) {
-            ((org.jsoup.nodes.Element) obj).attr ("style", lm.toString () + ";"
-                    + ((org.jsoup.nodes.Element) obj).attr ("style"));
-        }
+    public void getGUISetLayout (final org.jsoup.nodes.Element obj,
+            final org.jsoup.nodes.Element leaf, final LayoutManager lm) {
+        lm.apply (obj, leaf);
     }
 
     public void linkLabelsSetLabelFor (final org.jsoup.nodes.TextNode jl,

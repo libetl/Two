@@ -8,6 +8,7 @@ import org.twixml.technoproxy.ProxyCode;
 import org.twixml.technoproxy.jsoup.converter.FontConverter;
 import org.twixml.technoproxy.jsoup.converter.ImageConverter;
 import org.twixml.technoproxy.jsoup.converter.KeyStrokeConverter;
+import org.twixml.technoproxy.jsoup.layoutconverters.BorderLayoutConverter;
 import org.twixml.technoproxy.jsoup.layoutconverters.FormLayoutConverter;
 import org.twixml.technoproxy.jsoup.layoutconverters.GridBagLayoutConverter;
 
@@ -52,6 +53,10 @@ public class JSoupUnit implements PlatformUnit {
                                                                                           org.twixml.layoutconverters.GridBagLayoutConverter.class
                                                                                                   .getName (),
                                                                                           GridBagLayoutConverter.class);
+                                                                                  this.put (
+                                                                                          org.twixml.layoutconverters.BorderLayoutConverter.class
+                                                                                                  .getName (),
+                                                                                          BorderLayoutConverter.class);
                                                                               }
                                                                           };
 

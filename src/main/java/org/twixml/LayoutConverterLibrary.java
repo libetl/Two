@@ -31,7 +31,7 @@ public class LayoutConverterLibrary {
     private static LayoutConverterLibrary instance = new LayoutConverterLibrary ();
 
     /**
-     * Returns the single instacne of the LayoutConverterLibrary.
+     * Returns the single instance of the LayoutConverterLibrary.
      */
     public static synchronized LayoutConverterLibrary getInstance () {
         return LayoutConverterLibrary.instance;
@@ -57,7 +57,7 @@ public class LayoutConverterLibrary {
      *            to produce.
      * @return Instance of the LayoutConverter class.
      */
-    public LayoutConverter<?> getLayoutConverter (Class<?> layoutClass) {
+    public LayoutConverter<?> getLayoutConverter (final Class<?> layoutClass) {
         return this.layoutConverters.get (layoutClass.getName ());
     }
 
@@ -71,7 +71,7 @@ public class LayoutConverterLibrary {
      *            <code>LayoutConverter</code> needs to produce.
      * @return Instance of the LayoutConverter class.
      */
-    public LayoutConverter<?> getLayoutConverterByID (String id) {
+    public LayoutConverter<?> getLayoutConverterByID (final String id) {
         return this.layoutIDs.get (id.toLowerCase ());
     }
 
@@ -91,8 +91,8 @@ public class LayoutConverterLibrary {
      *            Instance of LayoutConverter able to convert Strings into
      *            layout managers or layout constraints.
      */
-    public void register (Class<?> layoutClass,
-            LayoutConverter<?> layoutConverter) {
+    public void register (final Class<?> layoutClass,
+            final LayoutConverter<?> layoutConverter) {
         this.register (layoutClass.getName (), layoutConverter);
     }
 
@@ -105,8 +105,8 @@ public class LayoutConverterLibrary {
      *            Instance of LayoutConverter able to convert Strings into
      *            layout managers or layout constraints.
      */
-    public void register (String layoutClassName,
-            LayoutConverter<?> layoutConverter) {
+    public void register (final String layoutClassName,
+            final LayoutConverter<?> layoutConverter) {
         this.layoutConverters.put (layoutClassName, layoutConverter);
         this.layoutIDs.put (layoutConverter.getID ().toLowerCase (),
                 layoutConverter);

@@ -244,18 +244,18 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
      * ConverterLib, to access COnverters, converting String in all kinds of
      * things
      */
-    private final ConverterLibrary                                                                cvtlib  = ConverterLibrary
-                                                                                                                  .getInstance ();
+    private final ConverterLibrary                                                                cvtlib = ConverterLibrary
+                                                                                                                 .getInstance ();
 
     /**
      * map to store id-id components, needed to support labelFor attributes
      */
-    private final Map<Label, String>                                                              lbl_map = new HashMap<Label, String> ();
+    private final Map<Label, String>                                                              lblMap = new HashMap<Label, String> ();
 
     /**
      * map to store specific Mac OS actions mapping
      */
-    private final Map<String, Object>                                                             mac_map = new HashMap<String, Object> ();
+    private final Map<String, Object>                                                             macMap = new HashMap<String, Object> ();
 
     /**
      * docoument, to be parsed
@@ -402,13 +402,13 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 
             if ( (action != null)
                     && attr.getName ().startsWith (Parser.ATTR_MACOS_PREFIX)) {
-                this.mac_map.put (attr.getName (), action);
+                this.macMap.put (attr.getName (), action);
                 continue;
             }
 
             if (CustomCodeProxy.getTypeAnalyser ().isConvenient (obj, "Label")
                     && attr.getName ().equalsIgnoreCase ("LabelFor")) {
-                this.lbl_map.put ((Label) obj, attr.getValue ());
+                this.lblMap.put ((Label) obj, attr.getValue ());
                 continue;
             }
 
@@ -746,7 +746,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                         }
 
                         CustomCodeProxy.doProxy (this, "MacAction",
-                                initParameter, attributes, this.mac_map);
+                                initParameter, attributes, this.macMap);
 
                     }
                 } catch (final ClassNotFoundException e) {
@@ -850,7 +850,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
             }
 
             if (lm != null) {
-                CustomCodeProxy.doProxy (this, "SetLayout", obj, lm);
+                CustomCodeProxy.doProxy (this, "SetLayout", obj, leaf, lm);
             }
         }
 
@@ -898,7 +898,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 
             //
             // A CONSTRAINTS attribute is removed from the childtag but used to
-            // add the child into the currrent obj
+            // add the child into the current obj
             //
             final Attribute constrnAttr = Attribute.getAttribute (child,
                     Parser.ATTR_CONSTRAINTS);
@@ -991,10 +991,10 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
      */
     @SuppressWarnings ("unchecked")
     private void linkLabels () {
-        final Iterator<Label> it = this.lbl_map.keySet ().iterator ();
+        final Iterator<Label> it = this.lblMap.keySet ().iterator ();
         while ( (it != null) && it.hasNext ()) {
             final Label lbl = it.next ();
-            final String id = this.lbl_map.get (lbl).toString ();
+            final String id = this.lblMap.get (lbl).toString ();
             try {
                 CustomCodeProxy.doProxy (this, "SetLabelFor", lbl,
                         ((Component) this.engine.getIdMap ().get (id)));
@@ -1023,16 +1023,16 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
     public void parse (final Document jdoc, final Container container)
             throws Exception {
         this.jdoc = jdoc;
-        this.lbl_map.clear ();
-        this.mac_map.clear ();
+        this.lblMap.clear ();
+        this.macMap.clear ();
         this.getGUI (this.processCustomAttributes (jdoc.getDocumentElement ()),
                 container);
 
         this.linkLabels ();
-        CustomCodeProxy.doProxy (this, "SupportMacOs", this.mac_map);
+        CustomCodeProxy.doProxy (this, "SupportMacOs", this.macMap);
 
-        this.lbl_map.clear ();
-        this.mac_map.clear ();
+        this.lblMap.clear ();
+        this.macMap.clear ();
     }
 
     /**
@@ -1052,17 +1052,17 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
     public Object parse (final Document jdoc, final String name)
             throws Exception {
         this.jdoc = jdoc;
-        this.lbl_map.clear ();
+        this.lblMap.clear ();
         Object obj = this
                 .getGUI (this.processCustomAttributes (jdoc
                         .getDocumentElement ()), null);
 
         this.linkLabels ();
         obj = CustomCodeProxy.doProxy (this, "SurroundObj", jdoc, obj, name);
-        CustomCodeProxy.doProxy (this, "SupportMacOs", this.mac_map);
+        CustomCodeProxy.doProxy (this, "SupportMacOs", this.macMap);
 
-        this.lbl_map.clear ();
-        this.mac_map.clear ();
+        this.lblMap.clear ();
+        this.macMap.clear ();
         return obj;
     }
 
