@@ -226,10 +226,9 @@ public class Parser
                 : params.split (",").length];
         Arrays.fill (pt, String.class);
         try {
-            return (pt.length > 0 ? Class
-                    .forName (
-                            LayoutManager.class.getPackage ().getName () + "."
-                                    + clazz)
+            return (pt.length > 0 ? CustomCodeProxy
+                    .getTypeAnalyser ()
+                    .getCompatibleClass (clazz)
                     .getConstructor (pt)
                     .newInstance (
                             (Object) params.substring (1, params.length () - 1)
