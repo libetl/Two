@@ -7,7 +7,7 @@ import org.jsoup.nodes.Element;
 public class LayoutManager {
 
     private String    type;
-    private Object [] params;
+    private String [] params;
 
     public LayoutManager () {
         super ();
@@ -36,7 +36,14 @@ public class LayoutManager {
         return this.type;
     }
 
-    public void setParams (final Object [] params) {
+    public void setParams (final Object [] paramsP) {
+        this.params = new String [paramsP.length];
+        for (int i = 0 ; i < paramsP.length ; i++) {
+            this.params [i] = paramsP [i].toString ();
+        }
+    }
+
+    public void setParams (final String [] params) {
         this.params = params;
     }
 
