@@ -42,7 +42,8 @@ public class Parser
     }
 
     public Component addChild (final Container parent,
-            final Component component, final Object constrains) {
+            final Component component, final LayoutManager lm,
+            final Object constrains) {
         //
         // Set a JMenuBar for JFrames, JDialogs, etc.
         //

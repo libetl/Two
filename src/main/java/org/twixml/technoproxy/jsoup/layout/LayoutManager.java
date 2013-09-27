@@ -22,6 +22,16 @@ public class LayoutManager {
         super ();
     }
 
+    public void addConstraintedElement (final Element parent,
+            final Element component) {
+        parent.appendChild (component);
+    }
+
+    public void addConstraintedElement (final Element parent,
+            final Element component, final String string) {
+        parent.appendChild (component);
+    }
+
     public void apply (final Element e, final Element leaf) {
         e.attr ("layout",
                 this.getClass ().getSimpleName ()

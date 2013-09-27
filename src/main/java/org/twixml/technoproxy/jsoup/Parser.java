@@ -27,15 +27,14 @@ public class Parser
 
     public org.jsoup.nodes.Element addChild (
             final org.jsoup.nodes.Element parent,
-            final org.jsoup.nodes.Element component, final Object constraints) {
-        if ( (constraints != null) && (constraints instanceof String)) {
-            final Elements e = parent.getElementsByClass (constraints
-                    .toString ());
-            if (e.size () == 1) {
-                e.first ().appendChild (component);
-            } else {
-                parent.appendChild (component);
-            }
+            final org.jsoup.nodes.Element component, final LayoutManager lm,
+            final Object constraints) {
+        if ( (lm != null) && (constraints != null)
+                && (constraints instanceof String)) {
+            lm.addConstraintedElement (parent, component,
+                    constraints.toString ());
+        } else if (lm != null) {
+            lm.addConstraintedElement (parent, component);
         } else {
             parent.appendChild (component);
         }
@@ -222,8 +221,8 @@ public class Parser
         }
         final String clazz = attr.substring (0, attr.indexOf ('[')).trim ();
         final String params = attr.substring (attr.indexOf ('[')).trim ();
-        final Class<?> [] pt = new Class<?> [params.indexOf (',') == -1 ? 0
-                : params.split (",").length];
+        final Class<?> [] pt = new Class<?> [params.length () == 2 ? 0 : params
+                .indexOf (',') == -1 ? 1 : params.split (",").length];
         Arrays.fill (pt, String.class);
         try {
             return (pt.length > 0 ? CustomCodeProxy
@@ -231,10 +230,10 @@ public class Parser
                     .getCompatibleClass (clazz)
                     .getConstructor (pt)
                     .newInstance (
-                            (Object) params.substring (1, params.length () - 1)
-                                    .split (",")) : CustomCodeProxy
-                    .getTypeAnalyser ().getCompatibleClass (clazz)
-                    .newInstance ());
+                            (Object []) params.substring (1,
+                                    params.length () - 1).split (","))
+                    : CustomCodeProxy.getTypeAnalyser ()
+                            .getCompatibleClass (clazz).newInstance ());
         } catch (InstantiationException | IllegalAccessException
                 | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | SecurityException e1) {

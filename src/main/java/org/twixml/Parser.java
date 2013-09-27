@@ -309,13 +309,14 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
      * @return <code>Component</code> - the passed in component
      */
     private Component addChild (final Container parent,
-            final Component component, final Object constrains) {
+            final Component component, final LayoutManager lm,
+            final Object constrains) {
         if (component == null) {
             return null;
         }
         return CustomCodeProxy
                 .<Parser<Container, Component, ActionListener, Label, ButtonGroup, LayoutManager>, Component> doProxy (
-                        this, parent, component, constrains);
+                        this, parent, component, lm, constrains);
 
     }
 
@@ -941,13 +942,14 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                     "gridbagconstraints");
             if (grandchild != null) {
                 this.addChild ((Container) leaf,
-                        (Component) this.getGUI (child, null),
+                        (Component) this.getGUI (child, null), null,
                         this.getGUI (grandchild, null));
             } else if (!child.getNodeName ().equals ("constraints")
                     && !child.getNodeName ().equals ("gridbagconstraints")) {
 
                 this.addChild ((Container) leaf,
-                        (Component) this.getGUI (child, null), constrains);
+                        (Component) this.getGUI (child, null), layoutMgr,
+                        constrains);
             }
         }
 

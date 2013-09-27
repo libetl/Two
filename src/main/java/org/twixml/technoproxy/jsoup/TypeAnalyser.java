@@ -11,6 +11,9 @@ public class TypeAnalyser extends org.twixml.technoproxy.TypeAnalyser {
     @SuppressWarnings ("unchecked")
     @Override
     public <T> Class<T> getCompatibleClass (final String string) {
+        if ("FlowLayout".equalsIgnoreCase (string)) {
+            return (Class<T>) FlowLayout.class;
+        }
         if ("BorderLayout".equalsIgnoreCase (string)) {
             return (Class<T>) BorderLayout.class;
         }
@@ -32,10 +35,9 @@ public class TypeAnalyser extends org.twixml.technoproxy.TypeAnalyser {
         return (Class<T>) Element.class;
     }
 
-    @SuppressWarnings ("unchecked")
     @Override
     public <T> Class<T> getMostSuperClass (final String string) {
-        return (Class<T>) Element.class;
+        return this.getCompatibleClass (string);
     }
 
     @SuppressWarnings ("unchecked")

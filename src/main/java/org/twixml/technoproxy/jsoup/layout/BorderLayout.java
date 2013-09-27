@@ -4,8 +4,20 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class BorderLayout extends LayoutManager {
+
+    @Override
+    public void addConstraintedElement (final Element parent,
+            final Element component, final String constraint) {
+        final Elements e = parent.getElementsByClass (constraint.toString ());
+        if (e.size () == 1) {
+            e.first ().appendChild (component);
+        } else {
+            parent.appendChild (component);
+        }
+    }
 
     @Override
     public void apply (final Element e, final Element leaf) {
@@ -21,4 +33,5 @@ public class BorderLayout extends LayoutManager {
                     + " " + regions.get (i) + "\"></div>");
         }
     }
+
 }
