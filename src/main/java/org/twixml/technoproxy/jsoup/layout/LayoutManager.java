@@ -13,7 +13,7 @@ public class LayoutManager {
         super ();
     }
 
-    public LayoutManager (final Object... params1) {
+    public LayoutManager (final String... params1) {
         super ();
         this.params = params1;
     }

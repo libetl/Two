@@ -3,6 +3,7 @@ package org.twixml.technoproxy.jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
 import org.twixml.technoproxy.jsoup.layout.BorderLayout;
+import org.twixml.technoproxy.jsoup.layout.FlowLayout;
 import org.twixml.technoproxy.jsoup.layout.LayoutManager;
 
 public class TypeAnalyser extends org.twixml.technoproxy.TypeAnalyser {
@@ -43,6 +44,9 @@ public class TypeAnalyser extends org.twixml.technoproxy.TypeAnalyser {
         LayoutManager result = null;
         if ("BorderLayout".equalsIgnoreCase (clazz)) {
             result = new BorderLayout ();
+            result.setParams (params);
+        } else if ("FlowLayout".equalsIgnoreCase (clazz)) {
+            result = new FlowLayout ();
             result.setParams (params);
         } else if ( (clazz != null) && clazz.toLowerCase ().endsWith ("layout")) {
             result = new LayoutManager ();

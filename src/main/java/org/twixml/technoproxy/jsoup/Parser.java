@@ -224,7 +224,7 @@ public class Parser
         final String params = attr.substring (attr.indexOf ('[')).trim ();
         final Class<?> [] pt = new Class<?> [params.indexOf (',') == -1 ? 0
                 : params.split (",").length];
-        Arrays.fill (pt, int.class);
+        Arrays.fill (pt, String.class);
         try {
             return (pt.length > 0 ? Class
                     .forName (
