@@ -92,7 +92,7 @@ public class CustomCodeProxy {
             i++;
         }
         if (platformName == null) {
-            if (AppConstants.DEBUG_MODE) {
+            if (AppConstants.SWITCH_TO_SWING_IF_PLATFORM_NULL) {
                 return "SwingTwiXML";
             }
             throw new ProxyCodeException (

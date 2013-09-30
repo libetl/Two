@@ -26,6 +26,7 @@ import javax.swing.UIManager;
 
 import org.twixml.AppConstants;
 import org.twixml.Attribute;
+import org.twixml.Factory;
 import org.twixml.TwiXML;
 import org.twixml.technoproxy.CustomCodeProxy;
 import org.twixml.technoproxy.ProxyCode;
@@ -161,6 +162,36 @@ public class Parser
                 | InvocationTargetException e) {
             throw new ProxyCodeException (e);
         } // ATTR SET
+    }
+
+    public void applyAttributesRootPaneContainer (
+            final Method method,
+            final org.twixml.TwiXML<Container, Component, ActionListener, JLabel, ButtonGroup, LayoutManager> twixml,
+            final Object obj, final Attribute attr, final Object para,
+            final List<Attribute> list) {
+        //
+        // Like all other top-level containers, a
+        // Frame contains a RootPane as its only child.
+        // The content pane provided by the root pane should, as
+        // a rule, contain all the non-menu components
+        // displayed by the Frame.
+        //
+        if ( (obj != null)
+                && CustomCodeProxy.getTypeAnalyser ().isConvenient (obj,
+                        "RootPaneContainer")) {
+            final Container rootpane = CustomCodeProxy.doProxy (this,
+                    "GetContentPane", obj);
+            final Factory f = twixml.getTaglib ().getFactory (
+                    rootpane.getClass ());
+            final Method m = f.guessSetter (attr.getName ());
+            try {
+                m.invoke (rootpane, para); // ATTR SET
+            } catch (final Exception ex) {
+                list.add (attr);
+            }
+        } else {
+            list.add (attr);
+        }
     }
 
     public Object applyAttributesSetAction (

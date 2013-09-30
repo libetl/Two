@@ -451,30 +451,9 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                                     + attr.getValue () + "' not set. ");
                         }
                     } catch (final InvocationTargetException e) {
-                        //
-                        // Like all other top-level containers, a
-                        // Frame contains a RootPane as its only child.
-                        // The content pane provided by the root pane should, as
-                        // a rule, contain all the non-menu components
-                        // displayed by the Frame.
-                        //
-                        if ( (obj != null)
-                                && CustomCodeProxy
-                                        .getTypeAnalyser ()
-                                        .isConvenient (obj, "RootPaneContainer")) {
-                            final Container rootpane = CustomCodeProxy.doProxy (
-                                    this, "GetContentPane", obj);
-                            final Factory f = this.engine.getTaglib ()
-                                    .getFactory (rootpane.getClass ());
-                            final Method m = f.guessSetter (attr.getName ());
-                            try {
-                                m.invoke (rootpane, para); // ATTR SET
-                            } catch (final Exception ex) {
-                                list.add (attr);
-                            }
-                        } else {
-                            list.add (attr);
-                        }
+                        CustomCodeProxy.doProxy (this, "RootPaneContainer",
+                                method, this.engine, obj, attr, para, list);
+
                     } catch (final Exception e) {
                         throw new Exception (e + ":" + method.getName () + ":"
                                 + para, e);

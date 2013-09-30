@@ -27,9 +27,10 @@ public class BorderLayout extends LayoutManager {
             }
         }
         if (candidate != null) {
-            candidate.appendChild (component);
+            component.addClass (candidate.className ());
+            candidate.replaceWith (component);
             if (Arrays.asList ("WEST", "CENTER", "EAST").contains (constraint)) {
-                component.parent ().parent ().attr ("style", "min-height:50px");
+                component.parent ().attr ("style", "min-height:50px");
             }
         } else {
             parent.appendChild (component);

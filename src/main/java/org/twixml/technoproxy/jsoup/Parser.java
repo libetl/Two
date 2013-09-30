@@ -74,14 +74,8 @@ public class Parser
                             .hasClass ("panel panel-default")) {
                 ((org.jsoup.nodes.Element) obj).getElementsByTag ("h3")
                         .first ().text (attr.getValue ());
-            } else if ("layout".equalsIgnoreCase (attr.getName ())) {
-                ((org.jsoup.nodes.Element) obj).addClass (attr.getValue ());
-            } else if ("constraints".equalsIgnoreCase (attr.getName ())) {
-                if (attr.getValue ().startsWith ("BorderLayout.")) {
-                    attr.hashCode ();
-                }
-                ((org.jsoup.nodes.Element) obj).addClass (attr.getValue ()
-                        .replace ('.', 'A'));
+            } else if ("resizable".equalsIgnoreCase (attr.getName ())) {
+                // drop attribute
             } else if ("icon".equalsIgnoreCase (attr.getName ())) {
                 Class<?> mainClass;
                 try {
@@ -93,8 +87,8 @@ public class Parser
                     ((org.jsoup.nodes.Element) obj).attr (
                             "style",
                             ((org.jsoup.nodes.Element) obj).attr ("style")
-                                    + ";background:url('" + folder
-                                    + attr.getValue () + "') no-repeat");
+                                    + "background:url('" + folder
+                                    + attr.getValue () + "') no-repeat;");
                 } catch (final ClassNotFoundException e) {
                 }
             } else if ("tooltiptext".equalsIgnoreCase (attr.getName ())) {
@@ -103,21 +97,21 @@ public class Parser
             } else if ("enabled".equalsIgnoreCase (attr.getName ())) {
                 ((org.jsoup.nodes.Element) obj).attr ("style",
                         ((org.jsoup.nodes.Element) obj).attr ("style")
-                                + ";enabled:" + attr.getValue () + "");
+                                + "enabled:" + attr.getValue () + ";");
             } else if ("borderpainted".equalsIgnoreCase (attr.getName ())) {
                 ((org.jsoup.nodes.Element) obj)
                         .attr ("style",
                                 ((org.jsoup.nodes.Element) obj).attr ("style")
-                                        + ";box-shadow: 0 1px 0 rgba(128, 128, 128, 0.5) inset, 0 1px 1px rgba(0, 0, 0, 0.075)");
+                                        + "box-shadow: 0 1px 0 rgba(128, 128, 128, 0.5) inset, 0 1px 1px rgba(0, 0, 0, 0.075);");
             } else if ("visible".equalsIgnoreCase (attr.getName ())) {
                 if ("true".equalsIgnoreCase (attr.getValue ())) {
                     ((org.jsoup.nodes.Element) obj).attr ("style",
                             ((org.jsoup.nodes.Element) obj).attr ("style")
-                                    + ";display:block");
+                                    + "display:block;");
                 } else if ("false".equalsIgnoreCase (attr.getValue ())) {
                     ((org.jsoup.nodes.Element) obj).attr ("style",
                             ((org.jsoup.nodes.Element) obj).attr ("style")
-                                    + ";display:none");
+                                    + "display:none;");
                 }
             } else if ("size".equalsIgnoreCase (attr.getName ())) {
                 final int width = Integer.parseInt (attr.getValue ()
@@ -130,16 +124,16 @@ public class Parser
                 }
                 ((org.jsoup.nodes.Element) obj).attr ("style",
                         ((org.jsoup.nodes.Element) obj).attr ("style")
-                                + ";width:" + width + "px;height:" + height
-                                + "px");
+                                + "width:" + width + "px;height:" + height
+                                + "px;");
             } else if ("foreground".equalsIgnoreCase (attr.getName ())) {
                 ((org.jsoup.nodes.Element) obj).attr ("style",
                         ((org.jsoup.nodes.Element) obj).attr ("style")
-                                + ";font-color:" + attr.getValue ());
+                                + "font-color:" + attr.getValue () + ";");
             } else if ("font".equalsIgnoreCase (attr.getName ())) {
                 ((org.jsoup.nodes.Element) obj).attr ("style",
                         ((org.jsoup.nodes.Element) obj).attr ("style")
-                                + ";font:" + attr.getValue ());
+                                + "font:" + attr.getValue () + ";");
             } else if ("action".equalsIgnoreCase (attr.getName ())) {
                 ((org.jsoup.nodes.Element) obj).attr ("onclick", "javascript:"
                         + para.getClass ().getName () + "."
@@ -151,6 +145,14 @@ public class Parser
                 | InvocationTargetException e) {
             throw new ProxyCodeException (e);
         } // ATTR SET
+    }
+
+    public void applyAttributesRootPaneContainer (
+            final Method method,
+            final org.twixml.TwiXML<Object, org.jsoup.nodes.Element, ActionListener, org.jsoup.nodes.TextNode, Object, Object> twixml,
+            final Object obj, final Attribute attr, final Object para,
+            final List<Attribute> list) {
+        // not useful in JSoup mode
     }
 
     public Object applyAttributesSetAction (

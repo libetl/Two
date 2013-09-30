@@ -5,25 +5,30 @@ import java.util.Locale;
 public class AppConstants {
 
     /**
+     * If this value is set to true, Twixml will assume your gui to be a Swing
+     * UI Platform may be null if you instantiated a bad Twixml object.
+     */
+    public static final boolean SWITCH_TO_SWING_IF_PLATFORM_NULL = true;
+    /**
      * static resource bundle
      */
-    private static String  defaultResourceBundleName = null;
+    private static String       defaultResourceBundleName        = null;
     /**
      * static locale
      */
-    private static Locale  defaultLocale             = Locale.getDefault ();
+    private static Locale       defaultLocale                    = Locale.getDefault ();
     /**
      * Check is currently running on a Mac
      */
-    private static boolean MAC_OSX                   = false;
+    private static boolean      MAC_OSX                          = false;
     /**
      * static Mac OS X Support, set to true to support Mac UI specialties
      */
-    private static boolean MAC_OSX_SUPPORTED         = true;
+    private static boolean      MAC_OSX_SUPPORTED                = true;
     /**
      * Debug / Release Mode
      */
-    public static boolean  DEBUG_MODE                = false;
+    public static boolean       DEBUG_MODE                       = false;
 
     //
     // Static Initializer
