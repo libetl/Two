@@ -52,7 +52,7 @@ public class ClientAttr extends WindowAdapter {
         try {
             ((JFrame) this.swix.render ("samples/swing/xml/clientattr.xml"))
                     .setVisible (true);
-            this.swix.forget ("x");
+            this.swix.deleteViewId ("x");
         } catch (final Exception e) {
             e.printStackTrace ();
         }

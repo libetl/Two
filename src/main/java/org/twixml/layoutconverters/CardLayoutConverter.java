@@ -47,7 +47,8 @@ import org.w3c.dom.Element;
  * <p>
  * Here is how to access the card layout manager of a component installed by
  * TwixML
- * <code>(CardLayout)((Container)swingEngine.find("id_of_my_CLed_comp")).getLayout()</code>
+ * <code>(CardLayout)((Container)Twixml.findViewById("id_of_my_CLed_comp")).getLayout()</code>
+ * (NB : getLayout works only in swing mode)
  * </p>
  * 
  * @author Karl Tauber

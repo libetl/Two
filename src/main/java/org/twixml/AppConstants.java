@@ -7,28 +7,28 @@ public class AppConstants {
     /**
      * static resource bundle
      */
-    private static String  default_resource_bundle_name = null;
+    private static String  defaultResourceBundleName = null;
     /**
      * static locale
      */
-    private static Locale  default_locale               = Locale.getDefault ();
+    private static Locale  defaultLocale             = Locale.getDefault ();
     /**
      * Check is currently running on a Mac
      */
-    private static boolean MAC_OSX                      = false;
+    private static boolean MAC_OSX                   = false;
     /**
      * static Mac OS X Support, set to true to support Mac UI specialties
      */
-    private static boolean MAC_OSX_SUPPORTED            = true;
+    private static boolean MAC_OSX_SUPPORTED         = true;
     /**
      * Debug / Release Mode
      */
-    public static boolean  DEBUG_MODE                   = false;
+    public static boolean  DEBUG_MODE                = false;
 
     //
     // Static Initializer
     //
-    /** display the swing release version to system out. */
+    /** display the twixml release version to system out. */
     static {
         if (AppConstants.DEBUG_MODE) {
             System.out.println ("TwixML @version@");
@@ -41,12 +41,12 @@ public class AppConstants {
         }
     }
 
-    public static Locale getDefault_locale () {
-        return AppConstants.default_locale;
+    public static Locale getDefaultLocale () {
+        return AppConstants.defaultLocale;
     }
 
-    public static String getDefault_resource_bundle_name () {
-        return AppConstants.default_resource_bundle_name;
+    public static String getDefaultResourceBundleName () {
+        return AppConstants.defaultResourceBundleName;
     }
 
     /**
@@ -68,25 +68,25 @@ public class AppConstants {
     }
 
     public static void setDefault_locale (final Locale default_locale) {
-        AppConstants.default_locale = default_locale;
-    }
-
-    public static void setDefault_resource_bundle_name (
-            final String default_resource_bundle_name) {
-        AppConstants.default_resource_bundle_name = default_resource_bundle_name;
+        AppConstants.defaultLocale = default_locale;
     }
 
     /**
-     * Sets the SwingEngine's global locale, to be used by all SwingEngine
-     * instances. This locale can be overwritten however for a single instance,
-     * if a <code>locale</code> attribute is places in the root tag of an XML
+     * Sets the Twixml's global locale, to be used by all Twixml instances. This
+     * locale can be overwritten however for a single instance, if a
+     * <code>locale</code> attribute is places in the root tag of an XML
      * descriptor.
      * 
      * @param locale
      *            <code>Locale</code>
      */
     public static void setDefaultLocale (final Locale locale) {
-        AppConstants.setDefault_locale (locale);
+        AppConstants.setDefaultLocale (locale);
+    }
+
+    public static void setDefaultResourceBundleName (
+            final String defaultResourceBundleName1) {
+        AppConstants.defaultResourceBundleName = defaultResourceBundleName1;
     }
 
     /**
@@ -100,15 +100,15 @@ public class AppConstants {
     }
 
     /**
-     * Sets the SwingEngine's global resource bundle name, to be used by all
-     * SwingEngine instances. This name can be overwritten however for a single
-     * instance, if a <code>bundle</code> attribute is places in the root tag of
-     * an XML descriptor.
+     * Sets the Twixml global resource bundle name, to be used by all Twixml
+     * instances. This name can be overwritten however for a single instance, if
+     * a <code>bundle</code> attribute is places in the root tag of an XML
+     * descriptor.
      * 
      * @param bundlename
      *            <code>String</code> the resource bundle name.
      */
     public static void setResourceBundleName (final String bundlename) {
-        AppConstants.setDefault_resource_bundle_name (bundlename);
+        AppConstants.setDefaultResourceBundleName (bundlename);
     }
 }

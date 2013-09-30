@@ -1,5 +1,5 @@
 /*--
- $Id: SwingEngine.java,v 1.5 2005/06/29 08:02:37 wolfpaulus Exp $
+ $Id: Twixml.java,v 1.5 2005/06/29 08:02:37 wolfpaulus Exp $
 
  Copyright (C) 2003-2007 Wolf Paulus.
  All rights reserved.
@@ -70,43 +70,32 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
     private static final String                                                                   MAPPING_ERROR_MSG      = " could not be mapped to any Object and remained un-initialized.";
 
     //
-    // Static Member Variables
-    //
-
-    /**
-     * main frame
-     */
-    private Container                                                                             appFrame;
-
-    //
     // Member Variables
     //
     /**
-     * Swixml Parser.
+     * Twixml Parser.
      */
     private final Parser<Container, Component, ActionListener, Label, ButtonGroup, LayoutManager> parser                 = new Parser<Container, Component, ActionListener, Label, ButtonGroup, LayoutManager> (
                                                                                                                                  this);
 
     /**
-     * Client object hosting the swingengine, alternative to extending the
-     * SwinEngine Class
+     * Client object hosting the objects mapped. Useful if you want to use an
+     * object instead of doing a "findViewById"-like method
      */
     private Object                                                                                client;
 
     /**
-     * Root Component for the rendered swing UI.
+     * Root Component for the rendered UI.
      */
     private Container                                                                             root;
 
     /**
-     * Swing object map, contains only those object that were given an id
-     * attribute.
+     * Object map, contains only those object that were given an id attribute.
      */
     private final Map<String, Object>                                                             idmap                  = new HashMap<String, Object> ();
 
     /**
-     * Flattened Swing object tree, contains all object, even the ones without
-     * an id.
+     * Flattened Object tree, contains all object, even the ones without an id.
      */
     private Collection<Component>                                                                 components             = null;
 
@@ -135,12 +124,11 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
      */
     public TwiXML () {
         this.client = this;
-        this.setLocale (AppConstants.getDefault_locale ());
+        this.setLocale (AppConstants.getDefaultLocale ());
         this.getLocalizer ().setResourceBundle (
-                AppConstants.getDefault_resource_bundle_name ());
+                AppConstants.getDefaultResourceBundleName ());
 
-        // Set impl now
-        System.setProperty ("platform.name", this.getClass ().getSimpleName ());
+        this.setPlatform ();
         try {
             if (AppConstants.isMacOSXSupported () && AppConstants.isMacOSX ()) {
                 // Use apple's ScreenMenuBar instead of the MS-Window style
@@ -159,7 +147,7 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
     }
 
     /**
-     * Constructs a new SwingEngine, rendering the provided XML into an UI
+     * Constructs a new TwiXML, rendering the provided XML into an UI
      * 
      * @param resource
      *            <code>String</code>
@@ -191,8 +179,8 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
     }
 
     /**
-     * Constructor<?> to be used if the SwingEngine is not extend but used
-     * through object composition.
+     * Constructor<?> to be used if the Twixml is not extend but used through
+     * object composition.
      * 
      * @param client
      *            <code>Object</code> owner of this instance
@@ -203,7 +191,7 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
     }
 
     /**
-     * Constructs a new SwingEngine, rendering the provided XML into an UI
+     * Constructs a new TwiXML, rendering the provided XML into an UI
      * 
      * @param resource
      *            <code>String</code>
@@ -243,7 +231,19 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
     }
 
     /**
-     * Returns the UI component with the given name or null.
+     * Removes the id from the internal from the id map, to make the given id
+     * available for re-use.
+     * 
+     * @param id
+     *            <code>String</code> assigned name
+     */
+    public void deleteViewId (final String id) {
+        this.idmap.remove (id);
+    }
+
+    /**
+     * Returns the UI component with the given name or null. Works exactly as in
+     * Android
      * 
      * @param id
      *            <code>String</code> assigned name
@@ -251,7 +251,7 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
      *         null if not found.
      */
     @SuppressWarnings ("unchecked")
-    public Component find (final String id) {
+    public Component findViewById (final String id) {
         Object obj = this.idmap.get (id);
         if ( (obj != null)
                 && ! (CustomCodeProxy.getTypeAnalyser ().isConvenient (
@@ -259,17 +259,6 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
             obj = null;
         }
         return (Component) obj;
-    }
-
-    /**
-     * Removes the id from the internal from the id map, to make the given id
-     * available for re-use.
-     * 
-     * @param id
-     *            <code>String</code> assigned name
-     */
-    public void forget (final String id) {
-        this.idmap.remove (id);
     }
 
     /**
@@ -287,13 +276,6 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
     }
 
     /**
-     * @return <code>Window</code> a parent for all dialogs.
-     */
-    public Container getAppFrame () {
-        return this.appFrame;
-    }
-
-    /**
      * @return <code>ClassLoader</code>- the Classloader used for all <i>
      *         getResourse..()</i> and <i>loadClass()</i> calls.
      */
@@ -302,9 +284,9 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
     }
 
     /**
-     * Returns the object which instantiated this SwingEngine.
+     * Returns the object which instantiated this Twixml.
      * 
-     * @return <code>Object</code> SwingEngine client object
+     * @return <code>Object</code> Twixml client object
      *         <p/>
      *         <p>
      *         <b>Note:</b><br>
@@ -363,7 +345,7 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
     }
 
     /**
-     * Returns the root component of the generated Swing UI.
+     * Returns the root component of the generated UI.
      * 
      * @return <code>Component</code>- the root component of the UI
      */
@@ -384,12 +366,12 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
     }
 
     public TypeAnalyser getTypeAnalyser () {
+        this.setPlatform ();
         return CustomCodeProxy.getTypeAnalyser ();
     }
 
     /**
-     * Inserts swing objects rendered from an XML document into the given
-     * container.
+     * Inserts objects rendered from an XML document into the given container.
      * <p/>
      * 
      * <pre>
@@ -398,21 +380,21 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
      * 
      * <pre>
      *  <b>NOTE:</b><br>insert() does NOT clear() the idmap before rendering.
-     * Therefore, if this SwingEngine's parser was used before, the idmap still
+     * Therefore, if this Twixml's parser was used before, the idmap still
      * contains (key/value) pairs (id, JComponent obj. references).<br>
      * If insert() is NOT
-     * used to insert in a previously (with this very SwingEngine) rendered UI,
+     * used to insert in a previously (with this very Twixml) rendered UI,
      * it is highly recommended to clear the idmap:
      * <br>
      *  <div>
-     *    <code>mySwingEngine.getIdMap().clear()</code>
+     *    <code>myTwixml.getIdMap().clear()</code>
      *  </div>
      * </pre>
      * 
      * @param jdoc
      *            <code>Document</code> xml-doc path info
      * @param container
-     *            <code>Container</code> target, the swing obj, are added to
+     *            <code>Container</code> target, the obj, are added to
      * @throws Exception
      *             <code>Exception</code> exception thrown by the parser
      */
@@ -434,8 +416,7 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
     }
 
     /**
-     * Inserts swing objects rendered from an XML reader into the given
-     * container.
+     * Inserts objects rendered from an XML reader into the given container.
      * <p/>
      * 
      * <pre>
@@ -444,20 +425,20 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
      * 
      * <pre>
      *  <b>NOTE:</b><br>insert() does NOT clear() the idmap before rendering.
-     * Therefore, if this SwingEngine's parser was used before, the idmap still
+     * Therefore, if this Twixml's parser was used before, the idmap still
      * contains (key/value) pairs (id, JComponent obj. references).<br>If insert() is NOT
-     * used to insert in a previously (with this very SwingEngine) rendered UI, it is highly
+     * used to insert in a previously (with this very Twixml) rendered UI, it is highly
      * recommended to clear the idmap:
      * <br>
      *  <div>
-     *    <code>mySwingEngine.getIdMap().clear()</code>
+     *    <code>myTwixml.getIdMap().clear()</code>
      *  </div>
      * </pre>
      * 
      * @param reader
      *            <code>Reader</code> xml-file path info
      * @param container
-     *            <code>Container</code> target, the swing obj, are added to.
+     *            <code>Container</code> target, the obj, are added to.
      * @throws Exception
      */
     public void insert (final InputStream reader, final Container container)
@@ -471,8 +452,7 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
     }
 
     /**
-     * Inserts swing objects rendered from an XML reader into the given
-     * container.
+     * Inserts objects rendered from an XML reader into the given container.
      * <p/>
      * 
      * <pre>
@@ -481,20 +461,20 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
      * 
      * <pre>
      *  <b>NOTE:</b><br>insert() does NOT clear() the idmap before rendering.
-     * Therefore, if this SwingEngine's parser was used before, the idmap still
+     * Therefore, if this Twixml's parser was used before, the idmap still
      * contains (key/value) pairs (id, JComponent obj. references).<br>
-     * If insert() is NOT used to insert in a previously (with this very SwingEngine)
+     * If insert() is NOT used to insert in a previously (with this very Twixml)
      * rendered UI, it is highly recommended to clear the idmap:
      * <br>
      *  <div>
-     *    <code>mySwingEngine.getIdMap().clear()</code>
+     *    <code>myTwixml.getIdMap().clear()</code>
      *  </div>
      * </pre>
      * 
      * @param resource
      *            <code>String</code> xml-file path info
      * @param container
-     *            <code>Container</code> target, the swing obj, are added to.
+     *            <code>Container</code> target, obj, are added to.
      * @throws Exception
      */
     public void insert (final String resource, final Container container)
@@ -515,8 +495,7 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
     }
 
     /**
-     * Inserts swing object rendered from an XML document into the given
-     * container.
+     * Inserts object rendered from an XML document into the given container.
      * <p/>
      * 
      * <pre>
@@ -525,20 +504,20 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
      * 
      * <pre>
      *  <b>NOTE:</b><br>insert() does NOT clear() the idmap before rendering.
-     * Therefore, if this SwingEngine's parser was used before, the idmap still
+     * Therefore, if this Twixml's parser was used before, the idmap still
      * contains (key/value) pairs (id, JComponent obj. references).<br>If insert() is NOT
-     * used to insert in a previously (with this very SwingEngine) rendered UI,
+     * used to insert in a previously (with this very Twixml) rendered UI,
      * it is highly recommended to clear the idmap:
      * <br>
      *  <div>
-     *    <code>mySwingEngine.getIdMap().clear()</code>
+     *    <code>myTwixml.getIdMap().clear()</code>
      *  </div>
      * </pre>
      * 
      * @param url
      *            <code>URL</code> url pointing to an XML descriptor *
      * @param container
-     *            <code>Container</code> target, the swing obj, are added to.
+     *            <code>Container</code> target, the obj, are added to.
      * @throws Exception
      */
     public void insert (final URL url, final Container container)
@@ -638,7 +617,7 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
                         } catch (final InstantiationException e) {
                             // intentionally empty
                         }
-                    } else { // SwingEngine.DEBUG_MODE)
+                    } else { // Twixml.DEBUG_MODE)
                         System.err.println (flds [i].getType () + " : "
                                 + flds [i].getName ()
                                 + TwiXML.MAPPING_ERROR_MSG);
@@ -662,14 +641,13 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
      * 
      * @param jdoc
      *            <code>Document</code> xml gui descritptor
-     * @return <code>Object</code>- instanced swing object tree root
+     * @return <code>Object</code>- instanced object tree root
      */
     @SuppressWarnings ("unchecked")
     public Container render (final Document jdoc, final String name)
             throws Exception {
 
-        // Set impl now
-        System.setProperty ("platform.name", this.getClass ().getSimpleName ());
+        this.setPlatform ();
         this.idmap.clear ();
         try {
             this.root = (Container) this.parser.parse (jdoc, name);
@@ -686,7 +664,6 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
         if ( (this.root == null)
                 || CustomCodeProxy.getTypeAnalyser ().isConvenient (this.root,
                         "Frame")) {
-            this.setAppFrame (this.root);
         }
         return this.root;
     }
@@ -696,7 +673,7 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
      * 
      * @param xml_file
      *            <code>File</code> xml-file
-     * @return <code>Object</code>- instanced swing object tree root
+     * @return <code>Object</code>- instanced object tree root
      */
     public Container render (final File xml_file) throws Exception {
         if (xml_file == null) {
@@ -720,7 +697,7 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
      * 
      * @param xml_reader
      *            <code>Reader</code> xml-file path info
-     * @return <code>Object</code>- instanced swing object tree root
+     * @return <code>Object</code>- instanced object tree root
      */
     public Container render (final InputStream xml_reader,
             final String simpleName) throws Exception {
@@ -742,7 +719,7 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
      * 
      * @param resource
      *            <code>String</code> xml-file path info
-     * @return <code>Object</code>- instanced swing object tree root
+     * @return <code>Object</code>- instanced object tree root
      */
     public Container render (final String resource) throws Exception {
         Container obj = null;
@@ -769,14 +746,14 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
      * 
      * @param url
      *            <code>URL</code> url pointing to an XML descriptor
-     * @return <code>Object</code>- instanced swing object tree root
+     * @return <code>Object</code>- instanced object tree root
      * @throws Exception
      */
     public Container render (final URL url) throws Exception {
         Container obj = null;
         if (url == null) {
             throw new IllegalArgumentException (
-                    "SwingEngine.render called with a null URL");
+                    "Twixml.render called with a null URL");
         }
         final String simpleName = (url.getFile ().indexOf ('/') == -1 ? url
                 .getFile () : url.getFile ().substring (
@@ -817,24 +794,9 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
     }
 
     /**
-     * Sets the SwingEngine's global application frame variable, to be used as a
-     * parent for all child dialogs.
-     * 
-     * @param frame
-     *            <code>Window</code> the parent for all future dialogs.
-     */
-    public void setAppFrame (final Container frame) {
-        if (frame != null) {
-            if (this.appFrame == null) {
-                this.appFrame = frame;
-            }
-        }
-    }
-
-    /**
      * Sets a classloader to be used for all <i>getResourse..()</i> and <i>
-     * loadClass()</i> calls. If no class loader is set, the SwingEngine's
-     * loader is used.
+     * loadClass()</i> calls. If no class loader is set, the Twixml's loader is
+     * used.
      * 
      * @param cl
      *            <code>ClassLoader</code>
@@ -866,6 +828,12 @@ public abstract class TwiXML<Container, Component, ActionListener, Label, Button
                     TwiXML.MAC_OSX_LOCALE_VARIANT);
         }
         this.localizer.setLocale (l);
+    }
+
+    private void setPlatform () {
+        // Set impl now
+        System.setProperty ("platform.name", this.getClass ().getSimpleName ());
+
     }
 
     /**

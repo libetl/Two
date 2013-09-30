@@ -11,7 +11,7 @@ package org.twixml;
 /**
  * <p>
  * General purpose data type converter that can be registered and used within
- * the SwingEngine package to manage the conversion of objects from one type to
+ * the Twixml package to manage the conversion of objects from one type to
  * another.
  * </p>
  * 

@@ -1,5 +1,5 @@
 /*--
- $Id: SwingTagLibrary.java,v 1.1 2004/03/01 07:56:07 wolfpaulus Exp $
+ $Id: SimpleTagLibrary.java,v 1.1 2004/03/01 07:56:07 wolfpaulus Exp $
 
  Copyright (C) 2003-2007 Wolf Paulus.
  All rights reserved.
@@ -11,7 +11,7 @@ package org.twixml;
 import org.twixml.technoproxy.CustomCodeProxy;
 
 /**
- * The SwingTagLibrary contains Factories for all Swing Objects that can be
+ * The CustomTagLibrary contains Factories for all Objects that can be
  * instatiated by parsing an XML descriptor at runtime.
  * 
  * Date: Dec 9, 2002
@@ -29,7 +29,7 @@ public final class SimpleTagLibrary extends TagLibrary {
     }
 
     /**
-     * Constructs a Swing Library by registering swings widgets
+     * Constructs a Library by registering widgets
      */
     private SimpleTagLibrary () {
         this.registerTags ();

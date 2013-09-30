@@ -31,7 +31,6 @@ import java.util.ResourceBundle;
  * 
  * @author <a href="mailto:wolf@paulus.com">Wolf Paulus</a>
  * @version $Revision: 1.2 $
- * @see XTabbedPane#setTitles(String)
  */
 public class Localizer {
     private static String SEPARATOR = ",";
@@ -45,7 +44,7 @@ public class Localizer {
      * @see String#split
      * @see #getString
      */
-    public static void setSeparator (String regExp) {
+    public static void setSeparator (final String regExp) {
         Localizer.SEPARATOR = regExp;
     }
 
@@ -57,7 +56,7 @@ public class Localizer {
 
     /**
      * @return <code>ClassLoader</code> returns the classloader attribute, which
-     *         has probably been set by the SwingEngine
+     *         has probably been set by the Twixml
      */
     public ClassLoader getClassLoader () {
         return this.cl;
@@ -112,7 +111,7 @@ public class Localizer {
      * @param cl
      *            <code>ClassLoader</code> - custom classloader
      */
-    void setClassLoader (ClassLoader cl) {
+    void setClassLoader (final ClassLoader cl) {
         this.cl = cl;
     }
 
@@ -122,7 +121,7 @@ public class Localizer {
      * @param locale
      *            <code>Locale</code>
      */
-    public void setLocale (Locale locale) {
+    public void setLocale (final Locale locale) {
         if (locale == null) {
             this.locale = null;
             this.bundle = null;
@@ -142,7 +141,7 @@ public class Localizer {
      *             - if no resource bundle for the specified base name can be
      *             found
      */
-    public void setResourceBundle (String bundleName)
+    public void setResourceBundle (final String bundleName)
             throws MissingResourceException {
         this.bundleName = bundleName;
         if (this.locale == null) {

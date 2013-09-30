@@ -289,7 +289,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
      * Constructs a new SwixMl Parser for the provided engine.
      * 
      * @param engine
-     *            <code>SwingEngine</code>
+     *            <code>Twixml</code>
      */
     public Parser (
             final TwiXML<Container, Component, ActionListener, Label, ButtonGroup, LayoutManager> engine) {
@@ -298,7 +298,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 
     /**
      * Adds a child component to a parent component considering many differences
-     * between the Swing containers
+     * between the containers
      * 
      * @param parent
      *            <code>Component</code>
@@ -452,13 +452,11 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                         }
                     } catch (final InvocationTargetException e) {
                         //
-                        // The JFrame class is slightly incompatible with Frame.
-                        // Like all other JFC/Swing top-level containers, a
-                        // JFrame contains a JRootPane as its only child.
+                        // Like all other top-level containers, a
+                        // Frame contains a RootPane as its only child.
                         // The content pane provided by the root pane should, as
                         // a rule, contain all the non-menu components
-                        // displayed by the JFrame. The JFrame class is slightly
-                        // incompatible with Frame.
+                        // displayed by the Frame.
                         //
                         if ( (obj != null)
                                 && CustomCodeProxy
@@ -908,7 +906,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                 child.removeAttribute (Parser.ATTR_CONSTRAINTS); // therefore it
                                                                  // won't be
                                                                  // used in
-                                                                 // getSwing(child)
+                                                                 // getGUI(child)
                 final LayoutConverter<?> layoutConverter = LayoutConverterLibrary
                         .getInstance ().getLayoutConverter (
                                 layoutMgr.getClass ());
@@ -1010,7 +1008,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
      * Converts XML into an object tree.
      * 
      * <pre>
-     * Note: This parse method does not return a swing object but converts all <b>sub</b> nodes
+     * Note: This parse method does not return an object but converts all <b>sub</b> nodes
      * of the xml documents root into seeing objects and adds those into the provided container.
      * This is useful when a JApplet for instance already exists and need to get some gui inserted.
      * </pre>
@@ -1041,13 +1039,13 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
      * Converts XML into an object tree.
      * 
      * <pre>
-     *    Reads XML from the provied <code>Reader</code> and builds an intermediate jdom document.
-     *    Tags and their attributes are getting converted into swing objects.
+     *    Reads XML from the provided <code>Reader</code> and builds an intermediate jdom document.
+     *    Tags and their attributes are getting converted into objects.
      * </pre>
      * 
      * @param jdoc
      *            <code>Document</code> providing the XML document
-     * @return <code>Container</code> root object for the swing object tree
+     * @return <code>Container</code> root object for the object tree
      * @throws Exception
      *             if parsing fails
      */
@@ -1069,15 +1067,15 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
     }
 
     /**
-     * Looks for custom attributes to be proccessed.
+     * Looks for custom attributes to be processed.
      * 
      * @param element
      *            <code>Element</code> custom attr. tag are looked for in this
      *            jdoc element
      * @return <code>Element</code> - passed in (and maybe modified) element <br />
      *         <b>Note:</b> <br />
-     *         Successfully proccessed custom attributes will be removed from
-     *         the jdoc element.
+     *         Successfully processed custom attributes will be removed from the
+     *         jdoc element.
      * @throws Exception
      *             if parsing fails
      */

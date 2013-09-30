@@ -1,6 +1,6 @@
 package org.twixml.converters;
 
-public interface SwingConstants {
+public interface UIConstants {
 
     /**
      * The central position in an area. Used for both compass-direction

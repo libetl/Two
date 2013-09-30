@@ -28,7 +28,7 @@ import org.twixml.technoproxy.CustomCodeProxy;
  */
 
 public class PrimitiveConverter implements Converter, KeyEvent, InputEvent,
-        ScrollPaneConstants, SwingConstants {
+        ScrollPaneConstants, UIConstants {
 
     /** map contains all constant provider types */
     private static Map<String, Class<?>> dictionaries = new HashMap<String, Class<?>> ();
@@ -127,7 +127,7 @@ public class PrimitiveConverter implements Converter, KeyEvent, InputEvent,
                 } catch (final Exception ex) {
                     //
                     // Try to find the given value as a Constant in
-                    // SwingConstants
+                    // UIConstants
                     //
                     obj = PrimitiveConverter.class.getField (attr.getValue ())
                             .get (PrimitiveConverter.class);

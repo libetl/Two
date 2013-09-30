@@ -50,7 +50,7 @@ public class MenuTest extends TestCase {
      * doesn't provide a setJMenuBar() method.
      */
     public void testInclusion () {
-        final Component menubar = (Component) this.se.find ("menubar");
+        final Component menubar = (Component) this.se.findViewById ("menubar");
         TestCase.assertNotNull (
                 "<menubar> tag in the descriptor requires the instantiation of a JMenuBar obj.",
                 menubar);
