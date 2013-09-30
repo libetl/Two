@@ -20,6 +20,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.parser.Tag;
 import org.twixml.Factory;
+import org.twixml.FactoryException;
 
 /**
  * The <code>DefaultFactory</code> is a default implementation of the
@@ -203,10 +204,10 @@ public final class JSoupFactory implements Factory {
      * Create a new component instance
      * 
      * @return instance <code>Object</code> a new instance of a template class
-     * @throws Exception
+     * @throws FactoryException
      */
     @Override
-    public Object newInstance (final String mainClass) throws Exception {
+    public Object newInstance (final String mainClass) throws FactoryException {
         final String tagName = JSoupFactory.TAG.get (mainClass) != null ? JSoupFactory.TAG
                 .get (mainClass) : "div";
         final String className = JSoupFactory.MATCHING.get (mainClass) != null ? JSoupFactory.MATCHING
@@ -227,11 +228,11 @@ public final class JSoupFactory implements Factory {
      *            <code>Object</code>, parameter used during construction or
      *            initialization.
      * @return instance <code>Object</code> a new instance of a template class
-     * @throws Exception
+     * @throws FactoryException
      */
     @Override
     public Object newInstance (final String mainClass, final Object parameter)
-            throws Exception {
+            throws FactoryException {
         final String tagName = JSoupFactory.TAG.get (mainClass) != null ? JSoupFactory.TAG
                 .get (mainClass) : "div";
         // parameter
@@ -266,8 +267,7 @@ public final class JSoupFactory implements Factory {
      */
     @Override
     public Object newInstance (final String mainClass, final Object [] parameter)
-            throws InstantiationException, IllegalAccessException,
-            InvocationTargetException {
+            throws FactoryException {
         final String tagName = JSoupFactory.TAG.get (mainClass) != null ? JSoupFactory.TAG
                 .get (mainClass) : "div";
         final String className = JSoupFactory.MATCHING.get (mainClass) != null ? JSoupFactory.MATCHING

@@ -39,8 +39,8 @@ public class StringConverter implements Converter {
      * 
      */
     @Override
-    public Object convert (Class<?> type, final Attribute attr,
-            Localizer localizer) throws Exception {
+    public Object convert (final Class<?> type, final Attribute attr,
+            final Localizer localizer) throws ConverterException {
         //
         // Localize Strings but only if Attribute calls for localization.
         //

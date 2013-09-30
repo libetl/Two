@@ -89,7 +89,7 @@ public interface Factory {
      * @return instance <code>Object</code> a new instance of a template class
      * @throws Exception
      */
-    Object newInstance (String id) throws Exception;
+    Object newInstance (String id) throws FactoryException;
 
     /**
      * Creates a new Object which class is {@link #getTemplate()}
@@ -100,7 +100,7 @@ public interface Factory {
      * @return instance <code>Object</code> a new instance of a template class
      * @throws Exception
      */
-    Object newInstance (String id, Object parameter) throws Exception;
+    Object newInstance (String id, Object parameter) throws FactoryException;
 
     /**
      * Creates a new Object which class is {@link #getTemplate()} and the
@@ -117,8 +117,6 @@ public interface Factory {
      * @throws InvocationTargetException
      *             if the constructor invoked throws an exception
      */
-    Object newInstance (String id, Object [] parameter)
-            throws InstantiationException, IllegalAccessException,
-            InvocationTargetException;
+    Object newInstance (String id, Object [] parameter) throws FactoryException;
 
 }

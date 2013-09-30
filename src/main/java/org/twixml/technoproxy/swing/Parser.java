@@ -226,7 +226,51 @@ public class Parser
         return para;
     }
 
-    public boolean getGUIButtonGroup (
+    public void instantiateMacAction (final Object initParameter,
+            final List<Attribute> attributes, final Map<String, Object> macMap) {
+        if (Action.class.isInstance (initParameter)) {
+            for (int i = 0, n = attributes.size () ; i < n ; i++) {
+                final Attribute attrib = attributes.get (i);
+                final String attribName = attrib.getName ();
+                this.getSource ();
+                if ( (attribName != null)
+                        && attribName
+                                .startsWith (org.twixml.Parser.ATTR_MACOS_PREFIX)) {
+                    macMap.put (attribName, initParameter);
+                }
+            }
+        }
+    }
+
+    public void layoutHandlingSetLayout (final Container obj,
+            final Container leaf, final LayoutManager lm) {
+        // In swing mode, the object is supposed to be the leaf as well
+        obj.setLayout (lm);
+    }
+
+    public void linkLabelsSetLabelFor (final JLabel jl, final Component c) {
+        jl.setLabelFor (c);
+    }
+
+    /**
+     * Link actions with the MacOS' system menu bar
+     */
+    public void parseSupportMacOs (final Map<String, Object> macMap) {
+        if (AppConstants.isMacOSXSupported () && AppConstants.isMacOSX ()) {
+            try {
+                MacApp.getInstance ().update (macMap);
+            } catch (final Throwable t) {
+                // intentionally empty
+            }
+        }
+    }
+
+    public Object parseSurroundObj (final org.w3c.dom.Document jdoc,
+            final Object obj, final String name) {
+        return obj;
+    }
+
+    public boolean processChildrenTagsButtonGroup (
             final Element element,
             final Object obj,
             final Element child,
@@ -261,7 +305,7 @@ public class Parser
         return false;
     }
 
-    public LayoutManager getGUIGetLayout (final Container obj) {
+    public LayoutManager processChildrenTagsGetLayout (final Container obj) {
         if ( (obj instanceof RootPaneContainer)
                 && ( ((RootPaneContainer) obj).getRootPane () != null)
                 && ( ((RootPaneContainer) obj).getRootPane ().getContentPane () != null)) {
@@ -271,61 +315,16 @@ public class Parser
         return obj.getLayout ();
     }
 
-    public void getGUIMacAction (final Object initParameter,
-            final List<Attribute> attributes, final Map<String, Object> macMap) {
-        if (Action.class.isInstance (initParameter)) {
-            for (int i = 0, n = attributes.size () ; i < n ; i++) {
-                final Attribute attrib = attributes.get (i);
-                final String attribName = attrib.getName ();
-                this.getSource ();
-                if ( (attribName != null)
-                        && attribName
-                                .startsWith (org.twixml.Parser.ATTR_MACOS_PREFIX)) {
-                    macMap.put (attribName, initParameter);
-                }
-            }
-        }
+    public void processCustomAttributesSetLookAndFeel (final Element element,
+            final String plaf) throws Exception {
+        UIManager.setLookAndFeel (plaf);
     }
 
-    public void getGUIPutClientProperty (final Component obj,
-            final Attribute attr) {
+    public void putClientProperty (final Component obj, final Attribute attr) {
         if ( (obj != null) && (obj instanceof JComponent)) {
             ((JComponent) obj).putClientProperty (attr.getName (),
                     attr.getValue ());
         }
-    }
-
-    public void getGUISetLayout (final Container obj, final Container leaf,
-            final LayoutManager lm) {
-        // In swing mode, the object is supposed to be the leaf as well
-        obj.setLayout (lm);
-    }
-
-    public void linkLabelsSetLabelFor (final JLabel jl, final Component c) {
-        jl.setLabelFor (c);
-    }
-
-    /**
-     * Link actions with the MacOS' system menu bar
-     */
-    public void parseSupportMacOs (final Map<String, Object> macMap) {
-        if (AppConstants.isMacOSXSupported () && AppConstants.isMacOSX ()) {
-            try {
-                MacApp.getInstance ().update (macMap);
-            } catch (final Throwable t) {
-                // intentionally empty
-            }
-        }
-    }
-
-    public Object parseSurroundObj (final org.w3c.dom.Document jdoc,
-            final Object obj, final String name) {
-        return obj;
-    }
-
-    public void processCustomAttributesSetLookAndFeel (final Element element,
-            final String plaf) throws Exception {
-        UIManager.setLookAndFeel (plaf);
     }
 
     /**

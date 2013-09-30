@@ -8,6 +8,8 @@
  */
 package org.twixml.converters;
 
+import java.awt.GraphicsEnvironment;
+
 import org.twixml.Attribute;
 import org.twixml.Converter;
 import org.twixml.Localizer;
@@ -61,8 +63,8 @@ public class FontConverter implements Converter {
      *         <code>null</code>.
      */
     @Override
-    public Object convert (Class<?> type, Attribute attr, Localizer localizer)
-            throws Exception {
+    public Object convert (final Class<?> type, final Attribute attr,
+            final Localizer localizer) throws ConverterException {
         return CustomCodeProxy.doProxy (this, type, attr, localizer);
     }
 

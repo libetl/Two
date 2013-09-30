@@ -7,6 +7,7 @@
 
 package org.twixml;
 
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -22,16 +23,20 @@ import java.util.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
+import org.twixml.converters.ConverterException;
 import org.twixml.converters.LocaleConverter;
 import org.twixml.converters.PrimitiveConverter;
 import org.twixml.technoproxy.CustomCodeProxy;
+import org.twixml.technoproxy.ProxyCodeException;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  * Singleton Parser to render XML for Documents
@@ -360,8 +365,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
      */
     @SuppressWarnings ("unchecked")
     private List<Attribute> applyAttributes (final Object obj,
-            final Factory factory, final List<Attribute> attributes)
-            throws Exception {
+            final Factory factory, final List<Attribute> attributes) {
         //
         // pass 1: Make an 'action' the 1st attribute to be processed -
         // otherwise the action would override already applied attributes like
@@ -444,19 +448,23 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                         CustomCodeProxy.doProxy (this, "MethodInvoke", method,
                                 obj, attr, para);
 
-                    } catch (final NoSuchFieldException e) {
-                        if (AppConstants.DEBUG_MODE) {
-                            System.err.println ("Method: " + method.getName ()
-                                    + " Attribute " + attr.getName () + " : "
-                                    + attr.getValue () + "' not set. ");
+                    } catch (final ConverterException e) {
+                        if ( (e.getCause () != null)
+                                && (e.getCause () instanceof InvocationTargetException)) {
+                            CustomCodeProxy.doProxy (this, "RootPaneContainer",
+                                    method, this.engine, obj, attr, para, list);
+                        } else if ( (e.getCause () != null)
+                                && (e.getCause () instanceof NoSuchFieldException)) {
+                            if (AppConstants.DEBUG_MODE) {
+                                System.err.println ("Method: "
+                                        + method.getName () + " Attribute "
+                                        + attr.getName () + " : "
+                                        + attr.getValue () + "' not set. ");
+                            }
+                        } else {
+                            throw new IllegalArgumentException (e + ":"
+                                    + method.getName () + ":" + para, e);
                         }
-                    } catch (final InvocationTargetException e) {
-                        CustomCodeProxy.doProxy (this, "RootPaneContainer",
-                                method, this.engine, obj, attr, para, list);
-
-                    } catch (final Exception e) {
-                        throw new Exception (e + ":" + method.getName () + ":"
-                                + para, e);
                     }
                     continue;
                 }
@@ -564,7 +572,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
     }
 
     /**
-     * Retrieve all atributes into list.
+     * Retrieve all attributes into list.
      * 
      * @param elem
      *            element for extract attributes
@@ -591,13 +599,14 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
      *            will be processed, not the element itself
      * @return <code>Container</code> representing the GUI impementation of the
      *         XML tag.
-     * @throws Exception
-     *             - if parsing fails
+     * @throws IOException
+     * @throws SAXException
+     * @throws ParserConfigurationException
      * @SuppressWarnings ({ "RedundantArrayCreation",
      *                   "NullArgumentToVariableArgMethod" })
      */
-    @SuppressWarnings ("unchecked")
-    public Object getGUI (final Element element, Object obj) throws Exception {
+    public Object getGUI (final Element element, Object obj)
+            throws ParserConfigurationException, SAXException, IOException {
 
         Object leaf = obj;
         final Factory factory = this.engine.getTaglib ().getFactory (
@@ -614,32 +623,12 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                     + this.engine.getIdMap ().get (id).getClass ().getName ());
         }
         if (factory == null) {
-            throw new Exception (
+            throw new IllegalArgumentException (
                     "Unknown TAG, implementation class not defined: "
                             + element.getNodeName ());
         }
 
-        //
-        // XInclude
-        //
-
-        if (Attribute.getAttributeValue (element, Parser.ATTR_INCLUDE) != null) {
-            final StringTokenizer st = new StringTokenizer (
-                    Attribute.getAttributeValue (element, Parser.ATTR_INCLUDE),
-                    "#");
-            element.removeAttribute (Parser.ATTR_INCLUDE);
-
-            final DocumentBuilder builder = DocumentBuilderFactory
-                    .newInstance ().newDocumentBuilder ();
-            final Document doc = builder.parse (this.engine.getClassLoader ()
-                    .getResourceAsStream (st.nextToken ()));
-
-            final Element xelem = Parser.find (doc.getDocumentElement (),
-                    st.nextToken ());
-            if (xelem != null) {
-                Parser.moveContent (xelem, element);
-            }
-        }
+        this.xincludeHandling (element);
 
         //
         // clone attribute if <em>refid</em> attribute is available
@@ -652,11 +641,55 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
             this.cloneAttributes (element);
             element.removeAttribute (Parser.ATTR_USE);
         }
+
+        final List<Attribute> attributes = this.getAttributes (element);
+
         //
         // let the factory instantiate a new object
         //
+        obj = this.instantiate (factory, element, obj, attributes);
 
-        final List<Attribute> attributes = this.getAttributes (element);
+        if (obj != null) {
+            leaf = factory.getLeaf (obj);
+            constructed = true;
+            //
+            // put newly created object in the map if it has an <id> attribute
+            // (uniqueness is given att this point)
+            //
+            if (id != null) {
+                this.engine.getIdMap ().put (id, obj);
+            }
+        }
+
+        this.layoutHandling (element, obj, leaf, attributes);
+
+        //
+        // 1st attempt to apply attributes (call setters on the objects)
+        // put an action attribute at the beginning of the attribute list
+        final Attribute actionAttr = Attribute.getAttribute (element, "Action");
+        if (actionAttr != null) {
+            element.removeAttribute (actionAttr.getName ());
+            attributes.add (0, actionAttr);
+        }
+        //
+        // put Tag's Text content into Text Attribute
+        //
+        if (Attribute.getAttributeValue (element, "Text") == null) {
+            final String v = element.getNodeValue ();
+            if ( (v != null) && (v.trim ().length () > 0)) {
+                attributes.add (new Attribute ("Text", v.trim ()));
+            }
+        }
+
+        this.processChildrenTags (element, obj, leaf);
+
+        this.putClientProperty (element, obj, factory, attributes, id);
+
+        return (constructed ? obj : null);
+    }
+
+    private Object instantiate (final Factory factory, final Element element,
+            Object obj, final List<Attribute> attributes) {
         if (obj == null) {
             Object initParameter = null;
 
@@ -673,7 +706,6 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                         Attribute.getAttributeValue (element,
                                 Parser.ATTR_INITCLASS), "( )");
                 element.removeAttribute (Parser.ATTR_INITCLASS);
-                // try {
                 try {
                     if (st.hasMoreTokens ()) {
                         final Class<?> initClass = Class.forName (st
@@ -754,27 +786,30 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                 } catch (final RuntimeException re) {
                     throw re;
                 } catch (final Exception e) {
-                    throw new Exception (
+                    throw new ProxyCodeException (
                             Parser.ATTR_INITCLASS + " not instantiated : "
                                     + e.getLocalizedMessage (), e);
                 }
             }
 
-            obj = initParameter != null ? factory.newInstance (
-                    element.getNodeName (), new Object [] { initParameter })
-                    : factory.newInstance (element.getNodeName ());
-            leaf = factory.getLeaf (obj);
-            constructed = true;
-            //
-            // put newly created object in the map if it has an <id> attribute
-            // (uniqueness is given att this point)
-            //
-            if (id != null) {
-                this.engine.getIdMap ().put (id, obj);
+            try {
+                obj = initParameter != null ? factory
+                        .newInstance (element.getNodeName (),
+                                new Object [] { initParameter }) : factory
+                        .newInstance (element.getNodeName ());
+            } catch (final Exception e) {
+                throw new IllegalArgumentException (Parser.ATTR_INITCLASS
+                        + " not instantiated : " + e.getLocalizedMessage (), e);
             }
         }
 
-        //
+        return obj;
+
+    }
+
+    @SuppressWarnings ("unchecked")
+    private void layoutHandling (final Element element, final Object obj,
+            final Object leaf, final List<Attribute> attributes) {
         // handle "layout" element or attribute
         //
         if ( (obj != null)
@@ -832,137 +867,6 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
             }
         }
 
-        //
-        // 1st attempt to apply attributes (call setters on the objects)
-        // put an action attribute at the beginning of the attribute list
-        final Attribute actionAttr = Attribute.getAttribute (element, "Action");
-        if (actionAttr != null) {
-            element.removeAttribute (actionAttr.getName ());
-            attributes.add (0, actionAttr);
-        }
-        //
-        // put Tag's Text content into Text Attribute
-        //
-        if (Attribute.getAttributeValue (element, "Text") == null) {
-            final String v = element.getNodeValue ();
-            if ( (v != null) && (v.trim ().length () > 0)) {
-                attributes.add (new Attribute ("Text", v.trim ()));
-            }
-        }
-        List<Attribute> remainingAttrs = this.applyAttributes (obj, factory,
-                attributes);
-        //
-        // process child tags
-        //
-
-        final LayoutManager layoutMgr = (LayoutManager) ( (obj != null)
-                && CustomCodeProxy.getTypeAnalyser ().isConvenient (obj,
-                        "Container") ? CustomCodeProxy.doProxy (this,
-                "GetLayout", obj) : null);
-
-        final NodeList nl = element.getChildNodes ();
-        for (int i = 0 ; i < nl.getLength () ; i++) {
-            if (! (nl.item (i) instanceof Element)) {
-                continue;
-            }
-            final Element child = (Element) nl.item (i);
-            //
-            // Prepare for possible grouping through ButtonGroup Tag
-            //
-            if (CustomCodeProxy.doProxy (this, "ButtonGroup", element, obj,
-                    child, this.engine)) {
-                continue;
-            }
-
-            //
-            // A CONSTRAINTS attribute is removed from the childtag but used to
-            // add the child into the current obj
-            //
-            final Attribute constrnAttr = Attribute.getAttribute (child,
-                    Parser.ATTR_CONSTRAINTS);
-            Object constrains = null;
-            if ( (constrnAttr != null) && (layoutMgr != null)) {
-                child.removeAttribute (Parser.ATTR_CONSTRAINTS); // therefore it
-                                                                 // won't be
-                                                                 // used in
-                                                                 // getGUI(child)
-                final LayoutConverter<?> layoutConverter = LayoutConverterLibrary
-                        .getInstance ().getLayoutConverter (
-                                layoutMgr.getClass ());
-                if (layoutConverter != null) {
-                    constrains = layoutConverter
-                            .convertConstraintsAttribute (constrnAttr);
-                }
-            }
-
-            //
-            // A CONSTRAINTS element is used to add the child into the currrent
-            // obj
-            //
-            final Element cce = Parser.getChildByName (child, "constraints");
-            if ( (cce != null) && (layoutMgr != null)) {
-                final LayoutConverter<?> layoutConverter = LayoutConverterLibrary
-                        .getInstance ().getLayoutConverter (
-                                layoutMgr.getClass ());
-                if (layoutConverter != null) {
-                    constrains = layoutConverter
-                            .convertConstraintsElement (cce);
-                }
-            }
-
-            //
-            // A constraints or GridBagConstraints grand-childtag is not added
-            // at all ..
-            // .. but used to add the child into this container
-            //
-            final Element grandchild = Parser.getChildByName (child,
-                    "gridbagconstraints");
-            if (grandchild != null) {
-                this.addChild ((Container) leaf,
-                        (Component) this.getGUI (child, null), null,
-                        this.getGUI (grandchild, null));
-            } else if (!child.getNodeName ().equals ("constraints")
-                    && !child.getNodeName ().equals ("gridbagconstraints")) {
-
-                this.addChild ((Container) leaf,
-                        (Component) this.getGUI (child, null), layoutMgr,
-                        constrains);
-            }
-        }
-
-        //
-        // 2nd attempt to apply attributes (call setters on the objects)
-        //
-        if ( (remainingAttrs != null) && (0 < remainingAttrs.size ())) {
-            remainingAttrs = this
-                    .applyAttributes (obj, factory, remainingAttrs);
-            if (remainingAttrs != null) {
-                final Iterator<Attribute> it = remainingAttrs.iterator ();
-                while ( (it != null) && it.hasNext ()) {
-                    final Attribute attr = it.next ();
-                    if ( (obj != null)
-                            && CustomCodeProxy.getTypeAnalyser ().isConvenient (
-                                    obj, "Component")) {
-                        CustomCodeProxy.doProxy (this, "PutClientProperty",
-                                obj, attr);
-                        if (AppConstants.DEBUG_MODE) {
-                            System.out.println ("ClientProperty put: "
-                                    + obj.getClass ().getName () + "(" + id
-                                    + "): " + attr.getName () + "="
-                                    + attr.getValue ());
-                        }
-                    } else {
-                        if (AppConstants.DEBUG_MODE) {
-                            System.err.println (attr.getName ()
-                                    + " not applied for tag: <"
-                                    + element.getNodeName () + ">");
-                        }
-                    }
-                }
-            }
-        }
-
-        return (constructed ? obj : null);
     }
 
     /**
@@ -1045,6 +949,91 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
         return obj;
     }
 
+    @SuppressWarnings ("unchecked")
+    private void processChildrenTags (final Element element, final Object obj,
+            final Object leaf) throws ParserConfigurationException,
+            SAXException, IOException {
+        //
+        // process child tags
+        //
+
+        final LayoutManager layoutMgr = (LayoutManager) ( (obj != null)
+                && CustomCodeProxy.getTypeAnalyser ().isConvenient (obj,
+                        "Container") ? CustomCodeProxy.doProxy (this,
+                "GetLayout", obj) : null);
+
+        final NodeList nl = element.getChildNodes ();
+        for (int i = 0 ; i < nl.getLength () ; i++) {
+            if (! (nl.item (i) instanceof Element)) {
+                continue;
+            }
+            final Element child = (Element) nl.item (i);
+            //
+            // Prepare for possible grouping through ButtonGroup Tag
+            //
+            if (CustomCodeProxy.doProxy (this, "ButtonGroup", element, obj,
+                    child, this.engine)) {
+                continue;
+            }
+
+            //
+            // A CONSTRAINTS attribute is removed from the childtag but used to
+            // add the child into the current obj
+            //
+            final Attribute constrnAttr = Attribute.getAttribute (child,
+                    Parser.ATTR_CONSTRAINTS);
+            Object constrains = null;
+            if ( (constrnAttr != null) && (layoutMgr != null)) {
+                child.removeAttribute (Parser.ATTR_CONSTRAINTS); // therefore it
+                                                                 // won't be
+                                                                 // used in
+                                                                 // getGUI(child)
+                final LayoutConverter<?> layoutConverter = LayoutConverterLibrary
+                        .getInstance ().getLayoutConverter (
+                                layoutMgr.getClass ());
+                if (layoutConverter != null) {
+                    constrains = layoutConverter
+                            .convertConstraintsAttribute (constrnAttr);
+                }
+            }
+
+            //
+            // A CONSTRAINTS element is used to add the child into the currrent
+            // obj
+            //
+            final Element cce = Parser.getChildByName (child, "constraints");
+            if ( (cce != null) && (layoutMgr != null)) {
+                final LayoutConverter<?> layoutConverter = LayoutConverterLibrary
+                        .getInstance ().getLayoutConverter (
+                                layoutMgr.getClass ());
+                if (layoutConverter != null) {
+                    constrains = layoutConverter
+                            .convertConstraintsElement (cce);
+                }
+            }
+
+            //
+            // A constraints or GridBagConstraints grand-childtag is not added
+            // at all ..
+            // .. but used to add the child into this container
+            //
+            final Element grandchild = Parser.getChildByName (child,
+                    "gridbagconstraints");
+            if (grandchild != null) {
+                this.addChild ((Container) leaf,
+                        (Component) this.getGUI (child, null), null,
+                        this.getGUI (grandchild, null));
+            } else if (!child.getNodeName ().equals ("constraints")
+                    && !child.getNodeName ().equals ("gridbagconstraints")) {
+
+                this.addChild ((Container) leaf,
+                        (Component) this.getGUI (child, null), layoutMgr,
+                        constrains);
+            }
+        }
+
+    }
+
     /**
      * Looks for custom attributes to be processed.
      * 
@@ -1094,5 +1083,69 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
             element.removeAttribute (Parser.ATTR_PLAF);
         }
         return element;
+    }
+
+    private void putClientProperty (final Element element, final Object obj,
+            final Factory factory, final List<Attribute> attributes,
+            final String id) {
+        //
+        // 2nd attempt to apply attributes (call setters on the objects)
+        //
+        List<Attribute> remainingAttrs = this.applyAttributes (obj, factory,
+                attributes);
+        if ( (remainingAttrs != null) && (0 < remainingAttrs.size ())) {
+            remainingAttrs = this
+                    .applyAttributes (obj, factory, remainingAttrs);
+            if (remainingAttrs != null) {
+                final Iterator<Attribute> it = remainingAttrs.iterator ();
+                while ( (it != null) && it.hasNext ()) {
+                    final Attribute attr = it.next ();
+                    if ( (obj != null)
+                            && CustomCodeProxy.getTypeAnalyser ().isConvenient (
+                                    obj, "Component")) {
+                        CustomCodeProxy.doProxy (this, obj, attr);
+                        if (AppConstants.DEBUG_MODE) {
+                            System.out.println ("ClientProperty put: "
+                                    + obj.getClass ().getName () + "(" + id
+                                    + "): " + attr.getName () + "="
+                                    + attr.getValue ());
+                        }
+                    } else {
+                        if (AppConstants.DEBUG_MODE) {
+                            System.err.println (attr.getName ()
+                                    + " not applied for tag: <"
+                                    + element.getNodeName () + ">");
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    private void xincludeHandling (final Element element)
+            throws ParserConfigurationException, SAXException, IOException {
+        //
+        // XInclude
+        //
+
+        if (Attribute.getAttributeValue (element, Parser.ATTR_INCLUDE) != null) {
+            final StringTokenizer st = new StringTokenizer (
+                    Attribute.getAttributeValue (element, Parser.ATTR_INCLUDE),
+                    "#");
+            element.removeAttribute (Parser.ATTR_INCLUDE);
+
+            final DocumentBuilder builder = DocumentBuilderFactory
+                    .newInstance ().newDocumentBuilder ();
+            final Document doc = builder.parse (this.engine.getClassLoader ()
+                    .getResourceAsStream (st.nextToken ()));
+
+            final Element xelem = Parser.find (doc.getDocumentElement (),
+                    st.nextToken ());
+            if (xelem != null) {
+                Parser.moveContent (xelem, element);
+            }
+        }
+
     }
 }

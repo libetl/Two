@@ -31,7 +31,7 @@ public class ComponentConverter implements Converter {
      *            <code>Attribute</code> the attribute, providing the value to
      *            be converted.
      */
-    public static Object conv (Attribute attr) throws Exception {
+    public static Object conv (final Attribute attr) throws ConverterException {
         return null;
     }
 
@@ -45,10 +45,11 @@ public class ComponentConverter implements Converter {
      * @param attr
      *            <code>Attribute</code> the attribute, providing the value to
      *            be converted.
+     * @throws ConverterException
      */
     @Override
-    public Object convert (Class<?> type, Attribute attr, Localizer localizer)
-            throws Exception {
+    public Object convert (final Class<?> type, final Attribute attr,
+            final Localizer localizer) throws ConverterException {
         return ComponentConverter.conv (attr);
     }
 

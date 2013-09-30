@@ -8,6 +8,8 @@
  */
 package org.twixml;
 
+import org.twixml.converters.ConverterException;
+
 /**
  * <p>
  * General purpose data type converter that can be registered and used within
@@ -33,7 +35,7 @@ public interface Converter {
      * 
      */
     Object convert (final Class<?> type, final Attribute attr,
-            final Localizer localizer) throws Exception;
+            final Localizer localizer) throws ConverterException;
 
     /**
      * A <code>Converters</code> conversTo method informs about the Class<?>

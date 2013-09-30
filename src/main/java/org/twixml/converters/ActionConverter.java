@@ -36,8 +36,8 @@ public class ActionConverter implements Converter {
      * 
      */
     @Override
-    public Object convert (Class<?> type, Attribute attr, Localizer localizer)
-            throws Exception {
+    public Object convert (final Class<?> type, final Attribute attr,
+            final Localizer localizer) throws ConverterException {
         return null;
     }
 

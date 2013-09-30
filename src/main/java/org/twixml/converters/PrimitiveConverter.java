@@ -86,16 +86,11 @@ public class PrimitiveConverter implements Converter, KeyEvent, InputEvent,
      * @param localizer
      *            <code>Localizer</code>
      * @return <code>Object</code> primitive wrapped into wrapper object
-     * @throws NoSuchFieldException
-     *             in case no class a field matching field name had been
-     *             regsitered with this converter
-     * @throws IllegalAccessException
-     *             if a matching field can not be accessed
+     * @throws ConverterException
      */
     @Override
     public Object convert (final Class<?> type, final Attribute attr,
-            final Localizer localizer) throws NoSuchFieldException,
-            IllegalAccessException {
+            final Localizer localizer) throws ConverterException {
         Object obj = null;
         if (Parser.LOCALIZED_ATTRIBUTES.contains (attr.getName ()
                 .toLowerCase ())) {
@@ -129,8 +124,14 @@ public class PrimitiveConverter implements Converter, KeyEvent, InputEvent,
                     // Try to find the given value as a Constant in
                     // UIConstants
                     //
-                    obj = PrimitiveConverter.class.getField (attr.getValue ())
-                            .get (PrimitiveConverter.class);
+                    try {
+                        obj = PrimitiveConverter.class.getField (
+                                attr.getValue ())
+                                .get (PrimitiveConverter.class);
+                    } catch (IllegalArgumentException | IllegalAccessException
+                            | NoSuchFieldException | SecurityException e) {
+                        throw new ConverterException (e);
+                    }
                 }
             }
         }

@@ -178,86 +178,11 @@ public class Parser
         return para;
     }
 
-    public boolean getGUIButtonGroup (
-            final org.w3c.dom.Element element,
-            final Object obj,
-            final org.w3c.dom.Element child,
-            final TwiXML<Object, org.jsoup.nodes.Element, ActionListener, org.jsoup.nodes.TextNode, Object, Object> engine)
-            throws Exception {
-        if ("buttongroup".equalsIgnoreCase (child.getNodeName ())) {
-
-            int k = obj instanceof org.jsoup.nodes.Element ? ((org.jsoup.nodes.Element) obj)
-                    .childNodeSize () : 0;
-            this.getSource ().getGUI (child, obj);
-            final int n = obj instanceof org.jsoup.nodes.Element ? ((org.jsoup.nodes.Element) obj)
-                    .childNodeSize () : 0;
-
-            //
-            // add the recently add container entries into the btngroup
-            //
-            final org.jsoup.nodes.Element btnGroup = new org.jsoup.nodes.Element (
-                    Tag.valueOf ("div"), "");
-            btnGroup.addClass ("buttongroup");
-            // in case the button group was given an id attr. it should also
-            // be put into the idmap.
-            if (null != Attribute.getAttributeValue (child,
-                    org.twixml.Parser.ATTR_ID)) {
-                engine.getIdMap ().put (
-                        Attribute.getAttributeValue (child,
-                                org.twixml.Parser.ATTR_ID), btnGroup);
-            }
-            while (k < n) {
-                this.putIntoBtnGrp (
-                        ((org.jsoup.nodes.Element) obj).child (k++), btnGroup);
-            }
-            return true;
-        }
-        return false;
-    }
-
-    public Object getGUIGetLayout (final Object obj) {
-        if (! (obj instanceof org.jsoup.nodes.Element)) {
-            return null;
-        }
-        final org.jsoup.nodes.Element e = (org.jsoup.nodes.Element) obj;
-        final String attr = e.attr ("layout").trim ();
-        if (attr.length () == 0) {
-            return null;
-        }
-        final String clazz = attr.substring (0, attr.indexOf ('[')).trim ();
-        final String params = attr.substring (attr.indexOf ('[')).trim ();
-        final Class<?> [] pt = new Class<?> [params.length () == 2 ? 0 : params
-                .indexOf (',') == -1 ? 1 : params.split (",").length];
-        Arrays.fill (pt, String.class);
-        try {
-            return (pt.length > 0 ? CustomCodeProxy
-                    .getTypeAnalyser ()
-                    .getCompatibleClass (clazz)
-                    .getConstructor (pt)
-                    .newInstance (
-                            (Object []) params.substring (1,
-                                    params.length () - 1).split (","))
-                    : CustomCodeProxy.getTypeAnalyser ()
-                            .getCompatibleClass (clazz).newInstance ());
-        } catch (InstantiationException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException
-                | NoSuchMethodException | SecurityException e1) {
-            return null;
-        }
-    }
-
-    public void getGUIMacAction (final Object initParameter,
+    public void instantiateMacAction (final Object initParameter,
             final List<Attribute> attributes, final Map<String, Object> macMap) {
     }
 
-    public void getGUIPutClientProperty (final org.jsoup.nodes.Element obj,
-            final Attribute attr) {
-        if (obj != null) {
-            obj.attr (attr.getName (), attr.getValue ());
-        }
-    }
-
-    public void getGUISetLayout (final org.jsoup.nodes.Element obj,
+    public void layoutHandlingSetLayout (final org.jsoup.nodes.Element obj,
             final org.jsoup.nodes.Element leaf, final LayoutManager lm) {
         lm.apply (obj, leaf);
     }
@@ -338,10 +263,85 @@ public class Parser
         return d;
     }
 
+    public boolean processChildrenTagsButtonGroup (
+            final org.w3c.dom.Element element,
+            final Object obj,
+            final org.w3c.dom.Element child,
+            final TwiXML<Object, org.jsoup.nodes.Element, ActionListener, org.jsoup.nodes.TextNode, Object, Object> engine)
+            throws Exception {
+        if ("buttongroup".equalsIgnoreCase (child.getNodeName ())) {
+
+            int k = obj instanceof org.jsoup.nodes.Element ? ((org.jsoup.nodes.Element) obj)
+                    .childNodeSize () : 0;
+            this.getSource ().getGUI (child, obj);
+            final int n = obj instanceof org.jsoup.nodes.Element ? ((org.jsoup.nodes.Element) obj)
+                    .childNodeSize () : 0;
+
+            //
+            // add the recently add container entries into the btngroup
+            //
+            final org.jsoup.nodes.Element btnGroup = new org.jsoup.nodes.Element (
+                    Tag.valueOf ("div"), "");
+            btnGroup.addClass ("buttongroup");
+            // in case the button group was given an id attr. it should also
+            // be put into the idmap.
+            if (null != Attribute.getAttributeValue (child,
+                    org.twixml.Parser.ATTR_ID)) {
+                engine.getIdMap ().put (
+                        Attribute.getAttributeValue (child,
+                                org.twixml.Parser.ATTR_ID), btnGroup);
+            }
+            while (k < n) {
+                this.putIntoBtnGrp (
+                        ((org.jsoup.nodes.Element) obj).child (k++), btnGroup);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public Object processChildrenTagsGetLayout (final Object obj) {
+        if (! (obj instanceof org.jsoup.nodes.Element)) {
+            return null;
+        }
+        final org.jsoup.nodes.Element e = (org.jsoup.nodes.Element) obj;
+        final String attr = e.attr ("layout").trim ();
+        if (attr.length () == 0) {
+            return null;
+        }
+        final String clazz = attr.substring (0, attr.indexOf ('[')).trim ();
+        final String params = attr.substring (attr.indexOf ('[')).trim ();
+        final Class<?> [] pt = new Class<?> [params.length () == 2 ? 0 : params
+                .indexOf (',') == -1 ? 1 : params.split (",").length];
+        Arrays.fill (pt, String.class);
+        try {
+            return (pt.length > 0 ? CustomCodeProxy
+                    .getTypeAnalyser ()
+                    .getCompatibleClass (clazz)
+                    .getConstructor (pt)
+                    .newInstance (
+                            (Object []) params.substring (1,
+                                    params.length () - 1).split (","))
+                    : CustomCodeProxy.getTypeAnalyser ()
+                            .getCompatibleClass (clazz).newInstance ());
+        } catch (InstantiationException | IllegalAccessException
+                | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException e1) {
+            return null;
+        }
+    }
+
     public void processCustomAttributesSetLookAndFeel (
             final org.jsoup.nodes.Element element, final String plaf)
             throws Exception {
         element.addClass ("UI" + plaf);
+    }
+
+    public void putClientProperty (final org.jsoup.nodes.Element obj,
+            final Attribute attr) {
+        if (obj != null) {
+            obj.attr (attr.getName (), attr.getValue ());
+        }
     }
 
     /**

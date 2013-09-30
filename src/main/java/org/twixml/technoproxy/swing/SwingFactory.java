@@ -62,6 +62,7 @@ import java.util.Iterator;
 
 import org.twixml.ConverterLibrary;
 import org.twixml.Factory;
+import org.twixml.FactoryException;
 
 /**
  * The <code>DefaultFactory</code> is a default implementation of the
@@ -222,11 +223,15 @@ public final class SwingFactory implements Factory {
      * Create a new component instance
      * 
      * @return instance <code>Object</code> a new instance of a template class
-     * @throws Exception
+     * @throws FactoryException
      */
     @Override
-    public Object newInstance (final String mainClass) throws Exception {
-        return this.template.newInstance ();
+    public Object newInstance (final String mainClass) throws FactoryException {
+        try {
+            return this.template.newInstance ();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new FactoryException (e);
+        }
     }
 
     /**
@@ -238,11 +243,11 @@ public final class SwingFactory implements Factory {
      *            <code>Object</code>, parameter used during construction or
      *            initialization.
      * @return instance <code>Object</code> a new instance of a template class
-     * @throws Exception
+     * @throws FactoryException
      */
     @Override
     public Object newInstance (final String mainClass, final Object parameter)
-            throws Exception {
+            throws FactoryException {
         final Class<?> pType = parameter.getClass (); // get runtime class of
                                                       // the
         // parameter
@@ -251,10 +256,19 @@ public final class SwingFactory implements Factory {
             final Class<?> [] paraTypes = ctor.getParameterTypes ();
             if ( (0 < paraTypes.length)
                     && paraTypes [0].isAssignableFrom (pType)) {
-                return ctor.newInstance (new Object [] { parameter });
+                try {
+                    return ctor.newInstance (new Object [] { parameter });
+                } catch (InstantiationException | IllegalAccessException
+                        | IllegalArgumentException | InvocationTargetException e) {
+                    throw new FactoryException (e);
+                }
             }
         }
-        return this.template.newInstance ();
+        try {
+            return this.template.newInstance ();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new FactoryException (e);
+        }
     }
 
     /**
@@ -277,8 +291,7 @@ public final class SwingFactory implements Factory {
      */
     @Override
     public Object newInstance (final String mainClass, final Object [] parameter)
-            throws InstantiationException, IllegalAccessException,
-            InvocationTargetException {
+            throws FactoryException {
         if (parameter != null) {
             final Class<?> pTypes[] = new Class<?> [parameter.length]; // parameter
             // types
@@ -322,13 +335,22 @@ public final class SwingFactory implements Factory {
             // IllegalArgumentException
             //
             if (ctor != null) {
-                return ctor.newInstance (parameter);
+                try {
+                    return ctor.newInstance (parameter);
+                } catch (InstantiationException | IllegalAccessException
+                        | IllegalArgumentException | InvocationTargetException e) {
+                    throw new FactoryException (e);
+                }
             } else { // no matching constructor was found
                 throw new IllegalArgumentException (
                         "unable to find constructor, accepting:" + pTypes);
             }
         } else {
-            return this.template.newInstance ();
+            try {
+                return this.template.newInstance ();
+            } catch (InstantiationException | IllegalAccessException e) {
+                throw new FactoryException (e);
+            }
         }
     }
 

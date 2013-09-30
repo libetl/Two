@@ -38,7 +38,8 @@ public class LocaleConverter implements Converter {
      *            be converted.
      * 
      */
-    public static Locale conv (String attrValue) throws Exception {
+    public static Locale conv (final String attrValue)
+            throws ConverterException {
         Locale locale = null; // Locale.getDefault();
         if (attrValue != null) {
             final StringTokenizer st = new StringTokenizer (attrValue, ",");
@@ -68,8 +69,8 @@ public class LocaleConverter implements Converter {
      * 
      */
     @Override
-    public Object convert (Class<?> type, Attribute attr, Localizer localizer)
-            throws Exception {
+    public Object convert (final Class<?> type, final Attribute attr,
+            final Localizer localizer) throws ConverterException {
         return LocaleConverter.conv (attr.getValue ());
     }
 

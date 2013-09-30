@@ -20,8 +20,8 @@ public class TimeZoneConverter implements Converter {
      * 
      */
     @Override
-    public Object convert (Class<?> type, Attribute attr, Localizer lz)
-            throws Exception {
+    public Object convert (final Class<?> type, final Attribute attr,
+            final Localizer lz) {
         SimpleTimeZone tz = null;
         if ( (attr != null) && (attr.getValue () != null)) {
             tz = new SimpleTimeZone (0, attr.getValue ());
