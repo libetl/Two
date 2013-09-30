@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.twixml.AppConstants;
+//The only place in the classpath where each sub package appears.
 import org.twixml.technoproxy.jsoup.JSoupUnit;
 import org.twixml.technoproxy.swing.SwingUnit;
 
@@ -27,6 +28,19 @@ public class CustomCodeProxy {
                                                                    new JSoupUnit ());
                                                        }
                                                    };
+
+    /**
+     * We leave the possibility to add an extra unit for the needs of the users,
+     * so they can add their own facilities
+     * 
+     * @param pu
+     *            the unit
+     * @param alias
+     *            the classname of the engine (should end with "TwiXML")
+     */
+    public static void addNewUnit (final String alias, final PlatformUnit pu) {
+        CustomCodeProxy.units.put (alias, pu);
+    }
 
     public static <T, R> R doProxy (final T source, final Object... params) {
         return CustomCodeProxy.doProxy (source, "", params);
