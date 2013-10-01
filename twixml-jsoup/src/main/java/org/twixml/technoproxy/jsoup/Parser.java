@@ -11,9 +11,9 @@ import org.jsoup.parser.Tag;
 import org.jsoup.select.Elements;
 import org.twixml.Attribute;
 import org.twixml.TwiXML;
+import org.twixml.exception.ProxyCodeException;
 import org.twixml.technoproxy.CustomCodeProxy;
 import org.twixml.technoproxy.ProxyCode;
-import org.twixml.technoproxy.ProxyCodeException;
 import org.twixml.technoproxy.jsoup.layout.LayoutManager;
 
 public class Parser

@@ -13,7 +13,7 @@ import javax.swing.AbstractButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
-import org.twixml.technoproxy.ProxyCodeException;
+import org.twixml.exception.ProxyCodeException;
 
 public class TypeAnalyser extends org.twixml.technoproxy.TypeAnalyser {
 

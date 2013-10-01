@@ -62,7 +62,7 @@ import java.util.Iterator;
 
 import org.twixml.ConverterLibrary;
 import org.twixml.Factory;
-import org.twixml.FactoryException;
+import org.twixml.exception.FactoryException;
 
 /**
  * The <code>DefaultFactory</code> is a default implementation of the

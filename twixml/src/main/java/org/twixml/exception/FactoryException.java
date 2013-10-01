@@ -1,4 +1,4 @@
-package org.twixml;
+package org.twixml.exception;
 
 public class FactoryException extends Exception {
 

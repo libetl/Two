@@ -12,6 +12,7 @@ package org.twixml.converters;
 import org.twixml.Attribute;
 import org.twixml.Converter;
 import org.twixml.Localizer;
+import org.twixml.exception.ConverterException;
 import org.twixml.technoproxy.CustomCodeProxy;
 
 /**

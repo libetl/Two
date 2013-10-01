@@ -28,9 +28,9 @@ import org.twixml.AppConstants;
 import org.twixml.Attribute;
 import org.twixml.Factory;
 import org.twixml.TwiXML;
+import org.twixml.exception.ProxyCodeException;
 import org.twixml.technoproxy.CustomCodeProxy;
 import org.twixml.technoproxy.ProxyCode;
-import org.twixml.technoproxy.ProxyCodeException;
 import org.w3c.dom.Element;
 
 public class Parser

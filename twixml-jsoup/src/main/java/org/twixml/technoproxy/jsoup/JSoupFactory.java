@@ -20,7 +20,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.parser.Tag;
 import org.twixml.Factory;
-import org.twixml.FactoryException;
+import org.twixml.exception.FactoryException;
 
 /**
  * The <code>DefaultFactory</code> is a default implementation of the

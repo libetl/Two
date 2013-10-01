@@ -15,6 +15,7 @@ import java.util.StringTokenizer;
 import org.twixml.Attribute;
 import org.twixml.Converter;
 import org.twixml.Localizer;
+import org.twixml.exception.ConverterException;
 
 /**
  * The LocaleConverter class defines / describes

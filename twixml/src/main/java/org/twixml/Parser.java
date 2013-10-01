@@ -25,11 +25,11 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.twixml.converters.ConverterException;
 import org.twixml.converters.LocaleConverter;
 import org.twixml.converters.PrimitiveConverter;
+import org.twixml.exception.ConverterException;
+import org.twixml.exception.ProxyCodeException;
 import org.twixml.technoproxy.CustomCodeProxy;
-import org.twixml.technoproxy.ProxyCodeException;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

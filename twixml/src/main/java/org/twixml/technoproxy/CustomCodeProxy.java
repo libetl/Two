@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.twixml.AppConstants;
+import org.twixml.exception.ProxyCodeException;
 
 public class CustomCodeProxy {
 

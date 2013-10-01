@@ -12,6 +12,7 @@ import org.twixml.Attribute;
 import org.twixml.Converter;
 import org.twixml.Localizer;
 import org.twixml.Parser;
+import org.twixml.exception.ConverterException;
 
 /**
  * The StringConverter class defines / describes
