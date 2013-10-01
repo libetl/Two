@@ -12,7 +12,7 @@ import org.twixml.technoproxy.jsoup.SeeWebpage;
  * @since swixml (#136)
  */
 public class Layout {
-    private static final String DESCRIPTOR = "samples/swing/xml/funlayout.xml";
+    private static final String DESCRIPTOR = "samples/jsoup/xml/funlayout.xml";
 
     public static void main (final String [] args) {
         try {

@@ -219,13 +219,12 @@ public class Parser
                 Tag.valueOf ("script"), "");
         final org.jsoup.nodes.Element meta = new org.jsoup.nodes.Element (
                 Tag.valueOf ("meta"), "");
-        final Class<?> mainClass = TwiXML.class;
-        final String folder = mainClass.getProtectionDomain ().getCodeSource ()
+        final String folder = this.getClass ().getProtectionDomain ().getCodeSource ()
                 .getLocation ().getPath ();
         link.attr ("rel", "stylesheet");
         link.attr ("type", "text/css");
         link.attr ("href", folder
-                + "org/twixml/technoproxy/jsoup/metalUIHtml.css");
+                + "metalUIHtml.css");
         link1.attr ("rel", "stylesheet");
         link1.attr ("type", "text/css");
         link1.attr ("href",

@@ -177,7 +177,7 @@ public class Actions {
                     .set (newActionsObject, this.petAction);
             this.swix.setClient (newActionsObject);
             final Object element = this.swix
-                    .render ("samples/swing/xml/actions.xml");
+                    .render ("samples/jsoup/xml/actions.xml");
             if ("Document".equals (element.getClass ().getSimpleName ())) {
                 SeeWebpage.see (element.toString ());
             } else {
