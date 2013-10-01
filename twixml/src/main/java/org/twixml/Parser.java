@@ -365,7 +365,8 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
      */
     @SuppressWarnings ("unchecked")
     private List<Attribute> applyAttributes (final Object obj,
-            final Factory factory, final List<Attribute> attributes) {
+            final Object leaf, final Factory factory,
+            final List<Attribute> attributes) {
         //
         // pass 1: Make an 'action' the 1st attribute to be processed -
         // otherwise the action would override already applied attributes like
@@ -446,7 +447,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
                         }
 
                         CustomCodeProxy.doProxy (this, "MethodInvoke", method,
-                                obj, attr, para);
+                                obj, leaf, attr, para);
 
                     } catch (final ConverterException e) {
                         if ( (e.getCause () != null)
@@ -683,7 +684,7 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
 
         this.processChildrenTags (element, obj, leaf);
 
-        this.putClientProperty (element, obj, factory, attributes, id);
+        this.putClientProperty (element, obj, leaf, factory, attributes, id);
 
         return (constructed ? obj : null);
     }
@@ -1086,16 +1087,16 @@ public class Parser<Container, Component, ActionListener, Label, ButtonGroup, La
     }
 
     private void putClientProperty (final Element element, final Object obj,
-            final Factory factory, final List<Attribute> attributes,
-            final String id) {
+            final Object leaf, final Factory factory,
+            final List<Attribute> attributes, final String id) {
         //
         // 2nd attempt to apply attributes (call setters on the objects)
         //
-        List<Attribute> remainingAttrs = this.applyAttributes (obj, factory,
-                attributes);
+        List<Attribute> remainingAttrs = this.applyAttributes (obj, leaf,
+                factory, attributes);
         if ( (remainingAttrs != null) && (0 < remainingAttrs.size ())) {
-            remainingAttrs = this
-                    .applyAttributes (obj, factory, remainingAttrs);
+            remainingAttrs = this.applyAttributes (obj, leaf, factory,
+                    remainingAttrs);
             if (remainingAttrs != null) {
                 final Iterator<Attribute> it = remainingAttrs.iterator ();
                 while ( (it != null) && it.hasNext ()) {

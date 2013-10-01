@@ -359,7 +359,7 @@ public final class JSoupFactory implements Factory {
         } else if ("frame".equals (mainClass)
                 || "internalframe".equals (mainClass)) {
             e = new org.jsoup.nodes.Element (Tag.valueOf ("div"), "");
-            e.addClass ("panel panel-default");
+            e.addClass ("panel panel-default " + mainClass);
             e.append ("<div class=\"panel-heading\"><h3 class=\"panel-title\">Panel title</h3></div>");
             e.append ("<div class=\"panel-body\"></div>");
         } else if ("menubar".equals (mainClass)) {

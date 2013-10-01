@@ -155,7 +155,7 @@ public class Parser
     }
 
     public void applyAttributesMethodInvoke (final Method method,
-            final Object obj, final Attribute attr, final Object para) {
+            final Object obj, final Object leaf, final Attribute attr, final Object para) {
         try {
             method.invoke (obj, para);
         } catch (IllegalAccessException | IllegalArgumentException

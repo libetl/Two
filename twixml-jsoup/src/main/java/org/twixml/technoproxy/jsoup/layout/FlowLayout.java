@@ -70,8 +70,8 @@ public class FlowLayout extends LayoutManager {
                 "RIGHT");
         final List<String> aligns = Arrays.<String> asList ("text-left",
                 "text-center", "text-right");
-        final List<String> sizes = Arrays.<String> asList ("col-md-6",
-                "col-md-6 col-md-offset-3", "col-md-offset-6 col-md-6");
+        final List<String> sizes = Arrays.<String> asList ("col-md-4",
+                "col-md-4 col-md-offset-4", "col-md-offset-8 col-md-4");
         for (int i = 0 ; i < regions.size () ; i++) {
             leaf.append ("<div class=\"" + aligns.get (i) + " " + sizes.get (i)
                     + " " + regions.get (i) + "\"></div>");

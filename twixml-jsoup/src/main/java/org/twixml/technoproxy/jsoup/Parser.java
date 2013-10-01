@@ -49,9 +49,33 @@ public class Parser
     }
 
     public void applyAttributesMethodInvoke (final Method method,
-            final Object obj, final Attribute attr, final Object para) {
+            final Object obj, final Object leaf, final Attribute attr,
+            final Object para) {
         try {
-            if ("text".equalsIgnoreCase (attr.getName ())) {
+            if ("bounds".equalsIgnoreCase (attr.getName ())) {
+                String [] bounds = attr.getValue ().split (",");
+                if (bounds != null && bounds.length == 4) {
+                    Elements elements = ((org.jsoup.nodes.Element) leaf)
+                            .children ();
+                    for (org.jsoup.nodes.Element element : elements) {
+                        if (!element.className ().contains ("btn") &&
+                                !element.className ().contains ("BORDERLAYOUTLANE") &&
+                                element.childNodeSize () != 0){
+                        element.attr ("style", element.attr ("style")
+                                + "letter-spacing:10px;margin-bottom:-" + bounds [1] + "px;width:" + bounds [2] + "px;height:"
+                                + bounds [3] + "px;");
+                        }
+                    }
+                }
+                ((org.jsoup.nodes.Element) obj).attr ("style", ((org.jsoup.nodes.Element) obj).attr ("style")
+                        + "width:" + bounds [2] + "px;height:"
+                        + (Integer.parseInt (bounds [3]) + 35) + "px;");
+                ((org.jsoup.nodes.Element) obj).removeAttr ("layout");
+                if (((org.jsoup.nodes.Element) obj).className ().contains ("internalframe")){
+                    ((org.jsoup.nodes.Element) obj).attr ("style", ((org.jsoup.nodes.Element) obj).attr ("style")
+                            + "float:right;margin-left:20px;");
+                }
+            } else if ("text".equalsIgnoreCase (attr.getName ())) {
                 Elements elements = ((org.jsoup.nodes.Element) obj)
                         .getElementsByClass ("dropdown-toggle");
                 if (elements.size () > 0) {
@@ -71,7 +95,7 @@ public class Parser
                 }
             } else if ("title".equalsIgnoreCase (attr.getName ())
                     && ((org.jsoup.nodes.Element) obj)
-                            .hasClass ("panel panel-default")) {
+                            .className ().contains ("panel panel-default")) {
                 ((org.jsoup.nodes.Element) obj).getElementsByTag ("h3")
                         .first ().text (attr.getValue ());
             } else if ("resizable".equalsIgnoreCase (attr.getName ())) {
@@ -219,12 +243,11 @@ public class Parser
                 Tag.valueOf ("script"), "");
         final org.jsoup.nodes.Element meta = new org.jsoup.nodes.Element (
                 Tag.valueOf ("meta"), "");
-        final String folder = this.getClass ().getProtectionDomain ().getCodeSource ()
-                .getLocation ().getPath ();
+        final String folder = this.getClass ().getProtectionDomain ()
+                .getCodeSource ().getLocation ().getPath ();
         link.attr ("rel", "stylesheet");
         link.attr ("type", "text/css");
-        link.attr ("href", folder
-                + "metalUIHtml.css");
+        link.attr ("href", folder + "metalUIHtml.css");
         link1.attr ("rel", "stylesheet");
         link1.attr ("type", "text/css");
         link1.attr ("href",
