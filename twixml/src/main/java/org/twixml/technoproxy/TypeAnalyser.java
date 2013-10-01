@@ -1,5 +1,7 @@
 package org.twixml.technoproxy;
 
+import org.twixml.exception.ProxyCodeException;
+
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;

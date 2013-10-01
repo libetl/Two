@@ -13,6 +13,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
 
+import org.twixml.exception.FactoryException;
+
 /**
  * An interface to represent a generic factory
  * 

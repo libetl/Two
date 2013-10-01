@@ -1,4 +1,4 @@
-package org.twixml.converters;
+package org.twixml.exception;
 
 public class ConverterException extends Exception {
 

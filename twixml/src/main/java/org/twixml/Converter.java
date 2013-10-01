@@ -8,7 +8,7 @@
  */
 package org.twixml;
 
-import org.twixml.converters.ConverterException;
+import org.twixml.exception.ConverterException;
 
 /**
  * <p>

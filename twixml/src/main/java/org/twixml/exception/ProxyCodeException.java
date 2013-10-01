@@ -1,4 +1,4 @@
-package org.twixml.technoproxy;
+package org.twixml.exception;
 
 public class ProxyCodeException extends RuntimeException {
 

@@ -27,6 +27,7 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.twixml.exception.AlreadyRenderedContainerException;
 import org.twixml.technoproxy.CustomCodeProxy;
 import org.twixml.technoproxy.PlatformUnit;
 import org.twixml.technoproxy.TypeAnalyser;
