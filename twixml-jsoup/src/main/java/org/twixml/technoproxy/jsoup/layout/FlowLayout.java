@@ -2,6 +2,8 @@ package org.twixml.technoproxy.jsoup.layout;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jsoup.nodes.Element;
 
@@ -46,19 +48,32 @@ public class FlowLayout extends LayoutManager {
     @Override
     public void addConstraintedElement (final Element parent,
             final Element component) {
+        Element target = null;
         if ( (this.align == FlowLayout.LEFT)
                 && (parent.getElementsByClass ("LEFT").size () == 1)) {
-            parent.getElementsByClass ("LEFT").first ().appendChild (component);
+            target = parent.getElementsByClass ("LEFT").first ();
         } else if ( (this.align == FlowLayout.CENTER)
                 && (parent.getElementsByClass ("CENTER").size () == 1)) {
-            parent.getElementsByClass ("CENTER").first ()
-                    .appendChild (component);
+            target = parent.getElementsByClass ("CENTER").first ();
         } else if ( (this.align == FlowLayout.RIGHT)
                 && (parent.getElementsByClass ("RIGHT").size () == 1)) {
-            parent.getElementsByClass ("RIGHT").first ()
-                    .appendChild (component);
+            target = parent.getElementsByClass ("RIGHT").first ();
         } else {
-            parent.appendChild (component);
+            target = parent;
+        }
+        if (target != null){
+          target.appendChild (component);
+          if (target.attr ("style") != null && target.attr ("style").contains ("width")){
+              String s = target.attr ("style");
+              String s2 = target.attr ("style");
+              Matcher m = Pattern.compile ("width\\s*:\\s*([0-9]+)px\\s;").matcher (s);
+              if (m.find ()){
+                  int width = Integer.parseInt (m.group (1));
+                  width /= 3;
+                  s2 = s.substring (0, m.start (1)) + width + s.substring (m.end (1));
+              }
+              target.attr ("style", s2);
+          }
         }
 
     }

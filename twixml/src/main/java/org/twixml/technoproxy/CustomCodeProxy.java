@@ -54,6 +54,11 @@ public class CustomCodeProxy {
             final Class<?> c = unit.getProxyClasses ().get (
                     source.getClass ().getName ());
 
+            if (c == null) {
+                throw new ProxyCodeException (new ClassNotFoundException (
+                        source.getClass ().getName ()));
+            }
+
             final Method [] ms = c.getMethods ();
             Method m = null;
             int i = 0;

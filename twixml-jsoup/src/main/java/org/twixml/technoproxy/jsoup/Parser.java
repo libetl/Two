@@ -73,7 +73,7 @@ public class Parser
                 ((org.jsoup.nodes.Element) obj).removeAttr ("layout");
                 if (((org.jsoup.nodes.Element) obj).className ().contains ("internalframe")){
                     ((org.jsoup.nodes.Element) obj).attr ("style", ((org.jsoup.nodes.Element) obj).attr ("style")
-                            + "float:right;margin-left:20px;");
+                            + "float:left;margin-left:20px;");
                 }
             } else if ("text".equalsIgnoreCase (attr.getName ())) {
                 Elements elements = ((org.jsoup.nodes.Element) obj)
